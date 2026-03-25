@@ -172,7 +172,7 @@
 <div class="terminal-container">
     <header class="reveal">
         <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
-        <div class="meta-info">MARSHA1LL DIGITAL ASSETS // MARCH 23, 2026</div>
+        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
     </header>
 
     <section class="reveal">
@@ -282,6 +282,28 @@
         // Если зашли просто по ссылке без ?game=...
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
     }
+</script>
+<script>
+    function updateDate() {
+        const dateElement = document.getElementById('current-date');
+        const now = new Date();
+        
+        // Массив с названиями месяцев на английском (в стиле твоего дизайна)
+        const months = [
+            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
+            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
+        ];
+        
+        const month = months[now.getMonth()];
+        const day = now.getDate();
+        const year = now.getFullYear();
+        
+        // Формируем строку в твоем формате
+        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${month} ${day}, ${year}`;
+    }
+
+    // Запускаем функцию сразу при загрузке страницы
+    updateDate();
 </script>
 </body>
 </html>
