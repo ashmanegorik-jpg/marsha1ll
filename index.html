@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARSHA1LL | ACCESS PROTOCOL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Уменьшили верхний отступ body до 10px */
+            padding: 10px 5% 40px 5%; 
+            line-height: 1.6;
+        }
+
+        .main-brand-logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.6em;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 0;
+            width: 100%;
+            position: fixed; 
+            top: -5px; /* Твой отступ */
+            left: 0;
+            z-index: 100; 
+            /* Фон стал чуть плотнее, чтобы текст сзади не просвечивал */
+            background-color: rgb(0, 0, 0); 
+            padding-top: 25px;
+            padding-bottom: 20px;
+            /* Важно: чтобы padding не раздувал ширину больше 100% */
+            box-sizing: border-box; 
+        }
+
+        /* РАСШИРЕННЫЙ КОНТЕЙНЕР */
+        .terminal-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            /* Добавляем огромный отступ здесь, чтобы текст ушел вниз */
+            padding-top: 150px; 
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.8s ease-out;
+            margin-bottom: 40px;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header.reveal {
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+            /* Делаем первый блок видимым сразу, чтобы не ждать скролла */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1, h2 {
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        h1 { font-size: 1.2rem; margin: 0 0 10px 0; color: #fff; }
+        h2 { 
+            font-size: 0.9rem; 
+            border-left: 4px solid #fff; 
+            padding-left: 20px; 
+            margin-top: 50px; 
+            margin-bottom: 25px;
+        }
+
+        .meta-info {
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 0.3em;
+        }
+
+        p, li {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            font-weight: 400;
+            max-width: 900px; /* Ограничили длину строки для удобства чтения на широких экранах */
+        }
+
+        .highlight { 
+            color: #fff; 
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        ul { list-style: none; padding: 0; }
+        ul li { 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: flex-start; 
+        }
+
+        /* ТВОИ НОВЫЕ МАРКЕРЫ (ВАРИАНТ КВАДРАТ) */
+        ul li::before { 
+            content: "■"; 
+            color: #fff; 
+            margin-right: 20px; 
+            font-size: 0.7rem;
+            margin-top: 4px;
+        }
+
+        .warning-box {
+            border: 1px solid #330000;
+            padding: 25px;
+            background: #0a0000;
+            color: #ff3333;
+            font-size: 0.8rem;
+            margin-top: 35px;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            max-width: 850px;
+        }
+
+        .btn-link {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            transition: color 0.3s;
+        }
+        
+        .btn-link:hover { color: #888; }
+
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #222;
+            letter-spacing: 0.5em;
+            font-family: 'Archivo Black', sans-serif;
+            width: 100%;
+        }
+
+        /* Адаптация под мобилки */
+        @media (max-width: 768px) {
+            .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; }
+            h1 { font-size: 1rem; }
+            body { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-brand-logo">MARSHA1LL</div>
+
+<div class="terminal-container">
+    <header class="reveal">
+        <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
+        <div class="meta-info">MARSHA1LL DIGITAL ASSETS // MARCH 23, 2026</div>
+    </header>
+
+    <section class="reveal">
+        <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
+        <p>SUBJECT: <span id="subject-text" class="highlight">FORZA HORIZON 5 (FULL ONLINE ASSET)</span></p>
+        <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
+        <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
+    </section>
+
+    <section class="reveal">
+        <h2>1. АКТ ПРИЕМКИ-ПЕРЕДАЧИ (LOGIN)</h2>
+        <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (НАХОДЯТСЯ В ЧАТЕ ПОКУПКИ):</p>
+        <ul>
+            <li>STEAM LOGIN/PASS</li>
+            <li>EMAIL LOGIN/PASS (NATIVE)</li>
+            <li>ССЫЛКА НА ПОЧТУ: <a href="https://outlook.live.com/mail/0/" class="btn-link">OUTLOOK.LIVE.COM</a></li>
+        </ul>
+        <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
+        <p>1. СНАЧАЛА АВТОРИЗУЙТЕСЬ В ПРЕДОСТАВЛЕННОЙ ЭЛЕКТРОННОЙ ПОЧТЕ.<br>
+           2. ЗАТЕМ ВВЕДИТЕ ДАННЫЕ В КЛИЕНТЕ STEAM.<br>
+           3. ПРИ ЗАПРОСЕ КОДА STEAM GUARD — ПОЛУЧИТЕ ЕГО САМОСТОЯТЕЛЬНО В ОТКРЫТОЙ ПОЧТЕ.</p>
+    </section>
+
+    <section class="reveal">
+        <h2>2. ХАРДЕНИНГ И БЕЗОПАСНОСТЬ (HARDENING)</h2>
+        <p>ЧТОБЫ АКТИВ БЫЛ ОКОНЧАТЕЛЬНО ПРИВЯЗАН К ВАШЕМУ ЦИФРОВОМУ СЛЕДУ, ВЫПОЛНИТЕ ПРОТОКОЛ ЗАЩИТЫ:</p>
+        <ul>
+            <li>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА STEAM-АККАУНТЕ И ПОЧТЕ.</li>
+            <li>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ МОБИЛЬНОЕ ПРИЛОЖЕНИЕ STEAM GUARD.</li>
+            <li>ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</li>
+        </ul>
+        <div class="warning-box">
+            ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ ПО ВИНЕ ВЛАДЕЛЬЦА НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
+        </div>
+    </section>
+
+    <section class="reveal">
+        <h2>3. ЭКСПЛУАТАЦИЯ (ONLINE MODE)</h2>
+        <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
+        <ul>
+            <li>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</li>
+            <li>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ STEAM.</li>
+            <li>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</li>
+        </ul>
+    </section>
+
+    <section class="reveal">
+        <h2>4. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
+        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
+        <ul>
+            <li>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК И БЛОКИРОВОК НА МОМЕНТ ПЕРЕДАЧИ.</li>
+            <li>ПОДДЕРЖКА: ЕСЛИ В ПРОЦЕССЕ ИНИЦИАЛИЗАЦИИ ВОЗНИКЛИ СИСТЕМНЫЕ ОШИБКИ — НАПИШИТЕ В ЧАТ ПОКУПКИ. МЫ НА СВЯЗИ.</li>
+        </ul>
+    </section>
+
+    <footer class="reveal">
+        TRANSFER COMPLETE. MARSHA1LL COLLECTION 2026
+    </footer>
+</div>
+
+<script>
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
+</script>
+
+<script>
+    const games = {
+        "fh5": "FORZA HORIZON 5",
+        "gta5-epic": "GTA V (EPIC GAMES)",
+        "gta5-steam": "GTA V (STEAM)",
+        "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
+        "dbd-steam": "DEAD BY DAYLIGHT (STEAM)",
+        "sot": "SEA OF THIEVES",
+        "fh4": "FORZA HORIZON 4",
+        "bg3": "BALDUR'S GATE 3",
+        "cs2": "CS2 PRIME STATUS",
+        "rust": "RUST",
+        "dayz": "DAYZ",
+        "elden": "ELDEN RING"
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameKey = urlParams.get('game');
+
+    if (gameKey && games[gameKey]) {
+        const selectedGame = games[gameKey]; // Создали переменную
+        
+        // Обновляем заголовок на странице
+        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
+        
+        // Обновляем заголовок вкладки браузера
+        document.title = `${selectedGame} | ACCESS PROTOCOL`;
+        
+        // Обновляем SUBJECT (теперь переменная определена и всё сработает)
+        document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
+    } else {
+        // Если зашли просто по ссылке без ?game=...
+        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
+    }
+</script>
+</body>
+</html>
