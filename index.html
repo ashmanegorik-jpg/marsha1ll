@@ -158,14 +158,21 @@
             width: 100%;
         }
 
-        /* Адаптация под мобилки */
+                /* Адаптация под мобилки */
         @media (max-width: 768px) {
-            .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; }
+            .main-brand-logo { 
+                font-size: 1.4rem; 
+                letter-spacing: 0.3em; 
+                /* ПОДНИМАЕМ ВЫШЕ: */
+                top: -15px; 
+                padding-top: 20px; 
+                padding-bottom: 10px;
+            }
             h1 { font-size: 1rem; }
             body { padding: 20px; }
             
-            /* Добавь это, чтобы уменьшить пустоту на мобильных */
-            .terminal-container { padding-top: 100px; } 
+            /* Уменьшаем пустоту сверху на телефоне, чтобы текст тоже подтянулся */
+            .terminal-container { padding-top: 60px; } 
         }
 
     </style>
