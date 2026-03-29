@@ -201,7 +201,7 @@
         <ul>
             <li>STEAM LOGIN/PASS</li>
             <li>EMAIL LOGIN/PASS (NATIVE)</li>
-            <li>ССЫЛКА НА ПОЧТУ: <a href="https://outlook.live.com/mail/0/" class="btn-link" target="_blank">OUTLOOK.LIVE.COM</a></li>
+            <li>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="https://outlook.live.com/mail/0/" class="btn-link" target="_blank">OUTLOOK.LIVE.COM</a></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
         <p>1. СНАЧАЛА АВТОРИЗУЙТЕСЬ В ПРЕДОСТАВЛЕННОЙ ЭЛЕКТРОННОЙ ПОЧТЕ.<br>
@@ -281,21 +281,29 @@
     const gameKey = urlParams.get('game');
 
     if (gameKey && games[gameKey]) {
-        const selectedGame = games[gameKey]; // Создали переменную
+        const selectedGame = games[gameKey];
         
-        // Обновляем заголовок на странице
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
-        
-        // Обновляем заголовок вкладки браузера
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
-        
-        // Обновляем SUBJECT (теперь переменная определена и всё сработает)
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
+
+        // --- ЛОГИКА СМЕНЫ ПОЧТЫ ---
+        const mailLink = document.getElementById('mail-link');
+        
+        // Проверяем, содержит ли ключ игры слово "epic"
+        if (gameKey.toLowerCase().includes('epic')) {
+            mailLink.href = "https://mail.rambler.ru";
+            mailLink.innerText = "MAIL.RAMBLER.RU";
+        } else {
+            // Для всех остальных (Steam и прочих)
+            mailLink.href = "https://outlook.live.com/mail/0/";
+            mailLink.innerText = "OUTLOOK.LIVE.COM";
+        }
     } else {
-        // Если зашли просто по ссылке без ?game=...
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
     }
 </script>
+
 <script>
     function updateDate() {
         const dateElement = document.getElementById('current-date');
