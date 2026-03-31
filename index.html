@@ -97,17 +97,13 @@
             max-width: 900px;
         }
 
-        .highlight { 
-            color: #fff; 
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.85rem;
-        }
-
+        /* Ключевое исправление для ровного текста в списках */
         ul { list-style: none; padding: 0; }
         ul li { 
             margin-bottom: 15px; 
             display: flex; 
-            align-items: flex-start; 
+            align-items: flex-start;
+            text-align: left;
         }
 
         ul li::before { 
@@ -116,6 +112,18 @@
             margin-right: 20px; 
             font-size: 0.7rem;
             margin-top: 4px;
+            flex-shrink: 0; /* Чтобы маркер не сплющивался */
+        }
+
+        ul li span {
+            flex: 1;
+        }
+
+        .highlight { 
+            color: #fff; 
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.85rem;
+            display: inline;
         }
 
         .warning-box {
@@ -137,9 +145,7 @@
             text-underline-offset: 4px;
             transition: color 0.3s;
         }
-        .btn-link:visited {
-            color: #fff !important;
-        }
+        .btn-link:visited { color: #fff !important; }
         .btn-link:hover { color: #888; }
 
         footer {
@@ -155,13 +161,7 @@
         }
 
         @media (max-width: 768px) {
-            .main-brand-logo { 
-                font-size: 1.4rem; 
-                letter-spacing: 0.3em; 
-                top: -10px; 
-                padding-top: 20px; 
-                padding-bottom: 10px;
-            }
+            .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; top: -10px; padding-top: 20px; padding-bottom: 10px; }
             h1 { font-size: 1rem; }
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
@@ -189,23 +189,23 @@
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
         <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (НАХОДЯТСЯ В ЧАТЕ ПОКУПКИ):</p>
         <ul>
-            <li><span id="platform-login-label">STEAM</span> LOGIN/PASS</li>
-            <li>EMAIL LOGIN/PASS (NATIVE)</li>
-            <li>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="https://outlook.live.com/mail/0/" class="btn-link" target="_blank">OUTLOOK.LIVE.COM</a></li>
+            <li><span><span id="platform-login-label">STEAM</span> LOGIN/PASS</span></li>
+            <li><span>EMAIL LOGIN/PASS (NATIVE)</span></li>
+            <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank">LOADING...</a></span></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
-        <p>1. СНАЧАЛА АВТОРИЗУЙТЕСЬ В ПРЕДОСТАВЛЕННОЙ ЭЛЕКТРОННОЙ ПОЧТЕ.<br>
-           2. ЗАТЕМ ВВЕДИТЕ ДАННЫЕ В КЛИЕНТЕ <span id="platform-name-1">STEAM</span>.<br>
-           3. ПРИ ЗАПРОСЕ КОДА <span id="guard-name">STEAM GUARD</span> — ПОЛУЧИТЕ ЕГО САМОСТОЯТЕЛЬНО В ОТКРЫТОЙ ПОЧТЕ.</p>
+        <p>1. Сначала авторизуйтесь в предоставленной электронной почте.<br>
+           2. Затем введите данные в клиенте <span id="platform-name-1">STEAM</span>.<br>
+           3. При запросе кода <span id="guard-name">STEAM GUARD</span> — получите его самостоятельно в открытой почте.</p>
     </section>
 
     <section class="reveal">
         <h2>2. ХАРДЕНИНГ И БЕЗОПАСНОСТЬ </h2>
         <p>ЧТОБЫ АКТИВ БЫЛ ОКОНЧАТЕЛЬНО ПРИВЯЗАН К ВАШЕМУ ЦИФРОВОМУ СЛЕДУ, ВЫПОЛНИТЕ ПРОТОКОЛ ЗАЩИТЫ:</p>
         <ul>
-            <li>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2">STEAM</span>-АККАУНТЕ И ПОЧТЕ.</li>
-            <li>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ ПРИЛОЖЕНИЕ <span id="guard-name-2">STEAM GUARD</span>.</li>
-            <li id="session-cleanup-item">ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</li>
+            <li><span>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span>-АККАУНТЕ И ПОЧТЕ.</span></li>
+            <li><span>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ ПРИЛОЖЕНИЕ <span id="guard-name-2" class="highlight">STEAM GUARD</span>.</span></li>
+            <li id="session-cleanup-item"><span>ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</span></li>
         </ul>
         <div class="warning-box">
             ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ ПО ВИНЕ ВЛАДЕЛЬЦА НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
@@ -216,9 +216,9 @@
         <h2>3. ЭКСПЛУАТАЦИЯ </h2>
         <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
         <ul>
-            <li>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</li>
-            <li>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3">STEAM</span>.</li>
-            <li>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</li>
+            <li><span>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</span></li>
+            <li><span>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">STEAM</span>.</span></li>
+            <li><span>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</span></li>
         </ul>
     </section>
 
@@ -226,8 +226,8 @@
         <h2>4. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
         <ul>
-            <li>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК И БЛОКИРОВОК НА МОМЕНТ ПЕРЕДАЧИ.</li>
-            <li>ПОДДЕРЖКА: ЕСЛИ В ПРОЦЕССЕ ИНИЦИАЛИЗАЦИИ ВОЗНИКЛИ СИСТЕМНЫЕ ОШИБКИ — НАПИШИТЕ В ЧАТ ПОКУПКИ. МЫ НА СВЯЗИ.</li>
+            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК И БЛОКИРОВОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
+            <li><span>ПОДДЕРЖКА: ЕСЛИ В ПРОЦЕССЕ ИНИЦИАЛИЗАЦИИ ВОЗНИКЛИ СИСТЕМНЫЕ ОШИБКИ — НАПИШИТЕ В ЧАТ ПОКУПКИ. МЫ НА СВЯЗИ.</span></li>
         </ul>
     </section>
 
@@ -242,16 +242,12 @@
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) {
-                reveals[i].classList.add("active");
-            }
+            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
         }
     }
     window.addEventListener("scroll", reveal);
     reveal();
-</script>
 
-<script>
     const games = {
         "fh5": "FORZA HORIZON 5",
         "gta5-epic": "GTA V (EPIC GAMES)",
@@ -269,6 +265,7 @@
 
     const urlParams = new URLSearchParams(window.location.search);
     const gameKey = urlParams.get('game');
+    const mailLink = document.getElementById('mail-link');
 
     if (gameKey && games[gameKey]) {
         const selectedGame = games[gameKey];
@@ -278,34 +275,26 @@
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
-        // --- ЛОГИКА СМЕНЫ ПЛАТФОРМЫ ---
         if (isEpic) {
             document.getElementById('platform-login-label').innerText = "EPIC GAMES";
-            document.getElementById('platform-name-1').innerText = "EPIC GAMES LAUNCHER";
-            document.getElementById('guard-name').innerText = "ДВУХФАКТОРНОЙ АУТЕНТИФИКАЦИИ";
+            document.getElementById('platform-name-1').innerText = "EPIC GAMES";
+            document.getElementById('guard-name').innerText = "2FA (ИЗ ПОЧТЫ)";
             document.getElementById('platform-name-2').innerText = "EPIC GAMES";
             document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
-            document.getElementById('platform-name-3').innerText = "EPIC ONLINE SERVICES";
-            
-            // Скрываем пункт про Deauthorize (в Эпике это делается через выход из учетной записи на сайте)
+            document.getElementById('platform-name-3').innerText = "EPIC ONLINE";
             document.getElementById('session-cleanup-item').style.display = 'none';
-
-            // Почта на Rambler
-            const mailLink = document.getElementById('mail-link');
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
         } else {
-            // Для Steam (оставляем как есть или форсируем дефолт)
-            const mailLink = document.getElementById('mail-link');
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
     } else {
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
+        mailLink.href = "https://outlook.live.com/mail/0/";
+        mailLink.innerText = "OUTLOOK.LIVE.COM";
     }
-</script>
 
-<script>
     function updateDate() {
         const dateElement = document.getElementById('current-date');
         const now = new Date();
