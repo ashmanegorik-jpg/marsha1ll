@@ -17,7 +17,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Уменьшили верхний отступ body до 10px */
             padding: 10px 5% 40px 5%; 
             line-height: 1.6;
         }
@@ -31,25 +30,21 @@
             margin: 0;
             width: 100%;
             position: fixed; 
-            top: -5px; /* Твой отступ */
+            top: -5px; 
             left: 0;
             z-index: 100; 
-            /* Фон стал чуть плотнее, чтобы текст сзади не просвечивал */
             background-color: rgb(0, 0, 0); 
             padding-top: 25px;
             padding-bottom: 20px;
-            /* Важно: чтобы padding не раздувал ширину больше 100% */
             box-sizing: border-box; 
         }
 
-        /* РАСШИРЕННЫЙ КОНТЕЙНЕР */
         .terminal-container {
             max-width: 1200px;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
-            /* Добавляем огромный отступ здесь, чтобы текст ушел вниз */
             padding-top: 150px; 
         }
 
@@ -70,7 +65,6 @@
             padding-bottom: 30px;
             margin-bottom: 40px;
             width: 100%;
-            /* Делаем первый блок видимым сразу, чтобы не ждать скролла */
             opacity: 1;
             transform: translateY(0);
         }
@@ -100,7 +94,7 @@
             font-size: 0.95rem;
             color: #a0a0a0;
             font-weight: 400;
-            max-width: 900px; /* Ограничили длину строки для удобства чтения на широких экранах */
+            max-width: 900px;
         }
 
         .highlight { 
@@ -116,7 +110,6 @@
             align-items: flex-start; 
         }
 
-        /* ТВОИ НОВЫЕ МАРКЕРЫ (ВАРИАНТ КВАДРАТ) */
         ul li::before { 
             content: "■"; 
             color: #fff; 
@@ -147,7 +140,6 @@
         .btn-link:visited {
             color: #fff !important;
         }
-        /* --------------- */
         .btn-link:hover { color: #888; }
 
         footer {
@@ -162,23 +154,18 @@
             width: 100%;
         }
 
-                /* Адаптация под мобилки */
         @media (max-width: 768px) {
             .main-brand-logo { 
                 font-size: 1.4rem; 
                 letter-spacing: 0.3em; 
-                /* ПОДНИМАЕМ ВЫШЕ: */
                 top: -10px; 
                 padding-top: 20px; 
                 padding-bottom: 10px;
             }
             h1 { font-size: 1rem; }
             body { padding: 20px; }
-            
-            /* Уменьшаем пустоту сверху на телефоне, чтобы текст тоже подтянулся */
             .terminal-container { padding-top: 90px; } 
         }
-
     </style>
 </head>
 <body>
@@ -193,7 +180,7 @@
 
     <section class="reveal">
         <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
-        <p>SUBJECT: <span id="subject-text" class="highlight">FORZA HORIZON 5 (FULL ONLINE ASSET)</span></p>
+        <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
         <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
         <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
     </section>
@@ -202,23 +189,23 @@
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
         <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (НАХОДЯТСЯ В ЧАТЕ ПОКУПКИ):</p>
         <ul>
-            <li>STEAM LOGIN/PASS</li>
+            <li><span id="platform-login-label">STEAM</span> LOGIN/PASS</li>
             <li>EMAIL LOGIN/PASS (NATIVE)</li>
             <li>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="https://outlook.live.com/mail/0/" class="btn-link" target="_blank">OUTLOOK.LIVE.COM</a></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
         <p>1. СНАЧАЛА АВТОРИЗУЙТЕСЬ В ПРЕДОСТАВЛЕННОЙ ЭЛЕКТРОННОЙ ПОЧТЕ.<br>
-           2. ЗАТЕМ ВВЕДИТЕ ДАННЫЕ В КЛИЕНТЕ STEAM.<br>
-           3. ПРИ ЗАПРОСЕ КОДА STEAM GUARD — ПОЛУЧИТЕ ЕГО САМОСТОЯТЕЛЬНО В ОТКРЫТОЙ ПОЧТЕ.</p>
+           2. ЗАТЕМ ВВЕДИТЕ ДАННЫЕ В КЛИЕНТЕ <span id="platform-name-1">STEAM</span>.<br>
+           3. ПРИ ЗАПРОСЕ КОДА <span id="guard-name">STEAM GUARD</span> — ПОЛУЧИТЕ ЕГО САМОСТОЯТЕЛЬНО В ОТКРЫТОЙ ПОЧТЕ.</p>
     </section>
 
     <section class="reveal">
         <h2>2. ХАРДЕНИНГ И БЕЗОПАСНОСТЬ </h2>
         <p>ЧТОБЫ АКТИВ БЫЛ ОКОНЧАТЕЛЬНО ПРИВЯЗАН К ВАШЕМУ ЦИФРОВОМУ СЛЕДУ, ВЫПОЛНИТЕ ПРОТОКОЛ ЗАЩИТЫ:</p>
         <ul>
-            <li>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА STEAM-АККАУНТЕ И ПОЧТЕ.</li>
-            <li>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ МОБИЛЬНОЕ ПРИЛОЖЕНИЕ STEAM GUARD.</li>
-            <li>ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</li>
+            <li>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2">STEAM</span>-АККАУНТЕ И ПОЧТЕ.</li>
+            <li>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ ПРИЛОЖЕНИЕ <span id="guard-name-2">STEAM GUARD</span>.</li>
+            <li id="session-cleanup-item">ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</li>
         </ul>
         <div class="warning-box">
             ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ ПО ВИНЕ ВЛАДЕЛЬЦА НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
@@ -230,7 +217,7 @@
         <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
         <ul>
             <li>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</li>
-            <li>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ STEAM.</li>
+            <li>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3">STEAM</span>.</li>
             <li>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</li>
         </ul>
     </section>
@@ -285,20 +272,31 @@
 
     if (gameKey && games[gameKey]) {
         const selectedGame = games[gameKey];
+        const isEpic = gameKey.toLowerCase().includes('epic');
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
-        // --- ЛОГИКА СМЕНЫ ПОЧТЫ ---
-        const mailLink = document.getElementById('mail-link');
-        
-        // Проверяем, содержит ли ключ игры слово "epic"
-        if (gameKey.toLowerCase().includes('epic')) {
+        // --- ЛОГИКА СМЕНЫ ПЛАТФОРМЫ ---
+        if (isEpic) {
+            document.getElementById('platform-login-label').innerText = "EPIC GAMES";
+            document.getElementById('platform-name-1').innerText = "EPIC GAMES LAUNCHER";
+            document.getElementById('guard-name').innerText = "ДВУХФАКТОРНОЙ АУТЕНТИФИКАЦИИ";
+            document.getElementById('platform-name-2').innerText = "EPIC GAMES";
+            document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
+            document.getElementById('platform-name-3').innerText = "EPIC ONLINE SERVICES";
+            
+            // Скрываем пункт про Deauthorize (в Эпике это делается через выход из учетной записи на сайте)
+            document.getElementById('session-cleanup-item').style.display = 'none';
+
+            // Почта на Rambler
+            const mailLink = document.getElementById('mail-link');
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
         } else {
-            // Для всех остальных (Steam и прочих)
+            // Для Steam (оставляем как есть или форсируем дефолт)
+            const mailLink = document.getElementById('mail-link');
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
@@ -311,22 +309,9 @@
     function updateDate() {
         const dateElement = document.getElementById('current-date');
         const now = new Date();
-        
-        // Массив с названиями месяцев на английском (в стиле твоего дизайна)
-        const months = [
-            "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE",
-            "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"
-        ];
-        
-        const month = months[now.getMonth()];
-        const day = now.getDate();
-        const year = now.getFullYear();
-        
-        // Формируем строку в твоем формате
-        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${month} ${day}, ${year}`;
+        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
     }
-
-    // Запускаем функцию сразу при загрузке страницы
     updateDate();
 </script>
 </body>
