@@ -263,6 +263,7 @@
         "gta5-steam": "GTA V (STEAM)",
         "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
         "dbd-steam": "DEAD BY DAYLIGHT (STEAM)",
+        "fifa26-ea": "FIFA 26 (EA LAUNCHER)", // НОВАЯ ИГРА
         "sot": "SEA OF THIEVES",
         "fh4": "FORZA HORIZON 4",
         "bg3": "BALDUR'S GATE 3",
@@ -279,12 +280,14 @@
     if (gameKey && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
+        const isEA = gameKey.toLowerCase().includes('ea'); // ПРОВЕРКА НА EA
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
         if (isEpic) {
+            // ... (Epic Games логика остается без изменений)
             document.getElementById('platform-login-label').innerText = "EPIC GAMES";
             document.getElementById('platform-name-1').innerText = "EPIC GAMES";
             document.getElementById('guard-name').innerText = "2FA (ИЗ ПОЧТЫ)";
@@ -294,22 +297,36 @@
             document.getElementById('session-cleanup-item').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
-            
-            // ДИНАМИЧЕСКАЯ ЗАМЕНА СЛУЖБЫ ПОДДЕРЖКИ В 4-М ПУНКТЕ
             document.getElementById('support-platform-label').innerText = "EPIC GAMES";
-        } else {
+        } else if (isEA) {
+            // --- НОВАЯ ЛОГИКА ДЛЯ EA LAUNCHER ---
+            document.getElementById('platform-login-label').innerText = "EA LAUNCHER";
+            document.getElementById('platform-name-1').innerText = "EA LAUNCHER";
+            document.getElementById('guard-name').innerText = "ДВУХФАКТОРНОЙ АУТЕНТИФИКАЦИИ (EMAIL)"; // В EA это 2FA
+            document.getElementById('platform-name-2').innerText = "EA";
+            document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
+            document.getElementById('platform-name-3').innerText = "EA APP SERVICES"; // У EA облачные сохранения в EA App
+            
+            // Скрываем Deauthorize All Other Devices (процедура в EA другая, делается через веб-сайт)
+            document.getElementById('session-cleanup-item').style.display = 'none';
+
+            // Почта - Outlook (как для Steam-игр)
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
             
-            // ДЛЯ STEAM ОСТАВЛЯЕМ ДЕФОЛТ ИЛИ ЯВНО ПРОПИСЫВАЕМ
+            // Замена в 4-м пункте поддержки
+            document.getElementById('support-platform-label').innerText = "EA";
+        } else {
+            // ... (Дефолтная Steam логика остается без изменений)
+            mailLink.href = "https://outlook.live.com/mail/0/";
+            mailLink.innerText = "OUTLOOK.LIVE.COM";
             document.getElementById('support-platform-label').innerText = "STEAM";
         }
     } else {
+        // ... (Дефолтная логика без игры остаётся без изменений)
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
         mailLink.href = "https://outlook.live.com/mail/0/";
         mailLink.innerText = "OUTLOOK.LIVE.COM";
-        
-        // ДЕФОЛТ ДЛЯ ОБЩЕЙ ССЫЛКИ
         document.getElementById('support-platform-label').innerText = "STEAM";
     }
 
