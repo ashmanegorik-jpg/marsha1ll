@@ -97,7 +97,6 @@
             max-width: 900px;
         }
 
-        /* Ключевое исправление для ровного текста в списках */
         ul { list-style: none; padding: 0; }
         ul li { 
             margin-bottom: 15px; 
@@ -112,7 +111,7 @@
             margin-right: 20px; 
             font-size: 0.7rem;
             margin-top: 4px;
-            flex-shrink: 0; /* Чтобы маркер не сплющивался */
+            flex-shrink: 0; 
         }
 
         ul li span {
@@ -223,7 +222,17 @@
     </section>
 
     <section class="reveal">
-        <h2>4. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
+        <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
+        <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
+        <ul>
+            <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ОТ АККАУНТА ТРЕТЬИМ ЛИЦАМ.</span></li>
+            <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ, МОДЫ). ЭТО АННУЛИРУЕТ ГАРАНТИЮ.</span></li>
+            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span></li>
+        </ul>
+    </section>
+
+    <section class="reveal">
+        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
         <ul>
             <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК И БЛОКИРОВОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
@@ -285,14 +294,23 @@
             document.getElementById('session-cleanup-item').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
+            
+            // ДИНАМИЧЕСКАЯ ЗАМЕНА СЛУЖБЫ ПОДДЕРЖКИ В 4-М ПУНКТЕ
+            document.getElementById('support-platform-label').innerText = "EPIC GAMES";
         } else {
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
+            
+            // ДЛЯ STEAM ОСТАВЛЯЕМ ДЕФОЛТ ИЛИ ЯВНО ПРОПИСЫВАЕМ
+            document.getElementById('support-platform-label').innerText = "STEAM";
         }
     } else {
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
         mailLink.href = "https://outlook.live.com/mail/0/";
         mailLink.innerText = "OUTLOOK.LIVE.COM";
+        
+        // ДЕФОЛТ ДЛЯ ОБЩЕЙ ССЫЛКИ
+        document.getElementById('support-platform-label').innerText = "STEAM";
     }
 
     function updateDate() {
