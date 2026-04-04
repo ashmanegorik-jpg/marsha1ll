@@ -230,14 +230,18 @@
         .slider-dots {
             display: flex;
             justify-content: center;
-            gap: 6px;
-            margin-top: 10px;
-            margin-bottom: 5px;
+            gap: 8px;
+            position: absolute;
+            bottom: 15 px;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            pointer-events: none;
         }
 
         .dot {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background-color: #333;
             border-radius: 50%;
             transition: all 0.3s ease;
@@ -245,7 +249,8 @@
 
         .dot.active {
             background-color: #fff; /* Белая точка для активной картинки */
-            transform: scale(1.2);
+            transform: scale(1.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
         /* Обновленный контейнер для скролла в модалке */
