@@ -157,17 +157,19 @@
             width: 100%;
         }
 
-        /* Setup Wizard */
+        /* --- SETUP WIZARD (Исправлено) --- */
         .wizard-container {
             margin-top: 30px;
             border-left: 1px solid #1a1a1a;
             padding-left: 20px;
         }
         .step-item {
-            margin-bottom: 35px;
+            margin-bottom: 50px; /* Увеличен отступ против наслоения */
             opacity: 0.3;
             transition: all 0.5s ease;
             filter: blur(1px);
+            display: flex;
+            flex-direction: column;
         }
         .step-item.active { opacity: 1; filter: blur(0); }
         .step-number {
@@ -178,6 +180,17 @@
             letter-spacing: 0.2em;
         }
         .step-item.active .step-number { color: #fff; }
+        
+        /* Контейнер для кнопок в шаге */
+        .step-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
         .step-btn {
             background: transparent;
             border: 1px solid #333;
@@ -187,7 +200,6 @@
             font-size: 0.7rem;
             cursor: pointer;
             text-transform: uppercase;
-            margin-top: 15px;
             transition: all 0.3s;
             letter-spacing: 0.1em;
         }
@@ -200,7 +212,17 @@
             background: transparent !important;
         }
 
-        /* Модальное окно (Компактное) */
+        .how-to-link {
+            font-size: 0.8rem;
+            color: #fff;
+            text-decoration: underline;
+            cursor: pointer;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+        .how-to-link:hover { opacity: 1; }
+
+        /* --- MODAL GUIDE (Исправлено на скролл) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -210,73 +232,69 @@
             background-color: rgba(0,0,0,0.9);
             backdrop-filter: blur(8px);
         }
-
         .modal-content {
             background-color: #0a0a0a;
             margin: 5% auto;
             padding: 40px 20px 20px 20px;
             border: 1px solid #222;
             width: 85%;
-            max-width: 380px; /* Уменьшили ширину */
-            max-height: 80vh; /* Ограничили высоту, чтобы появился скролл */
+            max-width: 380px; /* Суженная ширина */
+            max-height: 80vh;
             position: relative;
             display: flex;
             flex-direction: column;
         }
-
-        /* Контейнер для скролла */
+        .close-modal {
+            position: absolute;
+            right: 20px; top: 10px;
+            color: #555;
+            font-size: 28px;
+            cursor: pointer;
+            z-index: 10;
+        }
         .guide-scroll-container {
             overflow-y: auto;
             padding-right: 10px;
-            text-align: center;
+            text-align: left;
         }
-
-        /* Кастомный скроллбар в стиле минимализма */
-        .guide-scroll-container::-webkit-scrollbar {
-            width: 2px;
-        }
-        .guide-scroll-container::-webkit-scrollbar-track {
-            background: #000;
-        }
-        .guide-scroll-container::-webkit-scrollbar-thumb {
-            background: #333;
-        }
+        /* Тонкий скроллбар */
+        .guide-scroll-container::-webkit-scrollbar { width: 2px; }
+        .guide-scroll-container::-webkit-scrollbar-track { background: #000; }
+        .guide-scroll-container::-webkit-scrollbar-thumb { background: #333; }
 
         .guide-step {
             margin-bottom: 40px;
             border-bottom: 1px solid #111;
             padding-bottom: 20px;
         }
-
         .guide-step h3 {
             font-family: 'Archivo Black', sans-serif;
             font-size: 0.8rem;
-            letter-spacing: 1px;
+            margin-bottom: 15px;
             color: #fff;
+            letter-spacing: 1px;
         }
-
         .guide-step img {
             width: 100%;
+            margin: 15px 0;
             border: 1px solid #222;
-            margin-top: 15px;
+            display: block;
         }
-
         .final-btn {
             width: 100%;
             margin-top: 10px;
-            border-color: #fff !important; /* Всегда белая, как ты просил */
             background: #fff !important;
             color: #000 !important;
+            border-color: #fff !important;
             font-weight: bold;
         }
-
 
         @media (max-width: 768px) {
             .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; top: -10px; padding-top: 20px; padding-bottom: 10px; }
             h1 { font-size: 1rem; }
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
-            .modal-content { margin: 20% auto; }
+            .modal-content { margin: 15% auto; width: 90%; }
         }
     </style>
 </head>
@@ -294,8 +312,8 @@
             </div>
 
             <div class="guide-step">
-                <h3>ШАГ 2: ПРИВЯЗКА ПОЧТЫ</h3>
-                <p>Убедитесь, что ваша основная почта подтверждена. Это обеспечит максимальный уровень защиты.</p>
+                <h3>ШАГ 2: ПОДТВЕРЖДЕНИЕ</h3>
+                <p>Введите новый надежный пароль. Не забудьте сменить пароль и на привязанной почте.</p>
                 <img src="https://via.placeholder.com/400x200?text=STEP+2+SCREEN" alt="Инструкция 2">
             </div>
 
@@ -347,20 +365,26 @@
             <div id="step-1" class="step-item active">
                 <div class="step-number">PHASE 01 // SECURITY</div>
                 <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
-                <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
-                <button class="step-btn" onclick="completeStep(1)">Пароли изменены</button>
+                <div class="step-controls">
+                    <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
+                    <button class="step-btn" onclick="completeStep(1)">Пароли изменены</button>
+                </div>
             </div>
 
             <div id="step-2" class="step-item">
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
-                <button class="step-btn" onclick="completeStep(2)">Защита подтверждена</button>
+                <div class="step-controls">
+                    <button class="step-btn" onclick="completeStep(2)">Защита подтверждена</button>
+                </div>
             </div>
 
             <div id="step-3" class="step-item">
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
-                <button class="step-btn" onclick="completeStep(3)">Сессии очищены</button>
+                <div class="step-controls">
+                    <button class="step-btn" onclick="completeStep(3)">Сессии очищены</button>
+                </div>
             </div>
         </div>
 
@@ -375,7 +399,7 @@
         <ul>
             <li><span>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</span></li>
             <li><span>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">STEAM</span>.</span></li>
-            <li><span>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</span></li>
+            <li><span>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА.</span></li>
         </ul>
     </section>
 
@@ -383,8 +407,8 @@
         <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
         <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
         <ul>
-            <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ОТ АККАУНТА ТРЕТЬИМ ЛИЦАМ.</span></li>
-            <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ, МОДЫ). ЭТО АННУЛИРУЕТ ГАРАНТИЮ.</span></li>
+            <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ.</span></li>
+            <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ).</span></li>
             <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ.</span></li>
         </ul>
     </section>
@@ -394,7 +418,7 @@
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
         <ul>
             <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
-            <li><span>ПОДДЕРЖКА: ЕСЛИ В ПРОЦЕССЕ ИНИЦИАЛИЗАЦИИ ВОЗНИКЛИ ОШИБКИ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
+            <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
         </ul>
     </section>
 
@@ -442,10 +466,8 @@
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
         const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
+        document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         document.getElementById('platform-login-label').innerText = platformName;
-        document.getElementById('platform-name-1').innerText = platformName;
-        document.getElementById('platform-name-2').innerText = platformName;
-        if(document.getElementById('platform-name-3')) document.getElementById('platform-name-3').innerText = platformName;
         document.getElementById('support-platform-label').innerText = platformName;
 
         if (isEpic) {
@@ -471,22 +493,17 @@
     }
     updateDate();
 
+    // Модалка
     function openGuide() {
         document.getElementById('guide-modal').style.display = 'block';
-        // При открытии сбрасываем скролл в начало
         document.querySelector('.guide-scroll-container').scrollTop = 0;
     }
-
-    function closeGuide() {
-        document.getElementById('guide-modal').style.display = 'none';
-    }
-
-    // Упрощенный клик вне окна
+    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
     window.onclick = function(event) {
-        let modal = document.getElementById('guide-modal');
-        if (event.target == modal) { closeGuide(); }
+        if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
     }
 
+    // Прогресс
     function saveProgress(step) {
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         if (!progress.includes(step)) {
@@ -539,5 +556,6 @@
 
     loadProgress();
 </script>
+
 </body>
 </html>
