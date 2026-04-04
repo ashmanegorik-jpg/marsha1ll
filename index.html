@@ -20,7 +20,7 @@
             padding: 10px 5% 40px 5%; 
             line-height: 1.6;
         }
-
+        
         .main-brand-logo {
             font-family: 'Archivo Black', sans-serif;
             font-size: 1.5rem;
@@ -122,6 +122,59 @@
             font-size: 0.85rem;
             display: inline;
         }
+        /* --- НОВЫЙ СЛАЙДЕР ВНУТРИ МОДАЛКИ --- */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin: 15px 0;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid #222;
+            background: #111;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Магнитный эффект */
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Скрываем полосу прокрутки, чтобы было чисто */
+        .slider-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-wrapper img {
+            width: 100%;
+            height: auto;
+            flex-shrink: 0;
+            scroll-snap-align: start; /* Картинка всегда встает ровно по центру */
+            display: block;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            background-color: #333;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #fff; /* Белая точка для активной картинки */
+            transform: scale(1.2);
+        }
+
         /* Обновленный контейнер для скролла в модалке */
         .guide-scroll-container {
             max-height: 70vh; /* Высота окна — 70% от экрана */
@@ -351,30 +404,46 @@
         <div class="guide-scroll-container">
             <div class="guide-step">
                 <h3>ШАГ 1: СМЕНА ПАРОЛЯ ПЛАТФОРМЫ</h3>
-                <p>Перейдите в настройки аккаунта и выберите «Смена пароля». Используйте сложный пароль.</p>
+                <p>Листайте картинку вправо, чтобы увидеть все этапы.</p>
                 <div class="slider-container">
-                    <div class="slider-wrapper">
+                    <div class="slider-wrapper" onscroll="updateDots(this)">
                         <img src="img/step1_1.png" alt="Скрин 1">
+                        <img src="img/step1_2.png" alt="Скрин 2"> <img src="img/step1_3.png" alt="Скрин 3">
+                    </div>
+                    <div class="slider-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
                     </div>
                 </div>
             </div>
 
             <div class="guide-step">
                 <h3>ШАГ 2: ПРИВЯЗКА ПОЧТЫ</h3>
-                <p>Измените контактный email на свой личный. Подтвердите смену через код, который придет на текущую (выданную) почту.</p>
+                <p>Измените email на личный и подтвердите его кодом.</p>
                 <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <img src="img/step2_1.png" alt="Скрин 2">
+                    <div class="slider-wrapper" onscroll="updateDots(this)">
+                        <img src="img/step2_1.png" alt="Скрин 2-1">
+                        <img src="img/step2_2.png" alt="Скрин 2-2">
+                    </div>
+                    <div class="slider-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
                     </div>
                 </div>
             </div>
 
             <div class="guide-step">
                 <h3>ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ</h3>
-                <p>Зайдите в раздел безопасности и нажмите «Выйти на всех устройствах», чтобы никто другой не имел доступа.</p>
+                <p>Нажмите «Выйти на всех устройствах» в разделе безопасности.</p>
                 <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <img src="img/step3_1.png" alt="Скрин 3">
+                    <div class="slider-wrapper" onscroll="updateDots(this)">
+                        <img src="img/step3_1.png" alt="Скрин 3-1">
+                        <img src="img/step3_2.png" alt="Скрин 3-2">
+                    </div>
+                    <div class="slider-dots">
+                        <div class="dot active"></div>
+                        <div class="dot"></div>
                     </div>
                 </div>
             </div>
@@ -383,7 +452,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="main-brand-logo">MARSHA1LL</div>
 
@@ -606,6 +674,25 @@
             }
         });
         checkFinalStatus();
+    }
+    // Эта функция переключает точки (dots) при горизонтальном скролле картинок
+    function updateDots(el) {
+        const scrollLeft = el.scrollLeft;
+        const width = el.offsetWidth;
+        const index = Math.round(scrollLeft / width);
+    
+        // Находим контейнер с точками, который идет сразу после слайдера
+        const dotsContainer = el.parentElement.querySelector('.slider-dots');
+        if (dotsContainer) {
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
     }
 
     function checkFinalStatus() {
