@@ -122,6 +122,19 @@
             font-size: 0.85rem;
             display: inline;
         }
+        /* Класс для блокировки основного скролла страницы */
+        .no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Улучшаем поведение скролла в модалке */
+        .slider-wrapper {
+            touch-action: pan-x; /* Разрешаем только горизонтальные жесты пальцем */
+            overscroll-behavior-x: contain; /* Предотвращаем переход прокрутки на родителя */
+        }
+
         /* --- НОВЫЙ СЛАЙДЕР ВНУТРИ МОДАЛКИ --- */
         .slider-container {
             position: relative;
@@ -631,15 +644,15 @@
     updateDate();
 
     function openGuide() {
-        document.getElementById('guide-modal').style.display = 'block';
-        // При открытии сбрасываем скролл в начало
-        document.querySelector('.guide-scroll-container').scrollTop = 0;
+    document.getElementById('guide-modal').style.display = 'block';
+    document.body.classList.add('no-scroll'); // Блокируем фон
+    document.querySelector('.guide-scroll-container').scrollTop = 0;
     }
 
-    function closeGuide() { 
-        document.getElementById('guide-modal').style.display = 'none'; 
+    function closeGuide() {
+        document.getElementById('guide-modal').style.display = 'none';
+        document.body.classList.remove('no-scroll'); // Возвращаем скролл фону
     }
-
     // Закрытие при клике вне окна
     window.onclick = function(event) {
         const modal = document.getElementById('guide-modal');
@@ -703,6 +716,13 @@
             });
         }
     }
+    // Предотвращаем "всплытие" скролла от слайдера к модальному окну
+    document.querySelectorAll('.slider-wrapper').forEach(slider => {
+        slider.addEventListener('touchmove', function(e) {
+            // Если пользователь тянет вбок, не даем скроллиться всей модалке вверх/вниз
+            e.stopPropagation();
+        }, { passive: true });
+    });
 
     function checkFinalStatus() {
         const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
