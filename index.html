@@ -144,14 +144,15 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* Слайдер: разрешаем ТОЛЬКО движение влево-вправо */
+        /* Слайдер: разрешаем и горизонтальный свайп картинок, и вертикальный скролл страницы */
         .slider-wrapper {
-            touch-action: pan-x; 
+            touch-action: pan-x pan-y; /* Позволяет листать контент в обоих направлениях */
             overscroll-behavior: contain;
             display: flex;
-            overflow-y: hidden; /* Чтобы картинка не дергалась вверх-вниз */
+            overflow-y: hidden;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
         }
-
         /* Блокировка страницы под модалкой */
         body.no-scroll {
             overflow: hidden;
