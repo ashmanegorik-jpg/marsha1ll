@@ -318,14 +318,17 @@
             max-width: 850px;
         }
 
-        .btn-link {
-            color: #fff;
+        .btn-link, .btn-link:visited, .btn-link:active {
+            color: #fff !important; /* Всегда белый */
             text-decoration: underline;
             text-underline-offset: 4px;
-            transition: color 0.3s;
+            transition: opacity 0.3s;
         }
-        .btn-link:visited { color: #fff !important; }
-        .btn-link:hover { color: #888; }
+        
+        .btn-link:hover { 
+            opacity: 0.7; /* При наведении будет чуть тускнеть */
+            color: #fff !important;
+        }
 
         footer {
             margin-top: 80px;
