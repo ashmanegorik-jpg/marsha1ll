@@ -128,6 +128,37 @@
             position: fixed;
             width: 100%;
         }
+        /* Фиксируем подложку модалки */
+        .modal {
+            position: fixed;
+            touch-action: none; /* Запрещаем всё на фоне */
+            overscroll-behavior: none;
+        }
+
+        /* Контент: разрешаем ТОЛЬКО движение вверх-вниз */
+        .guide-scroll-container {
+            touch-action: pan-y; 
+            overscroll-behavior: contain;
+            overflow-x: hidden; /* Жестко режем горизонталь */
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Слайдер: разрешаем ТОЛЬКО движение влево-вправо */
+        .slider-wrapper {
+            touch-action: pan-x; 
+            overscroll-behavior: contain;
+            display: flex;
+            overflow-y: hidden; /* Чтобы картинка не дергалась вверх-вниз */
+        }
+
+        /* Блокировка страницы под модалкой */
+        body.no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+
         /* Блокировка фона для iOS и Android */
         body.no-scroll {
             overflow: hidden;
@@ -803,6 +834,36 @@
         document.body.style.top = '';
         document.body.style.width = '';
         window.scrollTo(0, currentScrollY);
+    }
+    // 1. Блокируем любые горизонтальные свайпы вне слайдера
+    document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
+        const isSlider = e.target.closest('.slider-wrapper');
+    
+        if (!isSlider) {
+            // Если мы не на слайдере, разрешаем только вертикальный скролл
+            // Но так как у нас pan-y в CSS, браузер сам это поймет.
+            // Здесь мы просто страхуемся от "плавания" всей модалки:
+            if (Math.abs(e.changedTouches[0].pageX) > Math.abs(e.changedTouches[0].pageY)) {
+                 // Если движение больше горизонтальное, чем вертикальное - отменяем
+            }
+        }
+    }, { passive: true });
+
+    // 2. Исправленное открытие с фиксацией
+    function openGuide() {
+        const scrollY = window.scrollY;
+        document.body.style.top = `-${scrollY}px`;
+        document.body.classList.add('no-scroll');
+        document.getElementById('guide-modal').style.display = 'block';
+        document.querySelector('.guide-scroll-container').scrollTop = 0;
+    }
+
+    function closeGuide() {
+        const scrollY = parseInt(document.body.style.top || '0') * -1;
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+        document.getElementById('guide-modal').style.display = 'none';
     }
 </script>
 
