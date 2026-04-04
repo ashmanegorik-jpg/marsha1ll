@@ -631,32 +631,42 @@
 
 <script>
     const guides = {
-        // ФАЗА 1: Смена паролей (Общая логика, но картинки можно менять)
+        // ШАГ 1: Смена пароля (Аккаунт + Почта)
         phase1: {
             title: "ШАГ 1: СМЕНА ПАРОЛЯ И ПОЧТЫ",
             text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
-            images: ["img/pass_1.png", "img/pass_2.png"]
-        },
-        // ФАЗА 2: 2FA (Разные инструкции для разных платформ)
-        phase2: {
-            steam: {
-                title: "ШАГ 2: STEAM GUARD",
-                text: "Скачайте приложение Steam на телефон и активируйте Mobile Authenticator в разделе Guard.",
-                images: ["img/steam_2fa_1.png", "img/steam_2fa_2.png"]
-            },
-            epic_ea: {
-                title: "ШАГ 2: ПРИВЯЗКА 2FA (EPIC/EA)",
-                text: "Включите подтверждение по почте или SMS в настройках двухфакторной аутентификации.",
-                images: ["img/epic_ea_2fa.png"]
+            // Эта функция выбирает ПАРУ картинок
+            getImages: (isEpic, isEA) => {
+                if (isEpic) {
+                    // Если Эпик: скрин Эпика + скрин Рамблера
+                    return ["IMG_2411", "IMG_2408"]; 
+                } else if (isEA) {
+                    // Если EA: скрин EA + скрин Оутлука
+                    return ["IMG_2412", "IMG_0260.jpeg"]; 
+                } else {
+                    // По умолчанию (Steam): скрин Стим + скрин Оутлука
+                    return ["IMG_2409", "IMG_0260.jpeg"]; 
+                }
             }
         },
-        // ФАЗА 3: Сессии (Только для Steam)
+        // ШАГ 2: Привязка защиты (2FA)
+        phase2: {
+            title: "ШАГ 2: ПРИВЯЗКА ЗАЩИТЫ (2FA)",
+            text: "Включите двухфакторную аутентификацию для максимальной безопасности.",
+            getImages: (isEpic, isEA) => {
+                if (isEpic) return ["epic_2fa.png"];
+                if (isEA) return ["ea_2fa.png"];
+                return ["steam_guard.png"]; 
+            }
+        },
+        // ШАГ 3: Сессии (только для Steam)
         phase3: {
             title: "ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ",
-            text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы никто другой не имел доступа к аккаунту.",
-            images: ["img/sessions_1.png"]
+            text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы закрепить доступ.",
+            images: ["steam_sessions.png"]
         }
     };
+
 
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
