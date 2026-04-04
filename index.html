@@ -812,6 +812,7 @@
     }, { passive: true });
 
     function openGuide(phase) {
+        currentScrollY = window.scrollY;
         const modalBody = document.getElementById('modal-body');
         // Проверяем, какой сейчас лаунчер (берём из параметров URL, которые мы уже настроили ранее)
         const isSteam = !gameKey.toLowerCase().includes('epic') && !gameKey.toLowerCase().includes('ea');
