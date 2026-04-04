@@ -336,10 +336,13 @@
     };
 
     const urlParams = new URLSearchParams(window.location.search);
-    const gameKey = urlParams.get('game');
+    const gameKey = urlParams.get('game') || 'general';
     const mailLink = document.getElementById('mail-link');
 
-    if (gameKey && games[gameKey]) {
+    // Ключ для сохранения прогресса именно этой игры
+    const storageKey = `marsha1ll_progress_${gameKey}`;
+
+    if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
         const isEA = gameKey.toLowerCase().includes('ea');
@@ -355,10 +358,7 @@
             document.getElementById('platform-name-2').innerText = "EPIC GAMES";
             document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
             document.getElementById('platform-name-3').innerText = "EPIC ONLINE";
-            
-            // Исправлено: скрываем блок шага 3 в Wizard, так как в Epic сессии чистятся иначе
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
             document.getElementById('support-platform-label').innerText = "EPIC GAMES";
@@ -369,10 +369,7 @@
             document.getElementById('platform-name-2').innerText = "EA";
             document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
             document.getElementById('platform-name-3').innerText = "EA APP SERVICES";
-            
-            // Исправлено: скрываем блок шага 3 в Wizard для EA
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
             document.getElementById('support-platform-label').innerText = "EA";
@@ -396,6 +393,44 @@
     }
     updateDate();
 
+    // Функция сохранения прогресса
+    function saveProgress(step) {
+        let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
+        if (!progress.includes(step)) {
+            progress.push(step);
+            localStorage.setItem(storageKey, JSON.stringify(progress));
+        }
+    }
+
+    // Функция загрузки прогресса при старте
+    function loadProgress() {
+        const progress = JSON.parse(localStorage.getItem(storageKey)) || [];
+        progress.forEach(stepNumber => {
+            const stepEl = document.getElementById(`step-${stepNumber}`);
+            if (stepEl) {
+                const btn = stepEl.querySelector('.step-btn');
+                btn.innerText = "ВЫПОЛНЕНО ✓";
+                btn.classList.add("completed");
+                btn.onclick = null;
+                
+                // Активируем следующий шаг
+                const nextStep = document.getElementById(`step-${stepNumber + 1}`);
+                if (nextStep && nextStep.style.display !== 'none') {
+                    nextStep.classList.add("active");
+                }
+            }
+        });
+
+        // Если все доступные шаги выполнены, ставим статус SECURED
+        const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
+        const completedSteps = document.querySelectorAll('.step-btn.completed');
+        if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
+            const subject = document.getElementById('subject-text');
+            subject.innerText = "SECURED (READY TO OPERATE)";
+            subject.style.color = "#00ff00";
+        }
+    }
+
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
@@ -404,8 +439,9 @@
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
 
+        saveProgress(stepNumber); // СОХРАНЯЕМ
+
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        // Проверяем, существует ли следующий шаг и не скрыт ли он (для Epic/EA)
         if (nextStep && nextStep.style.display !== 'none') {
             nextStep.classList.add("active");
             setTimeout(() => {
@@ -417,6 +453,9 @@
             subject.style.color = "#00ff00";
         }
     }
+
+    // Запускаем проверку сохраненного прогресса
+    loadProgress();
 </script>
 </body>
 </html>
