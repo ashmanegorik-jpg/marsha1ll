@@ -495,19 +495,23 @@
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
         }
-        /* Фикс цвета ссылки на почту */
-        #mail-link.btn-link, 
-        #mail-link.btn-link:visited, 
-        #mail-link.btn-link:active {
+        /* Максимально жесткий фикс цвета почты */
+        a#mail-link, 
+        a#mail-link:visited, 
+        a#mail-link:active,
+        a#mail-link:focus {
             color: #ffffff !important;
+            fill: #ffffff !important;
             text-decoration: underline !important;
-            text-underline-offset: 4px;
+            -webkit-text-fill-color: #ffffff !important; /* Форсируем для Safari/iOS */
             opacity: 1 !important;
+            outline: none !important;
         }
 
-        #mail-link.btn-link:hover {
+        a#mail-link:hover {
             opacity: 0.7 !important;
             color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
 
     </style>
