@@ -682,17 +682,6 @@
         dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
     }
     updateDate();
-
-    function openGuide() {
-    document.getElementById('guide-modal').style.display = 'block';
-    document.body.classList.add('no-scroll'); // Блокируем фон
-    document.querySelector('.guide-scroll-container').scrollTop = 0;
-    }
-
-    function closeGuide() {
-        document.getElementById('guide-modal').style.display = 'none';
-        document.body.classList.remove('no-scroll'); // Возвращаем скролл фону
-    }
     // Закрытие при клике вне окна
     window.onclick = function(event) {
         const modal = document.getElementById('guide-modal');
