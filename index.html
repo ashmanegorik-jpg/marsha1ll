@@ -254,12 +254,25 @@
         }
 
         /* Стилизация полосы прокрутки (скроллбара) */
-        /* Скрываем стандартный скроллбар для всех браузеров */
         .guide-scroll-container {
-            max-height: 65vh; /* Высота области прокрутки */
-            overflow-y: auto;
-            padding-right: 0; /* Убираем отступ, так как бара нет */
-            margin-bottom: 20px;
+            max-height: none; /* Убираем ограничение */
+            overflow: hidden; /* Выключаем скролл совсем */
+            padding: 0;
+            margin: 0;
+        }
+
+        .guide-step {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .guide-step p {
+            font-size: 0.85rem;
+            margin-top: 10px;
+            color: #a0a0a0;
+        }
+
     
             /* Скрытие для Firefox */
             scrollbar-width: none; 
@@ -401,14 +414,29 @@
         }
         .modal-content {
             background-color: #0a0a0a;
-            margin: 10% auto;
-            padding: 30px 20px;
+            margin: auto; /* Центрируем по вертикали */
+            padding: 25px;
             border: 1px solid #222;
             width: 85%;
             max-width: 340px; 
             position: relative;
             border-radius: 20px; 
-            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Выравнивание модалки по центру экрана */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
+            align-items: center; /* Центровка */
+            justify-content: center;
         }
         .close-modal {
             position: absolute;
@@ -812,47 +840,37 @@
     }, { passive: true });
 
     function openGuide(phase) {
-        currentScrollY = window.scrollY;
         const modalBody = document.getElementById('modal-body');
-        // Проверяем, какой сейчас лаунчер (берём из параметров URL, которые мы уже настроили ранее)
+        const modalEl = document.getElementById('guide-modal');
         const isSteam = !gameKey.toLowerCase().includes('epic') && !gameKey.toLowerCase().includes('ea');
     
         let data;
+        if (phase === 1) data = guides.phase1;
+        else if (phase === 2) data = isSteam ? guides.phase2.steam : guides.phase2.epic_ea;
+        else if (phase === 3) data = guides.phase3;
 
-        // Выбираем нужный объект из базы данных guides (которую ты добавил выше)
-        if (phase === 1) {
-            data = guides.phase1;
-        } else if (phase === 2) {
-            // Если фаза 2, проверяем: Steam или Epic/EA
-            data = isSteam ? guides.phase2.steam : guides.phase2.epic_ea;
-        } else if (phase === 3) {
-            data = guides.phase3;
-        }
-
-        // Собираем HTML слайдера на лету
-        const imagesHtml = data.images.map(src => `<img src="${src}" alt="Instruction Step">`).join('');
+        const imagesHtml = data.images.map(src => `<img src="${src}" alt="Step">`).join('');
         const dotsHtml = data.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
 
-        // Впрыскиваем контент в модалку
+        // Формируем структуру: Заголовок -> Слайдер -> Текст
         modalBody.innerHTML = `
             <div class="guide-step">
                 <h3>${data.title}</h3>
-                <p>${data.text}</p>
                 <div class="slider-container">
                     <div class="slider-wrapper" onscroll="updateDots(this)">
                         ${imagesHtml}
                     </div>
                     <div class="slider-dots">${dotsHtml}</div>
                 </div>
+                <p>${data.text}</p>
             </div>
         `;
 
-        // Показываем окно и блокируем фон (твой старый код фиксации)
-        const scrollY = window.scrollY;
-        document.body.style.top = `-${scrollY}px`;
+        currentScrollY = window.scrollY;
+        document.body.style.top = `-${currentScrollY}px`;
         document.body.classList.add('no-scroll');
-        document.getElementById('guide-modal').style.display = 'block';
-        modalBody.scrollTop = 0;
+        
+        modalEl.style.display = 'flex'; // Используем flex для центровки контента
     }
 
 </script>
