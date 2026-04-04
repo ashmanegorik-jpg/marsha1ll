@@ -195,10 +195,10 @@
         /* --- НОВЫЙ СЛАЙДЕР ВНУТРИ МОДАЛКИ --- */
         .slider-container {
             position: relative;
-            width: 100%;
-            margin: 15px 0;
+            width: 300px;
+            margin: 15px auto;
             overflow: hidden;
-            border-radius: 10px;
+            border-radius: 12px;
             border: 1px solid #222;
             background: #111;
         }
@@ -217,12 +217,14 @@
         }
 
         .slider-wrapper img {
-            width: 100%;
-            height: auto;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
             flex-shrink: 0;
             scroll-snap-align: start; /* Картинка всегда встает ровно по центру */
             display: block;
             pointer-events: auto;
+            cursor: zoom-in;
         }
 
         .slider-dots {
