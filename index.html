@@ -325,7 +325,7 @@
         "gta5-steam": "GTA V (STEAM)",
         "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
         "dbd-steam": "DEAD BY DAYLIGHT (STEAM)",
-        "fifa26-ea": "FIFA 26 (EA LAUNCHER)", // НОВАЯ ИГРА
+        "fifa26-ea": "FIFA 26 (EA LAUNCHER)",
         "sot": "SEA OF THIEVES",
         "fh4": "FORZA HORIZON 4",
         "bg3": "BALDUR'S GATE 3",
@@ -342,50 +342,46 @@
     if (gameKey && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea'); // ПРОВЕРКА НА EA
+        const isEA = gameKey.toLowerCase().includes('ea');
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
         if (isEpic) {
-            // ... (Epic Games логика остается без изменений)
             document.getElementById('platform-login-label').innerText = "EPIC GAMES";
             document.getElementById('platform-name-1').innerText = "EPIC GAMES";
             document.getElementById('guard-name').innerText = "2FA (ИЗ ПОЧТЫ)";
             document.getElementById('platform-name-2').innerText = "EPIC GAMES";
             document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
             document.getElementById('platform-name-3').innerText = "EPIC ONLINE";
-            document.getElementById('session-cleanup-item').style.display = 'none';
+            
+            // Исправлено: скрываем блок шага 3 в Wizard, так как в Epic сессии чистятся иначе
+            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
+            
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
             document.getElementById('support-platform-label').innerText = "EPIC GAMES";
         } else if (isEA) {
-            // --- НОВАЯ ЛОГИКА ДЛЯ EA LAUNCHER ---
             document.getElementById('platform-login-label').innerText = "EA LAUNCHER";
             document.getElementById('platform-name-1').innerText = "EA LAUNCHER";
-            document.getElementById('guard-name').innerText = "2FA (ИЗ ПОЧТЫ)"; // В EA это 2FA
+            document.getElementById('guard-name').innerText = "2FA (ИЗ ПОЧТЫ)";
             document.getElementById('platform-name-2').innerText = "EA";
             document.getElementById('guard-name-2').innerText = "2FA (EMAIL)";
-            document.getElementById('platform-name-3').innerText = "EA APP SERVICES"; // У EA облачные сохранения в EA App
+            document.getElementById('platform-name-3').innerText = "EA APP SERVICES";
             
-            // Скрываем Deauthorize All Other Devices (процедура в EA другая, делается через веб-сайт)
-            document.getElementById('session-cleanup-item').style.display = 'none';
+            // Исправлено: скрываем блок шага 3 в Wizard для EA
+            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
 
-            // Почта - Outlook (как для Steam-игр)
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
-            
-            // Замена в 4-м пункте поддержки
             document.getElementById('support-platform-label').innerText = "EA";
         } else {
-            // ... (Дефолтная Steam логика остается без изменений)
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
             document.getElementById('support-platform-label').innerText = "STEAM";
         }
     } else {
-        // ... (Дефолтная логика без игры остаётся без изменений)
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
         mailLink.href = "https://outlook.live.com/mail/0/";
         mailLink.innerText = "OUTLOOK.LIVE.COM";
@@ -399,25 +395,23 @@
         dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
     }
     updateDate();
-        function completeStep(stepNumber) {
+
+    function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
         
-        // Помечаем текущую кнопку как выполненную
         currentBtn.innerText = "ВЫПОЛНЕНО ✓";
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
 
-        // Активируем следующий шаг
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep) {
+        // Проверяем, существует ли следующий шаг и не скрыт ли он (для Epic/EA)
+        if (nextStep && nextStep.style.display !== 'none') {
             nextStep.classList.add("active");
-            // Плавная прокрутка к следующему шагу для удобства на мобилках
             setTimeout(() => {
                 nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         } else {
-            // Если прошли всё — меняем статус в начале страницы (SUBJECT)
             const subject = document.getElementById('subject-text');
             subject.innerText = "SECURED (READY TO OPERATE)";
             subject.style.color = "#00ff00";
