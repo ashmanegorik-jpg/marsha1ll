@@ -257,6 +257,7 @@
             overflow: hidden;
             border-radius: 10px;
             border: 1px solid #222;
+            touch-action: pan-y;
         }
         .slider-wrapper {
             display: flex;
@@ -268,6 +269,7 @@
             height: auto;
             display: block;
             flex-shrink: 0;
+            pointer-events: none;
         }
         .slider-dots {
             display: flex;
@@ -310,27 +312,19 @@
 <div id="guide-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuide()">&times;</span>
-        
         <div class="guide-scroll-container">
             <div class="guide-step">
-                <h3 id="modal-step-title">ШАГ 1: СМЕНА ПАРОЛЯ</h3>
-                <p id="modal-step-desc">Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
+                <h3 id="modal-step-title" style="font-family: 'Archivo Black'; font-size: 0.8rem; letter-spacing: 1px; color: #fff;">TITLE</h3>
+                <p id="modal-step-desc" style="font-size: 0.8rem; color: #a0a0a0; margin-bottom: 15px;">Description</p>
                 
-                <div class="slider-container" id="slider1">
-                    <div class="slider-wrapper">
-                        <img src="img/step1_1.png" alt="Скрин 1">
-                        <img src="img/step1_2.png" alt="Скрин 2">
-                        <img src="img/step1_3.png" alt="Скрин 3">
+                <div class="slider-container" id="slider-main">
+                    <div class="slider-wrapper" id="slider-track">
+                        </div>
+                </div>
+                
+                <div class="slider-dots" id="dots-container">
                     </div>
-                </div>
-                
-                <div class="slider-dots" id="dots1">
-                    <span class="dot active" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                </div>
             </div>
-
             <button class="step-btn final-btn" onclick="closeGuide()">Понятно</button>
         </div>
     </div>
@@ -341,7 +335,7 @@
 <div class="terminal-container">
     <header class="reveal">
         <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
-        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
+        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // 2026</div>
     </header>
 
     <section class="reveal">
@@ -374,7 +368,7 @@
                 <div class="step-number">PHASE 01 // SECURITY</div>
                 <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
                 <div class="step-controls">
-                    <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
+                    <span class="how-to-link" onclick="openGuide(1)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
                 </div>
             </div>
@@ -383,6 +377,7 @@
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
                 <div class="step-controls">
+                    <span class="how-to-link" onclick="openGuide(2)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(2)">Выполнено</button>
                 </div>
             </div>
@@ -391,6 +386,7 @@
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
                 <div class="step-controls">
+                    <span class="how-to-link" onclick="openGuide(3)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(3)">Выполнено</button>
                 </div>
             </div>
@@ -424,32 +420,12 @@
         </ul>
     </section>
 
-    <section class="reveal">
-        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
-        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
-        <ul>
-            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
-            <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
-        </ul>
-    </section>
-
     <footer class="reveal">
         TRANSFER COMPLETE. MARSHA1LL COLLECTION 2026
     </footer>
 </div>
 
 <script>
-    function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
-        }
-    }
-    window.addEventListener("scroll", reveal);
-    reveal();
-
     const games = {
         "fh5": "FORZA HORIZON 5",
         "gta5-epic": "GTA V (EPIC GAMES)",
@@ -462,11 +438,30 @@
         "elden": "ELDEN RING"
     };
 
+    const guideContent = {
+        1: {
+            title: "ШАГ 1: СМЕНА ПАРОЛЯ",
+            desc: "Перейдите в настройки безопасности и смените пароль на свой. Обязательно смените пароль и на привязанной почте.",
+            images: ["img/step1_1.png", "img/step1_2.png", "img/step1_3.png"]
+        },
+        2: {
+            title: "ШАГ 2: ПРИВЯЗКА 2FA",
+            desc: "Привяжите номер телефона или активируйте мобильное приложение для защиты аккаунта от взлома.",
+            images: ["img/step2_1.png", "img/step2_2.png"]
+        },
+        3: {
+            title: "ШАГ 3: ОЧИСТКА СЕССИЙ",
+            desc: "В настройках безопасности завершите все активные сеансы, чтобы исключить доступ третьих лиц.",
+            images: ["img/step3_1.png", "img/step3_2.png"]
+        }
+    };
+
     const urlParams = new URLSearchParams(window.location.search);
     const gameKey = urlParams.get('game') || 'general';
     const storageKey = `marsha1ll_progress_${gameKey}`;
     const mailLink = document.getElementById('mail-link');
 
+    // SETUP GAME INFO
     if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
@@ -482,11 +477,9 @@
         document.getElementById('support-platform-label').innerText = platformName;
 
         if (isEpic) {
-            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
         } else {
-            if (isEA && document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
@@ -496,6 +489,7 @@
         mailLink.innerText = "OUTLOOK.LIVE.COM";
     }
 
+    // DATE UPDATE
     function updateDate() {
         const dateElement = document.getElementById('current-date');
         const now = new Date();
@@ -504,26 +498,48 @@
     }
     updateDate();
 
-    // СЛАЙДЕР ЛОГИКА
-    let currentSlideIndex = 0;
-    function currentSlide(n) {
-        const wrapper = document.querySelector('.slider-wrapper');
-        const dots = document.querySelectorAll('.dot');
-        currentSlideIndex = n;
-        wrapper.style.transform = `translateX(-${n * 100}%)`;
-        dots.forEach(d => d.classList.remove('active'));
-        dots[n].classList.add('active');
-    }
+    // SLIDER LOGIC
+    let currentImgIdx = 0;
+    let touchStartX = 0;
 
-    function openGuide() {
+    function openGuide(stepNum) {
+        const data = guideContent[stepNum];
+        document.getElementById('modal-step-title').innerText = data.title;
+        document.getElementById('modal-step-desc').innerText = data.desc;
+        
+        const track = document.getElementById('slider-track');
+        track.innerHTML = data.images.map(img => `<img src="${img}" alt="guide">`).join('');
+        
+        const dotsCont = document.getElementById('dots-container');
+        dotsCont.innerHTML = data.images.map((_, i) => `<span class="dot ${i===0?'active':''}" onclick="currentSlide(${i})"></span>`).join('');
+        
+        currentImgIdx = 0;
+        track.style.transform = `translateX(0)`;
         document.getElementById('guide-modal').style.display = 'block';
-        currentSlide(0); // Сброс на 1 слайд
-    }
-    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
     }
 
+    function currentSlide(n) {
+        currentImgIdx = n;
+        const track = document.getElementById('slider-track');
+        const dots = document.querySelectorAll('.dot');
+        track.style.transform = `translateX(-${n * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === n));
+    }
+
+    const sliderContainer = document.getElementById('slider-main');
+    sliderContainer.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+    sliderContainer.addEventListener('touchend', e => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const track = document.getElementById('slider-track');
+        const imagesCount = track.querySelectorAll('img').length;
+        if (touchStartX - touchEndX > 50 && currentImgIdx < imagesCount - 1) currentSlide(currentImgIdx + 1);
+        else if (touchEndX - touchStartX > 50 && currentImgIdx > 0) currentSlide(currentImgIdx - 1);
+    });
+
+    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
+    window.onclick = function(e) { if (e.target == document.getElementById('guide-modal')) closeGuide(); }
+
+    // WIZARD PROGRESS
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
@@ -538,10 +554,11 @@
         }
 
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep && nextStep.style.display !== 'none') {
+        if (nextStep) {
             nextStep.classList.add("active");
             setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
-        } else { checkFinalStatus(); }
+        }
+        checkFinalStatus();
     }
 
     function loadProgress() {
@@ -556,22 +573,33 @@
                     btn.onclick = null;
                 }
                 const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-                if (nextStep && nextStep.style.display !== 'none') { nextStep.classList.add("active"); }
+                if (nextStep) nextStep.classList.add("active");
             }
         });
         checkFinalStatus();
     }
 
     function checkFinalStatus() {
-        const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
-        const completedSteps = document.querySelectorAll('.step-btn.completed');
-        if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
+        const totalSteps = 3;
+        const completedSteps = document.querySelectorAll('.step-btn.completed').length;
+        if (completedSteps === totalSteps) {
             const subject = document.getElementById('subject-text');
             subject.innerText = "SECURED (READY TO OPERATE)";
             subject.style.color = "#00ff00";
         }
     }
 
+    // REVEAL ANIMATION
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
+        }
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
     loadProgress();
 </script>
 
