@@ -865,20 +865,33 @@
         }
     }, { passive: true });
 
-    function openGuide(phase) {
+        function openGuide(phase) {
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
-        const isSteam = !gameKey.toLowerCase().includes('epic') && !gameKey.toLowerCase().includes('ea');
+        
+        // Определяем платформу
+        const isEpic = gameKey.toLowerCase().includes('epic');
+        const isEA = gameKey.toLowerCase().includes('ea');
     
         let data;
-        if (phase === 1) data = guides.phase1;
-        else if (phase === 2) data = isSteam ? guides.phase2.steam : guides.phase2.epic_ea;
-        else if (phase === 3) data = guides.phase3;
+        let currentImages = [];
 
-        const imagesHtml = data.images.map(src => `<img src="${src}" alt="Step">`).join('');
-        const dotsHtml = data.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
+        // Выбираем данные в зависимости от фазы
+        if (phase === 1) {
+            data = guides.phase1;
+            currentImages = data.getImages(isEpic, isEA);
+        } else if (phase === 2) {
+            data = guides.phase2;
+            currentImages = data.getImages(isEpic, isEA);
+        } else if (phase === 3) {
+            data = guides.phase3;
+            currentImages = data.images;
+        }
 
-        // Формируем структуру: Заголовок -> Слайдер -> Текст
+        // Генерируем HTML для картинок
+        const imagesHtml = currentImages.map(src => `<img src="${src}" alt="Step">`).join('');
+        const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
+
         modalBody.innerHTML = `
             <div class="guide-step">
                 <h3>${data.title}</h3>
@@ -896,7 +909,7 @@
         document.body.style.top = `-${currentScrollY}px`;
         document.body.classList.add('no-scroll');
         
-        modalEl.style.display = 'flex'; // Используем flex для центровки контента
+        modalEl.style.display = 'flex'; 
     }
 
 </script>
