@@ -723,6 +723,14 @@
             e.stopPropagation();
         }, { passive: true });
     });
+    const modal = document.querySelector('.modal-content');
+
+    // Запрещаем прокрутку всего документа, кроме области внутри гайда
+    document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
+        if (!e.target.closest('.guide-scroll-container') && !e.target.closest('.slider-wrapper')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
 
     function checkFinalStatus() {
         const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
