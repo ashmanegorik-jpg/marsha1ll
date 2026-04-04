@@ -128,6 +128,32 @@
             position: fixed;
             width: 100%;
         }
+        /* Блокировка фона для iOS и Android */
+        body.no-scroll {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Сама подложка модалки — должна быть неподвижной */
+        .modal {
+            touch-action: none; /* Запрещаем любые жесты на темном фоне */
+            overscroll-behavior: none;
+        }
+
+        /* Контентная часть — разрешаем только вертикальный скролл */
+        .guide-scroll-container {
+            touch-action: pan-y; 
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Слайдер — разрешаем только горизонтальный скролл */
+        .slider-wrapper {
+            touch-action: pan-x;
+            overscroll-behavior: contain;
+        }
 
         /* Улучшаем поведение скролла в модалке */
         .slider-wrapper {
@@ -743,6 +769,41 @@
     }
 
     loadProgress();
+    const guideModal = document.getElementById('guide-modal');
+
+    guideModal.addEventListener('touchmove', function(e) {
+        // Проверяем, происходит ли движение внутри разрешенных зон
+        const isScrollable = e.target.closest('.guide-scroll-container');
+        const isSlider = e.target.closest('.slider-wrapper');
+
+        // Если палец тянет мимо текста или картинок (например, по заголовку или фону) — блокируем
+        if (!isScrollable && !isSlider) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Фикс для iOS: предотвращаем "прыжок" страницы при открытии
+    let currentScrollY = 0;
+
+    function openGuide() {
+        currentScrollY = window.scrollY;
+        document.getElementById('guide-modal').style.display = 'block';
+    
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${currentScrollY}px`;
+        document.body.style.width = '100%';
+        document.body.classList.add('no-scroll');
+    }
+
+    function closeGuide() {
+        document.getElementById('guide-modal').style.display = 'none';
+    
+        document.body.classList.remove('no-scroll');
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, currentScrollY);
+    }
 </script>
 
 </body>
