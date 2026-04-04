@@ -318,24 +318,6 @@
             max-width: 850px;
         }
 
-            /* Все состояния ссылки: обычная, посещенная, активная */
-            .btn-link, 
-            .btn-link:visited, 
-            .btn-link:active,
-            .btn-link:focus {
-                color: #fff !important; /* Форсируем белый цвет */
-                text-decoration: underline !important;
-                text-underline-offset: 4px;
-                opacity: 1 !important;
-                transition: opacity 0.3s;
-            }
-
-            /* Состояние при наведении — просто легкое затухание */
-            .btn-link:hover {
-                opacity: 0.7 !important;
-                color: #fff !important;
-                text-decoration: underline !important;
-            }
         footer {
             margin-top: 80px;
             padding: 40px 0;
@@ -513,6 +495,21 @@
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
         }
+        /* Фикс цвета ссылки на почту */
+        #mail-link.btn-link, 
+        #mail-link.btn-link:visited, 
+        #mail-link.btn-link:active {
+            color: #ffffff !important;
+            text-decoration: underline !important;
+            text-underline-offset: 4px;
+            opacity: 1 !important;
+        }
+
+        #mail-link.btn-link:hover {
+            opacity: 0.7 !important;
+            color: #ffffff !important;
+        }
+
     </style>
 </head>
 <body>
