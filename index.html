@@ -344,6 +344,35 @@
         </div>
     </section>
 
+    <section class="reveal">
+        <h2>3. ЭКСПЛУАТАЦИЯ </h2>
+        <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
+        <ul>
+            <li><span>МУЛЬТИПЛЕЕР: ИГРАЙТЕ С ДРУЗЬЯМИ БЕЗ ОГРАНИЧЕНИЙ.</span></li>
+            <li><span>ОБЛАКО: ВСЕ СОХРАНЕНИЯ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">STEAM</span>.</span></li>
+            <li><span>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</span></li>
+        </ul>
+    </section>
+
+    <section class="reveal">
+        <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
+        <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
+        <ul>
+            <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ОТ АККАУНТА ТРЕТЬИМ ЛИЦАМ.</span></li>
+            <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ, МОДЫ). ЭТО АННУЛИРУЕТ ГАРАНТИЮ.</span></li>
+            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ.</span></li>
+        </ul>
+    </section>
+
+    <section class="reveal">
+        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
+        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
+        <ul>
+            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
+            <li><span>ПОДДЕРЖКА: ЕСЛИ В ПРОЦЕССЕ ИНИЦИАЛИЗАЦИИ ВОЗНИКЛИ ОШИБКИ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
+        </ul>
+    </section>
+
     <footer class="reveal">
         TRANSFER COMPLETE. MARSHA1LL COLLECTION 2026
     </footer>
@@ -378,7 +407,6 @@
     const storageKey = `marsha1ll_progress_${gameKey}`;
     const mailLink = document.getElementById('mail-link');
 
-    // Логика платформы
     if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
@@ -388,21 +416,19 @@
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
+        const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
+        document.getElementById('platform-login-label').innerText = platformName;
+        document.getElementById('platform-name-1').innerText = platformName;
+        document.getElementById('platform-name-2').innerText = platformName;
+        if(document.getElementById('platform-name-3')) document.getElementById('platform-name-3').innerText = platformName;
+        document.getElementById('support-platform-label').innerText = platformName;
+
         if (isEpic) {
-            document.getElementById('platform-login-label').innerText = "EPIC GAMES";
-            document.getElementById('platform-name-1').innerText = "EPIC GAMES";
-            document.getElementById('platform-name-2').innerText = "EPIC GAMES";
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
-        } else if (isEA) {
-            document.getElementById('platform-login-label').innerText = "EA LAUNCHER";
-            document.getElementById('platform-name-1').innerText = "EA LAUNCHER";
-            document.getElementById('platform-name-2').innerText = "EA";
-            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
         } else {
+            if (isEA && document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
@@ -420,7 +446,6 @@
     }
     updateDate();
 
-    // Модальное окно
     function openGuide() { document.getElementById('guide-modal').style.display = 'block'; }
     function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
     function nextSlide(n) {
@@ -431,7 +456,6 @@
         if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
     }
 
-    // Прогресс
     function saveProgress(step) {
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         if (!progress.includes(step)) {
@@ -446,9 +470,11 @@
             const stepEl = document.getElementById(`step-${stepNumber}`);
             if (stepEl) {
                 const btn = stepEl.querySelector('.step-btn');
-                btn.innerText = "ВЫПОЛНЕНО ✓";
-                btn.classList.add("completed");
-                btn.onclick = null;
+                if(btn) {
+                    btn.innerText = "ВЫПОЛНЕНО ✓";
+                    btn.classList.add("completed");
+                    btn.onclick = null;
+                }
                 const nextStep = document.getElementById(`step-${stepNumber + 1}`);
                 if (nextStep && nextStep.style.display !== 'none') { nextStep.classList.add("active"); }
             }
@@ -482,6 +508,5 @@
 
     loadProgress();
 </script>
-
 </body>
 </html>
