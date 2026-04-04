@@ -184,16 +184,25 @@
         }
 
         /* Стилизация полосы прокрутки (скроллбара) */
+        /* Скрываем стандартный скроллбар для всех браузеров */
+        .guide-scroll-container {
+            max-height: 65vh; /* Высота области прокрутки */
+            overflow-y: auto;
+            padding-right: 0; /* Убираем отступ, так как бара нет */
+            margin-bottom: 20px;
+    
+            /* Скрытие для Firefox */
+            scrollbar-width: none; 
+    
+            /* Скрытие для IE и Edge */
+            -ms-overflow-style: none; 
+        }
+
+        /* Скрытие для Chrome, Safari и Opera */
         .guide-scroll-container::-webkit-scrollbar {
-            width: 4px;
+            display: none; 
         }
-        .guide-scroll-container::-webkit-scrollbar-track {
-            background: #000;
-        }
-        .guide-scroll-container::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 10px;
-        }
+
 
         .guide-step {
             margin-bottom: 60px; /* Отступ между шагами при скролле */
