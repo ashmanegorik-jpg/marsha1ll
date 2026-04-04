@@ -1,4 +1,4 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -220,7 +220,7 @@
         }
         .how-to-link:hover { opacity: 1; }
 
-        /* --- MODAL GUIDE (Слайдер + Точки) --- */
+        /* --- MODAL GUIDE (SCROLL VERSION) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -232,14 +232,13 @@
         }
         .modal-content {
             background-color: #0a0a0a;
-            margin: 10% auto;
+            margin: 5% auto;
             padding: 30px 20px;
             border: 1px solid #222;
             width: 85%;
-            max-width: 340px; 
+            max-width: 380px; 
             position: relative;
             border-radius: 20px; 
-            overflow: hidden; 
         }
         .close-modal {
             position: absolute;
@@ -250,41 +249,52 @@
             z-index: 10;
         }
 
+        /* Контейнер для скролла */
+        .guide-scroll-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            text-align: left;
+        }
+
+        /* Кастомный скроллбар */
+        .guide-scroll-container::-webkit-scrollbar { width: 4px; }
+        .guide-scroll-container::-webkit-scrollbar-track { background: #000; }
+        .guide-scroll-container::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+        .guide-step {
+            margin-bottom: 50px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 30px;
+        }
+        .guide-step:last-child { border-bottom: none; }
+
+        .guide-step h3 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.85rem;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+
+        .guide-step p {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
         .slider-container {
-            position: relative;
             width: 100%;
-            margin: 15px 0;
-            overflow: hidden;
             border-radius: 10px;
             border: 1px solid #222;
-        }
-        .slider-wrapper {
-            display: flex;
-            transition: transform 0.4s ease-in-out;
-            width: 100%;
+            overflow: hidden;
+            background: #111;
         }
         .slider-wrapper img {
             width: 100%;
             height: auto;
             display: block;
-            flex-shrink: 0;
-        }
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
-        }
-        .dot {
-            width: 6px;
-            height: 6px;
-            background-color: #333;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        .dot.active {
-            background-color: #fff;
         }
 
         .final-btn {
@@ -295,6 +305,7 @@
             border-color: #fff !important;
             font-weight: bold;
             border-radius: 10px;
+            padding: 15px;
         }
 
         @media (max-width: 768px) {
@@ -302,6 +313,7 @@
             h1 { font-size: 1rem; }
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
+            .modal-content { margin: 15% auto; }
         }
     </style>
 </head>
@@ -313,25 +325,36 @@
         
         <div class="guide-scroll-container">
             <div class="guide-step">
-                <h3 id="modal-step-title">ШАГ 1: СМЕНА ПАРОЛЯ</h3>
-                <p id="modal-step-desc">Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
-                
-                <div class="slider-container" id="slider1">
+                <h3>ШАГ 1: СМЕНА ПАРОЛЯ</h3>
+                <p>Перейдите в настройки безопасности аккаунта. Установите новый сложный пароль, который ранее не использовался.</p>
+                <div class="slider-container">
                     <div class="slider-wrapper">
-                        <img src="img/step1_1.png" alt="Скрин 1">
-                        <img src="img/step1_2.png" alt="Скрин 2">
-                        <img src="img/step1_3.png" alt="Скрин 3">
+                        <img src="img/step1_1.png" alt="Инструкция 1">
                     </div>
-                </div>
-                
-                <div class="slider-dots" id="dots1">
-                    <span class="dot active" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
                 </div>
             </div>
 
-            <button class="step-btn final-btn" onclick="closeGuide()">Понятно</button>
+            <div class="guide-step">
+                <h3>ШАГ 2: ПРИВЯЗКА ПОЧТЫ</h3>
+                <p>Смените текущий email на вашу личную безопасную почту. Подтвердите действие через код из письма.</p>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <img src="img/step2_1.png" alt="Инструкция 2">
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-step">
+                <h3>ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ</h3>
+                <p>Нажмите кнопку «Выйти на всех устройствах». Это принудительно отключит любые другие активные входы.</p>
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <img src="img/step3_1.png" alt="Инструкция 3">
+                    </div>
+                </div>
+            </div>
+
+            <button class="step-btn final-btn" onclick="closeGuide()">ПОНЯТНО</button>
         </div>
     </div>
 </div>
@@ -413,23 +436,10 @@
 
     <section class="reveal">
         <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
-        <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
         <ul>
             <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ.</span></li>
             <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ).</span></li>
-            <li>
-                <span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. 
-                СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span>
-            </li>
-        </ul>
-    </section>
-
-    <section class="reveal">
-        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
-        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
-        <ul>
-            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
-            <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
+            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ ЗАПРЕЩЕНЫ.</span></li>
         </ul>
     </section>
 
@@ -439,6 +449,7 @@
 </div>
 
 <script>
+    // Reveal Animation
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
         for (var i = 0; i < reveals.length; i++) {
@@ -454,11 +465,8 @@
         "fh5": "FORZA HORIZON 5",
         "gta5-epic": "GTA V (EPIC GAMES)",
         "gta5-steam": "GTA V (STEAM)",
-        "fifa26-ea": "FIFA 26 (EA LAUNCHER)",
-        "sot": "SEA OF THIEVES",
         "cs2": "CS2 PRIME STATUS",
         "rust": "RUST",
-        "dayz": "DAYZ",
         "elden": "ELDEN RING"
     };
 
@@ -470,60 +478,34 @@
     if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea');
-        
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
-        document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
-
-        const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
+        const platformName = isEpic ? "EPIC GAMES" : "STEAM";
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         document.getElementById('platform-login-label').innerText = platformName;
-        document.getElementById('support-platform-label').innerText = platformName;
-
-        if (isEpic) {
-            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://mail.rambler.ru";
-            mailLink.innerText = "MAIL.RAMBLER.RU";
-        } else {
-            if (isEA && document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
-        }
-    } else {
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
-        mailLink.href = "https://outlook.live.com/mail/0/";
-        mailLink.innerText = "OUTLOOK.LIVE.COM";
+        mailLink.href = isEpic ? "https://mail.rambler.ru" : "https://outlook.live.com/mail/0/";
+        mailLink.innerText = isEpic ? "MAIL.RAMBLER.RU" : "OUTLOOK.LIVE.COM";
     }
 
     function updateDate() {
-        const dateElement = document.getElementById('current-date');
         const now = new Date();
-        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        document.getElementById('current-date').innerText = `MARSHA1LL DIGITAL ASSETS // ${now.getFullYear()}`;
     }
     updateDate();
 
-    // СЛАЙДЕР ЛОГИКА
-    let currentSlideIndex = 0;
-    function currentSlide(n) {
-        const wrapper = document.querySelector('.slider-wrapper');
-        const dots = document.querySelectorAll('.dot');
-        currentSlideIndex = n;
-        wrapper.style.transform = `translateX(-${n * 100}%)`;
-        dots.forEach(d => d.classList.remove('active'));
-        dots[n].classList.add('active');
-    }
-
+    // MODAL LOGIC
     function openGuide() {
         document.getElementById('guide-modal').style.display = 'block';
-        currentSlide(0); // Сброс на 1 слайд
+        document.querySelector('.guide-scroll-container').scrollTop = 0;
     }
-    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
+    function closeGuide() { 
+        document.getElementById('guide-modal').style.display = 'none'; 
+    }
     window.onclick = function(event) {
         if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
     }
 
+    // STEPS LOGIC
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
@@ -538,10 +520,11 @@
         }
 
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep && nextStep.style.display !== 'none') {
+        if (nextStep) {
             nextStep.classList.add("active");
             setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
-        } else { checkFinalStatus(); }
+        }
+        checkFinalStatus();
     }
 
     function loadProgress() {
@@ -556,16 +539,16 @@
                     btn.onclick = null;
                 }
                 const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-                if (nextStep && nextStep.style.display !== 'none') { nextStep.classList.add("active"); }
+                if (nextStep) { nextStep.classList.add("active"); }
             }
         });
         checkFinalStatus();
     }
 
     function checkFinalStatus() {
-        const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
-        const completedSteps = document.querySelectorAll('.step-btn.completed');
-        if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
+        const total = 3;
+        const completed = document.querySelectorAll('.step-btn.completed').length;
+        if (completed >= total) {
             const subject = document.getElementById('subject-text');
             subject.innerText = "SECURED (READY TO OPERATE)";
             subject.style.color = "#00ff00";
