@@ -165,6 +165,51 @@
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
         }
+            /* Стили для Setup Wizard */
+        .wizard-container {
+            margin-top: 30px;
+            border-left: 1px solid #1a1a1a;
+            padding-left: 20px;
+        }
+        .step-item {
+            margin-bottom: 35px;
+            opacity: 0.3;
+            transition: all 0.5s ease;
+            filter: blur(1px);
+        }
+        .step-item.active { 
+            opacity: 1; 
+            filter: blur(0);
+        }
+        .step-number {
+            font-family: 'Archivo Black', sans-serif;
+            color: #333;
+            font-size: 0.7rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.2em;
+        }
+        .step-item.active .step-number { color: #fff; }
+        .step-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 15px;
+            transition: all 0.3s;
+            letter-spacing: 0.1em;
+        }
+        .step-item.active .step-btn { border-color: #fff; }
+        .step-btn:hover { background: #fff; color: #000; }
+        .step-btn.completed { 
+            border-color: #00ff00 !important; 
+            color: #00ff00 !important; 
+            cursor: default; 
+            background: transparent !important;
+        }
     </style>
 </head>
 <body>
@@ -199,13 +244,30 @@
     </section>
 
     <section class="reveal">
-        <h2>2. ХАРДЕНИНГ И БЕЗОПАСНОСТЬ </h2>
-        <p>ЧТОБЫ АКТИВ БЫЛ ОКОНЧАТЕЛЬНО ПРИВЯЗАН К ВАШЕМУ ЦИФРОВОМУ СЛЕДУ, ВЫПОЛНИТЕ ПРОТОКОЛ ЗАЩИТЫ:</p>
-        <ul>
-            <li><span>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span>-АККАУНТЕ И ПОЧТЕ.</span></li>
-            <li><span>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ ПРИЛОЖЕНИЕ <span id="guard-name-2" class="highlight">STEAM GUARD</span>.</span></li>
-            <li id="session-cleanup-item"><span>ОЧИСТКА СЕССИЙ: ПЕРЕЙДИТЕ В НАСТРОЙКИ STEAM -> MANAGE STEAM GUARD И НАЖМИТЕ DEAUTHORIZE ALL OTHER DEVICES.</span></li>
-        </ul>
+        <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ (SETUP WIZARD)</h2>
+        <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ, ЧТОБЫ АКТИВ БЫЛ ОКОНЧАТЕЛЬНО ПРИВЯЗАН К ВАШЕМУ ЦИФРОВОМУ СЛЕДУ:</p>
+        
+        <div class="wizard-container">
+            <div id="step-1" class="step-item active">
+                <div class="step-number">PHASE 01 // SECURITY</div>
+                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span>-АККАУНТЕ И ПОЧТЕ. <br>
+                <span style="font-size: 0.8rem; color: #555;">*Пароли должны быть уникальными и не повторяться.</span></p>
+                <button class="step-btn" onclick="completeStep(1)">Пароли изменены</button>
+            </div>
+
+            <div id="step-2" class="step-item">
+                <div class="step-number">PHASE 02 // IDENTITY</div>
+                <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ТЕЛЕФОНА ИЛИ ПРИЛОЖЕНИЕ <span id="guard-name-2" class="highlight">STEAM GUARD</span>.</p>
+                <button class="step-btn" onclick="completeStep(2)">Защита подтверждена</button>
+            </div>
+
+            <div id="step-3" class="step-item">
+                <div class="step-number">PHASE 03 // CLEANUP</div>
+                <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ В НАСТРОЙКАХ БЕЗОПАСНОСТИ.</p>
+                <button class="step-btn" onclick="completeStep(3)">Сессии очищены</button>
+            </div>
+        </div>
+
         <div class="warning-box">
             ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ ПО ВИНЕ ВЛАДЕЛЬЦА НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
         </div>
@@ -337,6 +399,30 @@
         dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
     }
     updateDate();
+        function completeStep(stepNumber) {
+        const currentStep = document.getElementById(`step-${stepNumber}`);
+        const currentBtn = currentStep.querySelector('.step-btn');
+        
+        // Помечаем текущую кнопку как выполненную
+        currentBtn.innerText = "ВЫПОЛНЕНО ✓";
+        currentBtn.classList.add("completed");
+        currentBtn.onclick = null;
+
+        // Активируем следующий шаг
+        const nextStep = document.getElementById(`step-${stepNumber + 1}`);
+        if (nextStep) {
+            nextStep.classList.add("active");
+            // Плавная прокрутка к следующему шагу для удобства на мобилках
+            setTimeout(() => {
+                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        } else {
+            // Если прошли всё — меняем статус в начале страницы (SUBJECT)
+            const subject = document.getElementById('subject-text');
+            subject.innerText = "SECURED (READY TO OPERATE)";
+            subject.style.color = "#00ff00";
+        }
+    }
 </script>
 </body>
 </html>
