@@ -803,17 +803,6 @@
     loadProgress();
     const guideModal = document.getElementById('guide-modal');
 
-    guideModal.addEventListener('touchmove', function(e) {
-        // Проверяем, происходит ли движение внутри разрешенных зон
-        const isScrollable = e.target.closest('.guide-scroll-container');
-        const isSlider = e.target.closest('.slider-wrapper');
-
-        // Если палец тянет мимо текста или картинок (например, по заголовку или фону) — блокируем
-        if (!isScrollable && !isSlider) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-
     // Фикс для iOS: предотвращаем "прыжок" страницы при открытии
     let currentScrollY = 0;
 
