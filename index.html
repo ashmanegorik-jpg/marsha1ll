@@ -220,7 +220,7 @@
         }
         .how-to-link:hover { opacity: 1; }
 
-        /* --- MODAL GUIDE (Слайдер + Точки) --- */
+        /* --- MODAL GUIDE (ИНТЕГРИРОВАННЫЙ СЛАЙДЕР) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -228,18 +228,19 @@
             left: 0; top: 0;
             width: 100%; height: 100%;
             background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
         .modal-content {
             background-color: #0a0a0a;
             margin: 10% auto;
-            padding: 30px 20px;
+            padding: 40px 20px 25px 20px;
             border: 1px solid #222;
             width: 85%;
             max-width: 340px; 
             position: relative;
-            border-radius: 20px; 
-            overflow: hidden; 
+            border-radius: 24px; 
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .close-modal {
             position: absolute;
@@ -250,30 +251,45 @@
             z-index: 10;
         }
 
-        .slider-container {
+        .guide-step h3 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .guide-step p { margin-bottom: 20px; }
+
+        /* СЛАЙДЕР (КАК ОДНА КАРТИНКА) */
+        .slider-viewport {
             position: relative;
             width: 100%;
-            margin: 15px 0;
             overflow: hidden;
-            border-radius: 10px;
-            border: 1px solid #222;
+            border-radius: 12px;
+            background: #111;
+            touch-action: pan-y; /* Разрешаем вертикальный скролл страницы, но ловим горизонтальный */
         }
-        .slider-wrapper {
+        .slider-track {
             display: flex;
-            transition: transform 0.4s ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             width: 100%;
         }
-        .slider-wrapper img {
+        .slider-track img {
             width: 100%;
             height: auto;
             display: block;
             flex-shrink: 0;
+            user-select: none;
+            pointer-events: none; /* Чтобы не мешать свайпу */
         }
+
         .slider-dots {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 15px;
+            margin-bottom: 10px;
         }
         .dot {
             width: 6px;
@@ -281,26 +297,29 @@
             background-color: #333;
             border-radius: 50%;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: 0.3s;
         }
         .dot.active {
             background-color: #fff;
+            transform: scale(1.2);
         }
 
-        .final-btn {
-            width: 100%;
-            margin-top: 20px;
-            background: #fff !important;
-            color: #000 !important;
-            border-color: #fff !important;
+        .modal-nav-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 0.65rem;
             font-weight: bold;
-            border-radius: 10px;
         }
 
         @media (max-width: 768px) {
             .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; top: -10px; padding-top: 20px; padding-bottom: 10px; }
             h1 { font-size: 1rem; }
-            body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
         }
     </style>
@@ -311,27 +330,23 @@
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuide()">&times;</span>
         
-        <div class="guide-scroll-container">
-            <div class="guide-step">
-                <h3 id="modal-step-title">ШАГ 1: СМЕНА ПАРОЛЯ</h3>
-                <p id="modal-step-desc">Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
-                
-                <div class="slider-container" id="slider1">
-                    <div class="slider-wrapper">
-                        <img src="img/step1_1.png" alt="Скрин 1">
-                        <img src="img/step1_2.png" alt="Скрин 2">
-                        <img src="img/step1_3.png" alt="Скрин 3">
+        <div id="modal-body" class="guide-step">
+            <h3 id="m-title">PHASE 01 // SECURITY</h3>
+            <p id="m-desc">ИНСТРУКЦИЯ ПО СМЕНЕ ПАРОЛЯ И ЗАЩИТЕ</p>
+            
+            <div class="slider-viewport" id="slider-main">
+                <div class="slider-track" id="slider-track">
                     </div>
-                </div>
-                
-                <div class="slider-dots" id="dots1">
-                    <span class="dot active" onclick="currentSlide(0)"></span>
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                </div>
             </div>
+            
+            <div class="slider-dots" id="slider-dots">
+                </div>
 
-            <button class="step-btn final-btn" onclick="closeGuide()">Понятно</button>
+            <div class="modal-nav-btns">
+                <button class="step-btn nav-btn" id="prev-btn" onclick="changeStep(-1)" style="display:none;">НАЗАД</button>
+                <button class="step-btn nav-btn" id="next-btn" onclick="changeStep(1)">ДАЛЕЕ</button>
+                <button class="step-btn nav-btn final-btn" id="finish-btn" onclick="closeGuide()" style="display:none;">ПОНЯТНО</button>
+            </div>
         </div>
     </div>
 </div>
@@ -341,7 +356,7 @@
 <div class="terminal-container">
     <header class="reveal">
         <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
-        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
+        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // 2026</div>
     </header>
 
     <section class="reveal">
@@ -374,7 +389,7 @@
                 <div class="step-number">PHASE 01 // SECURITY</div>
                 <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
                 <div class="step-controls">
-                    <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
+                    <span class="how-to-link" onclick="openGuide(0)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
                 </div>
             </div>
@@ -383,6 +398,7 @@
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
                 <div class="step-controls">
+                    <span class="how-to-link" onclick="openGuide(1)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(2)">Выполнено</button>
                 </div>
             </div>
@@ -391,13 +407,14 @@
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
                 <div class="step-controls">
+                    <span class="how-to-link" onclick="openGuide(2)">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(3)">Выполнено</button>
                 </div>
             </div>
         </div>
 
         <div class="warning-box">
-            ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ (ПО ВИНЕ ВЛАДЕЛЬЦА) НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
+            ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
         </div>
     </section>
 
@@ -413,23 +430,10 @@
 
     <section class="reveal">
         <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
-        <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
         <ul>
             <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ.</span></li>
             <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ).</span></li>
-            <li>
-                <span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. 
-                СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span>
-            </li>
-        </ul>
-    </section>
-
-    <section class="reveal">
-        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
-        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
-        <ul>
-            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
-            <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
+            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span></li>
         </ul>
     </section>
 
@@ -439,140 +443,156 @@
 </div>
 
 <script>
+    // --- ДАННЫЕ ГАЙДОВ ---
+    const guideData = [
+        {
+            title: "PHASE 01 // SECURITY",
+            desc: "Измените пароль в настройках аккаунта и на почте.",
+            imgs: ["img/step1_1.png", "img/step1_2.png", "img/step1_3.png"]
+        },
+        {
+            title: "PHASE 02 // IDENTITY",
+            desc: "Привяжите Steam Guard или телефон для защиты.",
+            imgs: ["img/step2_1.png", "img/step2_2.png"]
+        },
+        {
+            title: "PHASE 03 // CLEANUP",
+            desc: "Выйдите со всех устройств в настройках безопасности.",
+            imgs: ["img/step3_1.png", "img/step3_2.png"]
+        }
+    ];
+
+    let currentStepIdx = 0;
+    let currentImgIdx = 0;
+
+    // --- ЛОГИКА СЛАЙДЕРА И МОДАЛКИ ---
+    function renderSlider() {
+        const track = document.getElementById('slider-track');
+        const dots = document.getElementById('slider-dots');
+        const step = guideData[currentStepIdx];
+        
+        track.innerHTML = step.imgs.map(src => `<img src="${src}" alt="guide">`).join('');
+        dots.innerHTML = step.imgs.map((_, i) => `<span class="dot ${i===0?'active':''}" onclick="jumpToImg(${i})"></span>`).join('');
+        
+        document.getElementById('m-title').innerText = step.title;
+        document.getElementById('m-desc').innerText = step.desc;
+        
+        currentImgIdx = 0;
+        track.style.transform = `translateX(0)`;
+        updateNavButtons();
+    }
+
+    function jumpToImg(idx) {
+        currentImgIdx = idx;
+        const track = document.getElementById('slider-track');
+        const dots = document.querySelectorAll('.dot');
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    function changeStep(dir) {
+        currentStepIdx += dir;
+        renderSlider();
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prev-btn').style.display = currentStepIdx > 0 ? 'block' : 'none';
+        document.getElementById('next-btn').style.display = currentStepIdx < guideData.length - 1 ? 'block' : 'none';
+        document.getElementById('finish-btn').style.display = currentStepIdx === guideData.length - 1 ? 'block' : 'none';
+    }
+
+    function openGuide(idx) {
+        currentStepIdx = idx;
+        document.getElementById('guide-modal').style.display = 'block';
+        renderSlider();
+    }
+
+    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
+
+    // --- ПОДДЕРЖКА СВАЙПОВ ---
+    let touchStartX = 0;
+    const sliderMain = document.getElementById('slider-main');
+
+    sliderMain.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+    sliderMain.addEventListener('touchend', e => {
+        let touchEndX = e.changedTouches[0].screenX;
+        let diff = touchStartX - touchEndX;
+        const stepImgs = guideData[currentStepIdx].imgs;
+
+        if (Math.abs(diff) > 50) { // порог свайпа
+            if (diff > 0 && currentImgIdx < stepImgs.length - 1) jumpToImg(currentImgIdx + 1);
+            if (diff < 0 && currentImgIdx > 0) jumpToImg(currentImgIdx - 1);
+        }
+    });
+
+    // --- ОБЩАЯ ЛОГИКА ИНТЕРФЕЙСА ---
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
         for (var i = 0; i < reveals.length; i++) {
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
+            if (elementTop < windowHeight - 50) reveals[i].classList.add("active");
         }
     }
     window.addEventListener("scroll", reveal);
     reveal();
 
     const games = {
-        "fh5": "FORZA HORIZON 5",
-        "gta5-epic": "GTA V (EPIC GAMES)",
-        "gta5-steam": "GTA V (STEAM)",
-        "fifa26-ea": "FIFA 26 (EA LAUNCHER)",
-        "sot": "SEA OF THIEVES",
-        "cs2": "CS2 PRIME STATUS",
-        "rust": "RUST",
-        "dayz": "DAYZ",
-        "elden": "ELDEN RING"
+        "fh5": "FORZA HORIZON 5", "gta5-epic": "GTA V (EPIC)", "gta5-steam": "GTA V (STEAM)",
+        "fifa26-ea": "FIFA 26 (EA)", "sot": "SEA OF THIEVES", "cs2": "CS2 PRIME",
+        "rust": "RUST", "dayz": "DAYZ", "elden": "ELDEN RING"
     };
 
     const urlParams = new URLSearchParams(window.location.search);
     const gameKey = urlParams.get('game') || 'general';
     const storageKey = `marsha1ll_progress_${gameKey}`;
-    const mailLink = document.getElementById('mail-link');
 
-    if (gameKey !== 'general' && games[gameKey]) {
-        const selectedGame = games[gameKey];
-        const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea');
-        
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
-        document.title = `${selectedGame} | ACCESS PROTOCOL`;
-        document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
-
-        const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
-        document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
-        document.getElementById('platform-login-label').innerText = platformName;
-        document.getElementById('support-platform-label').innerText = platformName;
-
-        if (isEpic) {
-            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://mail.rambler.ru";
-            mailLink.innerText = "MAIL.RAMBLER.RU";
-        } else {
-            if (isEA && document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
-        }
-    } else {
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
-        mailLink.href = "https://outlook.live.com/mail/0/";
-        mailLink.innerText = "OUTLOOK.LIVE.COM";
+    if (games[gameKey]) {
+        const name = games[gameKey];
+        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${name}`;
+        document.getElementById('subject-text').innerText = name;
     }
 
-    function updateDate() {
-        const dateElement = document.getElementById('current-date');
-        const now = new Date();
-        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-    }
-    updateDate();
-
-    // СЛАЙДЕР ЛОГИКА
-    let currentSlideIndex = 0;
-    function currentSlide(n) {
-        const wrapper = document.querySelector('.slider-wrapper');
-        const dots = document.querySelectorAll('.dot');
-        currentSlideIndex = n;
-        wrapper.style.transform = `translateX(-${n * 100}%)`;
-        dots.forEach(d => d.classList.remove('active'));
-        dots[n].classList.add('active');
-    }
-
-    function openGuide() {
-        document.getElementById('guide-modal').style.display = 'block';
-        currentSlide(0); // Сброс на 1 слайд
-    }
-    function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
-    }
-
-    function completeStep(stepNumber) {
-        const currentStep = document.getElementById(`step-${stepNumber}`);
-        const currentBtn = currentStep.querySelector('.step-btn');
-        currentBtn.innerText = "ВЫПОЛНЕНО ✓";
-        currentBtn.classList.add("completed");
-        currentBtn.onclick = null;
+    function completeStep(n) {
+        const step = document.getElementById(`step-${n}`);
+        const btn = step.querySelector('.step-btn');
+        btn.innerText = "ВЫПОЛНЕНО ✓";
+        btn.classList.add("completed");
         
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
-        if (!progress.includes(stepNumber)) {
-            progress.push(stepNumber);
+        if (!progress.includes(n)) {
+            progress.push(n);
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
 
-        const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep && nextStep.style.display !== 'none') {
-            nextStep.classList.add("active");
-            setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
-        } else { checkFinalStatus(); }
+        const next = document.getElementById(`step-${n+1}`);
+        if (next) {
+            next.classList.add("active");
+            next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
     }
 
     function loadProgress() {
         const progress = JSON.parse(localStorage.getItem(storageKey)) || [];
-        progress.forEach(stepNumber => {
-            const stepEl = document.getElementById(`step-${stepNumber}`);
-            if (stepEl) {
-                const btn = stepEl.querySelector('.step-btn');
-                if(btn) {
-                    btn.innerText = "ВЫПОЛНЕНО ✓";
-                    btn.classList.add("completed");
-                    btn.onclick = null;
-                }
-                const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-                if (nextStep && nextStep.style.display !== 'none') { nextStep.classList.add("active"); }
+        progress.forEach(n => {
+            const step = document.getElementById(`step-${n}`);
+            if (step) {
+                const btn = step.querySelector('.step-btn');
+                btn.innerText = "ВЫПОЛНЕНО ✓";
+                btn.classList.add("completed");
+                const next = document.getElementById(`step-${n+1}`);
+                if (next) next.classList.add("active");
             }
         });
-        checkFinalStatus();
     }
-
-    function checkFinalStatus() {
-        const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
-        const completedSteps = document.querySelectorAll('.step-btn.completed');
-        if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
-            const subject = document.getElementById('subject-text');
-            subject.innerText = "SECURED (READY TO OPERATE)";
-            subject.style.color = "#00ff00";
-        }
-    }
-
     loadProgress();
+
+    function updateDate() {
+        const now = new Date();
+        const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        document.getElementById('current-date').innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+    }
+    updateDate();
 </script>
 
 </body>
