@@ -183,7 +183,7 @@
         
         .step-controls {
             display: flex;
-            flex-direction: column; /* Изменили на колонку для расположения под текстом */
+            flex-direction: column; 
             align-items: flex-start;
             gap: 15px;
             margin-top: 15px;
@@ -200,7 +200,6 @@
             text-transform: uppercase;
             transition: all 0.3s;
             letter-spacing: 0.1em;
-            order: 2; /* Кнопка идет после ссылки */
         }
         .step-item.active .step-btn { border-color: #fff; }
         .step-btn:hover { background: #fff; color: #000; }
@@ -218,11 +217,10 @@
             cursor: pointer;
             opacity: 0.7;
             white-space: nowrap;
-            order: 1; /* Ссылка идет первой в контейнере */
         }
         .how-to-link:hover { opacity: 1; }
 
-        /* --- MODAL GUIDE (ОБНОВЛЕНО) --- */
+        /* --- MODAL GUIDE --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -238,13 +236,13 @@
             padding: 40px 20px 20px 20px;
             border: 1px solid #222;
             width: 85%;
-            max-width: 340px; /* Еще более узкое окно */
+            max-width: 340px; 
             max-height: 75vh;
             position: relative;
             display: flex;
             flex-direction: column;
-            border-radius: 20px; /* Скругленные края */
-            overflow: hidden; /* Чтобы контент не вылезал за скругления */
+            border-radius: 20px; 
+            overflow: hidden; 
         }
         .close-modal {
             position: absolute;
@@ -280,7 +278,7 @@
             margin: 15px 0;
             border: 1px solid #222;
             display: block;
-            border-radius: 10px; /* Скругления для картинок в инструкции */
+            border-radius: 10px;
         }
         .final-btn {
             width: 100%;
@@ -406,6 +404,25 @@
         </ul>
     </section>
 
+    <section class="reveal">
+        <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
+        <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
+        <ul>
+            <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ.</span></li>
+            <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ).</span></li>
+            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ.</span></li>
+        </ul>
+    </section>
+
+    <section class="reveal">
+        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
+        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
+        <ul>
+            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
+            <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
+        </ul>
+    </section>
+
     <footer class="reveal">
         TRANSFER COMPLETE. MARSHA1LL COLLECTION 2026
     </footer>
@@ -452,6 +469,7 @@
         const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         document.getElementById('platform-login-label').innerText = platformName;
+        document.getElementById('support-platform-label').innerText = platformName;
 
         if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
