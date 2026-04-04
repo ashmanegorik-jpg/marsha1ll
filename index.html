@@ -692,8 +692,8 @@
 
     if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
-        const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea');
+        const isEpic = gameKey.toLowerCase().includes('-epic');
+        const isEA = gameKey.toLowerCase().includes('-ea');
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
