@@ -135,6 +135,30 @@
             letter-spacing: 0.1em;
             max-width: 850px;
         }
+        /* Контейнер для горизонтального скролла */
+        .screenshot-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; /* Мягкое прилипание к краю при скролле */
+            gap: 15px;
+            margin: 15px 0;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Скрываем стандартный скроллбар для эстетики MARSHA1LL */
+        .screenshot-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Стили для самих картинок в карусели */
+        .screenshot-carousel img {
+            flex: 0 0 90%; /* Скриншот занимает 90% ширины, чтобы был виден край следующего */
+            scroll-snap-align: start;
+            border: 1px solid #222;
+            border-radius: 10px;
+            background: #000;
+        }
 
         .btn-link {
             color: #fff;
@@ -307,10 +331,16 @@
         
         <div class="guide-scroll-container">
             <div class="guide-step">
-                <h3>ШАГ 1: СМЕНА ПАРОЛЯ</h3>
-                <p>Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
-                <img src="https://via.placeholder.com/400x200?text=STEP+1+SCREEN" alt="Инструкция 1">
+            <h3>ШАГ 1: СМЕНА ПАРОЛЯ</h3>
+            <p>Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
+    
+            <div class="screenshot-carousel">
+                <img src="img/step1_1.png" alt="Скрин 1">
+                <img src="img/step1_2.png" alt="Скрин 2">
+                <img src="img/step1_3.png" alt="Скрин 3">
             </div>
+        </div>
+
 
             <div class="guide-step">
                 <h3>ШАГ 2: ПОДТВЕРЖДЕНИЕ</h3>
