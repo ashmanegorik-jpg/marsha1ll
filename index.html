@@ -788,16 +788,6 @@
     // Фикс для iOS: предотвращаем "прыжок" страницы при открытии
     let currentScrollY = 0;
 
-    function openGuide() {
-        currentScrollY = window.scrollY;
-        document.getElementById('guide-modal').style.display = 'block';
-    
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${currentScrollY}px`;
-        document.body.style.width = '100%';
-        document.body.classList.add('no-scroll');
-    }
-
     function closeGuide() {
         document.getElementById('guide-modal').style.display = 'none';
     
