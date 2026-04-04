@@ -479,58 +479,11 @@
 <div id="guide-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuide()">&times;</span>
-        
-        <div class="guide-scroll-container">
-            <div class="guide-step">
-                <h3>ШАГ 1: СМЕНА ПАРОЛЯ ПЛАТФОРМЫ</h3>
-                <p>Перейдите в настройки аккаунта и выберите "Смена пароля". Используйте сложный пароль.</p>
-                <div class="slider-container">
-                    <div class="slider-wrapper" onscroll="updateDots(this)">
-                        <img src="img/step1_1.png" alt="Скрин 1">
-                        <img src="img/step1_2.png" alt="Скрин 2"> <img src="img/step1_3.png" alt="Скрин 3">
-                    </div>
-                    <div class="slider-dots">
-                        <div class="dot active"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="guide-step">
-                <h3>ШАГ 2: ПРИВЯЗКА ПОЧТЫ</h3>
-                <p>Измените email на личный и подтвердите его кодом.</p>
-                <div class="slider-container">
-                    <div class="slider-wrapper" onscroll="updateDots(this)">
-                        <img src="img/step2_1.png" alt="Скрин 2-1">
-                        <img src="img/step2_2.png" alt="Скрин 2-2">
-                    </div>
-                    <div class="slider-dots">
-                        <div class="dot active"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="guide-step">
-                <h3>ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ</h3>
-                <p>Нажмите «Выйти на всех устройствах» в разделе безопасности.</p>
-                <div class="slider-container">
-                    <div class="slider-wrapper" onscroll="updateDots(this)">
-                        <img src="img/step3_1.png" alt="Скрин 3-1">
-                        <img src="img/step3_2.png" alt="Скрин 3-2">
-                    </div>
-                    <div class="slider-dots">
-                        <div class="dot active"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="step-btn final-btn" onclick="closeGuide()">ПОНЯТНО</button>
-        </div>
+        <div id="modal-body" class="guide-scroll-container"></div>
+        <button class="step-btn final-btn" onclick="closeGuide()">ПОНЯТНО</button>
     </div>
 </div>
+
 
 <div class="main-brand-logo">MARSHA1LL</div>
 
@@ -579,6 +532,7 @@
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
                 <div class="step-controls">
+                     <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(2)">Выполнено</button>
                 </div>
             </div>
@@ -587,6 +541,7 @@
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
                 <div class="step-controls">
+                     <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(3)">Выполнено</button>
                 </div>
             </div>
@@ -635,6 +590,34 @@
 </div>
 
 <script>
+    const guides = {
+        // ФАЗА 1: Смена паролей (Общая логика, но картинки можно менять)
+        phase1: {
+            title: "ШАГ 1: СМЕНА ПАРОЛЯ И ПОЧТЫ",
+            text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
+            images: ["img/pass_1.png", "img/pass_2.png"]
+        },
+        // ФАЗА 2: 2FA (Разные инструкции для разных платформ)
+        phase2: {
+            steam: {
+                title: "ШАГ 2: STEAM GUARD",
+                text: "Скачайте приложение Steam на телефон и активируйте Mobile Authenticator в разделе Guard.",
+                images: ["img/steam_2fa_1.png", "img/steam_2fa_2.png"]
+            },
+            epic_ea: {
+                title: "ШАГ 2: ПРИВЯЗКА 2FA (EPIC/EA)",
+                text: "Включите подтверждение по почте или SMS в настройках двухфакторной аутентификации.",
+                images: ["img/epic_ea_2fa.png"]
+            }
+        },
+        // ФАЗА 3: Сессии (Только для Steam)
+        phase3: {
+            title: "ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ",
+            text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы никто другой не имел доступа к аккаунту.",
+            images: ["img/sessions_1.png"]
+        }
+    };
+
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
         for (var i = 0; i < reveals.length; i++) {
@@ -849,22 +832,49 @@
         }
     }, { passive: true });
 
-    // 2. Исправленное открытие с фиксацией
-    function openGuide() {
+    function openGuide(phase) {
+        const modalBody = document.getElementById('modal-body');
+        // Проверяем, какой сейчас лаунчер (берём из параметров URL, которые мы уже настроили ранее)
+        const isSteam = !gameKey.toLowerCase().includes('epic') && !gameKey.toLowerCase().includes('ea');
+    
+        let data;
+
+        // Выбираем нужный объект из базы данных guides (которую ты добавил выше)
+        if (phase === 1) {
+            data = guides.phase1;
+        } else if (phase === 2) {
+            // Если фаза 2, проверяем: Steam или Epic/EA
+            data = isSteam ? guides.phase2.steam : guides.phase2.epic_ea;
+        } else if (phase === 3) {
+            data = guides.phase3;
+        }
+
+        // Собираем HTML слайдера на лету
+        const imagesHtml = data.images.map(src => `<img src="${src}" alt="Instruction Step">`).join('');
+        const dotsHtml = data.images.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
+
+        // Впрыскиваем контент в модалку
+        modalBody.innerHTML = `
+            <div class="guide-step">
+                <h3>${data.title}</h3>
+                <p>${data.text}</p>
+                <div class="slider-container">
+                    <div class="slider-wrapper" onscroll="updateDots(this)">
+                        ${imagesHtml}
+                    </div>
+                    <div class="slider-dots">${dotsHtml}</div>
+                </div>
+            </div>
+        `;
+
+        // Показываем окно и блокируем фон (твой старый код фиксации)
         const scrollY = window.scrollY;
         document.body.style.top = `-${scrollY}px`;
         document.body.classList.add('no-scroll');
         document.getElementById('guide-modal').style.display = 'block';
-        document.querySelector('.guide-scroll-container').scrollTop = 0;
+        modalBody.scrollTop = 0;
     }
 
-    function closeGuide() {
-        const scrollY = parseInt(document.body.style.top || '0') * -1;
-        document.body.classList.remove('no-scroll');
-        document.body.style.top = '';
-        window.scrollTo(0, scrollY);
-        document.getElementById('guide-modal').style.display = 'none';
-    }
 </script>
 
 </body>
