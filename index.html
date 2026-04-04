@@ -135,30 +135,6 @@
             letter-spacing: 0.1em;
             max-width: 850px;
         }
-        /* Контейнер для горизонтального скролла */
-        .screenshot-carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; /* Мягкое прилипание к краю при скролле */
-            gap: 15px;
-            margin: 15px 0;
-            padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Скрываем стандартный скроллбар для эстетики MARSHA1LL */
-        .screenshot-carousel::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Стили для самих картинок в карусели */
-        .screenshot-carousel img {
-            flex: 0 0 90%; /* Скриншот занимает 90% ширины, чтобы был виден край следующего */
-            scroll-snap-align: start;
-            border: 1px solid #222;
-            border-radius: 10px;
-            background: #000;
-        }
 
         .btn-link {
             color: #fff;
@@ -244,7 +220,7 @@
         }
         .how-to-link:hover { opacity: 1; }
 
-        /* --- MODAL GUIDE --- */
+        /* --- MODAL GUIDE (Слайдер + Точки) --- */
         .modal {
             display: none; 
             position: fixed; 
@@ -256,15 +232,12 @@
         }
         .modal-content {
             background-color: #0a0a0a;
-            margin: 5% auto;
-            padding: 40px 20px 20px 20px;
+            margin: 10% auto;
+            padding: 30px 20px;
             border: 1px solid #222;
             width: 85%;
             max-width: 340px; 
-            max-height: 75vh;
             position: relative;
-            display: flex;
-            flex-direction: column;
             border-radius: 20px; 
             overflow: hidden; 
         }
@@ -276,37 +249,47 @@
             cursor: pointer;
             z-index: 10;
         }
-        .guide-scroll-container {
-            overflow-y: auto;
-            padding-right: 10px;
-            text-align: left;
-        }
-        .guide-scroll-container::-webkit-scrollbar { width: 2px; }
-        .guide-scroll-container::-webkit-scrollbar-track { background: #000; }
-        .guide-scroll-container::-webkit-scrollbar-thumb { background: #333; }
 
-        .guide-step {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #111;
-            padding-bottom: 20px;
-        }
-        .guide-step h3 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            color: #fff;
-            letter-spacing: 1px;
-        }
-        .guide-step img {
+        .slider-container {
+            position: relative;
             width: 100%;
             margin: 15px 0;
-            border: 1px solid #222;
-            display: block;
+            overflow: hidden;
             border-radius: 10px;
+            border: 1px solid #222;
         }
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            width: 100%;
+        }
+        .slider-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            flex-shrink: 0;
+        }
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background-color: #333;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .dot.active {
+            background-color: #fff;
+        }
+
         .final-btn {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 20px;
             background: #fff !important;
             color: #000 !important;
             border-color: #fff !important;
@@ -319,7 +302,6 @@
             h1 { font-size: 1rem; }
             body { padding: 20px; }
             .terminal-container { padding-top: 90px; } 
-            .modal-content { margin: 15% auto; width: 85%; }
         }
     </style>
 </head>
@@ -331,27 +313,22 @@
         
         <div class="guide-scroll-container">
             <div class="guide-step">
-            <h3>ШАГ 1: СМЕНА ПАРОЛЯ</h3>
-            <p>Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
-    
-            <div class="screenshot-carousel">
-                <img src="img/step1_1.png" alt="Скрин 1">
-                <img src="img/step1_2.png" alt="Скрин 2">
-                <img src="img/step1_3.png" alt="Скрин 3">
-            </div>
-        </div>
-
-
-            <div class="guide-step">
-                <h3>ШАГ 2: ПОДТВЕРЖДЕНИЕ</h3>
-                <p>Введите новый надежный пароль. Не забудьте сменить пароль и на привязанной почте.</p>
-                <img src="https://via.placeholder.com/400x200?text=STEP+2+SCREEN" alt="Инструкция 2">
-            </div>
-
-            <div class="guide-step">
-                <h3>ШАГ 3: ЗАВЕРШЕНИЕ</h3>
-                <p>После смены данных обязательно сохраните новые параметры в надежном месте.</p>
-                <img src="https://via.placeholder.com/400x200?text=STEP+3+SCREEN" alt="Инструкция 3">
+                <h3 id="modal-step-title">ШАГ 1: СМЕНА ПАРОЛЯ</h3>
+                <p id="modal-step-desc">Перейдите в настройки безопасности вашего аккаунта. Выберите пункт "Изменить пароль".</p>
+                
+                <div class="slider-container" id="slider1">
+                    <div class="slider-wrapper">
+                        <img src="img/step1_1.png" alt="Скрин 1">
+                        <img src="img/step1_2.png" alt="Скрин 2">
+                        <img src="img/step1_3.png" alt="Скрин 3">
+                    </div>
+                </div>
+                
+                <div class="slider-dots" id="dots1">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
             </div>
 
             <button class="step-btn final-btn" onclick="closeGuide()">Понятно</button>
@@ -395,7 +372,7 @@
         <div class="wizard-container">
             <div id="step-1" class="step-item active">
                 <div class="step-number">PHASE 01 // SECURITY</div>
-                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">EA LAUNCHER</span> И ПОЧТЕ.</p>
+                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
                 <div class="step-controls">
                     <span class="how-to-link" onclick="openGuide()">Как это сделать?</span>
                     <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
@@ -440,13 +417,18 @@
         <ul>
             <li><span>КОНФИДЕНЦИАЛЬНОСТЬ: ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ.</span></li>
             <li><span>ИГРОВАЯ ЭТИКА: КАТЕГОРИЧЕСКИ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ ЗАПРЕЩЕННОЕ ПО (ЧИТЫ).</span></li>
-            <li><span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span></li></ul></section>
+            <li>
+                <span>АВТОНОМНОСТЬ: ЛЮБЫЕ ОБРАЩЕНИЯ В СЛУЖБУ ПОДДЕРЖКИ <span id="support-platform-label" class="highlight">STEAM</span> ЗАПРЕЩЕНЫ. 
+                СИСТЕМА MARSHA1LL ОБЕСПЕЧИВАЕТ ПОЛНУЮ ТЕХНИЧЕСКУЮ ГЕРМЕТИЧНОСТЬ, И ВМЕШАТЕЛЬСТВО ОФИЦИАЛЬНОЙ ПОДДЕРЖКИ МОЖЕТ ПРИВЕСТИ К БЛОКИРОВКЕ.</span>
+            </li>
+        </ul>
+    </section>
 
     <section class="reveal">
         <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
         <ul>
-            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК И БЛОКИРОВОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
+            <li><span>СТЕРИЛЬНОСТЬ: МЫ ГАРАНТИРУЕМ ОТСУТСТВИЕ СТОРОННИХ ПРИВЯЗОК НА МОМЕНТ ПЕРЕДАЧИ.</span></li>
             <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
         </ul>
     </section>
@@ -522,21 +504,44 @@
     }
     updateDate();
 
+    // СЛАЙДЕР ЛОГИКА
+    let currentSlideIndex = 0;
+    function currentSlide(n) {
+        const wrapper = document.querySelector('.slider-wrapper');
+        const dots = document.querySelectorAll('.dot');
+        currentSlideIndex = n;
+        wrapper.style.transform = `translateX(-${n * 100}%)`;
+        dots.forEach(d => d.classList.remove('active'));
+        dots[n].classList.add('active');
+    }
+
     function openGuide() {
         document.getElementById('guide-modal').style.display = 'block';
-        document.querySelector('.guide-scroll-container').scrollTop = 0;
+        currentSlide(0); // Сброс на 1 слайд
     }
     function closeGuide() { document.getElementById('guide-modal').style.display = 'none'; }
     window.onclick = function(event) {
         if (event.target == document.getElementById('guide-modal')) { closeGuide(); }
     }
 
-    function saveProgress(step) {
+    function completeStep(stepNumber) {
+        const currentStep = document.getElementById(`step-${stepNumber}`);
+        const currentBtn = currentStep.querySelector('.step-btn');
+        currentBtn.innerText = "ВЫПОЛНЕНО ✓";
+        currentBtn.classList.add("completed");
+        currentBtn.onclick = null;
+        
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
-        if (!progress.includes(step)) {
-            progress.push(step);
+        if (!progress.includes(stepNumber)) {
+            progress.push(stepNumber);
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
+
+        const nextStep = document.getElementById(`step-${stepNumber + 1}`);
+        if (nextStep && nextStep.style.display !== 'none') {
+            nextStep.classList.add("active");
+            setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+        } else { checkFinalStatus(); }
     }
 
     function loadProgress() {
@@ -565,20 +570,6 @@
             subject.innerText = "SECURED (READY TO OPERATE)";
             subject.style.color = "#00ff00";
         }
-    }
-
-    function completeStep(stepNumber) {
-        const currentStep = document.getElementById(`step-${stepNumber}`);
-        const currentBtn = currentStep.querySelector('.step-btn');
-        currentBtn.innerText = "ВЫПОЛНЕНО ✓";
-        currentBtn.classList.add("completed");
-        currentBtn.onclick = null;
-        saveProgress(stepNumber);
-        const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep && nextStep.style.display !== 'none') {
-            nextStep.classList.add("active");
-            setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
-        } else { checkFinalStatus(); }
     }
 
     loadProgress();
