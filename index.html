@@ -504,7 +504,30 @@
             opacity: 0.7 !important;
             color: #ffffff !important;
         }
+        /* ЭТОТ БЛОК УВЕЛИЧИТ МОДАЛКУ ТОЛЬКО НА ПК */
+        @media (min-width: 1024px) {
+            .modal-content {
+                max-width: 800px !important; /* Увеличиваем ширину окна */
+                width: 80% !important;
+                padding: 40px !important;
+            }
 
+            .slider-container, 
+            .slider-wrapper img {
+                width: 100% !important; /* Растягиваем слайдер на всю ширину новой модалки */
+                height: auto !important; /* Высота подстроится пропорционально */
+                max-height: 500px !important; /* Чтобы картинка не была слишком огромной */
+                aspect-ratio: auto !important; /* Отключаем ограничение пропорций */
+            }
+
+            .guide-step h3 {
+                font-size: 1.2rem !important; /* Заголовок побольше */
+            }
+
+            .guide-step p {
+                font-size: 1rem !important; /* Текст побольше */
+            }
+        }
     </style>
 </head>
 <body>
