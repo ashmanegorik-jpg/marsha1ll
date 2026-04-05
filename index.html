@@ -8,7 +8,6 @@
     <title>MARSHA1LL | ACCESS PROTOCOL</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
-
         body {
             background-color: #000;
             color: #fff;
@@ -20,7 +19,6 @@
             padding: 10px 5% 40px 5%; 
             line-height: 1.6;
         }
-        
         .main-brand-logo {
             font-family: 'Archivo Black', sans-serif;
             font-size: 1.5rem;
@@ -38,7 +36,6 @@
             padding-bottom: 20px;
             box-sizing: border-box; 
         }
-
         .terminal-container {
             max-width: 1200px;
             width: 100%;
@@ -47,19 +44,16 @@
             gap: 20px;
             padding-top: 150px; 
         }
-
         .reveal {
             opacity: 0;
             transform: translateY(15px);
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
-
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
-
         header.reveal {
             border-bottom: 1px solid #1a1a1a;
             padding-bottom: 30px;
@@ -68,13 +62,11 @@
             opacity: 1;
             transform: translateY(0);
         }
-
         h1, h2 {
             font-family: 'Archivo Black', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.15em;
         }
-
         h1 { font-size: 1.2rem; margin: 0 0 10px 0; color: #fff; }
         h2 { 
             font-size: 0.9rem; 
@@ -83,20 +75,17 @@
             margin-top: 50px; 
             margin-bottom: 25px;
         }
-
         .meta-info {
             font-size: 0.7rem;
             color: #444;
             letter-spacing: 0.3em;
         }
-
         p, li {
             font-size: 0.95rem;
             color: #a0a0a0;
             font-weight: 400;
             max-width: 900px;
         }
-
         ul { list-style: none; padding: 0; }
         ul li { 
             margin-bottom: 15px; 
@@ -104,7 +93,6 @@
             align-items: flex-start;
             text-align: left;
         }
-
         ul li::before { 
             content: "■"; 
             color: #fff; 
@@ -113,9 +101,7 @@
             margin-top: 4px;
             flex-shrink: 0; 
         }
-
         ul li span { flex: 1; }
-
         .highlight { 
             color: #fff; 
             font-family: 'Archivo Black', sans-serif;
@@ -134,7 +120,6 @@
             touch-action: none; /* Запрещаем всё на фоне */
             overscroll-behavior: none;
         }
-
         /* Контент: разрешаем ТОЛЬКО движение вверх-вниз */
         .guide-scroll-container {
             touch-action: pan-y; 
@@ -143,7 +128,6 @@
             width: 100%;
             -webkit-overflow-scrolling: touch;
         }
-
         /* Слайдер: разрешаем ТОЛЬКО движение влево-вправо */
         .slider-wrapper {
             touch-action: pan-x; 
@@ -151,14 +135,12 @@
             display: flex;
             overflow-y: hidden; /* Чтобы картинка не дергалась вверх-вниз */
         }
-
         /* Блокировка страницы под модалкой */
         body.no-scroll {
             overflow: hidden;
             position: fixed;
             width: 100%;
         }
-
         /* Блокировка фона для iOS и Android */
         body.no-scroll {
             overflow: hidden;
@@ -166,32 +148,27 @@
             width: 100%;
             height: 100%;
         }
-
         /* Сама подложка модалки — должна быть неподвижной */
         .modal {
             touch-action: none; /* Запрещаем любые жесты на темном фоне */
             overscroll-behavior: none;
         }
-
         /* Контентная часть — разрешаем только вертикальный скролл */
         .guide-scroll-container {
             touch-action: pan-y; 
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
-
         /* Слайдер — разрешаем только горизонтальный скролл */
         .slider-wrapper {
             touch-action: pan-x;
             overscroll-behavior: contain;
         }
-
         /* Улучшаем поведение скролла в модалке */
         .slider-wrapper {
             touch-action: pan-x; /* Разрешаем только горизонтальные жесты пальцем */
             overscroll-behavior-x: contain; /* Предотвращаем переход прокрутки на родителя */
         }
-
         /* --- НОВЫЙ СЛАЙДЕР ВНУТРИ МОДАЛКИ --- */
         .slider-container {
             position: relative;
@@ -202,7 +179,6 @@
             border: 1px solid #222;
             background: #111;
         }
-
         .slider-wrapper {
             display: flex;
             overflow-x: auto;
@@ -210,12 +186,10 @@
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
-
         /* Скрываем полосу прокрутки, чтобы было чисто */
         .slider-wrapper::-webkit-scrollbar {
             display: none;
         }
-
         .slider-wrapper img {
             width: 300px;
             height: 300px;
@@ -226,7 +200,6 @@
             pointer-events: auto;
             cursor: zoom-in;
         }
-
         .slider-dots {
             display: flex;
             justify-content: center;
@@ -238,7 +211,6 @@
             z-index: 10;
             pointer-events: none;
         }
-
         .dot {
             width: 6px;
             height: 6px;
@@ -246,13 +218,11 @@
             border-radius: 50%;
             transition: all 0.3s ease;
         }
-
         .dot.active {
             background-color: #fff; /* Белая точка для активной картинки */
             transform: scale(1.3);
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
-
         /* Обновленный контейнер для скролла в модалке */
         .guide-scroll-container {
             max-height: 70vh; /* Высота окна — 70% от экрана */
@@ -260,7 +230,6 @@
             padding-right: 10px;
             text-align: left;
         }
-
         /* Стилизация полосы прокрутки (скроллбара) */
         .guide-scroll-container {
             max-height: none; /* Убираем ограничение */
@@ -268,43 +237,33 @@
             padding: 0;
             margin: 0;
         }
-
         .guide-step h3 {
             margin: 0 0 5px 0;
             font-size: 0.75rem;
         }
-
         .guide-step p {
             font-size: 0.75rem;
             margin: 5px 0;
             color: #a0a0a0;
             line-height: 1.3;
         }
-
-    
             /* Скрытие для Firefox */
             scrollbar-width: none; 
-    
             /* Скрытие для IE и Edge */
             -ms-overflow-style: none; 
         }
-
         /* Скрытие для Chrome, Safari и Opera */
         .guide-scroll-container::-webkit-scrollbar {
             display: none; 
         }
-
-
         .guide-step {
             margin-bottom: 0px; /* Отступ между шагами при скролле */
             border-bottom: none;
             padding-bottom: 0px;
         }
-
         .guide-step:last-child {
             border-bottom: none;
         }
-
         .guide-step h3 {
             font-family: 'Archivo Black', sans-serif;
             font-size: 0.75rem;
@@ -312,7 +271,6 @@
             letter-spacing: 0.1em;
             margin-bottom: 10px;
         }
-
         .warning-box {
             border: 1px solid #330000;
             padding: 25px;
@@ -325,7 +283,6 @@
             letter-spacing: 0.1em;
             max-width: 850px;
         }
-
         footer {
             margin-top: 80px;
             padding: 40px 0;
@@ -337,7 +294,6 @@
             font-family: 'Archivo Black', sans-serif;
             width: 100%;
         }
-
         /* --- SETUP WIZARD --- */
         .wizard-container {
             margin-top: 30px;
@@ -361,7 +317,6 @@
             letter-spacing: 0.2em;
         }
         .step-item.active .step-number { color: #fff; }
-        
         .step-controls {
             display: flex;
             flex-direction: column; 
@@ -369,7 +324,6 @@
             gap: 15px;
             margin-top: 15px;
         }
-
         .step-btn {
             background: transparent;
             border: 1px solid #333;
@@ -390,7 +344,6 @@
             cursor: default; 
             background: transparent !important;
         }
-
         .how-to-link {
             font-size: 0.8rem;
             color: #fff;
@@ -400,7 +353,6 @@
             white-space: nowrap;
         }
         .how-to-link:hover { opacity: 1; }
-
         /* --- MODAL GUIDE (Слайдер + Точки) --- */
         .modal {
             display: none; 
@@ -413,20 +365,17 @@
         }
         .modal-content {
             background-color: #0a0a0a;
-            padding: 25px;
+            padding: 20px;
             border: 1px solid #222;
-            /* На мобилках будет 90% ширины, на ПК до 600px (или больше, по желанию) */
-            width: 90%; 
-            max-width: 600px; 
-            border-radius: 24px;
+            width: 82%;
+            max-width: 300px; 
+            border-radius: 24px; 
             display: flex;
+            height: auto;
             flex-direction: column;
-            gap: 15px;
-            position: relative;
-            /* Центрирование */
-            margin: auto;
+            gap: 10px;
+            align-self: center;
         }
-
         /* Выравнивание модалки по центру экрана */
         .modal {
             display: none; 
@@ -447,17 +396,15 @@
             cursor: pointer;
             z-index: 10;
         }
-
-        /* Настраиваем размер слайдера под новую ширину контента */
         .slider-container {
             position: relative;
             width: 100%;
             overflow: hidden;
             border-radius: 12px;
             border: 1px solid #222;
-            /* Соотношение сторон, чтобы картинки не были слишком высокими на ПК */
-            aspect-ratio: 16 / 9; 
-            margin: 10px 0;
+            aspect-ratio: 16 / 10;
+            margin: 5px 0;
+        }
         .slider-wrapper {
             display: flex;
             transition: transform 0.4s ease-in-out;
@@ -466,14 +413,13 @@
         .slider-wrapper img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Чтобы картинка не обрезалась на больших экранах */
-            background: #000;
+            object-fit: cover;
+            display: block;
             flex-shrink: 0;
         }
         .dot.active {
             background-color: #fff;
         }
-
         .final-btn {
             width: 100%;
             margin-top: 10px;
@@ -502,12 +448,10 @@
             -webkit-text-fill-color: initial !important; /* Сбрасываем блокировку цвета */
             opacity: 1 !important;
         }
-
         a#mail-link:hover {
             opacity: 0.7 !important;
             color: #ffffff !important;
         }
-
     </style>
 </head>
 <body>
@@ -515,7 +459,6 @@
     <span style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer;">&times;</span>
     <img id="full-image" style="max-width: 95%; max-height: 95%; object-fit: contain; border: 1px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.5);" onclick="event.stopPropagation()">
 </div>
-
 <div id="guide-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuide()">&times;</span>
@@ -526,20 +469,17 @@
 
 
 <div class="main-brand-logo">MARSHA1LL</div>
-
 <div class="terminal-container">
     <header class="reveal">
         <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
         <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
     </header>
-
     <section class="reveal">
         <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
         <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
         <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
         <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
     </section>
-
     <section class="reveal">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
         <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (В ЧАТЕ ПОКУПКИ):</p>
@@ -553,11 +493,9 @@
            2. Затем введите данные в клиенте <span id="platform-name-1">STEAM</span>.<br>
            3. При запросе кода защиты — получите его в открытой почте.</p>
     </section>
-
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
-        
         <div class="wizard-container">
     <div id="step-1" class="step-item active">
         <div class="step-number">PHASE 01 // SECURITY</div>
@@ -567,7 +505,6 @@
             <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
         </div>
     </div>
-
     <div id="step-2" class="step-item">
         <div class="step-number">PHASE 02 // IDENTITY</div>
         <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
@@ -576,7 +513,6 @@
             <button class="step-btn" onclick="completeStep(2)">Выполнено</button>
         </div>
     </div>
-
     <div id="step-3" class="step-item">
         <div class="step-number">PHASE 03 // CLEANUP</div>
         <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
@@ -586,12 +522,10 @@
         </div>
     </div>
 </div>
-
         <div class="warning-box">
             ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ (ПО ВИНЕ ВЛАДЕЛЬЦА) НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
         </div>
     </section>
-
     <section class="reveal">
         <h2>3. ЭКСПЛУАТАЦИЯ </h2>
         <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
@@ -601,7 +535,6 @@
             <li><span>ГЛОБАЛЬНЫЙ ДОСТУП: АКТИВ GLOBAL VERIFIED — РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ VPN.</span></li>
         </ul>
     </section>
-
     <section class="reveal">
         <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
         <p>ВО ИЗБЕЖАНИЕ БЛОКИРОВКИ АКТИВА СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ:</p>
@@ -614,7 +547,6 @@
             </li>
         </ul>
     </section>
-
     <section class="reveal">
         <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
@@ -623,12 +555,10 @@
             <li><span>ПОДДЕРЖКА: ЕСЛИ ВОЗНИКЛИ ВОПРОСЫ — НАПИШИТЕ В ЧАТ ПОКУПКИ.</span></li>
         </ul>
     </section>
-
     <footer class="reveal">
         TRANSFER COMPLETE. MARSHA1LL COLLECTION 2026
     </footer>
 </div>
-
 <script>
     const guides = {
         // ШАГ 1: Смена пароля (Аккаунт + Почта)
@@ -678,7 +608,6 @@
     }
     window.addEventListener("scroll", reveal);
     reveal();
-
     const games = {
         "fh5": "FORZA HORIZON 5",
         "gta5-epic": "GTA V (EPIC GAMES)",
@@ -694,19 +623,17 @@
         "fh4": "FORZA HORIZON 4",
         "bg3": "BALDUR'S GATE 3"
     };
-
     const urlParams = new URLSearchParams(window.location.search);
     const gameKey = urlParams.get('game') || 'general';
     const storageKey = `marsha1ll_progress_${gameKey}`;
     const mailLink = document.getElementById('mail-link');
-
     if (gameKey !== 'general' && games[gameKey]) {
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
-        
+
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
-        document.title = `${selectedGame} | ACCESS PROTOCOL`;
+        document.title = `${selectedGame} | ACCESS PROTOCOL`
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
         const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
@@ -749,13 +676,12 @@
         currentBtn.innerText = "ВЫПОЛНЕНО ✓";
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
-        
+
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         if (!progress.includes(stepNumber)) {
             progress.push(stepNumber);
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
-
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
         if (nextStep && nextStep.style.display !== 'none') {
             nextStep.classList.add("active");
@@ -785,7 +711,7 @@
         const scrollLeft = el.scrollLeft;
         const width = el.offsetWidth;
         const index = Math.round(scrollLeft / width);
-    
+
         // Находим контейнер с точками, который идет сразу после слайдера
         const dotsContainer = el.parentElement.querySelector('.slider-dots');
         if (dotsContainer) {
@@ -832,7 +758,6 @@
         // Проверяем, происходит ли движение внутри разрешенных зон
         const isScrollable = e.target.closest('.guide-scroll-container');
         const isSlider = e.target.closest('.slider-wrapper');
-
         // Если палец тянет мимо текста или картинок (например, по заголовку или фону) — блокируем
         if (!isScrollable && !isSlider) {
             e.preventDefault();
@@ -844,7 +769,7 @@
 
     function closeGuide() {
         document.getElementById('guide-modal').style.display = 'none';
-    
+
         document.body.classList.remove('no-scroll');
         document.body.style.position = '';
         document.body.style.top = '';
@@ -854,76 +779,6 @@
     // 1. Блокируем любые горизонтальные свайпы вне слайдера
     document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
         const isSlider = e.target.closest('.slider-wrapper');
-    
         if (!isSlider) {
             // Если мы не на слайдере, разрешаем только вертикальный скролл
-            // Но так как у нас pan-y в CSS, браузер сам это поймет.
-            // Здесь мы просто страхуемся от "плавания" всей модалки:
-            if (Math.abs(e.changedTouches[0].pageX) > Math.abs(e.changedTouches[0].pageY)) {
-                 // Если движение больше горизонтальное, чем вертикальное - отменяем
-            }
-        }
-    }, { passive: true });
-
-        function openGuide(phase) {
-        const modalBody = document.getElementById('modal-body');
-        const modalEl = document.getElementById('guide-modal');
-        
-        // Определяем платформу
-        const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea');
-    
-        let data;
-        let currentImages = [];
-
-        // Выбираем данные в зависимости от фазы
-        if (phase === 1) {
-            data = guides.phase1;
-            currentImages = data.getImages(isEpic, isEA);
-        } else if (phase === 2) {
-            data = guides.phase2;
-            currentImages = data.getImages(isEpic, isEA);
-        } else if (phase === 3) {
-            data = guides.phase3;
-            currentImages = data.images;
-        }
-
-        // Генерируем HTML для картинок
-        // Внутри функции openGuide
-const imagesHtml = currentImages.map(src => 
-    `<img src="${src}" alt="Step" 
-          onclick="showFullImage('${src}', event)" 
-          style="cursor: zoom-in;">`
-).join('');
-        const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
-
-        modalBody.innerHTML = `
-            <div class="guide-step">
-                <h3>${data.title}</h3>
-                <div class="slider-container">
-                    <div class="slider-wrapper" onscroll="updateDots(this)">
-                        ${imagesHtml}
-                    </div>
-                    <div class="slider-dots">${dotsHtml}</div>
-                </div>
-                <p>${data.text}</p>
-            </div>
-        `;
-
-        currentScrollY = window.scrollY;
-        document.body.style.top = `-${currentScrollY}px`;
-        document.body.classList.add('no-scroll');
-        
-        modalEl.style.display = 'flex'; 
-    }
-    function showFullImage(src, event) {
-        if (event) event.stopPropagation(); // Предотвращаем закрытие модалки
-        const viewer = document.getElementById('image-viewer');
-        const fullImg = document.getElementById('full-image');
-        fullImg.src = src;
-        viewer.style.display = 'flex';
-    }
-</script>
-
-</body>
-</html>
+            // Но так как у нас pan-y в
