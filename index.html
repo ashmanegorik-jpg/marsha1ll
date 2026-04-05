@@ -512,7 +512,45 @@
                 padding: 40px !important;
             }
 
-            .slider-container, 
+            .slider-container {
+                position: relative;
+            } 
+            /* Стили стрелок */
+            .nav-btn {
+                display: block !important; /* Показываем только на ПК */
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 20;
+                font-size: 18px;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(5px);
+                opacity: 0; /* Скрываем по умолчанию */
+            }
+
+            .slider-container:hover .nav-btn {
+                opacity: 1; /* Показываем при наведении мышки */
+            }
+
+            .nav-btn:hover {
+                background: rgba(255, 255, 255, 0.3);
+            }
+
+            .nav-btn.prev { left: 10px; }
+            .nav-btn.next { right: 10px; }
+        }
+
+        /* Скрываем кнопки для мобильных устройств (чтобы не мешали свайпам) */
+        .nav-btn {
+            display: none;
+        }
             .slider-wrapper img {
                 width: 100% !important; /* Растягиваем слайдер на всю ширину новой модалки */
                 height: auto !important; /* Высота подстроится пропорционально */
@@ -885,18 +923,14 @@
         }
     }, { passive: true });
 
-        function openGuide(phase) {
+    function openGuide(phase) {
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
-        
-        // Определяем платформу
         const isEpic = gameKey.toLowerCase().includes('epic');
         const isEA = gameKey.toLowerCase().includes('ea');
-    
         let data;
         let currentImages = [];
 
-        // Выбираем данные в зависимости от фазы
         if (phase === 1) {
             data = guides.phase1;
             currentImages = data.getImages(isEpic, isEA);
@@ -908,22 +942,22 @@
             currentImages = data.images;
         }
 
-        // Генерируем HTML для картинок
-        // Внутри функции openGuide
-const imagesHtml = currentImages.map(src => 
-    `<img src="${src}" alt="Step" 
-          onclick="showFullImage('${src}', event)" 
-          style="cursor: zoom-in;">`
-).join('');
+        const imagesHtml = currentImages.map(src =>
+            `<img src="${src}" alt="Step" onclick="showFullImage('${src}', event)" style="cursor: zoom-in;">`
+        ).join('');
+    
         const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
 
+        // ДОБАВЛЯЕМ КНОПКИ НАВИГАЦИИ (они будут скрыты на мобилках через CSS)
         modalBody.innerHTML = `
             <div class="guide-step">
                 <h3>${data.title}</h3>
                 <div class="slider-container">
+                    <button class="nav-btn prev" onclick="moveSlider(this, -1)">&#10094;</button>
                     <div class="slider-wrapper" onscroll="updateDots(this)">
                         ${imagesHtml}
                     </div>
+                    <button class="nav-btn next" onclick="moveSlider(this, 1)">&#10095;</button>
                     <div class="slider-dots">${dotsHtml}</div>
                 </div>
                 <p>${data.text}</p>
@@ -933,8 +967,14 @@ const imagesHtml = currentImages.map(src =>
         currentScrollY = window.scrollY;
         document.body.style.top = `-${currentScrollY}px`;
         document.body.classList.add('no-scroll');
-        
-        modalEl.style.display = 'flex'; 
+        modalEl.style.display = 'flex';
+    }
+
+    // НОВАЯ ФУНКЦИЯ ДЛЯ ПК (ПРОКРУТКА КНОПКАМИ)
+    function moveSlider(btn, direction) {
+        const wrapper = btn.parentElement.querySelector('.slider-wrapper');
+        const scrollAmount = wrapper.offsetWidth;
+        wrapper.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
     }
     function showFullImage(src, event) {
         if (event) event.stopPropagation(); // Предотвращаем закрытие модалки
