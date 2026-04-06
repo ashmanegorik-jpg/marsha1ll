@@ -953,8 +953,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const currentGameKey = urlParams.get('game') || 'general';
     
-        const checkEpic = currentGameKey.toLowerCase().includes('epic');
-        const checkEA = currentGameKey.toLowerCase().includes('ea');
+        const checkEpic = currentGameKey.toLowerCase().includes('-epic');
+        const checkEA = currentGameKey.toLowerCase().includes('-ea');
     
         let data;
         let currentImages = [];
