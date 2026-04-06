@@ -424,18 +424,6 @@
             gap: 10px;
             align-self: center;
         }
-        /* Обновленный стиль для изображений в модальном окне */
-        .modal-content img {
-            width: 100%;             /* Растягиваем по ширине контейнера */
-            height: auto;            /* Высота подстраивается автоматически, сохраняя пропорции */
-            max-height: 80vh;        /* Ограничиваем максимальную высоту (80% от высоты экрана), чтобы не вылезала за пределы */
-            object-fit: contain;     /* МАГИЯ ЗДЕСЬ: картинка масштабируется, чтобы полностью поместиться, БЕЗ ОБРЕЗКИ */
-            border-radius: 8px;      /* Оставляем красивые скругленные углы */
-            display: block;          /* Убираем возможные отступы снизу */
-            margin: 0 auto;          /* Центрируем картинку, если она уже контейнера */
-        }
-
-        /* Выравнивание модалки по центру экрана */
         .modal {
             display: none; 
             position: fixed; 
@@ -470,12 +458,16 @@
             transition: transform 0.4s ease-in-out;
             width: 100%;
         }
+        /* Ищи этот селектор в блоке стилей */
         .slider-wrapper img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+            height: auto;            /* Авто-высота для сохранения пропорций */
+            max-height: 70vh;        /* Ограничение высоты, чтобы не вылезало за экран */
+            object-fit: contain;     /* ГЛАВНОЕ: картинка не обрезается, а вписывается */
             flex-shrink: 0;
+            scroll-snap-align: start;
+            display: block;
+            background-color: #000;  /* Черный фон, если картинка узкая */
         }
         .dot.active {
             background-color: #fff;
