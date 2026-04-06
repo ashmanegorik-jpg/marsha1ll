@@ -948,17 +948,24 @@
     function openGuide(phase) {
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
-        const isEpic = gameKey.toLowerCase().includes('epic');
-        const isEA = gameKey.toLowerCase().includes('ea');
+    
+        // ПРИНУДИТЕЛЬНАЯ ПРОВЕРКА прямо в функции
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentGameKey = urlParams.get('game') || 'general';
+    
+        const checkEpic = currentGameKey.toLowerCase().includes('epic');
+        const checkEA = currentGameKey.toLowerCase().includes('ea');
+    
         let data;
         let currentImages = [];
 
         if (phase === 1) {
             data = guides.phase1;
-            currentImages = data.getImages(isEpic, isEA);
+            // Передаем точные значения
+            currentImages = data.getImages(checkEpic, checkEA, currentGameKey);
         } else if (phase === 2) {
             data = guides.phase2;
-            currentImages = data.getImages(isEpic, isEA);
+            currentImages = data.getImages(checkEpic, checkEA);
         } else if (phase === 3) {
             data = guides.phase3;
             currentImages = data.images;
@@ -967,10 +974,8 @@
         const imagesHtml = currentImages.map(src =>
             `<img src="${src}" alt="Step" onclick="showFullImage('${src}', event)" style="cursor: zoom-in;">`
         ).join('');
-    
-        const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
 
-        // ПРОВЕРКА: Нужны ли стрелки и точки (только если картинок > 1)
+        const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
         const hasMultipleImages = currentImages.length > 1;
         const navButtons = hasMultipleImages ? `
             <button class="nav-btn prev" onclick="moveSlider(this, -1)">&#10094;</button>
@@ -997,6 +1002,7 @@
         document.body.classList.add('no-scroll');
         modalEl.style.display = 'flex';
     }
+
 
     // НОВАЯ ФУНКЦИЯ ДЛЯ ПК (ПРОКРУТКА КНОПКАМИ)
     function moveSlider(btn, direction) {
