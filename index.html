@@ -54,15 +54,6 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
-        .log-entry {
-            transition: opacity 2s ease-in-out;
-            opacity: 1;
-            margin-bottom: 2px;
-        }
-
-        .log-entry.fade-out {
-            opacity: 0;
-        }
 
         .reveal.active {
             opacity: 1;
@@ -515,6 +506,7 @@
                 padding: 15px; 
                 width: 85%;
             }
+        }
         /* Полная изоляция цвета ссылки от системных фильтров */
         a#mail-link, 
         a#mail-link:visited, 
@@ -599,28 +591,9 @@
                 font-size: 1rem !important; /* Текст побольше */
             }
         }
-                /* SYSTEM LOG STYLE */
-        #system-log {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-family: monospace;
-            font-size: 9px;
-            color: #444; /* Тусклый цвет в стиле Balenciaga */
-            text-transform: uppercase;
-            pointer-events: none;
-            z-index: 1000;
-            line-height: 1.4;
-            letter-spacing: 1px;
-        }
-        @media (max-width: 768px) {
-            #system-log { bottom: 10px; left: 10px; font-size: 7px; }
-        }
-
     </style>
 </head>
 <body>
-<div id="system-log">[SYSTEM READY]</div>
 <div id="image-viewer" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.98); backdrop-filter: blur(10px); align-items: center; justify-content: center;" onclick="this.style.display='none'">
     <span style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer;">&times;</span>
     <img id="full-image" style="max-width: 95%; max-height: 95%; object-fit: contain; border: 1px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.5);" onclick="event.stopPropagation()">
@@ -774,37 +747,7 @@
             images: ["Снимок экрана 2026-04-06 152305.png"]
         }
     };
-    function logAction(message) {
-        const logContainer = document.getElementById('system-log');
-        const now = new Date();
-        const time = now.getHours().toString().padStart(2, '0') + ":" + 
-                     now.getMinutes().toString().padStart(2, '0') + ":" + 
-                     now.getSeconds().toString().padStart(2, '0');
-    
-        // Создаем новый элемент строки
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.innerHTML = `[${time}] ${message.toUpperCase()}`;
-    
-        // Добавляем в контейнер
-        logContainer.appendChild(entry);
 
-        // Удаляем старые записи из DOM (если их больше 10), чтобы не грузить память
-        if (logContainer.childNodes.length > 10) {
-            logContainer.removeChild(logContainer.firstChild);
-        }
-
-        // Через 3 секунды начинаем плавно скрывать
-        setTimeout(() => {
-            entry.classList.add('fade-out');
-            // Через 2 секунды после начала анимации (время из CSS) полностью удаляем
-            setTimeout(() => {
-                if (entry.parentNode === logContainer) {
-                    logContainer.removeChild(entry);
-                }
-            }, 2000);
-        }, 3000); 
-    }
 
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
@@ -889,7 +832,6 @@
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
-        logAction(`Phase 0${stepNumber} initialisation complete`);
         currentBtn.innerText = "ВЫПОЛНЕНО ✓";
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
@@ -987,7 +929,6 @@
     let currentScrollY = 0;
 
     function closeGuide() {
-        logAction(`Manual session terminated`);
         document.getElementById('guide-modal').style.display = 'none';
     
         document.body.classList.remove('no-scroll');
@@ -1011,7 +952,6 @@
     }, { passive: true });
 
     function openGuide(phase) {
-        logAction(`Accessing encrypted manual: phase 0${phase}`);
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
     
@@ -1077,16 +1017,12 @@
         wrapper.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
     }
     function showFullImage(src, event) {
-        logAction(`Visual asset expanded: ${src.substring(0, 10)}...`);
         if (event) event.stopPropagation(); // Предотвращаем закрытие модалки
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
         fullImg.src = src;
         viewer.style.display = 'flex';
     }
-    // Инициализация при загрузке страницы
-        logAction("System check: all modules nominal");
-
 </script>
 
 </body>
