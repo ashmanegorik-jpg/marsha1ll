@@ -506,7 +506,6 @@
                 padding: 15px; 
                 width: 85%;
             }
-        }
         /* Полная изоляция цвета ссылки от системных фильтров */
         a#mail-link, 
         a#mail-link:visited, 
@@ -1054,7 +1053,7 @@
         wrapper.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
     }
     function showFullImage(src, event) {
-        logAction(`Visual asset expanded: ${src.substring(0, 10)...`);
+        logAction(`Visual asset expanded: ${src.substring(0, 10)}...`);
         if (event) event.stopPropagation(); // Предотвращаем закрытие модалки
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
