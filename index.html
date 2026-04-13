@@ -1013,7 +1013,6 @@
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
     
-        // ПРИНУДИТЕЛЬНАЯ ПРОВЕРКА прямо в функции
         const urlParams = new URLSearchParams(window.location.search);
         const currentGameKey = urlParams.get('game') || 'general';
     
@@ -1025,11 +1024,12 @@
 
         if (phase === 1) {
             data = guides.phase1;
-            // Передаем точные значения
+            // Передаем 3 аргумента: Epic?, EA?, Название игры?
             currentImages = data.getImages(checkEpic, checkEA, currentGameKey);
         } else if (phase === 2) {
             data = guides.phase2;
-            currentImages = data.getImages(checkEpic, checkEA);
+            // ТУТ БЫЛА ОШИБКА: теперь тоже передаем 3 аргумента
+            currentImages = data.getImages(checkEpic, checkEA, currentGameKey);
         } else if (phase === 3) {
             data = guides.phase3;
             currentImages = data.images;
