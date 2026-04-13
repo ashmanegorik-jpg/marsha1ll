@@ -760,40 +760,37 @@
 
 <script>
     const guides = {
-        // ШАГ 1: Смена пароля (Аккаунт + Почта)
         phase1: {
             title: "ШАГ 1: СМЕНА ПАРОЛЯ",
-            text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
-            // Эта функция выбирает ПАРУ картинок
-        getImages: (isEpic, isEA, gameKey) => {
-            if (isEpic) {
-                return ["Снимок экрана 2026-04-06 152628.png", "Снимок экрана 2026-04-06 153452.png"]; 
-            } else if (isEA) {
-                return ["Снимок экрана 2026-04-06 153150.png", "Снимок экрана 2026-04-06 153332.png"]; 
-            } else {
-                // Гарантированный Steam (включая dbd-steam)
-                return ["Снимок экрана 2026-04-06 152056.png", "Снимок экрана 2026-04-06 152755.png"]; 
+            text: "Зайдите в настройки безопасности вашего аккаунта. Для Minecraft это обычно сайт account.microsoft.com. Установите новый сложный пароль.",
+            getImages: (isEpic, isEA, gameKey) => {
+                if (gameKey === 'minecraft') {
+                    // Твои названия файлов со скринами для майнкрафта
+                    return ["mine_pass_1.png", "mine_pass_2.png"]; 
+                }
+                if (isEpic) return ["Снимок экрана 2026-04-06 152628.png", "Снимок экрана 2026-04-06 153452.png"];
+                if (isEA) return ["Снимок экрана 2026-04-06 153150.png", "Снимок экрана 2026-04-06 153332.png"];
+                return ["Снимок экрана 2026-04-06 152056.png", "Снимок экрана 2026-04-06 152755.png"];
             }
-        }
-    },
-        // ШАГ 2: Привязка защиты (2FA)
+        },
         phase2: {
             title: "ШАГ 2: ПРИВЯЗКА ЗАЩИТЫ (2FA)",
-            text: "Включите двухфакторную аунтификацию для максимальной безопасности.",
-        getImages: (isEpic, isEA) => {
-            if (isEpic) return ["Снимок экрана 2026-04-06 152703.png"];
-            if (isEA) return ["Снимок экрана 2026-04-06 153244.png"];
-            return ["Снимок экрана 2026-04-06 152205.png"]; // Картинка Steam
-        }
-    },
-        // ШАГ 3: Сессии (только для Steam)
+            text: "Включите двухфакторную аутентификацию (код на телефон или приложение), чтобы полностью закрепить аккаунт за собой.",
+            getImages: (isEpic, isEA, gameKey) => {
+                if (gameKey === 'minecraft') {
+                    return ["mine_2fa.png"]; // Скрин 2FA для майна
+                }
+                if (isEpic) return ["Снимок экрана 2026-04-06 152703.png"];
+                if (isEA) return ["Снимок экрана 2026-04-06 153244.png"];
+                return ["Снимок экрана 2026-04-06 152205.png"];
+            }
+        },
         phase3: {
             title: "ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ",
-            text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы закрепить доступ.",
+            text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы никто другой не мог войти в аккаунт.",
             images: ["Снимок экрана 2026-04-06 152305.png"]
         }
     };
-
 
     function reveal() {
         var reveals = document.querySelectorAll(".reveal");
@@ -819,7 +816,7 @@
         "dbd-steam": "DEAD BY DAYLIGHT (STEAM)",
         "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
         "fh4": "FORZA HORIZON 4",
-        "minecraft": "MINECRAFT (JAVA + BEDROCK)",
+        "mct": "MINECRAFT (JAVA + BEDROCK)",
         "bg3": "BALDUR'S GATE 3",
         "cp77": "CYBERPUNK 2077",
         "dl2": "DYING LIGHT 2: STAY HUMAN",
@@ -835,31 +832,42 @@
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
+        const isMinecraft = gameKey.toLowerCase() === 'minecraft'; // Новая проверка
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
-        const platformName = isEpic ? "EPIC GAMES" : (isEA ? "EA LAUNCHER" : "STEAM");
+        // Определяем название лаунчера
+        let platformName = "STEAM";
+        if (isEpic) platformName = "EPIC GAMES";
+        else if (isEA) platformName = "EA LAUNCHER";
+        else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
+        
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         document.getElementById('platform-login-label').innerText = platformName;
         document.getElementById('support-platform-label').innerText = platformName;
 
-        if (isEpic) {
+        // Настройка ссылок на почту
+        if (isMinecraft) {
+            // Скрываем 3-й шаг (сессии), если для майна он не нужен
+            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
+            mailLink.href = "https://outlook.live.com/";
+            mailLink.innerText = "OUTLOOK.COM";
+        } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
             mailLink.innerText = "MAIL.RAMBLER.RU";
         } else if (isEA) {
-            // ДОБАВЛЯЕМ УСЛОВИЕ ДЛЯ EA
             if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://firstmail.ltd/webmail/login/";
             mailLink.innerText = "FIRSTMAIL.LTD";
         } else {
-            if (isEA && document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
-    } else {
+    } 
+      else {
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
         mailLink.href = "https://outlook.live.com/mail/0/";
         mailLink.innerText = "OUTLOOK.LIVE.COM";
