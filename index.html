@@ -777,7 +777,7 @@
             title: "ШАГ 2: ПРИВЯЗКА ЗАЩИТЫ (2FA)",
             text: "Включите двухфакторную аутентификацию (код на телефон или приложение), чтобы полностью закрепить аккаунт за собой.",
             getImages: (isEpic, isEA, gameKey) => {
-                if (gameKey === 'minecraft') {
+                if (gameKey === 'mct') {
                     return ["mine_2fa.png"]; // Скрин 2FA для майна
                 }
                 if (isEpic) return ["Снимок экрана 2026-04-06 152703.png"];
@@ -832,7 +832,7 @@
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
-        const isMinecraft = gameKey.toLowerCase() === 'minecraft'; // Новая проверка
+        const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
