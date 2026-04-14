@@ -154,16 +154,32 @@
             -webkit-tap-highlight-color: transparent; /* Убираем синий блик на смартфонах */
         }
 
-        /* При наведении и ФОКУСЕ (после клика) — делаем серым или белым только при ховере */
-        .copy-btn:hover {
-            color: #fff !important;
+        /* Ховер только для ПК */
+        @media (hover: hover) {
+            .copy-btn:hover {
+                color: #fff !important;
+            }
         }
 
-        /* Чтобы после клика она не оставалась белой */
-        .copy-btn:focus, .copy-btn:active {
-            color: #444 !important;
+        /* Эффект нажатия для всех устройств */
+        .copy-btn:active {
+            color: #fff !important;
+            transform: scale(1.1); /* Слегка увеличим при клике для отклика */
+            transition: transform 0.1s;
+        }
+
+        /* Убираем лишние эффекты фокуса, которые Safari держит после нажатия */
+        .copy-btn:focus {
+            color: #444 !important; /* Возвращаем к исходному серому */
             outline: none;
         }
+
+        /* Состояние при копировании — зеленый (высший приоритет) */
+        .copy-btn.copied {
+            color: #00ff00 !important;
+            transform: scale(1);
+        }
+
 
         /* Состояние при копировании — зеленый (высший приоритет) */
         .copy-btn.copied {
