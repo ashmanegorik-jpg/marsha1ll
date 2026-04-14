@@ -711,7 +711,13 @@
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
-        
+        <div class="generator-box">
+            <div class="step-number" style="margin-bottom: 5px;">GENERATE SECURE PASS</div>
+            <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
+            <button class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
+            <p style="font-size: 0.7rem; margin-top: 5px;">* ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</p>
+        </div>
+
         <div class="wizard-container">
             <div id="step-1" class="step-item active">
                 <div class="step-number">PHASE 01 // SECURITY</div>
