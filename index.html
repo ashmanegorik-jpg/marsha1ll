@@ -1081,8 +1081,8 @@
         document.getElementById('support-platform-label').innerText = platformName;
 
         // Настройка ссылок на почту
+        // Настройка ссылок на почту
         if (isMinecraft) {
-            // Скрываем 3-й шаг (сессии), если для майна он не нужен
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://notletters.com/email/login";
             mailLink.innerText = "NOTLETTERS.COM";
@@ -1094,19 +1094,15 @@
             if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://firstmail.ltd/webmail/login/";
             mailLink.innerText = "FIRSTMAIL.LTD";
-        } else {
+        } else if (isUplay) {
+            // Для Assassin's Creed (Ubisoft)
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
-        if (isUplay) {
-            mailLink.href = "https://outlook.live.com/mail/0/"; // Или другая почта
+        } else {
+            // По умолчанию для Steam и прочих
+            mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
-    } 
-      else {
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: GENERAL ASSET | MARSHA1LL`;
-        mailLink.href = "https://outlook.live.com/mail/0/";
-        mailLink.innerText = "OUTLOOK.LIVE.COM";
-    }
 
     function updateDate() {
         const dateElement = document.getElementById('current-date');
