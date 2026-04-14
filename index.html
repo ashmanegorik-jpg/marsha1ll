@@ -739,22 +739,29 @@
                 width: 85%;
             }
         }
-        /* Полная изоляция цвета ссылки от системных фильтров */
+        /* Базовое состояние ссылки */
         a#mail-link, 
-        a#mail-link:visited, 
-        a#mail-link:active,
-        a#mail-link:focus,
-        a#mail-link span {
+        a#mail-link:visited {
             color: #ffffff !important;
             text-decoration: underline !important;
-            -webkit-text-fill-color: initial !important; /* Сбрасываем блокировку цвета */
+            transition: opacity 0.2s, color 0.2s;
             opacity: 1 !important;
         }
 
-        a#mail-link:hover {
-            opacity: 0.7 !important;
+        /* Эффект наведения (только для ПК) */
+        @media (hover: hover) {
+            a#mail-link:hover {
+                opacity: 0.7 !important;
+                color: #ffffff !important;
+            }
+        }
+
+        /* Эффект при нажатии (актуально для телефона и клика на ПК) */
+        a#mail-link:active {
+            opacity: 0.5 !important;
             color: #ffffff !important;
         }
+
         /* ЭТОТ БЛОК УВЕЛИЧИТ МОДАЛКУ ТОЛЬКО НА ПК */
         @media (min-width: 1024px) {
             .modal-content {
