@@ -47,15 +47,17 @@
             gap: 20px;
             padding-top: 150px; 
         }
-        .password-hint-text {
-            margin-top: 10px;
-            text-align: center;
+        /* Стиль для подсказки под генератором пароля */
+        .password-hint {
             font-family: 'Archivo Black', sans-serif; /* Тот самый шрифт */
-            font-size: 0.65rem;                       /* Размер как у мета-инфо */
-            color: #222;                              /* Тусклый цвет как в футере */
-            letter-spacing: 0.3em;                    /* Растянутые буквы */
-            text-transform: uppercase;                /* Всегда заглавные */
-            width: 100%;
+            font-size: 0.6rem;                       /* Оставляем мелкий размер */
+            color: #444;                             /* Тусклый цвет как в футере */
+            letter-spacing: 0.3em;                   /* Сильное растяжение букв */
+            text-transform: uppercase;               /* Принудительно ЗАГЛАВНЫЕ */
+            text-align: center;                      /* По центру */
+            margin-top: 8px;                         /* Отступ сверху */
+            width: 100%;                             /* На всю ширину */
+            opacity: 0.8;                            /* Чуть добавляем прозрачности для мягкости */
         }
         .feedback-section {
             margin-top: 60px;
@@ -904,7 +906,7 @@
                 </button>
             </div>
             <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()">СГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
-            <div class="password-hint-text">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
+            <div class="password-hint">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
         </div>
 
 
