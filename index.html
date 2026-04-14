@@ -126,7 +126,7 @@
             font-family: 'Archivo Black', sans-serif;
             background: #000;
             border: 1px solid #222; /* Сделали рамку чуть тусклее */
-            padding: 10px 40px 10px 10px; /* Справа отступ больше под иконку */
+            padding: 10px 45px; /* Справа отступ больше под иконку */
             color: #00ff00;
             text-align: center;
             letter-spacing: 2px;
@@ -134,37 +134,38 @@
             text-transform: uppercase;
             min-height: 1.2rem;
             border-radius: 8px;
+            box-sizing: border-box;
         }
 
-        /* Кнопка-иконка внутри поля */
+        /* Кнопка-иконка по умолчанию (серый) */
         .copy-btn {
             position: absolute;
-            right: 12px;
+            right: 15px;
             background: transparent;
             border: none;
-            color: #444; /* Темно-серый цвет по умолчанию */
+            color: #444 !important; /* Принудительно серый */
             cursor: pointer;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            outline: none; /* Убираем стандартную обводку браузера */
         }
 
+        /* При наведении — белый */
         .copy-btn:hover {
-            color: #fff; /* При наведении становится белой */
-            background: transparent;
+            color: #fff !important;
         }
-
+        
         .copy-btn svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
         }
 
-        /* Состояние при копировании */
-        .copy-btn.copied, 
-        .copy-btn.copied:hover {
+        /* Состояние при копировании — зеленый (самый высокий приоритет) */
+        .copy-btn.copied {
             color: #00ff00 !important;
         }
         /* --- PASSWORD GENERATOR --- */
@@ -1294,23 +1295,27 @@
         if (pass.includes('XXXX')) return; 
 
         navigator.clipboard.writeText(pass).then(() => {
-            // Иконка становится зеленой
+            // Добавляем класс 'copied' (он сделает кнопку зеленой через !important)
             btn.classList.add('copied');
-        
+    
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
 
-            // Иконка возвращается к серому цвету очень быстро (через 0.4 сек)
+            // Через 400мс убираем класс, и кнопка вернется к #444 (серому)
+            // даже если курсор все еще наведен, если убрать !important у hover
+            // или оставить как есть для логичного поведения
             setTimeout(() => {
                 btn.classList.remove('copied');
+                // Снимаем фокус с кнопки, чтобы убрать системное выделение
+                btn.blur(); 
             }, 400);
 
-            // Уведомление исчезает через 1.5 сек
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 1500);
         });
     }
+
 
     function randStr(len) {
         const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Без путающихся символов вроде O и 0
