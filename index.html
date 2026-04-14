@@ -88,27 +88,55 @@
         }
         /* --- PASSWORD GENERATOR --- */
         .generator-box {
-            margin-top: 20px;
-            padding: 10px 15px;
+            margin-top: 15px;
+            padding: 8px 12px;
             border: 1px solid #1a1a1a;
             background: #050505;
             border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            max-width: 320px;
+            gap: 5px;
+            max-width: 260px;
         }
-        /* Стили конкретно для кнопки генератора */
+        /* По умолчанию: прозрачная с белым текстом */
         .generator-box .step-btn {
             width: 100%;
-            border-radius: 20px; /* Сделали более закругленной */
-            color: #ffffff;      /* Чисто белый цвет текста */
-            font-weight: 800;    /* Жирнее, чтобы лучше читалось */
-            border-color: #444;  /* Чуть светлее рамка */
+            border-radius: 20px;
+            background: transparent !important;
+            color: #fff !important;
+            font-weight: 800;
+            border: 1px solid #333;
+            transition: all 0.2s ease;
+            padding: 8px 0; /* Чуть тоньше */
         }
-        
+        /* Состояние "Горит": когда идет генерация (добавляем через JS) */
+        .generator-box .step-btn.processing {
+            background: #fff !important;
+            color: #000 !important;
+            border-color: #fff !important;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        /* Финальное состояние: снова прозрачная */
+        .generator-box .step-btn.completed-gen {
+            background: transparent !important;
+            color: #fff !important;
+            border-color: #222 !important;
+            cursor: default;
+            opacity: 0.8;
+        }
+        .gen-display {
+            font-family: 'Archivo Black', sans-serif;
+            background: #000;
+            border: 1px solid #222;
+            padding: 6px;
+            color: #00ff00;
+            text-align: center;
+            font-size: 1rem;
+            min-height: 1.2rem;
+        }
         /* Делаем заголовок "GENERATE SECURE PASS" ярче */
         .generator-box .step-number {
+            front-size: 0.65rem;
             color: #fff !important; /* Принудительно белый */
             opacity: 1 !important;  /* Убираем прозрачность */
             text-shadow: 0 0 5px rgba(255,255,255,0.2);
@@ -1147,13 +1175,20 @@
         viewer.style.display = 'flex';
     }
     function generateSecurePass() {
+        const btn = document.querySelector('.generator-box .step-btn');
         const display = document.getElementById('password-display');
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-        let iterations = 0;
+        
+        // Если уже сгенерировано — не нажимается
+        if (btn.classList.contains('completed-gen')) return;
+
+        // ВКЛЮЧАЕМ СВЕТ (добавляем класс белого фона)
+        btn.classList.add('processing');
+        btn.innerText = "ГЕНЕРАЦИЯ...";
     
-        // Эффект анимации перебора
         display.classList.add('blink');
     
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        let iterations = 0;
         const interval = setInterval(() => {
             let randomPass = "";
             for (let i = 0; i < 12; i++) {
@@ -1162,15 +1197,20 @@
             display.innerText = randomPass;
         
             iterations++;
-            if (iterations > 15) {
+            if (iterations > 15) { // Длительность анимации
                 clearInterval(interval);
                 display.classList.remove('blink');
-                // Финальный пароль в формате XXXX-XXXX-XXXX
+                
                 const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
                 display.innerText = final;
-                document.querySelector('.generator-box .step-btn').classList.add('completed-gen');
+
+                // ВЫКЛЮЧАЕМ СВЕТ (убираем белый фон, оставляем белый текст)
+                btn.classList.remove('processing');
+                btn.classList.add('completed-gen');
+                btn.innerText = "ПАРОЛЬ ГОТОВ";
+                btn.onclick = null; // Блокируем кнопку
             }
-        }, 50);
+        }, 60);
     }
 
     function randStr(len) {
