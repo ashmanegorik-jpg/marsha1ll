@@ -219,14 +219,25 @@
             cursor: default;
             opacity: 0.8;
         }
-        /* Эффект свечения при наведении на кнопку генерации */
-        #gen-main-btn:hover {
+        /* Эффект свечения — сработает ТОЛЬКО на ПК с мышкой */
+        @media (hover: hover) {
+            #gen-main-btn:hover {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #fff !important;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+                transform: translateY(-1px);
+            }
+        }
+
+        /* Эффект при нажатии (сработает и на ПК, и на Телефоне) */
+        #gen-main-btn:active {
             background: #fff !important;
             color: #000 !important;
-            border-color: #fff !important;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            transform: translateY(-1px);
+            transform: translateY(1px);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
         }
+
 
         /* Эффект при клике */
         #gen-main-btn:active {
@@ -1277,6 +1288,7 @@
     }
     function generateSecurePass() {
         const btn = document.getElementById('gen-main-btn');
+        btn.blur();
         const display = document.getElementById('password-display');
 
         btn.classList.add('processing');
