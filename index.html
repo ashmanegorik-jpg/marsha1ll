@@ -1295,18 +1295,14 @@
         if (pass.includes('XXXX')) return; 
 
         navigator.clipboard.writeText(pass).then(() => {
-            // Добавляем класс 'copied' (он сделает кнопку зеленой через !important)
             btn.classList.add('copied');
-    
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
 
-            // Через 400мс убираем класс, и кнопка вернется к #444 (серому)
-            // даже если курсор все еще наведен, если убрать !important у hover
-            // или оставить как есть для логичного поведения
             setTimeout(() => {
                 btn.classList.remove('copied');
-                // Снимаем фокус с кнопки, чтобы убрать системное выделение
+                // Это заставит кнопку "забыть", что на нее нажимали
+                // и вернет ей исходный серый цвет
                 btn.blur(); 
             }, 400);
 
@@ -1315,6 +1311,7 @@
             }, 1500);
         });
     }
+
 
 
     function randStr(len) {
