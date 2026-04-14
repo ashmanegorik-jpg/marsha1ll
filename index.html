@@ -89,15 +89,15 @@
         /* Уведомление о копировании */
         #copy-toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 40px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #111;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(20, 20, 20, 0.9);
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 8px 16px;
+            border-radius: 100px;
             border: 1px solid #333;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             font-family: 'Inter', sans-serif;
             letter-spacing: 1px;
             z-index: 3000;
@@ -105,6 +105,7 @@
             opacity: 0;
             pointer-events: none;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #copy-toast.show {
@@ -207,9 +208,8 @@
             border-radius: 20px;
             background: transparent !important;
             color: #fff !important;
-            font-weight: 800;
             border: 1px solid #333;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             padding: 8px 0; /* Чуть тоньше */
         }
         /* Состояние "Горит": когда идет генерация (добавляем через JS) */
@@ -217,7 +217,6 @@
             background: #fff !important;
             color: #000 !important;
             border-color: #fff !important;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
         /* Финальное состояние: снова прозрачная */
         .generator-box .step-btn.completed-gen {
@@ -1281,35 +1280,33 @@
     function generateSecurePass() {
         const btn = document.getElementById('gen-main-btn');
         const display = document.getElementById('password-display');
-        
-        // 1. Включаем состояние генерации (белая кнопка)
+    
+        // Включаем "белое" состояние
         btn.classList.add('processing');
-        btn.classList.remove('completed-gen'); // На всякий случай сбрасываем финал
         btn.innerText = "ГЕНЕРАЦИЯ...";
         display.classList.add('blink');
-    
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let iterations = 0;
-        
+    
         const interval = setInterval(() => {
             let randomPass = "";
             for (let i = 0; i < 12; i++) {
                 randomPass += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             display.innerText = randomPass;
-        
+    
             iterations++;
             if (iterations > 15) {
                 clearInterval(interval);
                 display.classList.remove('blink');
-                
-                // Генерируем финальный красивый пароль
+            
                 const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
                 display.innerText = final;
 
-                // 2. ВЫКЛЮЧАЕМ состояние генерации
-                btn.classList.remove('processing'); // Кнопка перестает гореть белым
-                btn.innerText = "ГЕНЕРИРОВАТЬ СНОВА"; // Меняем текст
+                // КРИТИЧНО: Удаляем белый фон и возвращаем прозрачность
+                btn.classList.remove('processing'); 
+                btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
             }
         }, 60);
     }
@@ -1320,21 +1317,21 @@
         if (pass.includes('XXXX')) return; 
 
         navigator.clipboard.writeText(pass).then(() => {
-            // Визуальный отклик иконки
+            // Иконка становится зеленой
             btn.classList.add('copied');
         
-            // Показ уведомления
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
 
-            // Убираем эффекты через 1.5 секунды
+            // Иконка возвращается к серому цвету очень быстро (через 0.4 сек)
             setTimeout(() => {
                 btn.classList.remove('copied');
-            }, 600); // Иконка станет серой быстрее
+            }, 400);
 
+            // Уведомление исчезает через 1.5 сек
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 2000); // Уведомление висит чуть дольше
+            }, 1500);
         });
     }
 
