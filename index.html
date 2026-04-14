@@ -195,55 +195,79 @@
             gap: 8px;
             max-width: 260px;
         }
-        /* По умолчанию: прозрачная с белым текстом */
-        .generator-box .step-btn {
-            width: 100%;
-            border-radius: 20px;
-            background: transparent !important;
-            color: #fff !important;
-            border: 1px solid #333;
-            transition: all 0.3s ease;
-            padding: 8px 0; /* Чуть тоньше */
+        /* --- PASSWORD GENERATOR: MINIMALISM EDITION --- */
+        .generator-box {
+            margin-top: 20px;
+            padding: 0; /* Убираем внутренние отступы, чтобы элементы прилегали к краям */
+            border: 1px solid #1a1a1a;
+            background: #050505;
+            border-radius: 14px;
+            overflow: hidden; /* Важно: чтобы скруглить углы вложенных элементов */
+            max-width: 280px;
+            display: flex;
+           flex-direction: column;
         }
-        /* Состояние "Горит": когда идет генерация (добавляем через JS) */
-        .generator-box .step-btn.processing {
-            background: #fff !important;
-            color: #000 !important;
-            border-color: #fff !important;
+
+        /* Верхняя часть с паролем — теперь без своей рамки */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            background: transparent;
+            border-bottom: 1px solid #141414; /* Тонкий разделитель между паролем и кнопкой */
         }
-        /* Финальное состояние: снова прозрачная */
-        .generator-box .step-btn.completed-gen {
-            background: transparent !important;
-            color: #fff !important;
-            border-color: #222 !important;
-            cursor: default;
-            opacity: 0.8;
-        }
+
         .gen-display {
-            font-family: 'Archivo Black', sans-serif;
-            background: #000;
-            border: 1px solid #222;
-            padding: 6px;
+            font-family: 'JetBrains Mono', monospace; /* Моноширинный шрифт лучше для паролей */
             color: #00ff00;
             text-align: center;
-            font-size: 1rem;
-            min-height: 1.2rem;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            min-height: auto;
         }
-        /* Делаем заголовок "GENERATE SECURE PASS" ярче */
-        .generator-box .step-number {
-            font-size: 0.65rem;
-            color: #fff !important; /* Принудительно белый */
-            opacity: 1 !important;  /* Убираем прозрачность */
-            text-shadow: 0 0 5px rgba(255,255,255,0.2);
-            text-align: center;
-            width: 100%;
-            display: block;
-        }
-    
 
-        .gen-display.blink {
-            animation: pulse-green 0.1s steps(2) infinite;
+        /* Кнопка-иконка копирования */
+        .copy-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333 !important;
         }
+
+        /* Кнопка генерации внизу — теперь занимает всю ширину без отступов */
+        .generator-box .step-btn {
+            width: 100%;
+            border: none !important; /* Убираем рамку кнопки */
+            border-radius: 0 !important; /* Убираем скругление у самой кнопки */
+            background: #0a0a0a !important;
+            color: #666 !important;
+            padding: 12px 0 !important;
+            font-size: 0.65rem !important;
+            margin: 0 !important;
+        }
+
+        .generator-box .step-btn:hover {
+            background: #fff !important;
+            color: #000 !important;
+        }
+
+        /* Текст подписи под генератором */
+        .meta-info-sub {
+            font-size: 0.55rem;
+            color: #222;
+            text-align: center;
+            padding: 8px;
+            letter-spacing: 0.1em;
+            border-top: 1px solid #111;
+        }
+
 
         @keyframes pulse-green {
             0% { opacity: 1; }
