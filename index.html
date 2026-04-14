@@ -987,6 +987,9 @@
             // Универсальный текст для всех платформ
             text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
             getImages: (isEpic, isEA, gameKey) => {
+                if (gameKey === 'acs') {
+                    return ["uplay_pass_1.png", "uplay_pass_2.png"]; // Замени на свои названия файлов
+                }
                 if (gameKey === 'mct') {
                     return ["Снимок экрана 2026-04-13 214303.png", "Снимок экрана 2026-04-13 213759.png", "Снимок экрана 2026-04-13 213325.png"]; 
                 }
@@ -1000,6 +1003,9 @@
             // Универсальный текст для всех платформ
             text: "Включите двухфакторную аунтификацию для максимальной безопасности.",
             getImages: (isEpic, isEA, gameKey) => {
+                if (gameKey === 'acs') {
+                    return ["uplay_2fa.png"]; // Замени на свой файл
+                }
                 if (gameKey === 'mct') {
                     return ["Снимок экрана 2026-04-13 214144.png"];
                 }
@@ -1043,6 +1049,7 @@
         "bg3": "BALDUR'S GATE 3",
         "cp77": "CYBERPUNK 2077",
         "dl2": "DYING LIGHT 2: STAY HUMAN",
+        "acs": "ASSASSIN'S CREED SHADOWS (UPLAY)",
         "hi4": "HEARTS of IRON: IV"
     };
 
@@ -1055,6 +1062,7 @@
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
+        const isUplay = gameKey.toLowerCase() === 'acs'; // Проверка для Ubisoft
         const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
@@ -1065,6 +1073,7 @@
         let platformName = "STEAM";
         if (isEpic) platformName = "EPIC GAMES";
         else if (isEA) platformName = "EA LAUNCHER";
+        else if (isUplay) platformName = "UBISOFT CONNECT"; // Название для ассасина
         else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
         
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
@@ -1087,6 +1096,9 @@
             mailLink.innerText = "FIRSTMAIL.LTD";
         } else {
             mailLink.href = "https://outlook.live.com/mail/0/";
+            mailLink.innerText = "OUTLOOK.LIVE.COM";
+        if (isUplay) {
+            mailLink.href = "https://outlook.live.com/mail/0/"; // Или другая почта
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
     } 
