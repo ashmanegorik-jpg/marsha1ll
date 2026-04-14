@@ -143,20 +143,39 @@
             right: 10px;
             background: transparent;
             border: none;
-            color: #444 !important; /* Принудительно серый */
+            color: #444 !important; 
             cursor: pointer;
             padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            outline: none; /* Убираем стандартную обводку браузера */
+            outline: none !important; /* Убираем обводку */
+            -webkit-tap-highlight-color: transparent; /* Убираем синий блик на смартфонах */
         }
 
-        /* При наведении — белый */
+        /* При наведении и ФОКУСЕ (после клика) — делаем серым или белым только при ховере */
         .copy-btn:hover {
             color: #fff !important;
         }
+
+        /* Чтобы после клика она не оставалась белой */
+        .copy-btn:focus, .copy-btn:active {
+            color: #444 !important;
+            outline: none;
+        }
+
+        /* Состояние при копировании — зеленый (высший приоритет) */
+        .copy-btn.copied {
+            color: #00ff00 !important;
+        }
+
+        /* Жирный текст для кнопки генерации */
+        #gen-main-btn {
+            font-weight: bold; /* Делаем текст жирным */
+            letter-spacing: 0.15em;
+        }
+
         
         .copy-btn svg {
             width: 18px;
@@ -164,10 +183,6 @@
             fill: currentColor;
         }
 
-        /* Состояние при копировании — зеленый (самый высокий приоритет) */
-        .copy-btn.copied {
-            color: #00ff00 !important;
-        }
         /* --- PASSWORD GENERATOR --- */
         .generator-box {
             margin-top: 15px;
@@ -1299,11 +1314,11 @@
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
 
+            // Снимаем фокус с кнопки, чтобы она не "светилась" белым
+            btn.blur(); 
+
             setTimeout(() => {
                 btn.classList.remove('copied');
-                // Это заставит кнопку "забыть", что на нее нажимали
-                // и вернет ей исходный серый цвет
-                btn.blur(); 
             }, 400);
 
             setTimeout(() => {
@@ -1311,6 +1326,7 @@
             }, 1500);
         });
     }
+
 
 
 
