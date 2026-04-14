@@ -47,6 +47,16 @@
             gap: 20px;
             padding-top: 150px; 
         }
+        .password-hint-text {
+            margin-top: 10px;
+            text-align: center;
+            font-family: 'Archivo Black', sans-serif; /* Тот самый шрифт */
+            font-size: 0.65rem;                       /* Размер как у мета-инфо */
+            color: #222;                              /* Тусклый цвет как в футере */
+            letter-spacing: 0.3em;                    /* Растянутые буквы */
+            text-transform: uppercase;                /* Всегда заглавные */
+            width: 100%;
+        }
         .feedback-section {
             margin-top: 60px;
             padding: 30px;
@@ -894,7 +904,7 @@
                 </button>
             </div>
             <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()">СГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
-            <div class="meta-info" style="margin-top: 5px; font-size: 0.6rem; text-align: center;">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
+            <div class="password-hint-text">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
         </div>
 
 
@@ -1082,6 +1092,7 @@
 
         // Настройка ссылок на почту
         // Настройка ссылок на почту
+        // Настройка ссылок на почту и видимости шагов
         if (isMinecraft) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://notletters.com/email/login";
@@ -1095,11 +1106,13 @@
             mailLink.href = "https://firstmail.ltd/webmail/login/";
             mailLink.innerText = "FIRSTMAIL.LTD";
         } else if (isUplay) {
-            // Для Assassin's Creed (Ubisoft)
+            // СКРЫВАЕМ ФАЗУ 03 ДЛЯ АССАСИНА
+            if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none'; 
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         } else {
-            // По умолчанию для Steam и прочих
+            // По умолчанию для Steam (показываем все шаги, если они были скрыты ранее)
+            if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'block';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
