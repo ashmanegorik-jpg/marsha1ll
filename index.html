@@ -86,49 +86,58 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
-        /* Контейнер для строки пароля и кнопки копирования */
+        /* Контейнер теперь позиционируется относительно, чтобы иконка была внутри */
         .password-wrapper {
+            position: relative;
             display: flex;
-            gap: 5px;
-            align-items: stretch;
+            align-items: center;
+            width: 100%;
         }
 
         .gen-display {
-            flex-grow: 1; /* Пароль занимает всё свободное место */
+            flex-grow: 1;
             font-family: 'Archivo Black', sans-serif;
             background: #000;
-            border: 1px solid #333;
-            padding: 10px;
+            border: 1px solid #222; /* Сделали рамку чуть тусклее */
+            padding: 10px 40px 10px 10px; /* Справа отступ больше под иконку */
             color: #00ff00;
             text-align: center;
             letter-spacing: 2px;
             font-size: 1.1rem;
             text-transform: uppercase;
             min-height: 1.2rem;
+            border-radius: 8px;
         }
 
-        /* Кнопка скопировать */
+        /* Кнопка-иконка внутри поля */
         .copy-btn {
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 0 15px;
+            position: absolute;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: #444; /* Темно-серый цвет по умолчанию */
             cursor: pointer;
-            font-size: 0.7rem;
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s;
-            border-radius: 4px;
         }
 
         .copy-btn:hover {
-            background: #fff;
-            color: #000;
+            color: #fff; /* При наведении становится белой */
+            background: transparent;
         }
 
+        .copy-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Состояние при копировании */
         .copy-btn.copied {
-            border-color: #00ff00;
-            color: #00ff00;
+            color: #00ff00 !important;
         }
         /* --- PASSWORD GENERATOR --- */
         .generator-box {
@@ -798,14 +807,11 @@
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
-        <div class="generator-box">
-            <div class="step-number" style="margin-bottom: 5px; color: #fff; opacity: 1; ">GENERATE SECURE PASS</div>
-            <div class="password-wrapper">
-                <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
-                <button class="copy-btn" onclick="copyPassword(this)">COPY</button>
-            </div>
-            <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
-            <p style="font-size: 0.7rem; margin-top: 5px;">* ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</p>
+        <div class="password-wrapper">
+            <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
+            <button class="copy-btn" onclick="copyPassword(this)" title="Копировать">
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </button>
         </div>
 
         <div class="wizard-container">
@@ -1215,11 +1221,12 @@
         viewer.style.display = 'flex';
     }
     function generateSecurePass() {
-        const btn = document.getElementById('gen-main-btn'); // Убедись, что у кнопки есть этот id
+        const btn = document.getElementById('gen-main-btn');
         const display = document.getElementById('password-display');
         
-        // Удаляем блокировку. Теперь кнопку можно жать всегда.
+        // 1. Включаем состояние генерации (белая кнопка)
         btn.classList.add('processing');
+        btn.classList.remove('completed-gen'); // На всякий случай сбрасываем финал
         btn.innerText = "ГЕНЕРАЦИЯ...";
         display.classList.add('blink');
     
@@ -1238,17 +1245,26 @@
                 clearInterval(interval);
                 display.classList.remove('blink');
                 
+                // Генерируем финальный красивый пароль
                 const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
                 display.innerText = final;
 
-                // Сохраняем в память (для пункта 2)
-                localStorage.setItem(passStorageKey, final);
-
-                // ВОТ ТУТ ГЛАВНОЕ ИЗМЕНЕНИЕ:
-                btn.classList.remove('processing');
-                btn.innerText = "ГЕНЕРИРОВАТЬ СНОВА"; // Кнопка остается активной
+                // 2. ВЫКЛЮЧАЕМ состояние генерации
+                btn.classList.remove('processing'); // Кнопка перестает гореть белым
+                btn.innerText = "ГЕНЕРИРОВАТЬ СНОВА"; // Меняем текст
             }
         }, 60);
+    }
+
+    // И не забудь обновить функцию копирования, чтобы она понимала, что текст теперь в display.innerText
+    function copyPassword(btn) {
+        const pass = document.getElementById('password-display').innerText;
+        if (pass.includes('XXXX')) return; // Не копируем заглушку
+
+        navigator.clipboard.writeText(pass).then(() => {
+            btn.classList.add('copied');
+            setTimeout(() => btn.classList.remove('copied'), 2000);
+        });
     }
 
     function randStr(len) {
