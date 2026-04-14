@@ -86,6 +86,41 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
+        /* --- PASSWORD GENERATOR --- */
+        .generator-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #1a1a1a;
+            background: #050505;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .gen-display {
+            font-family: 'Archivo Black', sans-serif;
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            color: #00ff00; /* Зеленый "хакерский" цвет */
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            min-height: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .gen-display.blink {
+            animation: pulse-green 0.1s steps(2) infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
 
         .reveal.active {
             opacity: 1;
@@ -682,6 +717,11 @@
         <div class="step-number">PHASE 01 // SECURITY</div>
         <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
         <div class="step-controls">
+        <div class="generator-box">
+            <div class="step-number" style="margin-bottom: 5px;">GENERATE NEW ACCESS KEY</div>
+            <div id="password-display" class="gen-display">••••••••••••</div>
+            <button class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ</button>
+        </div>
             <span class="how-to-link" onclick="openGuide(1)">Как это сделать?</span> 
             <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
         </div>
@@ -1081,6 +1121,40 @@
         const fullImg = document.getElementById('full-image');
         fullImg.src = src;
         viewer.style.display = 'flex';
+    }
+    function generateSecurePass() {
+        const display = document.getElementById('password-display');
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        let iterations = 0;
+    
+        // Эффект анимации перебора
+        display.classList.add('blink');
+    
+        const interval = setInterval(() => {
+            let randomPass = "";
+            for (let i = 0; i < 12; i++) {
+                randomPass += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            display.innerText = randomPass;
+        
+            iterations++;
+            if (iterations > 15) {
+                clearInterval(interval);
+                display.classList.remove('blink');
+                // Финальный пароль в формате XXXX-XXXX-XXXX
+                const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
+                display.innerText = final;
+            }
+        }, 50);
+    }
+
+    function randStr(len) {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Без путающихся символов вроде O и 0
+        let result = "";
+        for (let i = 0; i < len; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return result;
     }
 </script>
 
