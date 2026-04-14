@@ -785,6 +785,34 @@
             .slider-container {
                 position: relative;
             } 
+        /* --- СТИЛЬ КНОПКИ ДЛЯ ПК (копия кнопки генератора) --- */
+        /* Применяется только на экранах шире 1024px */
+        @media (min-width: 1024px) {
+            .modal-content .final-btn {
+                background: transparent !important; /* Прозрачный фон */
+                color: #fff !important;             /* Белый текст */
+                border: 1px solid #333 !important;  /* Темная рамка */
+                border-radius: 20px !important;     /* Скругление как у генератора */
+                padding: 10px 0 !important;         /* Высота как у генератора */
+                font-weight: bold;                  /* Жирный текст */
+                letter-spacing: 0.15em !important;  /* Интервал как у генератора */
+            }
+            /* Эффект наведения (как у кнопки генератора) */
+            @media (hover: hover) {
+                .modal-content .final-btn:hover {
+                    background: #fff !important; /* Белеет при наведении */
+                    color: #000 !important;
+                    border-color: #fff !important;
+                    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+                    transform: translateY(-1px);
+                }
+            }
+            /* Эффект нажатия (как у кнопки генератора) */
+            .modal-content .final-btn:active {
+                transform: translateY(1px) !important;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
+            }
+        }
             /* Стили стрелок */
             .nav-btn {
                 display: block !important;
