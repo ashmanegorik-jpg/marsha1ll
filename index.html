@@ -807,12 +807,19 @@
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
-        <div class="password-wrapper">
-            <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
-            <button class="copy-btn" onclick="copyPassword(this)" title="Копировать">
-                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-            </button>
+        
+        <div class="generator-box">
+            <div class="step-number">GENERATE SECURE PASS</div>
+            <div class="password-wrapper">
+                <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
+                <button class="copy-btn" onclick="copyPassword(this)" title="Копировать">
+                    <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                </button>
+            </div>
+            <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()">СГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
+            <div class="meta-info" style="margin-top: 5px; font-size: 0.6rem; text-align: center;">ONLY FOR PHASE 01</div>
         </div>
+
 
         <div class="wizard-container">
             <div id="step-1" class="step-item active">
