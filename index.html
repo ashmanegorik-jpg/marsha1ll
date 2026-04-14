@@ -86,6 +86,50 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
+        /* Контейнер для строки пароля и кнопки копирования */
+        .password-wrapper {
+            display: flex;
+            gap: 5px;
+            align-items: stretch;
+        }
+
+        .gen-display {
+            flex-grow: 1; /* Пароль занимает всё свободное место */
+            font-family: 'Archivo Black', sans-serif;
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            color: #00ff00;
+            text-align: center;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            min-height: 1.2rem;
+        }
+
+        /* Кнопка скопировать */
+        .copy-btn {
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 0 15px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            border-radius: 4px;
+        }
+
+        .copy-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .copy-btn.copied {
+            border-color: #00ff00;
+            color: #00ff00;
+        }
         /* --- PASSWORD GENERATOR --- */
         .generator-box {
             margin-top: 15px;
@@ -141,14 +185,7 @@
             opacity: 1 !important;  /* Убираем прозрачность */
             text-shadow: 0 0 5px rgba(255,255,255,0.2);
         }
-        .step-btn.completed-gen {
-            border-color: #333 !important;
-            color: #666 !important;
-            background: transparent !important;
-            cursor: default;
-        }
-
-
+    
         .gen-display {
             font-family: 'Archivo Black', sans-serif;
             background: #000;
@@ -763,8 +800,11 @@
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
         <div class="generator-box">
             <div class="step-number" style="margin-bottom: 5px; color: #fff; opacity: 1; ">GENERATE SECURE PASS</div>
-            <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
-            <button class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
+            <div class="password-wrapper">
+                <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
+                <button class="copy-btn" onclick="copyPassword(this)">COPY</button>
+            </div>
+            <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
             <p style="font-size: 0.7rem; margin-top: 5px;">* ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</p>
         </div>
 
@@ -1175,20 +1215,17 @@
         viewer.style.display = 'flex';
     }
     function generateSecurePass() {
-        const btn = document.querySelector('.generator-box .step-btn');
+        const btn = document.getElementById('gen-main-btn'); // Убедись, что у кнопки есть этот id
         const display = document.getElementById('password-display');
         
-        // Если уже сгенерировано — не нажимается
-        if (btn.classList.contains('completed-gen')) return;
-
-        // ВКЛЮЧАЕМ СВЕТ (добавляем класс белого фона)
+        // Удаляем блокировку. Теперь кнопку можно жать всегда.
         btn.classList.add('processing');
         btn.innerText = "ГЕНЕРАЦИЯ...";
-    
         display.classList.add('blink');
     
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
         let iterations = 0;
+        
         const interval = setInterval(() => {
             let randomPass = "";
             for (let i = 0; i < 12; i++) {
@@ -1197,18 +1234,19 @@
             display.innerText = randomPass;
         
             iterations++;
-            if (iterations > 15) { // Длительность анимации
+            if (iterations > 15) {
                 clearInterval(interval);
                 display.classList.remove('blink');
                 
                 const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
                 display.innerText = final;
 
-                // ВЫКЛЮЧАЕМ СВЕТ (убираем белый фон, оставляем белый текст)
+                // Сохраняем в память (для пункта 2)
+                localStorage.setItem(passStorageKey, final);
+
+                // ВОТ ТУТ ГЛАВНОЕ ИЗМЕНЕНИЕ:
                 btn.classList.remove('processing');
-                btn.classList.add('completed-gen');
-                btn.innerText = "ПАРОЛЬ ГОТОВ";
-                btn.onclick = null; // Блокируем кнопку
+                btn.innerText = "ГЕНЕРИРОВАТЬ СНОВА"; // Кнопка остается активной
             }
         }, 60);
     }
