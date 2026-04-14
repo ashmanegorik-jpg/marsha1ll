@@ -89,15 +89,37 @@
         /* --- PASSWORD GENERATOR --- */
         .generator-box {
             margin-top: 20px;
-            padding: 15px;
+            padding: 10px 15px;
             border: 1px solid #1a1a1a;
             background: #050505;
             border-radius: 12px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            max-width: 400px;
+            gap: 8px;
+            max-width: 320px;
         }
+        /* Стили конкретно для кнопки генератора */
+        .generator-box .step-btn {
+            width: 100%;
+            border-radius: 20px; /* Сделали более закругленной */
+            color: #ffffff;      /* Чисто белый цвет текста */
+            font-weight: 800;    /* Жирнее, чтобы лучше читалось */
+            border-color: #444;  /* Чуть светлее рамка */
+        }
+        
+        /* Делаем заголовок "GENERATE SECURE PASS" ярче */
+        .generator-box .step-number {
+            color: #fff !important; /* Принудительно белый */
+            opacity: 1 !important;  /* Убираем прозрачность */
+            text-shadow: 0 0 5px rgba(255,255,255,0.2);
+        }
+        .step-btn.completed-gen {
+            border-color: #333 !important;
+            color: #666 !important;
+            background: transparent !important;
+            cursor: default;
+        }
+
 
         .gen-display {
             font-family: 'Archivo Black', sans-serif;
@@ -712,7 +734,7 @@
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
         <div class="generator-box">
-            <div class="step-number" style="margin-bottom: 5px;">GENERATE SECURE PASS</div>
+            <div class="step-number" style="margin-bottom: 5px; color: #fff; opacity: 1; ">GENERATE SECURE PASS</div>
             <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
             <button class="step-btn" onclick="generateSecurePass()" style="width: 100%;">ГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
             <p style="font-size: 0.7rem; margin-top: 5px;">* ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</p>
@@ -1146,6 +1168,7 @@
                 // Финальный пароль в формате XXXX-XXXX-XXXX
                 const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
                 display.innerText = final;
+                document.querySelector('.generator-box .step-btn').classList.add('completed-gen');
             }
         }, 50);
     }
