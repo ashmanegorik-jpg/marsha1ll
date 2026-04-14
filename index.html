@@ -130,8 +130,8 @@
             color: #00ff00;
             text-align: center;
             letter-spacing: 2px;
-            font-size: 1.1rem;
-            text-transform: uppercase;
+            font-size: 1rem;
+            text-transform: none !important;
             min-height: 1.2rem;
             border-radius: 8px;
             box-sizing: border-box;
@@ -237,18 +237,6 @@
             text-shadow: 0 0 5px rgba(255,255,255,0.2);
         }
     
-        .gen-display {
-            font-family: 'Archivo Black', sans-serif;
-            background: #000;
-            border: 1px solid #333;
-            padding: 10px;
-            color: #00ff00; /* Зеленый "хакерский" цвет */
-            text-align: center;
-            letter-spacing: 2px;
-            font-size: 1.1rem;
-            min-height: 1.2rem;
-            text-transform: uppercase;
-        }
 
         .gen-display.blink {
             animation: pulse-green 0.1s steps(2) infinite;
@@ -1273,31 +1261,30 @@
     function generateSecurePass() {
         const btn = document.getElementById('gen-main-btn');
         const display = document.getElementById('password-display');
-    
-        // Включаем "белое" состояние
+
         btn.classList.add('processing');
         btn.innerText = "ГЕНЕРАЦИЯ...";
         display.classList.add('blink');
 
-        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        // Набор символов для визуального эффекта (бегущие строки)
+        const allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@-._";
         let iterations = 0;
-    
+
         const interval = setInterval(() => {
             let randomPass = "";
-            for (let i = 0; i < 12; i++) {
-                randomPass += chars.charAt(Math.floor(Math.random() * chars.length));
+            for (let i = 0; i < 14; i++) {
+                randomPass += allChars.charAt(Math.floor(Math.random() * allChars.length));
             }
             display.innerText = randomPass;
-    
+
             iterations++;
             if (iterations > 15) {
                 clearInterval(interval);
                 display.classList.remove('blink');
             
-                const final = `${randStr(4)}-${randStr(4)}-${randStr(4)}`;
-                display.innerText = final;
+                // Финальный пароль: 14 символов в перемешку
+                display.innerText = randStr(14);
 
-                // КРИТИЧНО: Удаляем белый фон и возвращаем прозрачность
                 btn.classList.remove('processing'); 
                 btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
             }
@@ -1327,16 +1314,29 @@
         });
     }
 
-
-
-
     function randStr(len) {
-        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Без путающихся символов вроде O и 0
+        // Разделяем на группы, чтобы гарантировать наличие каждого типа символов
+        const upper = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+        const lower = "abcdefghijkmnopqrstuvwxyz";
+        const numbers = "23456789";
+        const symbols = "!@-._$";
+        const all = upper + lower + numbers + symbols;
+    
         let result = "";
-        for (let i = 0; i < len; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
+    
+        // Гарантируем хотя бы один символ каждого типа
+        result += upper.charAt(Math.floor(Math.random() * upper.length));
+        result += lower.charAt(Math.floor(Math.random() * lower.length));
+        result += numbers.charAt(Math.floor(Math.random() * numbers.length));
+        result += symbols.charAt(Math.floor(Math.random() * symbols.length));
+    
+        // Заполняем остальную длину случайными символами
+        for (let i = result.length; i < len; i++) {
+            result += all.charAt(Math.floor(Math.random() * all.length));
         }
-        return result;
+    
+        // Перемешиваем строку, чтобы гарантированные символы не стояли всегда в начале
+        return result.split('').sort(() => 0.5 - Math.random()).join('');
     }
 </script>
 
