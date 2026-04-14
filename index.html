@@ -219,6 +219,21 @@
             cursor: default;
             opacity: 0.8;
         }
+        /* Эффект свечения при наведении на кнопку генерации */
+        #gen-main-btn:hover {
+            background: #fff !important;
+            color: #000 !important;
+            border-color: #fff !important;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        /* Эффект при клике */
+        #gen-main-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
         .gen-display {
             font-family: 'Archivo Black', sans-serif;
             background: #000;
