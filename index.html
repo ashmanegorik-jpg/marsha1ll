@@ -1269,7 +1269,6 @@
         btn.innerText = "ГЕНЕРАЦИЯ...";
         display.classList.add('blink');
 
-        // Набор символов для визуального эффекта (бегущие строки)
         const allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@-._";
         let iterations = 0;
 
@@ -1285,14 +1284,18 @@
                 clearInterval(interval);
                 display.classList.remove('blink');
             
-                // Финальный пароль: 14 символов в перемешку
-                display.innerText = randStr(14);
+                const finalPass = randStr(14);
+                display.innerText = finalPass;
+
+                // СОХРАНЕНИЕ: записываем пароль в память
+                localStorage.setItem('marsha1ll_saved_pass', finalPass);
 
                 btn.classList.remove('processing'); 
                 btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
             }
         }, 60);
     }
+
 
     // И не забудь обновить функцию копирования, чтобы она понимала, что текст теперь в display.innerText
     function copyPassword(btn) {
@@ -1316,6 +1319,19 @@
             }, 1500);
         });
     }
+    function loadSavedPassword() {
+        const savedPass = localStorage.getItem('marsha1ll_saved_pass');
+        const display = document.getElementById('password-display');
+        const btn = document.getElementById('gen-main-btn');
+
+        if (savedPass) {
+            display.innerText = savedPass;
+            btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
+        }
+    }
+
+    // Вызываем её сразу при загрузке
+    loadSavedPassword();
 
     function randStr(len) {
         // Разделяем на группы, чтобы гарантировать наличие каждого типа символов
@@ -1341,6 +1357,9 @@
         // Перемешиваем строку, чтобы гарантированные символы не стояли всегда в начале
         return result.split('').sort(() => 0.5 - Math.random()).join('');
     }
+        // В самом низу скрипта
+        loadProgress();
+        loadSavedPassword(); // Добавьте это сюда
 </script>
 
 </body>
