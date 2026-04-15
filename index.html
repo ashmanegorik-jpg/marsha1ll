@@ -169,26 +169,46 @@
             position: relative;
             transition: all 0.5s ease;
         }
-        /* Стили для ссылок платформ: всегда белый, даже если нажата или уже посещена */
+        /* ПРАВИЛЬНЫЙ БЛОК ДЛЯ ЗАМЕНЫ */
+
+        /* Принудительно красим саму ссылку и всё, что внутри неё (span) */
         .platform-link, 
-        .platform-link:link, 
-        .platform-link:visited, 
-        .platform-link:active {
+        .platform-link *, 
+        #mail-link,
+        #mail-link * {
             color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important; /* Фикс специально для Safari */
             text-decoration: underline !important;
             font-family: 'Archivo Black', sans-serif;
             transition: opacity 0.2s;
-            outline: none; /* Убираем синюю обводку в Safari при клике */
+            outline: none !important;
         }
 
-        /* Эффект при наведении (можно оставить для интерактивности) */
-        .platform-link:hover {
-            opacity: 0.7 !important;
+        /* Состояния: посещенная, нажатая и в фокусе — всегда белый */
+        .platform-link:visited, 
+        .platform-link:active, 
+        .platform-link:focus,
+        #mail-link:visited,
+        #mail-link:active,
+        #mail-link:focus {
             color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
-        .platform-link span {
-            color: inherit; /* Наследует белый цвет от родительской ссылки */
+
+        /* Эффект при наведении только через прозрачность (чтобы не менять цвет) */
+        @media (hover: hover) {
+            .platform-link:hover, 
+            #mail-link:hover {
+                opacity: 0.7 !important;
+            }
         }
+
+        /* Эффект при клике на телефоне */
+        .platform-link:active, 
+        #mail-link:active {
+            opacity: 0.5 !important;
+        }
+
 
 
         /* Уведомление о копировании */
@@ -844,14 +864,6 @@
                 width: 85%;
             }
         }
-        /* Базовое состояние ссылки */
-        a#mail-link, 
-        a#mail-link:visited {
-            color: #ffffff !important;
-            text-decoration: underline !important;
-            transition: opacity 0.2s, color 0.2s;
-            opacity: 1 !important;
-        }
 
         /* Эффект наведения (только для ПК) */
         @media (hover: hover) {
@@ -964,10 +976,6 @@
             }
         }
     }
-         a#mail-link {
-             color: #ffffff !important;
-             text-decoration: underline !important;
-         }
     </style>
 </head>
 <body>
