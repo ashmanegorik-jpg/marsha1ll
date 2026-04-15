@@ -99,35 +99,40 @@
             margin-bottom: 40px;
         }
         /* Окно блокировки при неверном ГЕО */
+        /* Окно блокировки */
         #geo-blocker {
-            display: none; /* По умолчанию скрыто */
+            display: none; 
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.98);
             z-index: 9999;
+            /* Убеждаемся, что флекс центрирует строго по центру */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 20px;
+            box-sizing: border-box; /* Важно, чтобы паддинги не раздували окно */
             backdrop-filter: blur(15px);
         }
 
         .geo-warning-box {
             border: 1px solid #ff3333;
             background: #0a0000;
-            padding: 40px;
+            padding: 30px;
             max-width: 500px;
-            width: 90%;
+            width: 100%; /* Занимает всю ширину до max-width */
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             box-sizing: border-box;
             box-shadow: 0 0 50px rgba(255, 0, 0, 0.1);
+            /* Убираем возможные внешние отступы, которые могут смещать окно */
+            margin: auto; 
         }
+
 
         .geo-warning-box h2 {
             color: #ff3333;
@@ -139,26 +144,47 @@
 
 
         /* Найти и заменить .geo-btn-continue */
+        /* Базовый стиль кнопки (как она выглядит на ТЕЛЕФОНЕ) */
         .geo-btn-continue {
             margin-top: 20px;
-            background: transparent;
-            border: 1px solid #666; /* Чуть светлее рамка */
-            color: #fff;            /* Сразу белый текст */
-            padding: 12px 25px;
+            /* На телефоне она ВСЕГДА горит белым */
+            background: #fff;
+            color: #000;
+            border: 1px solid #fff;
+            padding: 14px 25px;
             cursor: pointer;
             font-family: 'Archivo Black', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             border-radius: 10px;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            width: 100%; /* Удобно нажимать пальцем */
         }
 
-        .geo-btn-continue:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        /* Настройка для ПК (где есть мышка) */
+        @media (hover: hover) {
+            .geo-btn-continue {
+                /* Изначально прозрачная с белым текстом */
+                background: transparent;
+                color: #fff;
+                border: 1px solid #666;
+                width: auto; /* На ПК не обязательно во всю ширину */
+            }
+
+            .geo-btn-continue:hover {
+                /* Загорается белым только при наведении */
+                background: #fff;
+                color: #000;
+                border-color: #fff;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            }
         }
 
+        /* Эффект нажатия для всех устройств */
+        .geo-btn-continue:active {
+            transform: scale(0.98);
+            opacity: 0.8;
+        }
 
         /* Состояние заблокированного шага */
         .step-item.locked {
