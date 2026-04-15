@@ -171,45 +171,41 @@
         }
         /* ПРАВИЛЬНЫЙ БЛОК ДЛЯ ЗАМЕНЫ */
 
-        /* Принудительно красим саму ссылку и всё, что внутри неё (span) */
+        /* ОБНОВЛЕННЫЙ БЛОК: Исправляем жирность почты */
+
+        /* 1. Стили для кнопок STEAM/EPIC (оставляем жирными) */
         .platform-link, 
-        .platform-link *, 
+        .platform-link * {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            text-decoration: underline !important;
+            font-family: 'Archivo Black', sans-serif; /* Оставляем жирным тут */
+            transition: opacity 0.2s;
+        }
+
+        /* 2. Стили для ссылки на ПОЧТУ (делаем стандартной) */
         #mail-link,
         #mail-link * {
             color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important; /* Фикс специально для Safari */
+            -webkit-text-fill-color: #ffffff !important;
             text-decoration: underline !important;
-            font-family: 'Archivo Black', sans-serif;
+            font-family: inherit !important; /* Возвращает системный тонкий шрифт */
+            font-weight: normal !important;  /* Убирает жирность */
             transition: opacity 0.2s;
-            outline: none !important;
         }
 
-        /* Состояния: посещенная, нажатая и в фокусе — всегда белый */
-        .platform-link:visited, 
-        .platform-link:active, 
-        .platform-link:focus,
-        #mail-link:visited,
-        #mail-link:active,
-        #mail-link:focus {
+        /* Общие состояния для всех ссылок */
+        .platform-link:visited, #mail-link:visited,
+        .platform-link:active, #mail-link:active {
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
         }
 
-        /* Эффект при наведении только через прозрачность (чтобы не менять цвет) */
         @media (hover: hover) {
-            .platform-link:hover, 
-            #mail-link:hover {
+            .platform-link:hover, #mail-link:hover {
                 opacity: 0.7 !important;
             }
         }
-
-        /* Эффект при клике на телефоне */
-        .platform-link:active, 
-        #mail-link:active {
-            opacity: 0.5 !important;
-        }
-
-
 
         /* Уведомление о копировании */
         #copy-toast {
