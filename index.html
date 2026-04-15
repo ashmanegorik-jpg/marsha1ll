@@ -1067,12 +1067,7 @@
     <div class="geo-warning-box">
         <h2>REGION MISMATCH</h2>
         <p style="color: #fff; font-size: 1rem; margin-bottom: 10px;">ТРЕБУЕМЫЙ РЕГИОН VPN: <span id="target-region-name" style="color: #00ff00;">...</span></p>
-        
         <p id="geo-message">ВНИМАНИЕ: Ваш текущий регион не совпадает с регионом аккаунта. Использование аккаунта без соответствующего VPN может привести к блокировке.</p>
-        
-        <div style="color: #666; font-size: 0.7rem; margin-top: 10px;">
-            ВАШ IP: <span id="user-ip">...</span> | ВАШ КУРС: <span id="user-country">...</span>
-        </div>
         <button class="geo-btn-continue" onclick="document.getElementById('geo-blocker').style.display='none'">Я ВКЛЮЧИЛ VPN, ПРОДОЛЖИТЬ</button>
     </div>
 </div>
@@ -1722,10 +1717,6 @@
     
             const userCountry = data.country_code; // Например: RU
         
-            // Пишем данные пользователя в модалку
-            document.getElementById('user-ip').innerText = data.ip || '0.0.0.0';
-            document.getElementById('user-country').innerText = userCountry || 'UNKNOWN';
-
             // Если регион не совпал — показываем блок
             if (userCountry !== regionUpper) {
                 document.getElementById('geo-blocker').style.display = 'flex';
