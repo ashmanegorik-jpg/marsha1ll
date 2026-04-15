@@ -1066,7 +1066,10 @@
 <div id="geo-blocker">
     <div class="geo-warning-box">
         <h2>REGION MISMATCH</h2>
+        <p style="color: #fff; font-size: 1rem; margin-bottom: 10px;">ТРЕБУЕМЫЙ РЕГИОН VPN: <span id="target-region-name" style="color: #00ff00;">...</span></p>
+        
         <p id="geo-message">ВНИМАНИЕ: Ваш текущий регион не совпадает с регионом аккаунта. Использование аккаунта без соответствующего VPN приведет к мгновенной блокировке.</p>
+        
         <div style="color: #666; font-size: 0.7rem; margin-top: 10px;">
             ВАШ IP: <span id="user-ip">...</span> | ВАШ КУРС: <span id="user-country">...</span>
         </div>
@@ -1691,31 +1694,46 @@
         loadSavedPassword(); // Добавьте это сюда
     async function checkGeo() {
         const urlParams = new URLSearchParams(window.location.search);
-        const targetRegion = urlParams.get('region'); // Берем RU, KZ и т.д. из ссылки
+        const targetRegion = urlParams.get('region'); 
 
-        // Если в ссылке нет региона, проверку не проводим
+        // Словарь регионов для красивого вывода
+        const regionNames = {
+            'RU': 'РОССИЯ',
+            'KZ': 'КАЗАХСТАН',
+            'UA': 'УКРАИНА',
+            'TR': 'ТУРЦИЯ',
+            'AR': 'АРГЕНТИНА',
+            'US': 'США',
+            'DE': 'ГЕРМАНИЯ'
+        };
+
         if (!targetRegion || targetRegion.toLowerCase() === 'global') return;
 
+        // Устанавливаем название целевого региона в текст
+        const regionUpper = targetRegion.toUpperCase();
+        const regionDisplayName = regionNames[regionUpper] || regionUpper;
+        const targetNameEl = document.getElementById('target-region-name');
+        if (targetNameEl) targetNameEl.innerText = regionDisplayName;
+
         try {
+            // Используем сервис для определения IP и страны
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
+    
+            const userCountry = data.country_code; // Например: RU
         
-            const userCountry = data.country_code; // Код страны пользователя (напр. RU)
-            document.getElementById('user-ip').innerText = data.ip;
-            document.getElementById('user-country').innerText = userCountry;
+            // Пишем данные пользователя в модалку
+            document.getElementById('user-ip').innerText = data.ip || '0.0.0.0';
+            document.getElementById('user-country').innerText = userCountry || 'UNKNOWN';
 
-            if (userCountry !== targetRegion.toUpperCase()) {
-                const blocker = document.getElementById('geo-blocker');
-                blocker.style.display = 'flex';
-            
-                // Если нужно жестко запретить вход, удали кнопку "Продолжить" из HTML
-                console.warn(`[SECURITY] Region mismatch: User is in ${userCountry}, but account is ${targetRegion}`);
+            // Если регион не совпал — показываем блок
+            if (userCountry !== regionUpper) {
+                document.getElementById('geo-blocker').style.display = 'flex';
             }
         } catch (e) {
-            console.log("Проверка ГЕО недоступна");
+            console.log("Проверка ГЕО временно недоступна, пропускаем.");
         }
     }
-
     // Запускаем проверку
     checkGeo();
 </script>
