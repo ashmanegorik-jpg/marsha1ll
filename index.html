@@ -1225,6 +1225,16 @@
 </div>
 
 <script>
+    (function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetRegion = urlParams.get('region');
+        const vpnConfirmed = localStorage.getItem('vpn_confirmed');
+
+        // Если юзер уже подтвердил ВПН, принудительно скрываем блок еще до того, как он отрисуется
+        if (vpnConfirmed === 'true' || !targetRegion || targetRegion.toLowerCase() === 'global') {
+            document.head.insertAdjacentHTML('beforeend', '<style>#geo-blocker { display: none !important; }</style>');
+        }
+    })();
     const guides = {
         phase1: {
             title: "ШАГ 1: СМЕНА ПАРОЛЯ",
