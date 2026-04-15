@@ -1068,7 +1068,7 @@
         <h2>REGION MISMATCH</h2>
         <p style="color: #fff; font-size: 1rem; margin-bottom: 10px;">ТРЕБУЕМЫЙ РЕГИОН VPN: <span id="target-region-name" style="color: #00ff00;">...</span></p>
         <p id="geo-message">ВНИМАНИЕ: Ваш текущий регион не совпадает с регионом аккаунта. Использование аккаунта без соответствующего VPN может привести к блокировке.</p>
-        <button class="geo-btn-continue" onclick="document.getElementById('geo-blocker').style.display='none'">Я ВКЛЮЧИЛ VPN, ПРОДОЛЖИТЬ</button>
+        <button class="geo-btn-continue" onclick="saveVpnStatus()">Я ВКЛЮЧИЛ VPN, ПРОДОЛЖИТЬ</button>
     </div>
 </div>
 <div id="copy-toast">Текст скопирован в буфер</div>
@@ -1688,6 +1688,9 @@
         loadProgress();
         loadSavedPassword(); // Добавьте это сюда
     async function checkGeo() {
+        if (localStorage.getItem('vpn_confirmed') === 'true') {
+            return; 
+        }
         const urlParams = new URLSearchParams(window.location.search);
         const targetRegion = urlParams.get('region'); 
 
@@ -1727,6 +1730,10 @@
     }
     // Запускаем проверку
     checkGeo();
+    function saveVpnStatus() {
+        localStorage.setItem('vpn_confirmed', 'true');
+        document.getElementById('geo-blocker').style.display = 'none';
+    }
 </script>
 
 </body>
