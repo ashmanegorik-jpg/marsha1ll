@@ -1691,40 +1691,35 @@
         const urlParams = new URLSearchParams(window.location.search);
         const targetRegion = urlParams.get('region'); 
 
-        // 1. Если региона нет в URL или это GLOBAL — ничего не делаем
-        if (!targetRegion || targetRegion.toLowerCase() === 'global') return;
-
-        // 2. КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Если пользователь уже нажал "Я включил VPN", 
-        // мы ПОЛНОСТЬЮ прекращаем работу функции и не лезем в fetch.
-        if (localStorage.getItem('vpn_confirmed') === 'true') {
-            document.getElementById('geo-blocker').style.display = 'none';
+        // Если региона нет или нажата кнопка — ВЫХОДИМ СРАЗУ
+        if (!targetRegion || targetRegion.toLowerCase() === 'global' || localStorage.getItem('vpn_confirmed') === 'true') {
             return; 
         }
 
+        // Если мы дошли сюда, значит кнопка НЕ нажата. 
+        // Только теперь подготавливаем данные
         const regionNames = {
             'RU': 'РОССИЯ', 'KZ': 'КАЗАХСТАН', 'UA': 'УКРАИНА',
             'TR': 'ТУРЦИЯ', 'AR': 'АРГЕНТИНА', 'US': 'США', 'DE': 'ГЕРМАНИЯ'
         };
-
         const regionUpper = targetRegion.toUpperCase();
         const regionDisplayName = regionNames[regionUpper] || regionUpper;
-        const targetNameEl = document.getElementById('target-region-name');
-        if (targetNameEl) targetNameEl.innerText = regionDisplayName;
+        document.getElementById('target-region-name').innerText = regionDisplayName;
 
         try {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
             const userCountry = data.country_code; 
 
-            // Показываем окно только если страны не совпали И статус не подтвержден
             if (userCountry !== regionUpper) {
-                document.getElementById('geo-blocker').style.display = 'flex';
+                // Только если проверка провалена, форсированно показываем окно
+                document.getElementById('geo-blocker').style.setProperty('display', 'flex', 'important');
             }
         } catch (e) {
-            // Если сервис проверки IP лежит, лучше не блокировать пользователя
             console.log("Проверка ГЕО недоступна");
         }
     }
+
     // ВАЖНО: Запускаем функцию только после того, как вся страница загрузилась
     window.addEventListener('load', checkGeo);
 
