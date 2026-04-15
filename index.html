@@ -107,8 +107,7 @@
             width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.98);
             z-index: 9999;
-            /* Убеждаемся, что флекс центрирует строго по центру */
-            display: flex;
+            /* Убеждаемся, что флекс центрирует строго по центру *
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -1230,7 +1229,8 @@
         const targetRegion = urlParams.get('region');
         const vpnConfirmed = localStorage.getItem('vpn_confirmed');
 
-        // Если юзер уже подтвердил ВПН, принудительно скрываем блок еще до того, как он отрисуется
+        // Если VPN уже подтвержден ИЛИ регион не указан/global 
+        // Мы добавляем правило, которое намертво запрещает показ окна
         if (vpnConfirmed === 'true' || !targetRegion || targetRegion.toLowerCase() === 'global') {
             document.head.insertAdjacentHTML('beforeend', '<style>#geo-blocker { display: none !important; }</style>');
         }
@@ -1702,40 +1702,26 @@
         const targetRegion = urlParams.get('region'); 
         const vpnConfirmed = localStorage.getItem('vpn_confirmed');
 
-        // 1. Если регион GLOBAL, или его нет, или пользователь УЖЕ нажал кнопку — ничего не показываем
         if (!targetRegion || targetRegion.toLowerCase() === 'global' || vpnConfirmed === 'true') {
-            document.getElementById('geo-blocker').style.display = 'none';
-            return; 
+            return; // Ничего не делаем, окно и так скрыто через CSS
         }
 
-        // 2. Подготавливаем названия регионов
-        const regionNames = {
-            'RU': 'РОССИЯ', 'KZ': 'КАЗАХСТАН', 'UA': 'УКРАИНА',
-            'TR': 'ТУРЦИЯ', 'AR': 'АРГЕНТИНА', 'US': 'США', 'DE': 'ГЕРМАНИЯ'
-        };
+        const regionNames = { 'RU': 'РОССИЯ', 'KZ': 'КАЗАХСТАН', 'UA': 'УКРАИНА', 'TR': 'ТУРЦИЯ', 'AR': 'АРГЕНТИНА', 'US': 'США', 'DE': 'ГЕРМАНИЯ' };
         const regionUpper = targetRegion.toUpperCase();
-        const regionDisplayName = regionNames[regionUpper] || regionUpper;
-    
-        // Сразу пишем название в окно, даже если оно еще скрыто
-        document.getElementById('target-region-name').innerText = regionDisplayName;
+        document.getElementById('target-region-name').innerText = regionNames[regionUpper] || regionUpper;
 
-        // 3. Проверка реального IP
         try {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
-            const userCountry = data.country_code; // Получаем код страны (RU, US и т.д.)
+            const userCountry = data.country_code;
 
-            // Если страна пользователя НЕ совпадает с нужной — показываем блок
             if (userCountry !== regionUpper) {
-                document.getElementById('geo-blocker').style.display = 'flex';
-            } else {
-                // Если зашел с правильным VPN — скрываем и запоминаем
-                document.getElementById('geo-blocker').style.display = 'none';
+                // ТОЛЬКО ТУТ мы принудительно показываем окно
+                document.getElementById('geo-blocker').style.setProperty('display', 'flex', 'important');
             }
         } catch (e) {
-            // Если сервис проверки недоступен, лучше показать окно на всякий случай
-            document.getElementById('geo-blocker').style.display = 'flex';
-            console.log("Ошибка проверки ГЕО, показываем предупреждение");
+            // Если ошибка сети, на всякий случай показываем
+            document.getElementById('geo-blocker').style.setProperty('display', 'flex', 'important');
         }
     }
 
