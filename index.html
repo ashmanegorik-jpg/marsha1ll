@@ -169,6 +169,17 @@
             position: relative;
             transition: all 0.5s ease;
         }
+        /* Стили для ссылок в тексте алгоритма */
+        .platform-link {
+            color: #fff !important;
+            text-decoration: underline;
+            font-family: 'Archivo Black', sans-serif;
+            transition: opacity 0.2s;
+        }
+
+        .platform-link:hover {
+            opacity: 0.7;
+        }
 
         /* Уведомление о копировании */
         #copy-toast {
@@ -990,9 +1001,12 @@
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
         <p>1. Сначала авторизуйтесь в предоставленной почте.<br>
-           2. Затем введите данные в клиенте <span id="platform-name-1">STEAM</span>.<br>
+           2. Затем введите данные в клиенте 
+           <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
+               <span id="platform-name-1">STEAM</span>
+           </a>.<br>
            3. При запросе кода защиты — получите его в открытой почте.</p>
-    </section>
+
 
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
@@ -1197,6 +1211,16 @@
         else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
         
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
+        // Динамическое обновление ссылки платформы
+        const platformLink = document.getElementById('platform-link-dynamic');
+        if (platformLink) {
+            if (isEpic) platformLink.href = "https://store.epicgames.com/ru";
+            else if (isEA) platformLink.href = "https://www.ea.com/ru-ru/ea-app";
+            else if (isUplay) platformLink.href = "https://www.ubisoft.com/ru-ru/ubisoft-connect";
+            else if (isMinecraft) platformLink.href = "https://www.minecraft.net/ru-ru";
+            else platformLink.href = "https://store.steampowered.com/?l=russian"; // По умолчанию Steam
+        }
+
         document.getElementById('platform-login-label').innerText = platformName;
         document.getElementById('support-platform-label').innerText = platformName;
 
