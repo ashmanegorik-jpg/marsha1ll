@@ -98,6 +98,56 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
+        /* Состояние заблокированного шага */
+        .step-item.locked {
+            opacity: 0.4;
+            filter: blur(4px);
+            pointer-events: none; /* Нельзя кликнуть */
+            position: relative;
+            user-select: none;
+        }
+
+        /* Контейнер для иконки замка и текста внутри блюра */
+        .lock-overlay {
+            display: none; /* По умолчанию скрыт */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Показываем оверлей только в заблокированном состоянии */
+        .step-item.locked .lock-overlay {
+            display: flex;
+        }
+
+        .lock-icon {
+            width: 30px;
+            height: 30px;
+            fill: #444;
+            margin-bottom: 10px;
+        }
+
+        .lock-text {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.6rem;
+            color: #444;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            max-width: 150px;
+        }
+
+        /* Чтобы контент фазы не прыгал при наложении оверлея */
+        .step-item {
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
         /* Уведомление о копировании */
         #copy-toast {
             position: fixed;
@@ -948,7 +998,11 @@
                 </div>
             </div>
 
-            <div id="step-2" class="step-item">
+            <div id="step-2" class="step-item locked">
+                <div class="lock-overlay">
+                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <div class="lock-text">Завершите фазу 01, чтобы открыть доступ</div>
+                </div>
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
                 <div class="step-controls">
@@ -957,7 +1011,11 @@
                 </div>
             </div>
 
-            <div id="step-3" class="step-item">
+            <div id="step-3" class="step-item locked">
+                <div class="lock-overlay">
+                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <div class="lock-text">Завершите фазу 02, чтобы открыть доступ</div>
+                </div>
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
                 <div class="step-controls">
@@ -1165,26 +1223,35 @@
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
+    
         currentBtn.innerText = "ВЫПОЛНЕНО ✓";
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
-        
+    
+        // Сохраняем прогресс
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         if (!progress.includes(stepNumber)) {
             progress.push(stepNumber);
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
 
+        // Активация следующего шага
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
         if (nextStep && nextStep.style.display !== 'none') {
-            nextStep.classList.add("active");
-            setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
-        } else { checkFinalStatus(); }
+            nextStep.classList.remove("locked"); // Убираем блюр и замок
+            nextStep.classList.add("active");    // Делаем активным
+            setTimeout(() => { 
+                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+            }, 300);
+        } else { 
+            checkFinalStatus(); 
+        }
     }
 
+    // В функции loadProgress тоже нужно добавить снятие блокировки
     function loadProgress() {
         const progress = JSON.parse(localStorage.getItem(storageKey)) || [];
-        progress.forEach(stepNumber => {
+        progress.sort((a, b) => a - b).forEach(stepNumber => {
             const stepEl = document.getElementById(`step-${stepNumber}`);
             if (stepEl) {
                 const btn = stepEl.querySelector('.step-btn');
@@ -1193,11 +1260,20 @@
                     btn.classList.add("completed");
                     btn.onclick = null;
                 }
+                // Разблокируем текущий и СЛЕДУЮЩИЙ шаг
+                stepEl.classList.remove("locked");
+                stepEl.classList.add("active");
+            
                 const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-                if (nextStep && nextStep.style.display !== 'none') { nextStep.classList.add("active"); }
+                if (nextStep && nextStep.style.display !== 'none') { 
+                    nextStep.classList.remove("locked");
+                    nextStep.classList.add("active"); 
+                }
             }
         });
         checkFinalStatus();
+    }
+
     }
     // Эта функция переключает точки (dots) при горизонтальном скролле картинок
     function updateDots(el) {
