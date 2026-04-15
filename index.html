@@ -1690,45 +1690,53 @@
     async function checkGeo() {
         const urlParams = new URLSearchParams(window.location.search);
         const targetRegion = urlParams.get('region'); 
+        const vpnConfirmed = localStorage.getItem('vpn_confirmed');
 
-        // Если региона нет или нажата кнопка — ВЫХОДИМ СРАЗУ
-        if (!targetRegion || targetRegion.toLowerCase() === 'global' || localStorage.getItem('vpn_confirmed') === 'true') {
+        // 1. Если регион GLOBAL, или его нет, или пользователь УЖЕ нажал кнопку — ничего не показываем
+        if (!targetRegion || targetRegion.toLowerCase() === 'global' || vpnConfirmed === 'true') {
+            document.getElementById('geo-blocker').style.display = 'none';
             return; 
         }
 
-        // Если мы дошли сюда, значит кнопка НЕ нажата. 
-        // Только теперь подготавливаем данные
+        // 2. Подготавливаем названия регионов
         const regionNames = {
             'RU': 'РОССИЯ', 'KZ': 'КАЗАХСТАН', 'UA': 'УКРАИНА',
             'TR': 'ТУРЦИЯ', 'AR': 'АРГЕНТИНА', 'US': 'США', 'DE': 'ГЕРМАНИЯ'
         };
         const regionUpper = targetRegion.toUpperCase();
         const regionDisplayName = regionNames[regionUpper] || regionUpper;
+    
+        // Сразу пишем название в окно, даже если оно еще скрыто
         document.getElementById('target-region-name').innerText = regionDisplayName;
 
+        // 3. Проверка реального IP
         try {
             const response = await fetch('https://ipapi.co/json/');
             const data = await response.json();
-            const userCountry = data.country_code; 
+            const userCountry = data.country_code; // Получаем код страны (RU, US и т.д.)
 
+            // Если страна пользователя НЕ совпадает с нужной — показываем блок
             if (userCountry !== regionUpper) {
-                // Только если проверка провалена, форсированно показываем окно
-                document.getElementById('geo-blocker').style.setProperty('display', 'flex', 'important');
+                document.getElementById('geo-blocker').style.display = 'flex';
+            } else {
+                // Если зашел с правильным VPN — скрываем и запоминаем
+                document.getElementById('geo-blocker').style.display = 'none';
             }
         } catch (e) {
-            console.log("Проверка ГЕО недоступна");
+            // Если сервис проверки недоступен, лучше показать окно на всякий случай
+            document.getElementById('geo-blocker').style.display = 'flex';
+            console.log("Ошибка проверки ГЕО, показываем предупреждение");
         }
     }
 
-    // ВАЖНО: Запускаем функцию только после того, как вся страница загрузилась
-    window.addEventListener('load', checkGeo);
-
-    // Запускаем проверку
-    checkGeo();
     function saveVpnStatus() {
         localStorage.setItem('vpn_confirmed', 'true');
         document.getElementById('geo-blocker').style.display = 'none';
+        // Добавляем перезагрузку или просто скрытие
     }
+
+    // Запускаем проверку при загрузке страницы
+    window.addEventListener('load', checkGeo);
 </script>
 
 </body>
