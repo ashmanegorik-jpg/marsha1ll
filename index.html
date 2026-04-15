@@ -141,6 +141,28 @@
             text-transform: uppercase;
             max-width: 150px;
         }
+        /* Убираем общий блюр с контейнера */
+        .step-item.locked {
+            opacity: 0.6; /* Можно оставить прозрачность */
+            filter: none; /* Убираем блюр отсюда */
+            pointer-events: none;
+            position: relative;
+            user-select: none;
+        }
+
+        /* Применяем блюр ТОЛЬКО к контенту (тексту и кнопкам), если шаг заблокирован */
+        .step-item.locked p, 
+        .step-item.locked .step-controls,
+        .step-item.locked .step-number {
+            filter: blur(4px);
+        }
+
+        /* А замок оставляем четким */
+        .step-item.locked .lock-overlay {
+            display: flex;
+            filter: none; /* Гарантируем отсутствие блюра */
+            z-index: 101; /* Поднимаем выше размытого текста */
+        }
 
         /* Чтобы контент фазы не прыгал при наложении оверлея */
         .step-item {
