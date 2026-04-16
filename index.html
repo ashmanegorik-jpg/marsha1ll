@@ -1273,16 +1273,26 @@
         }
     };
 
-    function reveal() {
-        var reveals = document.querySelectorAll(".reveal");
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementBottom = reveals[i].getBoundingClientRect().bottom;
+
+                // Если верхняя граница элемента вошла в экран
+                if (elementTop < windowHeight - 50 && elementBottom > 50) { 
+                    reveals[i].classList.add("active"); 
+                } 
+                // Если элемент полностью ушел вверх или вниз — убираем класс
+                else {
+                    reveals[i].classList.remove("active");
+                }
+            }
         }
-    }
-    window.addEventListener("scroll", reveal);
-    reveal();
+        window.addEventListener("scroll", reveal);
+        reveal();
+
 
     const games = {
         "fh5": "FORZA HORIZON 5",
