@@ -1100,51 +1100,51 @@
     </div>
 </div>
 
-
 <div class="main-brand-logo">MARSHA1LL</div>
 
-<div class="reveal transfer-widget">
-    <div class="widget-header">
-        <span class="widget-icon">📁</span>
-        <span class="widget-status">TRANSFER PROTOCOL</span>
+<div class="terminal-container">
+    
+    <div class="reveal transfer-widget active">
+        <div class="widget-header">
+            <span class="widget-icon">📁</span>
+            <span class="widget-status">TRANSFER PROTOCOL</span>
+        </div>
+        <div class="widget-body">
+            <div class="widget-line">
+                <span class="label">SUBJECT:</span>
+                <span id="subject-text" class="value highlight">LOADING ASSET...</span>
+            </div>
+            <div class="widget-line">
+                <span class="label">STATUS:</span>
+                <span class="value highlight">OWNERSHIP GRANTED</span>
+            </div>
+            <div class="widget-line">
+                <span class="label">TRANSFER:</span>
+                <span class="value">PERMANENT</span>
+            </div>
+            <div class="widget-line">
+                <span class="label">SECURITY:</span>
+                <span class="value" style="color: #ff3333;">OWNER CLEARANCE</span>
+            </div>
+        </div>
     </div>
-    <div class="widget-body">
-        <div class="widget-line">
-            <span class="label">SUBJECT:</span>
-            <span class="value highlight">CS2 PRIME STATUS (FULL ONLINE ASSET)</span>
-        </div>
-        <div class="widget-line">
-            <span class="label">STATUS:</span>
-            <span class="value highlight">OWNERSHIP GRANTED</span>
-        </div>
-        <div class="widget-line">
-            <span class="label">TRANSFER:</span>
-            <span class="value">PERMANENT</span>
-        </div>
-        <div class="widget-line">
-            <span class="label">SECURITY:</span>
-            <span class="value" style="color: #ff3333;">OWNER CLEARANCE</span>
-        </div>
-    </div>
-</div>
 
     <section class="reveal">
-        <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
+        <h2 id="game-title">1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
         <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (В ЧАТЕ ПОКУПКИ):</p>
         <ul>
-            <li><span><span id="platform-login-label">STEAM</span>: LOGIN/PASS</span></li>
+            <li><span><span id="platform-login-label">PLATFORM</span>: LOGIN/PASS</span></li>
             <li><span>EMAIL: LOGIN/PASS (NATIVE)</span></li>
-            <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank">LOADING...</a></span></li>
+            <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" target="_blank">LOADING...</a></span></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
         <p>1. Сначала авторизуйтесь в предоставленной почте.<br>
            2. Затем введите данные в клиенте 
-           <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
-               <span id="platform-name-1">STEAM</span>
+           <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link">
+               <span id="platform-name-1">PLATFORM</span>
            </a><br>
            3. При запросе кода защиты — получите его в открытой почте.</p>
     </section>
-
 
     <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
@@ -1161,11 +1161,10 @@
             <div class="password-hint">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
         </div>
 
-
         <div class="wizard-container">
             <div id="step-1" class="step-item active">
                 <div class="step-number">PHASE 01 // SECURITY</div>
-                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
+                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">PLATFORM</span> И ПОЧТЕ.</p>
                 <div class="step-controls">
                     <span class="how-to-link" onclick="openGuide(1)">Как это сделать?</span> 
                     <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
@@ -1199,7 +1198,6 @@
             </div>
         </div>
 
-
         <div class="warning-box">
             ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ (ПО ВИНЕ ВЛАДЕЛЬЦА) НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
         </div>
@@ -1219,7 +1217,7 @@
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4h2c0-2.76-2.24-5-5-5-2.42 0-4.44 1.72-4.9 4h-.1c-1.66 0-3 1.34-3 3s1.34 3 3 3h13c1.66 0 3-1.34 3-3s-1.34-3-3-3V11c3.5 0 6.42 2.42 7.17 5.67C21.39 17.41 20.3 18 19 18z"/></svg>
                 <div class="card-title">ОБЛАКО</div>
-                <p class="card-text">ВСЕ ВАШИ СОХРАНЕНИЯ И ПРОГРЕСС АВТОМАТИЧЕСКИ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">STEAM</span>.</p>
+                <p class="card-text">ВСЕ ВАШИ СОХРАНЕНИЯ И ПРОГРЕСС АВТОМАТИЧЕСКИ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">PLATFORM</span>.</p>
             </div>
 
             <div class="precaution-card">
@@ -1250,7 +1248,7 @@
             <div class="precaution-card card-alert">
                 <svg class="card-icon" style="fill: #ff3333;" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
                 <div class="card-title">АВТОНОМНОСТЬ</div>
-                <p class="card-text">ЛЮБЫЕ ОБРАЩЕНИЯ В ТЕХПОДДЕРЖКУ <span id="support-platform-label-2" class="highlight" style="color:#ff3333">STEAM</span> ЗАПРЕЩЕНЫ. ЭТО ПРИВЕДЕТ К БЛОКИРОВКЕ.</p>
+                <p class="card-text">ЛЮБЫЕ ОБРАЩЕНИЯ В ТЕХПОДДЕРЖКУ <span id="support-platform-label-2" class="highlight" style="color:#ff3333">PLATFORM</span> ЗАПРЕЩЕНЫ. ЭТО ПРИВЕДЕТ К БЛОКИРОВКЕ.</p>
             </div>
         </div>
     </section>
