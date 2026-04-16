@@ -1333,8 +1333,11 @@
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         } else {
-            // По умолчанию для Steam (показываем все шаги, если они были скрыты ранее)
-            if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'block';
+            // Явно показываем 3-й шаг для Steam
+            const step3 = document.getElementById('step-3');
+            if (step3) {
+                step3.style.setProperty('display', 'flex', 'important'); 
+            }
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
