@@ -756,6 +756,51 @@
             font-family: 'Archivo Black', sans-serif;
             width: 100%;
         }
+        .transfer-widget {
+            background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
+            border: 1px solid #1a1a1a;
+            border-left: 3px solid #fff;
+            padding: 20px;
+            border-radius: 4px 16px 16px 4px;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .widget-status {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+        }
+
+        .widget-line {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 6px;
+        }
+
+        .widget-line .label {
+            font-size: 0.75rem;
+            color: #444;
+            width: 80px;
+            flex-shrink: 0;
+        } 
+
+        .widget-line .value {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 480px) {
+            .widget-line { flex-direction: column; gap: 2px; margin-bottom: 10px; }
+        }
 
         /* --- SETUP WIZARD --- */
         .wizard-container {
@@ -1058,18 +1103,30 @@
 
 <div class="main-brand-logo">MARSHA1LL</div>
 
-<div class="terminal-container">
-    <header class="reveal">
-        <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
-        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
-    </header>
-
-    <section class="reveal">
-        <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
-        <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
-        <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
-        <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
-    </section>
+<div class="reveal transfer-widget">
+    <div class="widget-header">
+        <span class="widget-icon">📁</span>
+        <span class="widget-status">TRANSFER PROTOCOL</span>
+    </div>
+    <div class="widget-body">
+        <div class="widget-line">
+            <span class="label">SUBJECT:</span>
+            <span class="value highlight">CS2 PRIME STATUS (FULL ONLINE ASSET)</span>
+        </div>
+        <div class="widget-line">
+            <span class="label">STATUS:</span>
+            <span class="value highlight">OWNERSHIP GRANTED</span>
+        </div>
+        <div class="widget-line">
+            <span class="label">TRANSFER:</span>
+            <span class="value">PERMANENT</span>
+        </div>
+        <div class="widget-line">
+            <span class="label">SECURITY:</span>
+            <span class="value" style="color: #ff3333;">OWNER CLEARANCE</span>
+        </div>
+    </div>
+</div>
 
     <section class="reveal">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
