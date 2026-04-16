@@ -1078,6 +1078,7 @@
                <span id="platform-name-1">STEAM</span>
            </a><br>
            3. При запросе кода защиты — получите его в открытой почте.</p>
+    </section>
 
 
     <section class="reveal">
@@ -1306,8 +1307,8 @@
             else platformLink.href = "https://store.steampowered.com/?l=russian"; // По умолчанию Steam
         }
 
-        document.getElementById('platform-login-label').innerText = platformName;
-        document.getElementById('support-platform-label').innerText = platformName;
+        if(document.getElementById('platform-login-label')) document.getElementById('platform-login-label').innerText = platformName;
+        if(document.getElementById('support-platform-label')) document.getElementById('support-platform-label').innerText = platformName;
         const supportLabel2 = document.getElementById('support-platform-label-2');
         if (supportLabel2) supportLabel2.innerText = platformName;
 
