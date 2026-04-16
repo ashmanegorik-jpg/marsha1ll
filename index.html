@@ -1374,9 +1374,10 @@
 
         // Активация следующего шага
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        if (nextStep && nextStep.style.display !== 'none') {
-            nextStep.classList.remove("locked"); // Убираем блюр и замок
-            nextStep.classList.add("active");    // Делаем активным
+        // Убираем проверку на display !== 'none', чтобы логика работала всегда для существующих шагов
+        if (nextStep) { 
+            nextStep.classList.remove("locked"); 
+            nextStep.classList.add("active");
             setTimeout(() => { 
                 nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
             }, 300);
