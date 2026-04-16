@@ -1039,48 +1039,54 @@
         }
     }
         /* Стили для виджета Протокола */
+        /* Обновленный виджет: теперь скругленный и аккуратный */
         .ownership-widget {
-            background: linear-gradient(145deg, rgba(15, 15, 15, 0.9) 0%, rgba(5, 5, 5, 1) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
+            background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 24px; /* Скругление как у карточек */
             overflow: hidden;
-            margin-bottom: 30px;
-            max-width: 600px; /* Ограничим ширину для аккуратности */
+            margin: 30px auto;
+            max-width: 500px; /* Ограничиваем ширину, чтобы не растягивалось на ПК */
+            width: 100%;
+            box-sizing: border-box;
         }
 
+        /* Убрали лишние надписи сверху, оставили только минималистичный индикатор */
         .widget-header {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header-status {
-            font-size: 0.6rem;
-            color: #444;
-            font-family: 'Archivo Black', sans-serif;
-            letter-spacing: 2px;
+            justify-content: flex-end; /* Точки теперь только справа */
         }
 
         .widget-body {
-            padding: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            text-align: left; /* Текст по левому краю внутри центрированного окна */
         }
 
         .widget-body p {
             margin: 0 !important;
-            font-size: 0.85rem !important;
-            color: #666 !important;
+            font-size: 0.8rem !important;
+            color: #444 !important; /* Более тусклый текст для второстепенных строк */
+            letter-spacing: 0.05em;
         }
 
-        /* Зеленый индикатор для SECURED */
+        /* Яркий акцент для статуса */
         .status-secured {
-            color: #00ff00 !important;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+            color: #00ff00;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Центрируем основной контейнер для контента */
+        .terminal-container {
+            max-width: 900px; /* Сужаем общую рабочую область для удобства чтения на ПК */
+            width: 100%;
+            margin: 0 auto;
+            padding-top: 150px;
         }
     </style>
 </head>
@@ -1111,21 +1117,21 @@
     <section class="reveal">
         <div class="ownership-widget">
             <div class="widget-header">
-                <span class="header-status">SYSTEM_AUTH // 2026</span>
-                <div style="display: flex; gap: 5px;">
-                    <div style="width: 6px; height: 6px; border-radius: 50%; background: #222;"></div>
-                    <div style="width: 6px; height: 6px; border-radius: 50%; background: #222;"></div>
+                <div style="display: flex; gap: 6px;">
+                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #222;"></div>
+                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #00ff00; opacity: 0.5;"></div>
                 </div>
             </div>
-        
+    
             <div class="widget-body">
-                <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
+                <p>📁 <span class="highlight" style="color:#fff">TRANSFER PROTOCOL</span></p>
                 <p>SUBJECT: <span id="subject-text" class="highlight status-secured">LOADING...</span></p>
-                <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
-                <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
+                <p>STATUS: <span class="highlight" style="color:#fff">PERMANENT ACCESS</span></p>
+                <p>LEVEL: <span class="highlight" style="color:#666">OWNER CLEARANCE</span></p>
             </div>
         </div>
     </section>
+
 
 
     <section class="reveal">
