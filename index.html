@@ -1040,23 +1040,24 @@
     }
         /* Стили для виджета Протокола */
         /* Обновленный виджет: теперь скругленный и аккуратный */
+        /* Обновленный виджет: теперь слева и с рамкой */
         .ownership-widget {
             background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
-            border: 1px solid #1a1a1a;
-            border-radius: 24px; /* Скругление как у карточек */
+            border: 1px double #333; /* Двойная рамка для акцента */
+            border-radius: 20px;
             overflow: hidden;
-            margin: 30px auto;
-            max-width: 500px; /* Ограничиваем ширину, чтобы не растягивалось на ПК */
+            margin: 30px 0; /* Убрали auto, чтобы не центрировалось */
+            max-width: 450px; 
             width: 100%;
             box-sizing: border-box;
+            transition: all 0.5s ease;
         }
 
-        /* Убрали лишние надписи сверху, оставили только минималистичный индикатор */
         .widget-header {
             padding: 12px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            justify-content: flex-end; /* Точки теперь только справа */
+            justify-content: flex-end;
         }
 
         .widget-body {
@@ -1064,29 +1065,25 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            text-align: left; /* Текст по левому краю внутри центрированного окна */
+            text-align: left; 
         }
 
-        .widget-body p {
+        /* Весь текст в виджете по умолчанию белый */
+        .widget-body p, .widget-body span {
             margin: 0 !important;
             font-size: 0.8rem !important;
-            color: #444 !important; /* Более тусклый текст для второстепенных строк */
+            color: #fff !important; 
             letter-spacing: 0.05em;
+            transition: color 0.5s ease;
         }
 
-        /* Яркий акцент для статуса */
-        .status-secured {
-            color: #00ff00;
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
+        /* Класс, который включится в конце */
+        .widget-completed {
+            border-color: #00ff00 !important;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
         }
-
-        /* Центрируем основной контейнер для контента */
-        .terminal-container {
-            max-width: 900px; /* Сужаем общую рабочую область для удобства чтения на ПК */
-            width: 100%;
-            margin: 0 auto;
-            padding-top: 150px;
+        .widget-completed p, .widget-completed span {
+            color: #00ff00 !important;
         }
     </style>
 </head>
@@ -1124,10 +1121,10 @@
             </div>
     
             <div class="widget-body">
-                <p>📁 <span class="highlight" style="color:#fff">TRANSFER PROTOCOL</span></p>
-                <p>SUBJECT: <span id="subject-text" class="highlight status-secured">LOADING...</span></p>
-                <p>STATUS: <span class="highlight" style="color:#fff">PERMANENT ACCESS</span></p>
-                <p>LEVEL: <span class="highlight" style="color:#666">OWNER CLEARANCE</span></p>
+                <p>📁 <span>TRANSFER PROTOCOL</span></p>
+                <p>SUBJECT: <span id="subject-text">LOADING...</span></p>
+                <p>STATUS: <span>PERMANENT ACCESS</span></p>
+                <p>LEVEL: <span>OWNER CLEARANCE</span></p>
             </div>
         </div>
     </section>
