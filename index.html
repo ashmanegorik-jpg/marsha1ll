@@ -1038,53 +1038,6 @@
             }
         }
     }
-        /* Стили для виджета Протокола */
-        /* Обновленный виджет: теперь скругленный и аккуратный */
-        /* Обновленный виджет: теперь слева и с рамкой */
-        .ownership-widget {
-            background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
-            border: 1px double #333; /* Двойная рамка для акцента */
-            border-radius: 20px;
-            overflow: hidden;
-            margin: 30px 0; /* Убрали auto, чтобы не центрировалось */
-            max-width: 450px; 
-            width: 100%;
-            box-sizing: border-box;
-            transition: all 0.5s ease;
-        }
-
-        .widget-header {
-            padding: 12px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .widget-body {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            text-align: left; 
-        }
-
-        /* Весь текст в виджете по умолчанию белый */
-        .widget-body p, .widget-body span {
-            margin: 0 !important;
-            font-size: 0.8rem !important;
-            color: #fff !important; 
-            letter-spacing: 0.05em;
-            transition: color 0.5s ease;
-        }
-
-        /* Класс, который включится в конце */
-        .widget-completed {
-            border-color: #00ff00 !important;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.1);
-        }
-        .widget-completed p, .widget-completed span {
-            color: #00ff00 !important;
-        }
     </style>
 </head>
 <body>
@@ -1112,23 +1065,11 @@
     </header>
 
     <section class="reveal">
-        <div class="ownership-widget">
-            <div class="widget-header">
-                <div style="display: flex; gap: 6px;">
-                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #222;"></div>
-                    <div style="width: 5px; height: 5px; border-radius: 50%; background: #00ff00; opacity: 0.5;"></div>
-                </div>
-            </div>
-    
-            <div class="widget-body">
-                <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
-                <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
-                <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
-                <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
-        </div>
+        <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
+        <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
+        <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
+        <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
     </section>
-
-
 
     <section class="reveal">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
