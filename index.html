@@ -126,6 +126,14 @@
                 box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
             }
         }
+        /* Эффект при наведении специально для КРАСНОЙ карточки */
+        @media (hover: hover) {
+            .precaution-card.card-alert:hover {
+                border-color: #ff3333 !important; /* Красная рамка */
+                box-shadow: 0 10px 30px rgba(255, 51, 51, 0.15) !important; /* Красное свечение */
+                transform: translateY(-5px);
+            }
+        }
 
         .card-icon {
             width: 30px;
