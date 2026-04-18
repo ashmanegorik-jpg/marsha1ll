@@ -1312,6 +1312,7 @@
         "cp77": "CYBERPUNK 2077",
         "dl2": "DYING LIGHT 2: STAY HUMAN",
         "acs": "ASSASSIN'S CREED SHADOWS (UPLAY)",
+        "rdr2": "RED DEAD REDEMPTION 2",
         "hi4": "HEARTS of IRON: IV"
     };
 
@@ -1326,6 +1327,7 @@
         const isEA = gameKey.toLowerCase().includes('-ea');
         const isUplay = gameKey.toLowerCase() === 'acs'; // Проверка для Ubisoft
         const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
+        const isRockstar = gameKey.toLowerCase() === 'rdr2'; // Новая проверка
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
@@ -1337,7 +1339,8 @@
         else if (isEA) platformName = "EA LAUNCHER";
         else if (isUplay) platformName = "UBISOFT CONNECT"; // Название для ассасина
         else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
-        
+        else if (isRockstar) platformName = "ROCKSTAR GAMES"; // Для RDR2
+
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         // Динамическое обновление ссылки платформы
         const platformLink = document.getElementById('platform-link-dynamic');
@@ -1346,6 +1349,7 @@
             else if (isEA) platformLink.href = "https://www.ea.com/ru-ru/ea-app";
             else if (isUplay) platformLink.href = "https://www.ubisoft.com/ru-ru/ubisoft-connect";
             else if (isMinecraft) platformLink.href = "https://www.minecraft.net/ru-ru";
+            else if (isRockstar) platformLink.href = "https://www.rockstargames.com/ru/launcher"; // Ссылка на лаунчер
             else platformLink.href = "https://store.steampowered.com/?l=russian"; // По умолчанию Steam
         }
 
@@ -1361,6 +1365,11 @@
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://notletters.com/email/login";
             mailLink.innerText = "NOTLETTERS.COM";
+         } else if (isRockstar) {
+            // Скрываем фазу 03 (очистка сессий в рокстаре делается через смену пароля)
+            if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
+            mailLink.href = "https://outlook.live.com/mail/0/";
+            mailLink.innerText = "OUTLOOK.LIVE.COM";
         } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
