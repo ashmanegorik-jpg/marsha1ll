@@ -1080,19 +1080,21 @@
             <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank">LOADING...</a></span></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
-        <p id="auth-algorithm">
+        <div id="auth-algorithm" style="color: #a0a0a0; font-size: 0.95rem;">
            1. Сначала авторизуйтесь в предоставленной почте.<br>
            2. Затем введите данные в клиенте 
            <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
                <span id="platform-name-1">STEAM</span>
            </a><br>
            3. При запросе кода защиты — получите его в открытой почте.
-           <span id="rockstar-error-msg" style="display: none;"><br>
+   
+           <div id="rockstar-error-msg" style="display: none; margin-top: 10px;">
                <span style="color: #ff3333; font-weight: bold; font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; text-transform: uppercase;">
-                   4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЙ БРАУЗЕР ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
+                   4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЙ УСТРОЙСТВО ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
                </span>
-           </span>
-        </p>
+           </div>
+        </div>
+
 
 
 
@@ -1379,7 +1381,7 @@
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
-            document.getElementById('rockstar-error-msg').style.display = 'inline';
+            document.getElementById('rockstar-error-msg').style.display = 'block';
         } else if (isEpic) {
         } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
