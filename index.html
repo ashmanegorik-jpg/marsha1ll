@@ -1559,18 +1559,18 @@
     
         const checkEpic = currentGameKey.toLowerCase().includes('-epic');
         const checkEA = currentGameKey.toLowerCase().includes('-ea');
-        const checkRockstar = currentGameKey.toLowerCase() === 'rdr2'; // Добавили проверку
-    
+        const checkRockstar = currentGameKey.toLowerCase() === 'rdr2'; // <--- ПРОВЕРКА ТУТ
+
         let data;
         let currentImages = [];
 
         if (phase === 1) {
             data = guides.phase1;
-            // Передаем 3 аргумента: Epic?, EA?, Название игры?
+            // Передаем все нужные флаги в функцию getImages
             currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
         } else if (phase === 2) {
             data = guides.phase2;
-            // ТУТ БЫЛА ОШИБКА: теперь тоже передаем 3 аргумента
+            // Здесь тоже передаем 4 аргумента
             currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
         } else if (phase === 3) {
             data = guides.phase3;
