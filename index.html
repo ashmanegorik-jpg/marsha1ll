@@ -1086,6 +1086,9 @@
                <span id="platform-name-1">STEAM</span>
            </a><br>
            3. При запросе кода защиты — получите его в открытой почте.</p>
+        <p id="rockstar-error-msg" style="display: none; color: #ff3333; font-weight: bold; font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; text-transform: uppercase; margin-top: -10px;">
+           4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЕ УСТРОЙСТВО ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
+        </p>
     </section>
 
 
@@ -1372,6 +1375,7 @@
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
+            document.getElementById('rockstar-error-msg').style.display = 'block';
         } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
