@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -72,9 +72,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        section.reveal {
-            margin-bottom: 60px !important; /* Принудительно возвращаем пространство между главами */
-        }
+
         .feedback-title {
             font-family: 'Archivo Black', sans-serif;
             font-size: 1rem;
@@ -1082,22 +1080,13 @@
             <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank">LOADING...</a></span></li>
         </ul>
         <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
-        <p id="auth-algorithm">
-           1. Сначала авторизуйтесь в предоставленной почте.<br>
+        <p>1. Сначала авторизуйтесь в предоставленной почте.<br>
            2. Затем введите данные в клиенте 
            <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
                <span id="platform-name-1">STEAM</span>
            </a><br>
-           3. При запросе кода защиты — получите его в открытой почте.
-        </p>
-
-        <div id="rockstar-error-msg" style="display: none; margin-top: -10px; margin-bottom: 20px;">
-           <span style="color: #ff3333; font-weight: bold; font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; text-transform: uppercase;">
-               4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЙ БРАУЗЕР ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
-           </span>
-        </div>
-
-
+           3. При запросе кода защиты — получите его в открытой почте.</p>
+    </section>
 
 
     <section class="reveal">
@@ -1338,9 +1327,6 @@
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
-
-
-        
         const isUplay = gameKey.toLowerCase() === 'acs'; // Проверка для Ubisoft
         const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
         const isRockstar = gameKey.toLowerCase() === 'rdr2'; // Новая проверка
@@ -1386,8 +1372,6 @@
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
-            document.getElementById('rockstar-error-msg').style.display = 'block';
-        } else if (isEpic) {
         } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://mail.rambler.ru";
