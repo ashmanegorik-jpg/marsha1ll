@@ -129,6 +129,8 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 5px;
         }
 
         .data-label {
@@ -137,6 +139,7 @@
             letter-spacing: 0.3em;
             text-transform: uppercase;
             font-family: 'Archivo Black', sans-serif;
+            flex-shrink: 0;
         }
 
         .data-value {
@@ -144,14 +147,30 @@
             color: #fff;
             text-align: right;
             font-family: 'Inter', sans-serif;
+            word-break: break-all;
         }
 
         .data-dots {
             flex-grow: 1;
             border-bottom: 1px dotted #222;
             margin: 0 15px 4px 15px;
+            min-width: 20px;
         }
-
+        @media (max-width: 480px) {
+            .data-dots {
+                display: none; /* Убираем точки на совсем маленьких экранах, чтобы текст не прыгал */
+            }
+            .data-row {
+                flex-direction: column; /* Ставим заголовок над значением */
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+            .data-value {
+                text-align: left;
+                width: 100%;
+                margin-top: 2px;
+            }
+        }
         /* Зеленый статус */
         .status-active {
             color: #00ff00 !important;
