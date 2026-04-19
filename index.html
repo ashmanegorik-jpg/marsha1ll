@@ -91,6 +91,73 @@
             color: #00ff00; /* Зеленый акцент для призыва к действию */
             font-weight: bold;
         }
+        /* --- НОВЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
+        .protocol-widget {
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Анимированная линия сканирования */
+        .protocol-widget::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            animation: scan-loop 3s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes scan-loop {
+            0% { top: -100%; }
+            100% { top: 200%; }
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .data-label {
+            font-size: 0.6rem;
+            color: #444;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-family: 'Archivo Black', sans-serif;
+        }
+
+        .data-value {
+            font-size: 0.85rem;
+            color: #fff;
+            text-align: right;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .data-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #222;
+            margin: 0 15px 4px 15px;
+        }
+
+        /* Зеленый статус */
+        .status-active {
+            color: #00ff00 !important;
+            font-family: 'Archivo Black', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
 
         .reveal {
             opacity: 0;
@@ -1065,10 +1132,33 @@
     </header>
 
     <section class="reveal">
-        <p>📁 <span class="highlight">TRANSFER PROTOCOL: OWNERSHIP GRANTED</span></p>
-        <p>SUBJECT: <span id="subject-text" class="highlight">LOADING...</span></p>
-        <p>STATUS: <span class="highlight">PERMANENT TRANSFER</span></p>
-        <p>SECURITY LEVEL: <span class="highlight">OWNER CLEARANCE</span></p>
+        <div class="protocol-widget">
+            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px;">
+                <span style="color: #00ff00; font-size: 10px;">●</span> 📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED
+            </div>
+
+            <div class="data-row">
+                <div class="data-label">SUBJECT</div>
+                <div class="data-dots"></div>
+                <div class="data-value" id="subject-text">LOADING...</div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-label">STATUS</div>
+                <div class="data-dots"></div>
+                <div class="data-value highlight">PERMANENT TRANSFER</div>
+            </div>
+
+            <div class="data-row">
+                <div class="data-label">SECURITY</div>
+                <div class="data-dots"></div>
+                <div class="data-value highlight">OWNER CLEARANCE</div>
+            </div>
+        
+            <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
+                ENCRYPTED DATA STREAM // AES-256
+            </div>
+        </div>
     </section>
 
     <section class="reveal">
@@ -1511,10 +1601,9 @@
         if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
             const subject = document.getElementById('subject-text');
             subject.innerText = "SECURED (READY TO OPERATE)";
-            subject.style.color = "#00ff00";
+            subject.classList.add("status-active"); // Добавляем зеленый цвет и шрифт
         }
     }
-
     loadProgress();
     const guideModal = document.getElementById('guide-modal');
 
