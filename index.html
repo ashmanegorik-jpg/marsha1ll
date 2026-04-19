@@ -1,4 +1,4 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -176,6 +176,85 @@
             color: #00ff00 !important;
             font-family: 'Archivo Black', sans-serif;
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+        }
+        /* --- СТИЛЬ ДЛЯ ВИДЖЕТА 1-ГО ПУНКТА --- */
+        .credentials-widget {
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            max-width: 800px; /* Сделаем его чуть шире, так как текста больше */
+            width: 100%;
+            box-sizing: border-box;
+            margin: 30px 0 50px 0; /* Отступы сверху и снизу */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Добавляем анимацию сканирования и сюда */
+        .credentials-widget::after {
+            content: "";
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+            animation: scan-loop 4s linear infinite; /* Чуть медленнее, так как блок больше */
+            pointer-events: none;
+        }
+
+        /* Заголовок внутри виджета */
+        .credentials-widget-header {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Тонкая вертикальная линия перед заголовком (как на твоем скрине) */
+        .credentials-widget-header::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 20px;
+            background-color: #fff;
+        }
+
+        /* Стилизация списка данных внутри виджета */
+        .credentials-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+        }
+
+        .credentials-list li {
+            font-size: 0.9rem;
+            color: #fff; /* Делаем данные ярче */
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Квадратный маркер вместо точки */
+        .credentials-list li::before {
+            content: "■";
+            color: #444; /* Тусклый серый для маркера */
+            margin-right: 15px;
+            font-size: 0.7rem;
+        }
+
+        /* Делаем названия лаунчеров жирными (highlight) */
+        .credentials-list li .highlight {
+            font-weight: bold;
+            color: #fff;
         }
 
         .reveal {
@@ -1151,32 +1230,31 @@
     </header>
 
     <section class="reveal">
-        <div class="protocol-widget">
-            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px;">
-                <span style="color: #00ff00; font-size: 10px;">●</span> 📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED
+        <div class="credentials-widget">
+            <div class="credentials-widget-header">
+                1. АКТ ПРИЕМА-ПЕРЕДАЧИ
             </div>
 
-            <div class="data-row">
-                <div class="data-label">SUBJECT</div>
-                <div class="data-dots"></div>
-                <div class="data-value" id="subject-text">LOADING...</div>
-            </div>
+            <p style="font-size: 0.85rem; color: #a0a0a0; margin-bottom: 25px; max-width: 100%;">
+                ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (В ЧАТЕ ПОКУПКИ):
+            </p>
 
-            <div class="data-row">
-                <div class="data-label">STATUS</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">PERMANENT TRANSFER</div>
-            </div>
+            <ul class="credentials-list">
+                <li><span><span id="platform-login-label">STEAM</span>: LOGIN / PASS</span></li>
+                <li><span>EMAIL: LOGIN / PASS (NATIVE)</span></li>
+                <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank" style="color: #fff; text-decoration: underline;">LOADING...</a></span></li>
+            </ul>
 
-            <div class="data-row">
-                <div class="data-label">SECURITY</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">OWNER CLEARANCE</div>
-            </div>
-        
-            <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
-                ENCRYPTED DATA STREAM // AES-256
-            </div>
+            <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
+            <p>1. Сначала авторизуйтесь в предоставленной почте.<br>
+               2. Затем введите данные в клиенте 
+               <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
+                   <span id="platform-name-1">STEAM</span>
+               </a><br>
+               3. При запросе кода защиты — получите его в открытой почте.</p>
+            <p id="rockstar-error-msg" style="display: none; color: #ff3333; font-weight: bold; font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; text-transform: uppercase; margin-top: -10px;">
+               4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЙ БРАУЗЕР ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
+            </p>
         </div>
     </section>
 
