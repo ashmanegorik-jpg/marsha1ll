@@ -57,15 +57,14 @@
 
         .password-hint {
             font-family: 'Archivo Black', sans-serif; 
-            font-size: 0.6rem;                       
-            color: #444;                             
+            font-size: 0.55rem;                       
+            color: rgba(255, 255, 255, 0.25); /* Дорогая полупрозрачность */                     
             letter-spacing: 0.3em;                   
             text-transform: uppercase;               
             text-align: center;                      
-            margin-top: 8px;                         
-            width: 100%;                             
-            opacity: 0.8;                            
+            margin-top: 0px; /* Убрали лишний отступ */                            
         }
+
         /* Универсальные стили для мигающих точек */
         .status-dot {
             font-size: 10px;
@@ -386,18 +385,23 @@
         .gen-display {
             flex-grow: 1;
             font-family: 'Archivo Black', sans-serif;
-            background: #000;
-            border: 1px solid #222; 
-            padding: 10px 30px; 
+            background: #000; /* Черная глубина */
+            border: 1px solid rgba(255, 255, 255, 0.03); /* Едва заметная кромка экрана */
+            padding: 14px 40px 14px 20px; /* Сделали экранчик толще */
             color: #00ff00;
             text-align: center;
-            letter-spacing: 2px;
-            font-size: 1rem;
-            text-transform: none !important;
-            min-height: 1.2rem;
-            border-radius: 8px;
+            letter-spacing: 3px;
+            font-size: 1.1rem; /* Цифры чуть крупнее */
+            border-radius: 12px;
             box-sizing: border-box;
+            
+            /* Эффект вдавленного внутрь экрана */
+            box-shadow: inset 0 5px 15px rgba(0,0,0,0.8); 
+            
+            /* Легкое неоновое свечение самого пароля */
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
+
 
         .copy-btn {
             position: absolute;
@@ -451,24 +455,27 @@
 
         .generator-box {
             margin-top: 15px;
-            padding: 8px 12px;
-            border: 1px solid #1a1a1a;
-            background: #0a0a0e;
-            border-radius: 12px;
+            padding: 20px; /* Добавили "воздуха" внутри */
+            border: 1px solid rgba(255, 255, 255, 0.05); /* Тонкий стеклянный блик */
+            background: linear-gradient(145deg, #121218 0%, #0a0a0e 100%); /* Дорогой градиент */
+            border-radius: 20px; /* Мягкие углы */
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            max-width: 260px;
+            gap: 15px;
+            max-width: 320px; /* Сделали чуть шире */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Тень, чтобы блок парил */
         }
+
         .generator-box .step-btn {
             width: 100%;
-            border-radius: 20px;
-            background: transparent !important;
+            border-radius: 12px; /* Под стать экрану */
+            background: rgba(255, 255, 255, 0.03) !important; /* Полупрозрачная заливка */
             color: #fff !important;
-            border: 1px solid #333;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Светлая грань */
             transition: all 0.3s ease;
-            padding: 8px 0; 
+            padding: 12px 0; /* Сделали кнопку выше и солиднее */
         }
+
         .generator-box .step-btn.processing {
             background: #fff !important;
             color: #000 !important;
