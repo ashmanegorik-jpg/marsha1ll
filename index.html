@@ -512,12 +512,23 @@
             transform: translateY(0);
         }
         /* Тот самый премиальный световой блик под заголовком */
+        header.reveal {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Стеклянная линия */
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            width: 100%;
+            opacity: 1;
+            transform: translateY(0);
+            position: relative; /* <--- ВОТ ЭТО ВАЖНО, чтобы блик не улетал вниз */
+        }
+        
+        /* Тот самый премиальный световой блик под заголовком */
         header.reveal::after {
             content: '';
             position: absolute;
             bottom: -1px;
             left: 0;
-            width: 30%; /* Блик занимает только левую часть */
+            width: 30%; 
             height: 1px;
             background: linear-gradient(90deg, rgba(255, 255, 255, 0.6), transparent);
         }
@@ -537,13 +548,13 @@
             line-height: 1.3;
             
             /* Магический эффект серебряного металла */
-            background: linear-gradient(180deg, #ffffff 0%, #888888 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #777777 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Мягкий свет экрана */
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+            /* УДАЛИЛИ filter: drop-shadow, из-за которого айфон зависал намертво! */
         }
+
 
         
         h2 { 
