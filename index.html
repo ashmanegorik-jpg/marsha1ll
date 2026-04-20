@@ -36,24 +36,24 @@
             position: fixed; 
             top: 0; 
             left: 0;
-            z-index: 9999; /* Подняли выше всех возможных слоев */
+            z-index: 9999; /* Поверх всего */
             
-            background: rgba(5, 5, 8, 0.5); 
+            /* Идеальный полупрозрачный тон */
+            background: rgba(5, 5, 8, 0.35); 
             
+            /* Классический глассморфизм */
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px); 
             
-            /* === ФИКС ДЛЯ IPHONE === */
-            /* Заставляет Safari не обрезать блюр в зоне статус-бара */
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
+            /* УБРАЛИ ПОЛОСКУ СНИЗУ */
+            border-bottom: none; 
             
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
-            
+            /* Отступы с учетом "челки" / Dynamic Island */
             padding-top: calc(15px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
         }
+
 
 
         .terminal-container {
