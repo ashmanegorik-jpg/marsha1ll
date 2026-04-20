@@ -1807,7 +1807,9 @@
         const btn = document.getElementById('gen-main-btn');
         btn.blur();
         const display = document.getElementById('password-display');
-
+        const exportBtn = document.getElementById('export-key-btn');
+        exportBtn.classList.remove('saved');
+        exportBtn.innerText = "[↓] EXPORT KEYFILE";
         btn.classList.add('processing');
         btn.innerText = "ГЕНЕРАЦИЯ...";
         display.classList.add('blink');
