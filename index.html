@@ -37,23 +37,14 @@
             top: 0px; 
             left: 0;
             z-index: 100; 
-            
-            /* Плавно уводим затемнение в прозрачность сверху вниз */
-            background: linear-gradient(180deg, rgba(5, 5, 8, 0.85) 0%, rgba(5, 5, 8, 0) 100%); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
-            
-            /* Тот самый трюк Apple: растворяем границу стекла (блюра) */
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            
+            background: rgba(5, 5, 8, 0.3); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             border-bottom: none; 
-            padding-top: calc(20px + env(safe-area-inset-top));
-            padding-bottom: 50px; /* Сделали низ больше, чтобы было место для плавного растворения */
+            padding-top: calc(10px + env(safe-area-inset-top));
+            padding-bottom: 15px;
             box-sizing: border-box; 
-            pointer-events: none; /* Позволяет скроллить и кликать сквозь прозрачную нижнюю часть */
         }
-
 
         .terminal-container {
             max-width: 1200px;
@@ -1053,15 +1044,14 @@
             .modal-content { padding: 15px; width: 85%; }
         }
 
-        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ --- */
-        @media (max-width: 768px) {
-            .main-brand-logo { 
-                font-size: 1.3rem; 
-                letter-spacing: 0.4em; 
-                padding-top: calc(15px + env(safe-area-inset-top)); 
-                padding-bottom: 40px; /* Даем градиенту место для затухания на мобилках */
+        /* --- АДАПТАЦИЯ БЛОКА ДАННЫХ ДЛЯ ТЕЛЕФОНОВ --- */
+        @media (max-width: 600px) {
+            .cred-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 15px;
             }
-
             .cred-value {
                 color: #fff;
             }
@@ -1088,8 +1078,8 @@
                 padding: 40px !important;
             }
             .main-brand-logo {
-                padding-top: 30px !important; /* Даем больше воздуха сверху на мониторах */
-                padding-bottom: 60px !important;
+                padding-top: 25px !important; /* Даем больше воздуха сверху на мониторах */
+                padding-bottom: 20px !important;
                 font-size: 1.8rem; /* Делаем сам текст чуть крупнее и солиднее */
             }
 
