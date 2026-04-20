@@ -37,14 +37,24 @@
             top: 0px; 
             left: 0;
             z-index: 100; 
+            
+            /* ИСПРАВЛЕНО: Вернули единую прозрачность (30%), чтобы время и батарея были на стекле */
             background: rgba(5, 5, 8, 0.3); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
+            
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            
+            /* Маска, которая плавно стирает стекло только в самом низу */
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            
             border-bottom: none; 
-            padding-top: calc(10px + env(safe-area-inset-top));
-            padding-bottom: 15px;
+            padding-top: calc(20px + env(safe-area-inset-top)); /* Сдвигает текст ниже челки/островка */
+            padding-bottom: 50px; 
             box-sizing: border-box; 
+            pointer-events: none; 
         }
+
 
         .terminal-container {
             max-width: 1200px;
