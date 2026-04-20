@@ -465,15 +465,20 @@
             max-width: 260px; /* Сделали чуть шире */
             box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Тень, чтобы блок парил */
         }
-        /* --- СТИЛЬ КНОПКИ ЭКСПОРТА --- */
+        /* --- СТИЛЬ КНОПКИ ЭКСПОРТА (Второстепенное действие) --- */
         .export-btn {
             background: transparent !important;
             border: 1px dashed rgba(255, 255, 255, 0.2) !important;
-            color: #00ff00 !important; /* Зеленый кибер-цвет */
-            font-size: 0.6rem !important;
+            color: #00ff00 !important; 
+            font-size: 0.55rem !important; /* Уменьшили шрифт */
+            padding: 6px 0 !important; /* Сделали кнопку тоньше */
+            width: 85% !important; /* Сделали её чуть уже основной кнопки */
+            margin: 0 auto !important; /* Выровняли по центру */
+            border-radius: 6px !important; /* Уголки острее */
             opacity: 0.8;
-            letter-spacing: 0.2em !important;
+            letter-spacing: 0.15em !important;
             font-family: 'Archivo Black', sans-serif !important;
+            transition: all 0.3s ease;
         }
         
         @media (hover: hover) {
@@ -483,6 +488,16 @@
                 opacity: 1;
             }
         }
+
+        /* --- СОСТОЯНИЕ "СОХРАНЕНО" --- */
+        .export-btn.saved {
+            color: #fff !important;
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            border-style: solid !important; /* Меняем пунктир на сплошную линию */
+            opacity: 0.5; /* Делаем её "неактивной" */
+            pointer-events: none; /* Отключаем возможность нажать второй раз подряд */
+        }
+
 
         .generator-box .step-btn {
             width: 100%;
@@ -1927,19 +1942,11 @@ NEW_SECURE_PASSWORD:${pass}
         link.click();
         document.body.removeChild(link);
         
-        // Визуальный отклик на кнопке
+        // --- НОВАЯ ЛОГИКА КНОПКИ (Навсегда статус SAVED) ---
         const btn = document.getElementById('export-key-btn');
-        const originalText = btn.innerText;
         btn.innerText = "✓ KEYFILE SAVED";
-        btn.style.color = "#fff";
-        btn.style.borderColor = "#fff";
-        
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.color = "#00ff00";
-            btn.style.borderColor = "rgba(255, 255, 255, 0.2)";
-        }, 2000);
-    }
+        btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
+    } // Конец функции exportKeyFile
     
         // В самом низу скрипта
         loadProgress();
