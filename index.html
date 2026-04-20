@@ -10,7 +10,9 @@
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
 
         body {
-            background-color: #000;
+            background-color: #050508; /* Глубокий, сложный темный цвет */
+            /* Тонкая текстура шума (очень слабо заметная, но дает премиальность) */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             color: #fff;
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -33,11 +35,19 @@
             top: -5px; 
             left: 0;
             z-index: 100; 
-            background-color: rgb(0, 0, 0); 
+    
+           /* УБИРАЕМ: background-color: rgb(0, 0, 0); */
+           /* ДОБАВЛЯЕМ МАТОВОЕ СТЕКЛО: */
+            background: rgba(5, 5, 8, 0.85); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); /* Для iPhone */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Едва заметная линия отсечения */
+    
             padding-top: 25px;
             padding-bottom: 20px;
             box-sizing: border-box; 
         }
+
 
         .terminal-container {
             max-width: 1200px;
@@ -94,7 +104,7 @@
         /* --- НОВЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
         .protocol-widget {
             background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
-            border: 1px solid #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: 12px;
             padding: 25px;
             position: relative;
@@ -195,7 +205,7 @@
         /* Стиль отдельного виджета */
         .precaution-card {
             background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
-            border: 1px solid #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 25px;
             border-radius: 20px;
             transition: all 0.3s ease;
@@ -800,7 +810,7 @@
         }
         /* --- СТИЛИ ДЛЯ БЛОКА АКТА ПРИЕМА-ПЕРЕДАЧИ --- */
         .credentials-box {
-            border: 1px solid #222;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             background: #050505;
             border-radius: 12px;
             margin-top: 25px;
