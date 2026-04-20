@@ -465,6 +465,24 @@
             max-width: 260px; /* Сделали чуть шире */
             box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Тень, чтобы блок парил */
         }
+        /* --- СТИЛЬ КНОПКИ ЭКСПОРТА --- */
+        .export-btn {
+            background: transparent !important;
+            border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+            color: #00ff00 !important; /* Зеленый кибер-цвет */
+            font-size: 0.6rem !important;
+            opacity: 0.8;
+            letter-spacing: 0.2em !important;
+            font-family: 'Archivo Black', sans-serif !important;
+        }
+        
+        @media (hover: hover) {
+            .export-btn:hover {
+                border-color: #00ff00 !important;
+                background: rgba(0, 255, 0, 0.05) !important;
+                opacity: 1;
+            }
+        }
 
         .generator-box .step-btn {
             width: 100%;
@@ -1243,8 +1261,12 @@
                 </button>
             </div>
             <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()">СГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
+            
+            <button id="export-key-btn" class="step-btn export-btn" onclick="exportKeyFile()" style="display: none;">[↓] EXPORT KEYFILE</button>
+            
             <div class="password-hint">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
         </div>
+
 
 
         <div class="wizard-container">
@@ -1798,6 +1820,8 @@
 
                 btn.classList.remove('processing'); 
                 btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
+                // ПОКАЗЫВАЕМ КНОПКУ ЭКСПОРТА
+                document.getElementById('export-key-btn').style.display = 'block';
             }
         }, 60);
     }
@@ -1833,6 +1857,7 @@
         if (savedPass) {
             display.innerText = savedPass;
             btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
+            document.getElementById('export-key-btn').style.display = 'block';
         }
     }
 
@@ -1863,6 +1888,59 @@
         // Перемешиваем строку, чтобы гарантированные символы не стояли всегда в начале
         return result.split('').sort(() => 0.5 - Math.random()).join('');
     }
+    function exportKeyFile() {
+        const pass = document.getElementById('password-display').innerText;
+        if (pass.includes('XXXX')) return;
+
+        // Собираем красивые данные для файла
+        const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
+        const dateStr = document.getElementById('current-date').innerText.split('// ')[1] || "2026";
+
+        // Формируем текстовый документ в хакерском стиле
+        const fileContent = `=========================================
+      MARSHA1LL DIGITAL ASSETS
+      SECURE KEYFILE EXPORT
+=========================================
+
+DATE: ${dateStr}
+SUBJECT: ${subject}
+SECURITY CLEARANCE: OWNER
+
+-----------------------------------------
+NEW_SECURE_PASSWORD: ${pass}
+-----------------------------------------
+
+* KEEP THIS FILE IN A SECURE LOCATION.
+* DO NOT SHARE WITH THIRD PARTIES.
+=========================================`;
+
+        // Создаем невидимый файл и скачиваем его
+        const blob = new Blob([fileContent], { type: "text/plain" });
+        const link = document.createElement("a");
+        
+        // Делаем красивое имя файла на основе игры
+        const safeSubject = subject.replace(/[^a-zA-Z0-9]/g, '_').toUpperCase();
+        link.download = `MARSHA1LL_KEY_${safeSubject}.txt`;
+        
+        link.href = window.URL.createObjectURL(blob);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Визуальный отклик на кнопке
+        const btn = document.getElementById('export-key-btn');
+        const originalText = btn.innerText;
+        btn.innerText = "✓ KEYFILE SAVED";
+        btn.style.color = "#fff";
+        btn.style.borderColor = "#fff";
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.color = "#00ff00";
+            btn.style.borderColor = "rgba(255, 255, 255, 0.2)";
+        }, 2000);
+    }
+    
         // В самом низу скрипта
         loadProgress();
         loadSavedPassword(); // Добавьте это сюда
