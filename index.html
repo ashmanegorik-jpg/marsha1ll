@@ -34,27 +34,17 @@
             margin: 0;
             width: 100%;
             position: fixed; 
-            top: 0; 
+            top: 0px; 
             left: 0;
-            z-index: 9999; /* Поверх всего */
-            
-            /* Идеальный полупрозрачный тон */
-            background: rgba(5, 5, 8, 0.35); 
-            
-            /* Классический глассморфизм */
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px); 
-            
-            /* УБРАЛИ ПОЛОСКУ СНИЗУ */
+            z-index: 100; 
+            background: rgba(5, 5, 8, 0.3); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             border-bottom: none; 
-            
-            /* Отступы с учетом "челки" / Dynamic Island */
-            padding-top: calc(15px + env(safe-area-inset-top));
+            padding-top: calc(10px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
         }
-
-
 
         .terminal-container {
             max-width: 1200px;
