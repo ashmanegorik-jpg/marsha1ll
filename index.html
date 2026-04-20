@@ -1238,14 +1238,14 @@
         /* --- АДАПТАЦИЯ БЛОКА ДАННЫХ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 600px) {
             .cred-item {
-                flex-direction: column;    /* Выстраиваем элементы друг под другом */
-                align-items: flex-start;   /* Прижимаем всё к левому краю */
-                gap: 6px;                  /* Расстояние между заголовком и значением */
-                padding: 12px 15px;
+                flex-direction: column !important;   /* Выстраиваем элементы друг под другом */
+                align-items: flex-start !important;   /* Прижимаем всё к левому краю */
+                gap: 6px !important;                /* Расстояние между заголовком и значением */
+                padding: 12px 15px !important;
             }
     
             .cred-value {
-                color: #fff; /* Делаем значения чуть ярче на телефоне для читаемости */
+                color: #fff !important; /* Делаем значения чуть ярче на телефоне для читаемости */
             }
         }
     </style>
