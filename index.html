@@ -798,6 +798,117 @@
         .guide-scroll-container::-webkit-scrollbar {
             display: none; 
         }
+        /* --- СТИЛИ ДЛЯ БЛОКА АКТА ПРИЕМА-ПЕРЕДАЧИ --- */
+        .credentials-box {
+            border: 1px solid #222;
+            background: #050505;
+            border-radius: 12px;
+            margin-top: 25px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .cred-header {
+            background: #111;
+            padding: 12px 15px;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.65rem;
+            color: #ffcc00; /* Желтый акцент, как предупреждение в терминале */
+            letter-spacing: 0.15em;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blink-dot {
+            color: #ffcc00;
+            font-size: 0.8rem;
+            animation: pulse-yellow 1.5s infinite;
+        }
+
+        @keyframes pulse-yellow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .cred-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cred-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #111;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .cred-item:last-child {
+            border-bottom: none;
+        }
+
+        .cred-label {
+            font-size: 0.7rem;
+            color: #666;
+            font-family: 'Archivo Black', sans-serif;
+            letter-spacing: 0.15em;
+        }
+
+        .cred-value {
+            font-size: 0.85rem;
+            color: #aaa;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .cred-action {
+            color: #00ff00 !important;
+            text-decoration: none !important;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            border-bottom: 1px dashed #00ff00;
+            transition: all 0.2s;
+        }
+
+        @media (hover: hover) {
+            .cred-action:hover {
+                color: #fff !important;
+                border-color: #fff;
+            }
+        }
+
+        .algorithm-box {
+            margin-top: 35px;
+            padding-left: 15px;
+            border-left: 2px solid #222;
+        }
+
+        .algo-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 0.75rem;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 0.15em;
+        }
+
+        .algo-step {
+            font-size: 0.85rem;
+            color: #a0a0a0;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .algo-step span {
+            color: #00ff00;
+            font-family: 'Archivo Black', sans-serif;
+            margin-right: 10px;
+            font-size: 0.75rem;
+        }
 
 
         .guide-step {
@@ -1181,24 +1292,42 @@
     </section>
 
     <section class="reveal">
-        <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ </h2>
-        <p>ВЫ ПОЛУЧИЛИ ПОЛНЫЙ И ЕДИНОЛИЧНЫЙ КОНТРОЛЬ НАД ЦИФРОВЫМ АКТИВОМ. ДАННЫЕ ДЛЯ АВТОРИЗАЦИИ (В ЧАТЕ ПОКУПКИ):</p>
-        <ul>
-            <li><span><span id="platform-login-label">STEAM</span>: LOGIN/PASS</span></li>
-            <li><span>EMAIL: LOGIN/PASS (NATIVE)</span></li>
-            <li><span>ССЫЛКА НА ПОЧТУ: <a id="mail-link" href="#" class="btn-link" target="_blank">LOADING...</a></span></li>
-        </ul>
-        <p><span class="highlight">АЛГОРИТМ ВХОДА:</span></p>
-        <p>1. Сначала авторизуйтесь в предоставленной почте.<br>
-           2. Затем введите данные в клиенте 
-           <a id="platform-link-dynamic" href="https://store.steampowered.com/?l=russian" target="_blank" class="platform-link">
-               <span id="platform-name-1">STEAM</span>
-           </a><br>
-           3. При запросе кода защиты — получите его в открытой почте.</p>
-        <p id="rockstar-error-msg" style="display: none; color: #ff3333; font-weight: bold; font-family: 'Archivo Black', sans-serif; font-size: 0.8rem; text-transform: uppercase; margin-top: -10px;">
-           4. ЕСЛИ ПРИ ВХОДЕ ВОЗНИКАЕТ ОШИБКА 1.000.7 — АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ПОПРОБУЙТЕ VPN, ДРУГОЙ БРАУЗЕР ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
-        </p>
+        <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ</h2>
+        <p style="color: #666; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">Система зафиксировала передачу цифрового актива. Доступ открыт.</p>
+
+        <div class="credentials-box">
+            <div class="cred-header">
+                <span class="blink-dot">●</span> REQUIRED_CREDENTIALS // ИЩИТЕ ДАННЫЕ В ЧАТЕ ПОКУПКИ
+            </div>
+            <div class="cred-grid">
+                <div class="cred-item">
+                    <span class="cred-label"><span id="platform-login-label">STEAM</span> ACCOUNT</span>
+                    <span class="cred-value">LOGIN : PASSWORD</span>
+                </div>
+                <div class="cred-item">
+                    <span class="cred-label">NATIVE EMAIL</span>
+                    <span class="cred-value">LOGIN : PASSWORD</span>
+                </div>
+                <div class="cred-item">
+                    <span class="cred-label">MAILBOX ACCESS</span>
+                    <a id="mail-link" href="#" target="_blank" class="cred-action">ОТКРЫТЬ ПОЧТУ ↗</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="algorithm-box">
+            <div class="algo-title">>>> EXECUTION_SEQUENCE</div>
+            <div class="algo-step"><span>[01]</span> Авторизуйтесь в предоставленной почте.</div>
+            <div class="algo-step"><span>[02]</span> Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a>.</div>
+            <div class="algo-step"><span>[03]</span> При запросе кода защиты — получите его в открытой почте.</div>
+        </div>
+
+        <div id="rockstar-error-msg" class="warning-box" style="display: none; margin-top: 20px; padding: 15px; border-color: #ff3333; background: rgba(51, 0, 0, 0.4);">
+           <span style="color:#ff3333; display: block; margin-bottom: 5px;">SYSTEM ALERT (ERR 1.000.7):</span> 
+           АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ИСПОЛЬЗУЙТЕ VPN ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
+        </div>
     </section>
+
 
 
     <section class="reveal">
