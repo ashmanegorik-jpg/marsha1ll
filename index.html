@@ -537,16 +537,14 @@
             margin: 0 0 12px 0; 
             line-height: 1.3;
             
-            /* ФИКС: Обжимаем градиент ровно по буквам */
-            display: inline-block; 
-            
-            /* Усиленный контраст серебра */
-            background: linear-gradient(180deg, #ffffff 0%, #555555 100%);
+            /* Сделали нижний цвет светлее (#999999), чтобы вторая строка не исчезала в темноте */
+            background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent; /* Фолбэк для новых браузеров */
+            color: transparent; 
         }
+
 
 
 
