@@ -66,6 +66,26 @@
             width: 100%;                             
             opacity: 0.8;                            
         }
+        /* Универсальные стили для мигающих точек */
+        .status-dot {
+            font-size: 10px;
+            margin-top: 2px; /* Выравниваем ровно по центру ПЕРВОЙ строки */
+            flex-shrink: 0; /* Запрещаем точке сплющиваться в овал */
+        }
+        .dot-green {
+            color: #00ff00;
+            animation: pulse-dot 1.5s infinite;
+        }
+        .dot-yellow {
+            color: #ffcc00;
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        /* Добавили неоновое свечение (text-shadow) при пульсации */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; text-shadow: 0 0 8px currentColor; }
+            50% { opacity: 0.3; text-shadow: none; }
+        }
 
         .feedback-section {
             margin-top: 60px;
@@ -691,15 +711,11 @@
             letter-spacing: 0.15em;
             border-bottom: 1px solid #222;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 8px;
+            line-height: 1.4;
         }
 
-        .blink-dot {
-            color: #ffcc00;
-            font-size: 0.8rem;
-            animation: pulse-yellow 1.5s infinite;
-        }
 
         .cred-grid {
             display: flex;
@@ -1071,8 +1087,9 @@
 
     <section class="reveal">
         <div class="protocol-widget">
-            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: center; gap: 10px;">
-                <span style="color: #00ff00; font-size: 10px;">●</span> 📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED
+            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
+                <span class="status-dot dot-green">●</span> 
+                <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
             </div>
 
             <div class="data-row">
@@ -1107,8 +1124,10 @@
 
         <div class="credentials-box">
             <div class="cred-header">
-                <span class="blink-dot">●</span> REQUIRED_CREDENTIALS // ИЩИТЕ ДАННЫЕ В ЧАТЕ ПОКУПКИ
+                <span class="status-dot dot-yellow">●</span> 
+                <span>REQUIRED_CREDENTIALS // ИЩИТЕ ДАННЫЕ В ЧАТЕ ПОКУПКИ</span>
             </div>
+
             <div class="cred-grid">
                 <div class="cred-item">
                     <span class="cred-label"><span id="platform-login-label">STEAM</span> ACCOUNT</span>
