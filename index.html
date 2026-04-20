@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050508">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,8 +17,7 @@
         }
 
         body {
-            background-color: #050508; /* Глубокий, сложный темный цвет */
-            /* Тонкая текстура шума (очень слабо заметная, но дает премиальность) */
+            background-color: #050508; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
             color: #fff;
             font-family: 'Inter', sans-serif;
@@ -41,18 +41,14 @@
             top: 0px; 
             left: 0;
             z-index: 100; 
-    
-           /* УБИРАЕМ: background-color: rgb(0, 0, 0); */
-           /* ДОБАВЛЯЕМ МАТОВОЕ СТЕКЛО: */
             background: rgba(5, 5, 8, 0.3); 
             backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); /* Для iPhone */
-            border-bottom: none; /* Едва заметная линия отсечения */
+            -webkit-backdrop-filter: blur(12px); 
+            border-bottom: none; 
             padding-top: calc(10px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
         }
-
 
         .terminal-container {
             max-width: 1200px;
@@ -62,18 +58,19 @@
             gap: 20px;
             padding-top: 150px; 
         }
-        /* Стиль для подсказки под генератором пароля */
+
         .password-hint {
-            font-family: 'Archivo Black', sans-serif; /* Тот самый шрифт */
-            font-size: 0.6rem;                       /* Оставляем мелкий размер */
-            color: #444;                             /* Тусклый цвет как в футере */
-            letter-spacing: 0.3em;                   /* Сильное растяжение букв */
-            text-transform: uppercase;               /* Принудительно ЗАГЛАВНЫЕ */
-            text-align: center;                      /* По центру */
-            margin-top: 8px;                         /* Отступ сверху */
-            width: 100%;                             /* На всю ширину */
-            opacity: 0.8;                            /* Чуть добавляем прозрачности для мягкости */
+            font-family: 'Archivo Black', sans-serif; 
+            font-size: 0.6rem;                       
+            color: #444;                             
+            letter-spacing: 0.3em;                   
+            text-transform: uppercase;               
+            text-align: center;                      
+            margin-top: 8px;                         
+            width: 100%;                             
+            opacity: 0.8;                            
         }
+
         .feedback-section {
             margin-top: 60px;
             padding: 30px;
@@ -103,10 +100,10 @@
         }
 
         .feedback-highlight {
-            color: #00ff00; /* Зеленый акцент для призыва к действию */
+            color: #00ff00; 
             font-weight: bold;
         }
-        /* --- НОВЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
+
         .protocol-widget {
             background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(0, 0, 0, 1) 100%);
             border: 1px solid rgba(255, 255, 255, 0.07);
@@ -121,7 +118,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Анимированная линия сканирования */
         .protocol-widget::after {
             content: "";
             position: absolute;
@@ -171,22 +167,7 @@
             margin: 0 15px 4px 15px;
             min-width: 20px;
         }
-        @media (max-width: 480px) {
-            .data-dots {
-                display: none; /* Убираем точки на совсем маленьких экранах, чтобы текст не прыгал */
-            }
-            .data-row {
-                flex-direction: column; /* Ставим заголовок над значением */
-                align-items: flex-start;
-                margin-bottom: 15px;
-            }
-            .data-value {
-                text-align: left;
-                width: 100%;
-                margin-top: 2px;
-            }
-        }
-        /* Зеленый статус */
+
         .status-active {
             color: #00ff00 !important;
             font-family: 'Archivo Black', sans-serif;
@@ -199,7 +180,7 @@
             transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
-        /* Контейнер для виджетов */
+
         .precautions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -207,7 +188,6 @@
             margin-top: 30px;
         }
 
-        /* Стиль отдельного виджета */
         .precaution-card {
             background: linear-gradient(145deg, #0a0a0a 0%, #050505 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -219,19 +199,15 @@
             gap: 12px;
         }
 
-        /* Эффект при наведении */
         @media (hover: hover) {
             .precaution-card:hover {
                 border-color: #444;
                 transform: translateY(-5px);
                 box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
             }
-        }
-        /* Эффект при наведении специально для КРАСНОЙ карточки */
-        @media (hover: hover) {
             .precaution-card.card-alert:hover {
-                border-color: #ff3333 !important; /* Красная рамка */
-                box-shadow: 0 10px 30px rgba(255, 51, 51, 0.15) !important; /* Красное свечение */
+                border-color: #ff3333 !important; 
+                box-shadow: 0 10px 30px rgba(255, 51, 51, 0.15) !important; 
                 transform: translateY(-5px);
             }
         }
@@ -259,24 +235,21 @@
             margin: 0 !important;
         }
 
-        /* Выделение для критического правила (Поддержка) */
         .card-alert {
             border-color: #330000;
         }
         .card-alert .card-title { color: #ff3333; }
 
-        /* Состояние заблокированного шага */
         .step-item.locked {
-            opacity: 0.4;
-            filter: blur(4px);
-            pointer-events: none; /* Нельзя кликнуть */
+            opacity: 0.6; 
+            filter: none; 
+            pointer-events: none;
             position: relative;
             user-select: none;
         }
 
-        /* Контейнер для иконки замка и текста внутри блюра */
         .lock-overlay {
-            display: none; /* По умолчанию скрыт */
+            display: none; 
             position: absolute;
             top: 50%;
             left: 50%;
@@ -288,9 +261,10 @@
             text-align: center;
         }
 
-        /* Показываем оверлей только в заблокированном состоянии */
         .step-item.locked .lock-overlay {
             display: flex;
+            filter: none; 
+            z-index: 101; 
         }
 
         .lock-icon {
@@ -308,60 +282,37 @@
             text-transform: uppercase;
             max-width: 150px;
         }
-        /* Убираем общий блюр с контейнера */
-        .step-item.locked {
-            opacity: 0.6; /* Можно оставить прозрачность */
-            filter: none; /* Убираем блюр отсюда */
-            pointer-events: none;
-            position: relative;
-            user-select: none;
-        }
 
-        /* Применяем блюр ТОЛЬКО к контенту (тексту и кнопкам), если шаг заблокирован */
         .step-item.locked p, 
         .step-item.locked .step-controls,
         .step-item.locked .step-number {
             filter: blur(4px);
         }
 
-        /* А замок оставляем четким */
-        .step-item.locked .lock-overlay {
-            display: flex;
-            filter: none; /* Гарантируем отсутствие блюра */
-            z-index: 101; /* Поднимаем выше размытого текста */
-        }
-
-        /* Чтобы контент фазы не прыгал при наложении оверлея */
         .step-item {
             position: relative;
             transition: all 0.5s ease;
         }
-        /* ПРАВИЛЬНЫЙ БЛОК ДЛЯ ЗАМЕНЫ */
 
-        /* ОБНОВЛЕННЫЙ БЛОК: Исправляем жирность почты */
-
-        /* 1. Стили для кнопок STEAM/EPIC (оставляем жирными) */
         .platform-link, 
         .platform-link * {
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
             text-decoration: underline !important;
-            font-family: 'Archivo Black', sans-serif; /* Оставляем жирным тут */
+            font-family: 'Archivo Black', sans-serif; 
             transition: opacity 0.2s;
         }
 
-        /* 2. Стили для ссылки на ПОЧТУ (делаем стандартной) */
         #mail-link,
         #mail-link * {
             color: #ffffff !important;
             -webkit-text-fill-color: #ffffff !important;
             text-decoration: underline !important;
-            font-family: inherit !important; /* Возвращает системный тонкий шрифт */
-            font-weight: normal !important;  /* Убирает жирность */
+            font-family: inherit !important; 
+            font-weight: normal !important;  
             transition: opacity 0.2s;
         }
 
-        /* Общие состояния для всех ссылок */
         .platform-link:visited, #mail-link:visited,
         .platform-link:active, #mail-link:active {
             color: #ffffff !important;
@@ -374,7 +325,6 @@
             }
         }
 
-        /* Уведомление о копировании */
         #copy-toast {
             position: fixed;
             bottom: 40px;
@@ -393,7 +343,6 @@
             opacity: 0;
             pointer-events: none;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
         #copy-toast.show {
@@ -401,7 +350,6 @@
             opacity: 1;
         }
 
-        /* Контейнер теперь позиционируется относительно, чтобы иконка была внутри */
         .password-wrapper {
             position: relative;
             display: flex;
@@ -413,8 +361,8 @@
             flex-grow: 1;
             font-family: 'Archivo Black', sans-serif;
             background: #000;
-            border: 1px solid #222; /* Сделали рамку чуть тусклее */
-            padding: 10px 30px; /* Справа отступ больше под иконку */
+            border: 1px solid #222; 
+            padding: 10px 30px; 
             color: #00ff00;
             text-align: center;
             letter-spacing: 2px;
@@ -425,7 +373,6 @@
             box-sizing: border-box;
         }
 
-        /* Кнопка-иконка по умолчанию (серый) */
         .copy-btn {
             position: absolute;
             right: 10px;
@@ -438,51 +385,44 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
-            outline: none !important; /* Убираем обводку */
-            -webkit-tap-highlight-color: transparent; /* Убираем синий блик на смартфонах */
+            outline: none !important; 
+            -webkit-tap-highlight-color: transparent; 
         }
 
-        /* Эффекты только для ПК (мышь) */
         @media (hover: hover) {
-            .copy-btn:hover {
-                color: #fff !important;
-            }
-            .copy-btn:active {
-                color: #fff !important;
-                transform: scale(1.1);
+            .copy-btn:hover { color: #fff !important; }
+            .copy-btn:active { color: #fff !important; transform: scale(1.1); }
+            #gen-main-btn:hover {
+                background: #fff !important;
+                color: #000 !important;
+                border-color: #fff !important;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+                transform: translateY(-1px);
             }
         }
 
-        /* Общие правила для фокуса (сброс для Safari) */
         .copy-btn:focus {
             outline: none;
-            /* На телефоне при фокусе оставляем родной серый, 
-               чтобы не было белого отклика перед срабатыванием JS */
             color: #444 !important; 
         }
 
-        /* Состояние при копировании — зеленый (срабатывает мгновенно через JS) */
         .copy-btn.copied {
             color: #00ff00 !important;
             transform: scale(1.05);
-            transition: color 0s; /* Мгновенное переключение цвета */
+            transition: color 0s; 
         }
 
-
-        /* Жирный текст для кнопки генерации */
         #gen-main-btn {
-            font-weight: bold; /* Делаем текст жирным */
+            font-weight: bold; 
             letter-spacing: 0.15em;
         }
 
-        
         .copy-btn svg {
             width: 18px;
             height: 18px;
             fill: currentColor;
         }
 
-        /* --- PASSWORD GENERATOR --- */
         .generator-box {
             margin-top: 15px;
             padding: 8px 12px;
@@ -494,7 +434,6 @@
             gap: 8px;
             max-width: 260px;
         }
-        /* По умолчанию: прозрачная с белым текстом */
         .generator-box .step-btn {
             width: 100%;
             border-radius: 20px;
@@ -502,15 +441,13 @@
             color: #fff !important;
             border: 1px solid #333;
             transition: all 0.3s ease;
-            padding: 8px 0; /* Чуть тоньше */
+            padding: 8px 0; 
         }
-        /* Состояние "Горит": когда идет генерация (добавляем через JS) */
         .generator-box .step-btn.processing {
             background: #fff !important;
             color: #000 !important;
             border-color: #fff !important;
         }
-        /* Финальное состояние: снова прозрачная */
         .generator-box .step-btn.completed-gen {
             background: transparent !important;
             color: #fff !important;
@@ -518,18 +455,7 @@
             cursor: default;
             opacity: 0.8;
         }
-        /* Эффект свечения — сработает ТОЛЬКО на ПК с мышкой */
-        @media (hover: hover) {
-            #gen-main-btn:hover {
-                background: #fff !important;
-                color: #000 !important;
-                border-color: #fff !important;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-                transform: translateY(-1px);
-            }
-        }
 
-        /* Эффект при нажатии (сработает и на ПК, и на Телефоне) */
         #gen-main-btn:active {
             background: #fff !important;
             color: #000 !important;
@@ -537,34 +463,15 @@
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
         }
 
-
-        /* Эффект при клике */
-        #gen-main-btn:active {
-            transform: translateY(1px);
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
-        .gen-display {
-            font-family: 'Archivo Black', sans-serif;
-            background: #000;
-            border: 1px solid #222;
-            padding: 6px;
-            color: #00ff00;
-            text-align: center;
-            font-size: 1rem;
-            min-height: 1.2rem;
-        }
-        /* Делаем заголовок "GENERATE SECURE PASS" ярче */
         .generator-box .step-number {
             font-size: 0.65rem;
-            color: #fff !important; /* Принудительно белый */
-            opacity: 1 !important;  /* Убираем прозрачность */
+            color: #fff !important; 
+            opacity: 1 !important;  
             text-shadow: 0 0 5px rgba(255,255,255,0.2);
             text-align: center;
             width: 100%;
             display: block;
         }
-    
 
         .gen-display.blink {
             animation: pulse-green 0.1s steps(2) infinite;
@@ -574,7 +481,6 @@
             0% { opacity: 1; }
             50% { opacity: 0.3; }
         }
-
 
         .reveal.active {
             opacity: 1;
@@ -643,107 +549,79 @@
             font-size: 0.85rem;
             display: inline;
         }
-        /* Класс для блокировки основного скролла страницы */
+        
         .no-scroll {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-        }
-        /* Фиксируем подложку модалки */
-        .modal {
-            position: fixed;
-            touch-action: none; /* Запрещаем всё на фоне */
-            overscroll-behavior: none;
-        }
-
-        /* Контент: разрешаем ТОЛЬКО движение вверх-вниз */
-        .guide-scroll-container {
-            touch-action: pan-y; 
-            overscroll-behavior: contain;
-            overflow-x: hidden; /* Жестко режем горизонталь */
-            width: 100%;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Слайдер: разрешаем ТОЛЬКО движение влево-вправо */
-        .slider-wrapper {
-            touch-action: pan-x; 
-            overscroll-behavior: contain;
-            display: flex;
-            overflow-y: hidden; /* Чтобы картинка не дергалась вверх-вниз */
-        }
-
-        /* Блокировка страницы под модалкой */
-        body.no-scroll {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-        }
-
-        /* Блокировка фона для iOS и Android */
-        body.no-scroll {
             overflow: hidden;
             position: fixed;
             width: 100%;
             height: 100%;
         }
 
-        /* Сама подложка модалки — должна быть неподвижной */
         .modal {
-            touch-action: none; /* Запрещаем любые жесты на темном фоне */
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(8px);
+            align-items: center; 
+            justify-content: center;
+            touch-action: none; 
             overscroll-behavior: none;
         }
 
-        /* Контентная часть — разрешаем только вертикальный скролл */
         .guide-scroll-container {
             touch-action: pan-y; 
             overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
+            max-height: 70vh; 
+            overflow-y: auto; 
+            padding-right: 10px;
+            text-align: left;
+            
+            /* Скрытие скроллбара */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
         }
 
-        /* Слайдер — разрешаем только горизонтальный скролл */
+        .guide-scroll-container::-webkit-scrollbar {
+            display: none; 
+        }
+
         .slider-wrapper {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             touch-action: pan-x;
             overscroll-behavior: contain;
         }
 
-        /* Улучшаем поведение скролла в модалке */
-        .slider-wrapper {
-            touch-action: pan-x; /* Разрешаем только горизонтальные жесты пальцем */
-            overscroll-behavior-x: contain; /* Предотвращаем переход прокрутки на родителя */
-        }
-
-        /* --- НОВЫЙ СЛАЙДЕР ВНУТРИ МОДАЛКИ --- */
         .slider-container {
             position: relative;
-            width: 300px;
-            margin: 15px auto;
+            width: 100%;
+            margin: 15px 0;
             overflow: hidden;
             border-radius: 12px;
             border: 1px solid #222;
             background: #111;
         }
 
-        .slider-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; /* Магнитный эффект */
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Скрываем полосу прокрутки, чтобы было чисто */
         .slider-wrapper::-webkit-scrollbar {
             display: none;
         }
 
         .slider-wrapper img {
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
+            width: 100%;
+            height: auto;            
+            max-height: 70vh;        
+            object-fit: contain;     
             flex-shrink: 0;
-            scroll-snap-align: start; /* Картинка всегда встает ровно по центру */
+            scroll-snap-align: start;
             display: block;
+            background-color: #000;  
             pointer-events: auto;
             cursor: zoom-in;
         }
@@ -769,30 +647,23 @@
         }
 
         .dot.active {
-            background-color: #fff; /* Белая точка для активной картинки */
+            background-color: #fff; 
             transform: scale(1.3);
             box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
 
-        /* Обновленный контейнер для скролла в модалке */
-        .guide-scroll-container {
-            max-height: 70vh; /* Высота окна — 70% от экрана */
-            overflow-y: auto; /* Включаем вертикальный скролл */
-            padding-right: 10px;
-            text-align: left;
-        }
-
-        /* Стилизация полосы прокрутки (скроллбара) */
-        .guide-scroll-container {
-            max-height: none; /* Убираем ограничение */
-            overflow: hidden; /* Выключаем скролл совсем */
-            padding: 0;
-            margin: 0;
+        .guide-step {
+            margin-bottom: 0px; 
+            border-bottom: none;
+            padding-bottom: 0px;
         }
 
         .guide-step h3 {
-            margin: 0 0 5px 0;
+            font-family: 'Archivo Black', sans-serif;
             font-size: 0.75rem;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
         }
 
         .guide-step p {
@@ -802,18 +673,6 @@
             line-height: 1.3;
         }
 
-    
-            /* Скрытие для Firefox */
-            scrollbar-width: none; 
-    
-            /* Скрытие для IE и Edge */
-            -ms-overflow-style: none; 
-
-        /* Скрытие для Chrome, Safari и Opera */
-        .guide-scroll-container::-webkit-scrollbar {
-            display: none; 
-        }
-        /* --- СТИЛИ ДЛЯ БЛОКА АКТА ПРИЕМА-ПЕРЕДАЧИ --- */
         .credentials-box {
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: #050505;
@@ -829,7 +688,7 @@
             padding: 12px 15px;
             font-family: 'Archivo Black', sans-serif;
             font-size: 0.65rem;
-            color: #ffcc00; /* Желтый акцент, как предупреждение в терминале */
+            color: #ffcc00; 
             letter-spacing: 0.15em;
             border-bottom: 1px solid #222;
             display: flex;
@@ -841,11 +700,6 @@
             color: #ffcc00;
             font-size: 0.8rem;
             animation: pulse-yellow 1.5s infinite;
-        }
-
-        @keyframes pulse-yellow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
         }
 
         .cred-grid {
@@ -891,13 +745,6 @@
             transition: all 0.2s;
         }
 
-        @media (hover: hover) {
-            .cred-action:hover {
-                color: #fff !important;
-                border-color: #fff;
-            }
-        }
-
         .algorithm-box {
             margin-top: 35px;
             padding-left: 15px;
@@ -929,33 +776,14 @@
             font-size: 0.85rem;
             flex-shrink: 0;
         }
+        
         .algo-step > span:first-child {
             color: #00ff00;
             font-family: 'Archivo Black', sans-serif;
             font-size: 1rem;
-    
-            /* Жестко фиксируем цифры в левом краю */
             position: absolute;
             left: 0;
             top: 0; 
-        }
-
-        .guide-step {
-            margin-bottom: 0px; /* Отступ между шагами при скролле */
-            border-bottom: none;
-            padding-bottom: 0px;
-        }
-
-        .guide-step:last-child {
-            border-bottom: none;
-        }
-
-        .guide-step h3 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.75rem;
-            color: #fff;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
         }
 
         .warning-box {
@@ -983,7 +811,6 @@
             width: 100%;
         }
 
-        /* --- SETUP WIZARD --- */
         .wizard-container {
             margin-top: 30px;
             border-left: 1px solid #1a1a1a;
@@ -1028,7 +855,6 @@
             letter-spacing: 0.1em;
         }
         .step-item.active .step-btn { border-color: #fff; }
-        .step-btn:hover { background: #fff; color: #000; }
         .step-btn.completed { 
             border-color: #00ff00 !important; 
             color: #00ff00 !important; 
@@ -1046,16 +872,6 @@
         }
         .how-to-link:hover { opacity: 1; }
 
-        /* --- MODAL GUIDE (Слайдер + Точки) --- */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(8px);
-        }
         .modal-content {
             background-color: #0a0a0a;
             padding: 20px;
@@ -1069,17 +885,7 @@
             gap: 10px;
             align-self: center;
         }
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            backdrop-filter: blur(8px);
-            align-items: center; /* Центровка */
-            justify-content: center;
-        }
+        
         .close-modal {
             position: absolute;
             right: 15px; top: 10px;
@@ -1087,34 +893,6 @@
             font-size: 20px;
             cursor: pointer;
             z-index: 10;
-        }
-
-        .slider-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid #222;
-            margin: 15px 0;
-        }
-        .slider-wrapper {
-            display: flex;
-            transition: transform 0.4s ease-in-out;
-            width: 100%;
-        }
-        /* Ищи этот селектор в блоке стилей */
-        .slider-wrapper img {
-            width: 100%;
-            height: auto;            /* Авто-высота для сохранения пропорций */
-            max-height: 70vh;        /* Ограничение высоты, чтобы не вылезало за экран */
-            object-fit: contain;     /* ГЛАВНОЕ: картинка не обрезается, а вписывается */
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            display: block;
-            background-color: #000;  /* Черный фон, если картинка узкая */
-        }
-        .dot.active {
-            background-color: #fff;
         }
 
         .final-btn {
@@ -1128,49 +906,48 @@
             border-radius: 14px;
             font-size: 0.7rem;
         }
+
+        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
-            .main-brand-logo { font-size: 1.4rem; letter-spacing: 0.3em; top: -10px; padding-top: 20px; padding-bottom: 10px; }
+            .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px; }
             h1 { font-size: 1rem; }
-            body { padding: 20px; }
-            .terminal-container { padding-top: 90px; }
-            /* Уменьшаем заголовки в модальном окне на телефоне */
-            .guide-step h3 {
-                font-size: 0.9rem !important; /* Было 1.2rem на ПК */
-                line-height: 1.2;
-                margin-bottom: 8px;
-            }
+            body { padding: 10px 15px; }
+            .terminal-container { padding-top: 100px; }
+            .guide-step h3 { font-size: 0.9rem !important; line-height: 1.2; margin-bottom: 8px; }
+            .guide-step p { font-size: 0.8rem !important; line-height: 1.4; }
+            .modal-content { padding: 15px; width: 85%; }
+        }
 
-            /* Уменьшаем основной текст описания на телефоне */
-            .guide-step p {
-                font-size: 0.8rem !important; /* Было 1rem на ПК */
-                line-height: 1.4;
+        /* --- АДАПТАЦИЯ БЛОКА ДАННЫХ ДЛЯ ТЕЛЕФОНОВ --- */
+        @media (max-width: 600px) {
+            .cred-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                padding: 15px;
             }
-    
-            /* Дополнительно: можно немного уменьшить отступы в самой модалке */
-            .modal-content {
-                padding: 15px; 
-                width: 85%;
+            .cred-value {
+                color: #fff;
+            }
+            .data-row {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+            .data-dots {
+                display: none; 
+            }
+            .data-value {
+                text-align: left;
+                width: 100%;
+                margin-top: 4px;
             }
         }
 
-        /* Эффект наведения (только для ПК) */
-        @media (hover: hover) {
-            a#mail-link:hover {
-                opacity: 0.7 !important;
-                color: #ffffff !important;
-            }
-        }
-
-        /* Эффект при нажатии (актуально для телефона и клика на ПК) */
-        a#mail-link:active {
-            opacity: 0.5 !important;
-            color: #ffffff !important;
-        }
-
-        /* ЭТОТ БЛОК УВЕЛИЧИТ МОДАЛКУ ТОЛЬКО НА ПК */
+        /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
             .modal-content {
-                max-width: 800px !important; /* Увеличиваем ширину окна */
+                max-width: 800px !important; 
                 width: 80% !important;
                 padding: 40px !important;
             }
@@ -1178,43 +955,38 @@
             .slider-container {
                 position: relative;
             } 
-        /* --- СТИЛЬ КНОПКИ ДЛЯ ПК (копия кнопки генератора) --- */
-        /* Применяется только на экранах шире 1024px */
-        @media (min-width: 1024px) {
+            
             .modal-content .final-btn {
-                background: transparent !important; /* Прозрачный фон */
-                color: #fff !important;             /* Белый текст */
-                border: 1px solid #333 !important;  /* Темная рамка */
-                border-radius: 20px !important;     /* Скругление как у генератора */
-                padding: 10px 0 !important;         /* Высота как у генератора */
-                font-weight: bold;                  /* Жирный текст */
-                letter-spacing: 0.15em !important;  /* Интервал как у генератора */
+                background: transparent !important; 
+                color: #fff !important;             
+                border: 1px solid #333 !important;  
+                border-radius: 20px !important;     
+                padding: 10px 0 !important;         
+                font-weight: bold;                  
+                letter-spacing: 0.15em !important;  
             }
-            /* Эффект наведения (как у кнопки генератора) */
-            @media (hover: hover) {
-                .modal-content .final-btn:hover {
-                    background: #fff !important; /* Белеет при наведении */
-                    color: #000 !important;
-                    border-color: #fff !important;
-                    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-                    transform: translateY(-1px);
-                }
+            
+            .modal-content .final-btn:hover {
+                background: #fff !important; 
+                color: #000 !important;
+                border-color: #fff !important;
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+                transform: translateY(-1px);
             }
-            /* Эффект нажатия (как у кнопки генератора) */
+            
             .modal-content .final-btn:active {
                 transform: translateY(1px) !important;
                 box-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
             }
-        }
-            /* Стили стрелок */
+
             .nav-btn {
-                display: block !important;
+                display: flex !important;
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                background: rgba(0, 0, 0, 0.4); /* Темный фон кнопки */
+                background: rgba(0, 0, 0, 0.4); 
                 color: white;
-                border: 1px solid rgba(255, 255, 255, 0.3); /* Тонкая светлая рамка */
+                border: 1px solid rgba(255, 255, 255, 0.3); 
                 width: 44px;
                 height: 44px;
                 border-radius: 50%;
@@ -1224,11 +996,9 @@
                 transition: all 0.2s ease;
                 backdrop-filter: blur(4px);
                 opacity: 0;
-                /* Тень, чтобы кнопку было видно на чисто белом фоне */
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-               display: flex;
-               align-items: center;
-               justify-content: center;
+                align-items: center;
+                justify-content: center;
             }
 
             .slider-container:hover .nav-btn {
@@ -1242,42 +1012,29 @@
 
             .nav-btn.prev { left: 15px; }
             .nav-btn.next { right: 15px; }
-        }
 
-        /* Скрываем кнопки для мобильных устройств (чтобы не мешали свайпам) */
-        .nav-btn {
-            display: none;
-        }
             .slider-wrapper img {
-                width: 100% !important; /* Растягиваем слайдер на всю ширину новой модалки */
-                height: auto !important; /* Высота подстроится пропорционально */
-                max-height: 500px !important; /* Чтобы картинка не была слишком огромной */
-                aspect-ratio: auto !important; /* Отключаем ограничение пропорций */
+                width: 100% !important; 
+                height: auto !important; 
+                max-height: 500px !important; 
+                aspect-ratio: auto !important; 
             }
 
             .guide-step h3 {
-                font-size: 1.2rem !important; /* Заголовок побольше */
+                font-size: 1.2rem !important; 
             }
 
             .guide-step p {
-                font-size: 1rem !important; /* Текст побольше */
+                font-size: 1rem !important; 
             }
-        /* --- АДАПТАЦИЯ БЛОКА ДАННЫХ ДЛЯ ТЕЛЕФОНОВ --- */
-        @media (max-width: 600px) {
-            .cred-item {
-                display: flex !important;
-                flex-direction: column !important;   /* Выстраиваем элементы друг под другом */
-                align-items: flex-start !important;   /* Прижимаем всё к левому краю */
-                gap: 6px !important;                /* Расстояние между заголовком и значением */
-                padding: 12px 15px !important;
-            }
-    
-            .cred-value {
-                color: #fff !important; /* Делаем значения чуть ярче на телефоне для читаемости */
-            }
+        }
+        
+        .nav-btn {
+            display: none;
         }
     </style>
 </head>
+
 <body>
 <div id="copy-toast">Текст скопирован в буфер</div>
 <div id="image-viewer" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.98); backdrop-filter: blur(10px); align-items: center; justify-content: center;" onclick="this.style.display='none'">
