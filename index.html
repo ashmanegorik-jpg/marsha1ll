@@ -553,9 +553,11 @@
             transform: translateY(0);
         }
 
-        /* 1. Контейнер шапки */
+        /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03); /* Сделали базовую линию темнее, чтобы блик горел ярче */
+            /* Меняем светлую полупрозрачную линию на темно-серую, как в футере */
+            border-bottom: 1px solid #1a1a1a; 
+            
             padding-bottom: 25px;
             margin-bottom: 40px;
             width: 100%;
