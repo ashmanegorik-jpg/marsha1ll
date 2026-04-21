@@ -1182,8 +1182,7 @@
 
 
 <div class="main-brand-logo">MARSHA1LL</div>
-
-    <section class="reveal">
+<div class="terminal-container"> <section class="reveal">
         <div class="protocol-widget">
             <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
                 <span class="status-dot dot-green">●</span> 
@@ -1504,7 +1503,6 @@
         const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
         const isRockstar = gameKey.toLowerCase() === 'rdr2'; // Новая проверка
         
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | MARSHA1LL`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
@@ -1572,9 +1570,11 @@
 
     function updateDate() {
         const dateElement = document.getElementById('current-date');
-        const now = new Date();
-        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        if (dateElement) { // Теперь код не сломается, если даты нет на странице
+            const now = new Date();
+            const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+            dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        }
     }
     updateDate();
     // Закрытие при клике вне окна
@@ -1904,7 +1904,13 @@
 
         // Собираем красивые данные для файла
         const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
-        const dateStr = document.getElementById('current-date').innerText.split('// ')[1] || "2026";
+        // Собираем красивые данные для файла
+        const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
+        
+        // Генерируем сегодняшнюю дату
+        const now = new Date();
+        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+        const dateStr = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
 
         // Формируем текстовый документ в хакерском стиле
         const fileContent = `=========================================
