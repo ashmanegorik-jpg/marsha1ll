@@ -564,35 +564,6 @@
             position: relative; 
         }
         
-        /* 2. Живая световая линия */
-        header.reveal::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 70%; 
-            height: 1px;
-            background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.1), transparent);
-            
-            /* Запускаем анимацию: 4 секунды, мягкое начало и конец, бесконечно */
-            animation: line-breath 4s ease-in-out infinite;
-        }
-        
-        /* Эффект "дыхания" света */
-        @keyframes line-breath {
-            0%, 100% {
-                width: 30%;            /* Линия укорачивается */
-                opacity: 0.3;          /* Становится тусклой */
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-            }
-            50% {
-                width: 85%;            /* Линия вытягивается */
-                opacity: 1;            /* Загорается ярко */
-                box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Мощное неоновое свечение */
-            }
-        }
-
-        
         /* 3. Глобальный шрифт заголовков */
         h1, h2 {
             font-family: 'Archivo Black', sans-serif;
