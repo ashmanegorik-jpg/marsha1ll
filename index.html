@@ -553,41 +553,13 @@
             transform: translateY(0);
         }
 
-        /* 1. Контейнер шапки */
+        /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03); /* Сделали базовую линию темнее, чтобы блик горел ярче */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Единая, статичная полупрозрачная линия */
             padding-bottom: 25px;
             margin-bottom: 40px;
             width: 100%;
             position: relative; 
-        }
-        
-        /* 2. Живая световая линия */
-        header.reveal::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 70%; 
-            height: 1px;
-            background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.1), transparent);
-            
-            /* Запускаем анимацию: 4 секунды, мягкое начало и конец, бесконечно */
-            animation: line-breath 4s ease-in-out infinite;
-        }
-        
-        /* Эффект "дыхания" света */
-        @keyframes line-breath {
-            0%, 100% {
-                width: 30%;            /* Линия укорачивается */
-                opacity: 0.3;          /* Становится тусклой */
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-            }
-            50% {
-                width: 85%;            /* Линия вытягивается */
-                opacity: 1;            /* Загорается ярко */
-                box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Мощное неоновое свечение */
-            }
         }
 
         
