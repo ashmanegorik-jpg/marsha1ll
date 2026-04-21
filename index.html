@@ -1902,9 +1902,7 @@
         const pass = document.getElementById('password-display').innerText;
         if (pass.includes('XXXX')) return;
 
-        // Собираем красивые данные для файла
-        const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
-        // Собираем красивые данные для файла
+        // Собираем красивые данные для файла (оставили только одну строчку!)
         const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
         
         // Генерируем сегодняшнюю дату
