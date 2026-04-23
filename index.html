@@ -119,80 +119,45 @@
             font-weight: bold;
         }
 
-                /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА (MAGIC BORDER) --- */
+        /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
         .protocol-widget {
-            background: #050508;
+            /* Градиент в точности как у блока FINALIZING TRANSACTION */
+            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
+            
+            /* Двойная рамка для эффекта глубины */
+            border: 1px double #1a1a1a;
+            
+            /* Делаем углы более мягкими (24px как внизу) */
             border-radius: 24px;
+            
             padding: 25px;
             position: relative;
             overflow: hidden;
-            max-width: 800px;
+            max-width: 600px;
             width: 100%;
             box-sizing: border-box;
-            margin: 20px auto;
+            margin: 20px 0;
             
-            /* Убрали старую рамку, теперь она будет "живой" */
-            border: none; 
-            
-            /* Чуть усилили тень для большего отрыва от фона */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02);
+            /* Глубокая тень, чтобы блок "парил" */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
 
-        /* Вытаскиваем весь текст виджета поверх нашей анимации */
-        .protocol-widget > * {
-            position: relative;
-            z-index: 2;
-        }
 
-        /* Сам вращающийся "лазер" (находится на заднем плане) */
-        .protocol-widget::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            
-            /* Конусный градиент: прозрачный -> белый блик -> сочный зеленый хвост */
-            background: conic-gradient(
-                from 0deg, 
-                transparent 70%, 
-                rgba(255, 255, 255, 0.2) 80%, 
-                rgba(0, 255, 0, 0.6) 100%
-            );
-            animation: magic-border-spin 4s linear infinite;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Темная "заглушка" в центре. Она оставляет видимым ровно 1px лазера по краям */
         .protocol-widget::after {
             content: "";
             position: absolute;
-            inset: 1px; /* Толщина луча (1 пиксель) */
-            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
-            border-radius: 23px; /* Радиус строго на 1px меньше внешнего (24px) */
-            z-index: 1;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            animation: scan-loop 3s linear infinite;
             pointer-events: none;
         }
 
-        @keyframes magic-border-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Микро-взаимодействие (для ПК) */
-        @media (hover: hover) {
-            .protocol-widget:hover::before {
-                /* При наведении лазер становится ярче и бежит в 2 раза быстрее */
-                animation-duration: 2s; 
-                background: conic-gradient(
-                    from 0deg, 
-                    transparent 60%, 
-                    rgba(255, 255, 255, 0.4) 80%, 
-                    rgba(0, 255, 0, 0.8) 100%
-                );
-            }
+        @keyframes scan-loop {
+            0% { top: -100%; }
+            100% { top: 200%; }
         }
 
         .data-row {
@@ -234,28 +199,12 @@
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
-        /* --- ДОРОГАЯ ВХОДНАЯ АНИМАЦИЯ --- */
         .reveal {
             opacity: 0;
-            /* Блок выезжает снизу и "вырастает" из глубины */
-            transform: translateY(40px) scale(0.95); 
-            /* Секретный ингредиент: появление из размытия */
-            filter: blur(12px); 
-            
-            /* Сложная физика: быстрый старт и очень плавное торможение */
-            transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-                        transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
-                        filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-            
+            transform: translateY(15px);
+            transition: all 0.8s ease-out;
             margin-bottom: 40px;
         }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
-
 
         .precautions-grid {
             display: grid;
@@ -273,36 +222,6 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-        }
-                /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ --- */
-        
-        /* 1. Главный виджет: Массивное появление из сильного размытия */
-        .reveal.reveal-hero {
-            transform: translateY(80px) scale(0.85); /* Задвигаем глубже и делаем меньше */
-            filter: blur(25px); /* Очень сильный туман */
-            transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1); /* Долгая, плавная физика */
-        }
-        
-        /* 2. Первый пункт: Выезд по диагонали слева с микро-задержкой */
-        .reveal.reveal-left {
-            transform: translateX(-50px) translateY(30px);
-            filter: blur(15px);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s; /* Задержка 0.2 сек */
-        }
-
-        /* 3. Второй пункт: Выезд по диагонали справа с двойной задержкой */
-        .reveal.reveal-right {
-            transform: translateX(50px) translateY(30px);
-            filter: blur(15px);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s; /* Задержка 0.4 сек */
-        }
-
-        /* Финальная точка для всех наших новых анимаций (сброс координат) */
-        .reveal.reveal-hero.active,
-        .reveal.reveal-left.active,
-        .reveal.reveal-right.active {
-            transform: translate(0, 0) scale(1);
-            filter: blur(0);
         }
 
         @media (hover: hover) {
@@ -629,7 +548,10 @@
             50% { opacity: 0.3; }
         }
 
-    
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
@@ -1241,7 +1163,7 @@
         <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
     </header>
 
-    <section class="reveal reveal-hero">
+    <section class="reveal">
         <div class="protocol-widget">
             <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
                 <span class="status-dot dot-green">●</span> 
@@ -1273,7 +1195,7 @@
         </div>
     </section>
 
-    <section class="reveal reveal-left">
+    <section class="reveal">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ</h2>
         <p>СИСТЕМА ЗАФИКСИРОВАЛА ПЕРЕДАЧУ ЦИФРОВОГО АКТИВА. ДОСТУП ОТКРЫТ.</p>
 
@@ -1315,7 +1237,7 @@
 
 
 
-    <section class="reveal reveal-right">
+    <section class="reveal">
         <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
         <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
         
