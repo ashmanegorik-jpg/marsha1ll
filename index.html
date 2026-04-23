@@ -119,45 +119,80 @@
             font-weight: bold;
         }
 
-        /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
+                /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА (MAGIC BORDER) --- */
         .protocol-widget {
-            /* Градиент в точности как у блока FINALIZING TRANSACTION */
-            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
-            
-            /* Двойная рамка для эффекта глубины */
-            border: 1px double #1a1a1a;
-            
-            /* Делаем углы более мягкими (24px как внизу) */
+            background: #050508;
             border-radius: 24px;
-            
             padding: 25px;
             position: relative;
             overflow: hidden;
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             box-sizing: border-box;
-            margin: 20px 0;
+            margin: 20px auto;
             
-            /* Глубокая тень, чтобы блок "парил" */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            /* Убрали старую рамку, теперь она будет "живой" */
+            border: none; 
+            
+            /* Чуть усилили тень для большего отрыва от фона */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02);
         }
 
+        /* Вытаскиваем весь текст виджета поверх нашей анимации */
+        .protocol-widget > * {
+            position: relative;
+            z-index: 2;
+        }
 
-        .protocol-widget::after {
+        /* Сам вращающийся "лазер" (находится на заднем плане) */
+        .protocol-widget::before {
             content: "";
             position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-            animation: scan-loop 3s linear infinite;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            
+            /* Конусный градиент: прозрачный -> белый блик -> сочный зеленый хвост */
+            background: conic-gradient(
+                from 0deg, 
+                transparent 70%, 
+                rgba(255, 255, 255, 0.2) 80%, 
+                rgba(0, 255, 0, 0.6) 100%
+            );
+            animation: magic-border-spin 4s linear infinite;
+            z-index: 0;
             pointer-events: none;
         }
 
-        @keyframes scan-loop {
-            0% { top: -100%; }
-            100% { top: 200%; }
+        /* Темная "заглушка" в центре. Она оставляет видимым ровно 1px лазера по краям */
+        .protocol-widget::after {
+            content: "";
+            position: absolute;
+            inset: 1px; /* Толщина луча (1 пиксель) */
+            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
+            border-radius: 23px; /* Радиус строго на 1px меньше внешнего (24px) */
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes magic-border-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Микро-взаимодействие (для ПК) */
+        @media (hover: hover) {
+            .protocol-widget:hover::before {
+                /* При наведении лазер становится ярче и бежит в 2 раза быстрее */
+                animation-duration: 2s; 
+                background: conic-gradient(
+                    from 0deg, 
+                    transparent 60%, 
+                    rgba(255, 255, 255, 0.4) 80%, 
+                    rgba(0, 255, 0, 0.8) 100%
+                );
+            }
         }
 
         .data-row {
