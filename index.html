@@ -234,12 +234,28 @@
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
+        /* --- ДОРОГАЯ ВХОДНАЯ АНИМАЦИЯ --- */
         .reveal {
             opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.8s ease-out;
+            /* Блок выезжает снизу и "вырастает" из глубины */
+            transform: translateY(40px) scale(0.95); 
+            /* Секретный ингредиент: появление из размытия */
+            filter: blur(12px); 
+            
+            /* Сложная физика: быстрый старт и очень плавное торможение */
+            transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+                        transform 1.2s cubic-bezier(0.19, 1, 0.22, 1),
+                        filter 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            
             margin-bottom: 40px;
         }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0);
+        }
+
 
         .precautions-grid {
             display: grid;
@@ -583,10 +599,7 @@
             50% { opacity: 0.3; }
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    
 
         /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
