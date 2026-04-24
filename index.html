@@ -139,9 +139,25 @@
             /* Убрали выталкивание текста, чтобы не ломать айфоны */
         }
 
+        /* Настройки блика теперь работают и для телефонов! */
         .glare {
-            display: none; /* На мобилках блик скрыт */
+            position: absolute !important;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+            mix-blend-mode: overlay;
         }
+
+        /* Защита текста от перекрытия бликом */
+        .protocol-widget .data-row, 
+        .protocol-widget > div:not(.glare) {
+            position: relative;
+            z-index: 20; 
+        }
+
 
 
         .protocol-widget::after {
@@ -1945,33 +1961,34 @@ NEW_SECURE_PASSWORD:${pass}
         btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
     } // Конец функции exportKeyFile
     
-        // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА ---
+            // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ПК + ТЕЛЕФОНЫ) ---
     const widget = document.getElementById('hero-3d-widget');
     const glare = document.getElementById('widget-glare');
 
-    if (widget && window.innerWidth > 1024) { // Включаем эффект только на ПК
-        widget.addEventListener('mousemove', (e) => {
+    if (widget) { // Убрали ограничение по ширине экрана
+        // Универсальная функция для наклона (и для мышки, и для пальца)
+        function tiltWidget(clientX, clientY) {
             const rect = widget.getBoundingClientRect();
-            const x = e.clientX - rect.left; 
-            const y = e.clientY - rect.top;  
+            const x = clientX - rect.left; 
+            const y = clientY - rect.top;  
             
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Наклон: максимум 6 градусов
+            // Наклон (до 6 градусов)
             const rotateX = ((y - centerY) / centerY) * -6; 
             const rotateY = ((x - centerX) / centerX) * 6;
 
             widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
 
-            // Двигаем блик
+            // Двигаем блик за курсором/пальцем
             glare.style.opacity = '1';
             glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
-        });
+        }
 
-        // Плавный возврат в центр при уходе мышки
-        widget.addEventListener('mouseleave', () => {
+        // Возврат в исходное положение
+        function resetWidget() {
             widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
             widget.style.transform = `rotateX(0deg) rotateY(0deg)`;
             widget.style.boxShadow = `0 15px 40px rgba(0,0,0,0.6)`;
@@ -1980,9 +1997,22 @@ NEW_SECURE_PASSWORD:${pass}
             setTimeout(() => {
                 widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease';
             }, 600);
-        });
-    }
+        }
 
+        // --- СОБЫТИЯ ДЛЯ ПК (МЫШЬ) ---
+        widget.addEventListener('mousemove', (e) => tiltWidget(e.clientX, e.clientY));
+        widget.addEventListener('mouseleave', resetWidget);
+
+        // --- СОБЫТИЯ ДЛЯ ТЕЛЕФОНОВ (ПАЛЕЦ) ---
+        widget.addEventListener('touchmove', (e) => {
+            // Обрати внимание: мы НЕ блокируем скролл страницы, 
+            // поэтому виджет просто реагирует на движение пальца по экрану!
+            tiltWidget(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+        
+        widget.addEventListener('touchend', resetWidget);
+        widget.addEventListener('touchcancel', resetWidget);
+    }
     
         // В самом низу скрипта
         loadProgress();
