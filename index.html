@@ -1124,13 +1124,13 @@
                 perspective: 1200px;
             }
             .protocol-widget {
-                transform-style: preserve-3d;
+                /* Убрали preserve-3d, чтобы не ломать обрезку углов */
                 transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
                 will-change: transform;
             }
             .glare {
                 display: block;
-                position: absolute;
+                position: absolute !important; /* Жестко фиксируем блик, чтобы он не выдавливал текст */
                 top: 0; left: 0; width: 100%; height: 100%;
                 background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
                 opacity: 0;
@@ -1139,11 +1139,14 @@
                 transition: opacity 0.5s ease;
                 mix-blend-mode: overlay;
             }
-            .protocol-widget .data-row, .protocol-widget > div {
-                transform: translateZ(30px);
+            
+            /* Исключаем блик (:not) и просто поднимаем текст над сканером без выталкивания */
+            .protocol-widget .data-row, 
+            .protocol-widget > div:not(.glare) {
                 position: relative;
                 z-index: 20; 
             }
+
         }
         
         .nav-btn {
