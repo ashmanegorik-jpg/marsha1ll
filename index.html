@@ -376,30 +376,50 @@
             perspective: 600px; /* Для 3D-эффекта открытия */
         }
 
-        /* Тело замка (фото) */
-        .lock-body-img {
+        /* Тело замка (SVG) */
+        .lock-body-svg {
             position: absolute;
-            bottom: 0;
+            bottom: 5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
-            height: auto;
+            width: 75px;
             z-index: 10;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); /* Тень */
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
         }
 
-        /* Дужка (фото) */
-        .lock-shackle-img {
+        /* Дужка (SVG) */
+        .lock-shackle-svg {
             position: absolute;
-            top: 5px;
+            top: 0px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: auto;
-            z-index: 5; /* Сзади тела */
-            transform-origin: center bottom; /* Точка вращения */
-            transition: transform 0.5s ease-out; /* Плавность отскока */
+            width: 50px;
+            z-index: 5;
+            transform-origin: 20% 80%; /* Точка вращения дужки */
+            transition: transform 0.5s ease-out;
         }
+
+        /* Пульсация диода в замочной скважине */
+        .keyhole-glow {
+            animation: pulse-glow 2s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { filter: drop-shadow(0 0 2px #00ff00); opacity: 0.5; }
+            100% { filter: drop-shadow(0 0 8px #00ff00); opacity: 1; }
+        }
+
+        /* --- АНИМАЦИЯ ОТКРЫТИЯ (КИБЕР-СПЕКТАКЛЬ) --- */
+        .step-item.unlocking .lock-shackle-svg {
+            animation: shackle-pop-svg 0.5s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Прыжок и откидывание векторной дужки */
+        @keyframes shackle-pop-svg {
+            0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            50% { transform: translateX(-50%) translateY(-12px) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-12px) rotate(-20deg); } /* Откинулась вбок */
+        }
+
 
         /* Кибер-вспышка неона (скрыта) */
         .lock-flash {
@@ -1444,13 +1464,34 @@
             <div id="step-2" class="step-item locked">
                 <div class="lock-overlay">
             <div class="lock-wrapper">
-                <img src="https://i.imgur.com/8N69v9K.png" alt="Shackle" class="lock-shackle-img">
-                <img src="https://i.imgur.com/GzS7S5y.png" alt="Lock Body" class="lock-body-img">
+                <svg class="lock-shackle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 40V25C15 16.7157 21.7157 10 30 10C38.2843 10 45 16.7157 45 25V40" stroke="url(#shackle-grad)" stroke-width="8" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="shackle-grad" x1="15" y1="10" x2="45" y2="40" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#888888"/>
+                            <stop offset="1" stop-color="#333333"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                
+                <svg class="lock-body-svg" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="70" height="50" rx="12" fill="url(#body-grad)" stroke="#1a1a1a" stroke-width="2"/>
+                    <circle cx="40" cy="25" r="6" fill="#050508"/>
+                    <path d="M37 28L34 42H46L43 28H37Z" fill="#050508"/>
+                    <circle cx="40" cy="25" r="2" fill="#00ff00" class="keyhole-glow"/>
+                    <defs>
+                        <linearGradient id="body-grad" x1="5" y1="5" x2="75" y2="55" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#2a2a35"/>
+                            <stop offset="1" stop-color="#0f0f14"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
                 
                 <div class="lock-flash"></div>
             </div>
             <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
         </div>
+
                     <div class="lock-text">Завершите phase 01, чтобы открыть доступ</div>
                 </div>
                 <div class="step-number">PHASE 02 // IDENTITY</div>
@@ -1464,13 +1505,34 @@
             <div id="step-3" class="step-item locked">
                 <div class="lock-overlay">
             <div class="lock-wrapper">
-                <img src="https://i.imgur.com/8N69v9K.png" alt="Shackle" class="lock-shackle-img">
-                <img src="https://i.imgur.com/GzS7S5y.png" alt="Lock Body" class="lock-body-img">
+                <svg class="lock-shackle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 40V25C15 16.7157 21.7157 10 30 10C38.2843 10 45 16.7157 45 25V40" stroke="url(#shackle-grad)" stroke-width="8" stroke-linecap="round"/>
+                    <defs>
+                        <linearGradient id="shackle-grad" x1="15" y1="10" x2="45" y2="40" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#888888"/>
+                            <stop offset="1" stop-color="#333333"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                
+                <svg class="lock-body-svg" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="5" width="70" height="50" rx="12" fill="url(#body-grad)" stroke="#1a1a1a" stroke-width="2"/>
+                    <circle cx="40" cy="25" r="6" fill="#050508"/>
+                    <path d="M37 28L34 42H46L43 28H37Z" fill="#050508"/>
+                    <circle cx="40" cy="25" r="2" fill="#00ff00" class="keyhole-glow"/>
+                    <defs>
+                        <linearGradient id="body-grad" x1="5" y1="5" x2="75" y2="55" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#2a2a35"/>
+                            <stop offset="1" stop-color="#0f0f14"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
                 
                 <div class="lock-flash"></div>
             </div>
             <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
         </div>
+
                     <div class="lock-text">Завершите phase 02, чтобы открыть доступ</div>
                 </div>
                 <div class="step-number">PHASE 03 // CLEANUP</div>
