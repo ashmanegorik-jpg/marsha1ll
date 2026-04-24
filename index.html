@@ -264,7 +264,8 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+            /* Убавили яркость с 0.06 до 0.02 и сделали луч чуть компактнее (600px) */
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.02), transparent 40%);
             opacity: 0;
             transition: opacity 0.4s ease;
             pointer-events: none;
@@ -362,9 +363,8 @@
         .lock-icon {
             width: 30px;
             height: 30px;
-            fill: none;
-            stroke: #555;
-            stroke-width: 2;
+            fill: #777; /* Плотный серый цвет, как на фото */
+            stroke: none; /* Убираем обводку */
             margin-bottom: 10px;
         }
 
@@ -1307,8 +1307,7 @@
             <div id="step-2" class="step-item locked">
                 <div class="lock-overlay">
                     <svg class="lock-icon" viewBox="0 0 24 24">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
                     </svg>
                     <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
                 </div>
@@ -1324,8 +1323,7 @@
             <div id="step-3" class="step-item locked">
                 <div class="lock-overlay">
                     <svg class="lock-icon" viewBox="0 0 24 24">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
                     </svg>
                     <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
                 </div>
