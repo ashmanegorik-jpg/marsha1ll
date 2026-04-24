@@ -235,12 +235,15 @@
             transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* Блок FINALIZING: 3D-разворот (ось снизу) */
+        /* 3. Блок FINALIZING: Ультра-плавный 3D-разворот */
         .reveal-feedback {
-            transform: perspective(1200px) translateY(60px) scale(0.9) rotateX(35deg);
-            transition: all 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+            /* Уменьшили угол до 20 градусов, чтобы избежать резкого скачка */
+            transform: perspective(1200px) translateY(50px) scale(0.95) rotateX(20deg);
+            /* Увеличили время до 2.8 секунд и сделали физику еще мягче */
+            transition: all 2.8s cubic-bezier(0.16, 1, 0.3, 1);
             transform-origin: bottom center;
         }
+
 
         /* Финальная точка для ВСЕХ анимаций */
         .reveal.active {
