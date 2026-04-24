@@ -11,7 +11,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
     
-
         body {
             background-color: #050508; 
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
@@ -58,18 +57,17 @@
         .password-hint {
             font-family: 'Archivo Black', sans-serif; 
             font-size: 0.5rem;                       
-            color: rgba(255, 255, 255, 0.25); /* Дорогая полупрозрачность */                     
+            color: rgba(255, 255, 255, 0.25);                     
             letter-spacing: 0.3em;                   
             text-transform: uppercase;               
             text-align: center;                      
-            margin-top: -2px; /* Убрали лишний отступ */                            
+            margin-top: -2px;                           
         }
 
-        /* Универсальные стили для мигающих точек */
         .status-dot {
             font-size: 10px;
-            margin-top: 2px; /* Выравниваем ровно по центру ПЕРВОЙ строки */
-            flex-shrink: 0; /* Запрещаем точке сплющиваться в овал */
+            margin-top: 2px; 
+            flex-shrink: 0; 
         }
         .dot-green {
             color: #00ff00;
@@ -80,7 +78,6 @@
             animation: pulse-dot 1.5s infinite;
         }
 
-        /* Добавили неоновое свечение (text-shadow) при пульсации */
         @keyframes pulse-dot {
             0%, 100% { opacity: 1; text-shadow: 0 0 8px currentColor; }
             50% { opacity: 0.3; text-shadow: none; }
@@ -119,17 +116,18 @@
             font-weight: bold;
         }
 
-        /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
+        /* --- 3D ЭФФЕКТ ДЛЯ ГЛАВНОГО ВИДЖЕТА --- */
+        .perspective-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            perspective: 1200px;
+        }
+
         .protocol-widget {
-            /* Градиент в точности как у блока FINALIZING TRANSACTION */
             background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
-            
-            /* Двойная рамка для эффекта глубины */
             border: 1px double #1a1a1a;
-            
-            /* Делаем углы более мягкими (24px как внизу) */
             border-radius: 24px;
-            
             padding: 25px;
             position: relative;
             overflow: hidden;
@@ -137,11 +135,31 @@
             width: 100%;
             box-sizing: border-box;
             margin: 20px 0;
-            
-            /* Глубокая тень, чтобы блок "парил" */
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            transform-style: preserve-3d;
+            transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
+            will-change: transform;
         }
 
+        .glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+            mix-blend-mode: overlay;
+        }
+
+        .protocol-widget .data-row, .protocol-widget > div {
+            transform: translateZ(30px);
+            position: relative;
+            z-index: 20; 
+        }
 
         .protocol-widget::after {
             content: "";
@@ -153,12 +171,6 @@
             background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03), transparent);
             animation: scan-loop 3s linear infinite;
             pointer-events: none;
-        }
-        /* НОВЫЙ БЛОК: 3D-разворот для FINALIZING TRANSACTION (ось снизу) */
-        .reveal-feedback {
-            transform: perspective(1200px) translateY(60px) scale(0.9) rotateX(35deg);
-            transition: all 2.2s cubic-bezier(0.22, 1, 0.36, 1);
-            transform-origin: bottom center;
         }
 
         @keyframes scan-loop {
@@ -208,30 +220,35 @@
         /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ (ВКЛЮЧАЯ 3D) --- */
         .reveal {
             opacity: 0;
-            margin-bottom: 60px; /* УВЕЛИЧИЛИ ОТСТУПЫ МЕЖДУ ПУНКТАМИ */
+            margin-bottom: 60px; /* Отступы между секциями */
         }
 
-        /* 1. Главный виджет: Четкий 3D-разворот */
+        /* Главный виджет: Четкий 3D-разворот */
         .reveal-hero {
             transform: perspective(1200px) translateY(80px) scale(0.85) rotateX(-45deg);
             transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
             transform-origin: top center;
         }
 
-        /* 2. Текстовые пункты: Очень медленно и плавно выплывают снизу */
+        /* Текстовые пункты: Очень медленно и плавно выплывают снизу */
         .reveal-base {
             transform: perspective(1200px) translateY(40px);
             transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 3. Блок FINALIZING: 3D-разворот (ось снизу) */
+        /* Блок FINALIZING: 3D-разворот (ось снизу) */
         .reveal-feedback {
             transform: perspective(1200px) translateY(60px) scale(0.9) rotateX(35deg);
             transition: all 2.2s cubic-bezier(0.22, 1, 0.36, 1);
             transform-origin: bottom center;
         }
 
-
+        /* Финальная точка для ВСЕХ анимаций */
+        .reveal.active {
+            opacity: 1;
+            transform: perspective(1200px) translate(0, 0) scale(1) rotateX(0deg);
+            filter: blur(0);
+        }
 
         .precautions-grid {
             display: grid;
@@ -412,23 +429,18 @@
         .gen-display {
             flex-grow: 1;
             font-family: 'Archivo Black', sans-serif;
-            background: #000; /* Черная глубина */
-            border: 1px solid rgba(255, 255, 255, 0.03); /* Едва заметная кромка экрана */
-            padding: 8px 35px 8px 12px; /* Сделали экранчик толще */
+            background: #000; 
+            border: 1px solid rgba(255, 255, 255, 0.03); 
+            padding: 8px 35px 8px 12px; 
             color: #00ff00;
             text-align: center;
             letter-spacing: 2px;
-            font-size: 0.9rem; /* Цифры чуть крупнее */
+            font-size: 0.9rem; 
             border-radius: 8px;
             box-sizing: border-box;
-            
-            /* Эффект вдавленного внутрь экрана */
             box-shadow: inset 0 3px 10px rgba(0,0,0,0.8); 
-            
-            /* Легкое неоновое свечение самого пароля */
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
-
 
         .copy-btn {
             position: absolute;
@@ -482,26 +494,26 @@
 
         .generator-box {
             margin-top: 15px;
-            padding: 8px 12px; /* Добавили "воздуха" внутри */
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Тонкий стеклянный блик */
-            background: linear-gradient(145deg, #121218 0%, #0a0a0e 100%); /* Дорогой градиент */
-            border-radius: 12px; /* Мягкие углы */
+            padding: 8px 12px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            background: linear-gradient(145deg, #121218 0%, #0a0a0e 100%); 
+            border-radius: 12px; 
             display: flex;
             flex-direction: column;
             gap: 8px;
-            max-width: 260px; /* Сделали чуть шире */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); /* Тень, чтобы блок парил */
+            max-width: 260px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
         }
-        /* --- СТИЛЬ КНОПКИ ЭКСПОРТА (Второстепенное действие) --- */
+
         .export-btn {
             background: transparent !important;
             border: 1px dashed rgba(255, 255, 255, 0.2) !important;
             color: #00ff00 !important; 
-            font-size: 0.55rem !important; /* Уменьшили шрифт */
-            padding: 6px 0 !important; /* Сделали кнопку тоньше */
-            width: 85% !important; /* Сделали её чуть уже основной кнопки */
-            margin: 0 auto !important; /* Выровняли по центру */
-            border-radius: 6px !important; /* Уголки острее */
+            font-size: 0.55rem !important; 
+            padding: 6px 0 !important; 
+            width: 85% !important; 
+            margin: 0 auto !important; 
+            border-radius: 6px !important; 
             opacity: 0.8;
             letter-spacing: 0.15em !important;
             font-family: 'Archivo Black', sans-serif !important;
@@ -516,24 +528,22 @@
             }
         }
 
-        /* --- СОСТОЯНИЕ "СОХРАНЕНО" --- */
         .export-btn.saved {
             color: #fff !important;
             border-color: rgba(255, 255, 255, 0.3) !important;
-            border-style: solid !important; /* Меняем пунктир на сплошную линию */
-            opacity: 0.5; /* Делаем её "неактивной" */
-            pointer-events: none; /* Отключаем возможность нажать второй раз подряд */
+            border-style: solid !important; 
+            opacity: 0.5; 
+            pointer-events: none; 
         }
-
 
         .generator-box .step-btn {
             width: 100%;
-            border-radius: 8px; /* Под стать экрану */
-            background: rgba(255, 255, 255, 0.03) !important; /* Полупрозрачная заливка */
+            border-radius: 8px; 
+            background: rgba(255, 255, 255, 0.03) !important; 
             color: #fff !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important; /* Светлая грань */
+            border: 1px solid rgba(255, 255, 255, 0.08) !important; 
             transition: all 0.3s ease;
-            padding: 8px 0; /* Сделали кнопку выше и солиднее */
+            padding: 8px 0; 
         }
 
         .generator-box .step-btn.processing {
@@ -575,21 +585,11 @@
             50% { opacity: 0.3; }
         }
 
-        /* Финальная точка для ВСЕХ анимаций (сброс в идеальное положение) */
-        .reveal.active {
-            opacity: 1;
-            transform: perspective(1200px) translate(0, 0) scale(1) rotateX(0deg);
-            filter: blur(0);
-        }
-
-
         /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
-            /* Меняем светлую полупрозрачную линию на темно-серую, как в футере */
             border-bottom: 1px solid #1a1a1a; 
-            
             padding-bottom: 25px;
-            margin-bottom: 40px;
+            margin-bottom: 40px; /* Для шапки оставляем 40px */
             width: 100%;
             position: relative; 
         }
@@ -606,18 +606,12 @@
             font-size: 1.2rem; 
             margin: 0 0 12px 0; 
             line-height: 1.3;
-            
-            /* Сделали нижний цвет светлее (#999999), чтобы вторая строка не исчезала в темноте */
             background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent; 
         }
-
-
-
-
         
         h2 { 
             font-size: 0.9rem; 
@@ -628,13 +622,12 @@
         }
 
         .meta-info {
-            font-family: 'Archivo Black', sans-serif; /* Меняем шрифт на строгий */
+            font-family: 'Archivo Black', sans-serif; 
             font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.2); /* Чистый прозрачный цвет вместо грязно-серого */
-            letter-spacing: 0.4em; /* Растягиваем сильнее */
+            color: rgba(255, 255, 255, 0.2); 
+            letter-spacing: 0.4em; 
             text-transform: uppercase;
         }
-
 
         p, li {
             font-size: 0.95rem;
@@ -682,15 +675,14 @@
             z-index: 1000; 
             left: 0; top: 0;
             width: 100%; height: 100%;
-            background-color: rgba(5, 5, 8, 0.85); /* Заменили глухой черный на наш сложный цвет */
-            backdrop-filter: blur(15px); /* Усилили размытие для эффекта дорогого стекла */
+            background-color: rgba(5, 5, 8, 0.85); 
+            backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             align-items: center; 
             justify-content: center;
             touch-action: none; 
             overscroll-behavior: none;
         }
-
 
         .guide-scroll-container {
             touch-action: pan-y; 
@@ -700,8 +692,6 @@
             overflow-y: auto; 
             padding-right: 10px;
             text-align: left;
-            
-            /* Скрытие скроллбара */
             scrollbar-width: none; 
             -ms-overflow-style: none; 
         }
@@ -726,10 +716,9 @@
             margin: 15px 0;
             overflow: hidden;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05); /* Убрали грязный серый #222 */
-            background: #050508; /* Сделали фон под картинкой в цвет основного сайта */
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            background: #050508; 
         }
-
 
         .slider-wrapper::-webkit-scrollbar {
             display: none;
@@ -797,7 +786,7 @@
 
         .credentials-box {
             border: 1px solid rgba(255, 255, 255, 0.08);
-            background: #0a0a0e; /* Был глухой #050505 */
+            background: #0a0a0e; 
             border-radius: 12px;
             margin-top: 25px;
             overflow: hidden;
@@ -806,7 +795,7 @@
         }
 
         .cred-header {
-            background: #121218; /* Выделяем шапку графитовым */
+            background: #121218; 
             padding: 12px 15px;
             font-family: 'Archivo Black', sans-serif;
             font-size: 0.65rem;
@@ -818,7 +807,6 @@
             gap: 8px;
             line-height: 1.4;
         }
-
 
         .cred-grid {
             display: flex;
@@ -991,10 +979,10 @@
         .how-to-link:hover { opacity: 1; }
 
         .modal-content {
-            background: linear-gradient(180deg, #121218 0%, #0a0a0e 100%); /* Градиент как у виджетов */
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05); /* Глубокая тень + внутренний блик */
+            background: linear-gradient(180deg, #121218 0%, #0a0a0e 100%); 
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05); 
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08); /* Стеклянная рамка */
+            border: 1px solid rgba(255, 255, 255, 0.08); 
             width: 82%;
             max-width: 300px; 
             border-radius: 24px; 
@@ -1009,7 +997,7 @@
         .close-modal {
             position: absolute;
             right: 15px; top: 10px;
-            color: rgba(255, 255, 255, 0.4); /* Чистый прозрачный цвет */
+            color: rgba(255, 255, 255, 0.4); 
             font-size: 20px;
             cursor: pointer;
             z-index: 10;
@@ -1017,24 +1005,22 @@
         }
         
         .close-modal:active {
-            color: #fff; /* Яркий белый при нажатии */
+            color: #fff; 
         }
-
 
         .final-btn {
             width: 100%;
             margin-top: 10px;
             padding: 12px 0;
-            background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 100%) !important; /* Дорогой матовый серебристый перелив */
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15) !important; /* Мягкое свечение вокруг кнопки */
+            background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 100%) !important; 
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15) !important; 
             color: #000 !important;
-            border: none !important; /* Убрали лишнюю обводку */
+            border: none !important; 
             font-weight: bold;
             border-radius: 14px;
             font-size: 0.75rem;
             letter-spacing: 0.1em;
         }
-
 
         /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
@@ -1081,15 +1067,13 @@
                 padding: 40px !important;
             }
             .main-brand-logo {
-                padding-top: 25px !important; /* Даем больше воздуха сверху на мониторах */
+                padding-top: 25px !important; 
                 padding-bottom: 20px !important;
-                font-size: 1.6rem; /* Делаем сам текст чуть крупнее и солиднее */
+                font-size: 1.6rem; 
             }
-
             .slider-container {
                 position: relative;
             } 
-            
             .modal-content .final-btn {
                 background: transparent !important; 
                 color: #fff !important;             
@@ -1099,7 +1083,6 @@
                 font-weight: bold;                  
                 letter-spacing: 0.15em !important;  
             }
-            
             .modal-content .final-btn:hover {
                 background: #fff !important; 
                 color: #000 !important;
@@ -1107,12 +1090,10 @@
                 box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
                 transform: translateY(-1px);
             }
-            
             .modal-content .final-btn:active {
                 transform: translateY(1px) !important;
                 box-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
             }
-
             .nav-btn {
                 display: flex !important;
                 position: absolute;
@@ -1134,32 +1115,51 @@
                 align-items: center;
                 justify-content: center;
             }
-
             .slider-container:hover .nav-btn {
                 opacity: 1;
             }
-
             .nav-btn:hover {
                 background: rgba(0, 0, 0, 0.8);
                 transform: translateY(-50%) scale(1.1);
             }
-
             .nav-btn.prev { left: 15px; }
             .nav-btn.next { right: 15px; }
-
             .slider-wrapper img {
                 width: 100% !important; 
                 height: auto !important; 
                 max-height: 500px !important; 
                 aspect-ratio: auto !important; 
             }
-
             .guide-step h3 {
                 font-size: 1.2rem !important; 
             }
-
             .guide-step p {
                 font-size: 1rem !important; 
+            }
+            /* --- 3D ЭФФЕКТ ТОЛЬКО ДЛЯ ПК --- */
+            .perspective-container {
+                perspective: 1200px;
+            }
+            .protocol-widget {
+                transform-style: preserve-3d;
+                transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
+                will-change: transform;
+            }
+            .glare {
+                display: block;
+                position: absolute;
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 10;
+                transition: opacity 0.5s ease;
+                mix-blend-mode: overlay;
+            }
+            .protocol-widget .data-row, .protocol-widget > div {
+                transform: translateZ(30px);
+                position: relative;
+                z-index: 20; 
             }
         }
         
@@ -1188,43 +1188,46 @@
 <div class="main-brand-logo">MARSHA1LL</div>
 
 <div class="terminal-container">
-    <header class="reveal">
+    <header class="reveal reveal-base">
         <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
         <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
     </header>
 
-    <section class="reveal">
     <section class="reveal reveal-hero">
-        <div class="protocol-widget">
-            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
-                <span class="status-dot dot-green">●</span> 
-                <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
-            </div>
+        <div class="perspective-container">
+            <div class="protocol-widget" id="hero-3d-widget">
+                <div class="glare" id="widget-glare"></div>
 
-            <div class="data-row">
-                <div class="data-label">SUBJECT</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight" id="subject-text">LOADING...</div>
+                <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
+                    <span class="status-dot dot-green">●</span> 
+                    <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
+                </div>
 
-            </div>
+                <div class="data-row">
+                    <div class="data-label">SUBJECT</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight" id="subject-text">LOADING...</div>
+                </div>
 
-            <div class="data-row">
-                <div class="data-label">STATUS</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">PERMANENT TRANSFER</div>
-            </div>
+                <div class="data-row">
+                    <div class="data-label">STATUS</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight">PERMANENT TRANSFER</div>
+                </div>
 
-            <div class="data-row">
-                <div class="data-label">SECURITY</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">OWNER CLEARANCE</div>
+                <div class="data-row">
+                    <div class="data-label">SECURITY</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight">OWNER CLEARANCE</div>
+                </div>
+            
+                <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
+                    ENCRYPTED DATA STREAM // AES-256
+                </div>
             </div>
-        
-            <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
-                ENCRYPTED DATA STREAM // AES-256
-            </div>
-        </div>
+        </div> 
     </section>
+
 
     <section class="reveal reveal-base">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ</h2>
@@ -1331,7 +1334,7 @@
         </div>
     </section>
 
-    <section class="reveal">
+    <section class="reveal reveal-base">
         <h2>3. ЭКСПЛУАТАЦИЯ</h2>
         <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
         
@@ -1356,7 +1359,7 @@
         </div>
     </section>
 
-    <section class="reveal">
+    <section class="reveal reveal-base">
         <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
         <p>СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ ДЛЯ СОХРАНЕНИЯ ГАРАНТИИ:</p>
     
@@ -1381,7 +1384,7 @@
         </div>
     </section>
 
-    <section class="reveal">
+    <section class="reveal reveal-base">
         <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
         <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
 
@@ -1400,7 +1403,7 @@
         </div>
     </section>
     
-        <section class="reveal reveal-feedback feedback-section">
+    <section class="reveal reveal-feedback feedback-section">
         <div class="feedback-title">FINALIZING TRANSACTION</div>
         <p class="feedback-text">
             ЕСЛИ ПРОВЕРКА АКТИВА ПРОШЛА УСПЕШНО, НЕ ЗАБУДЬТЕ 
@@ -1410,12 +1413,10 @@
         </p>
     </section>
 
-    <footer class="reveal">
+    <footer class="reveal reveal-base">
         TRANSFER COMPLETE.<br>
         ©2026 MARSHA1LL COLLECTION
     </footer>
-
-
 
 </div>
 
@@ -1957,6 +1958,45 @@ NEW_SECURE_PASSWORD:${pass}
         btn.innerText = "✓ KEYFILE SAVED";
         btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
     } // Конец функции exportKeyFile
+    
+        // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА ---
+    const widget = document.getElementById('hero-3d-widget');
+    const glare = document.getElementById('widget-glare');
+
+    if (widget && window.innerWidth > 1024) { // Включаем эффект только на ПК
+        widget.addEventListener('mousemove', (e) => {
+            const rect = widget.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;  
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Наклон: максимум 6 градусов
+            const rotateX = ((y - centerY) / centerY) * -6; 
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
+
+            // Двигаем блик
+            glare.style.opacity = '1';
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
+        });
+
+        // Плавный возврат в центр при уходе мышки
+        widget.addEventListener('mouseleave', () => {
+            widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
+            widget.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            widget.style.boxShadow = `0 15px 40px rgba(0,0,0,0.6)`;
+            glare.style.opacity = '0';
+            
+            setTimeout(() => {
+                widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease';
+            }, 600);
+        });
+    }
+
     
         // В самом низу скрипта
         loadProgress();
