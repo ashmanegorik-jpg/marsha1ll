@@ -208,32 +208,29 @@
         /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ (ВКЛЮЧАЯ 3D) --- */
         .reveal {
             opacity: 0;
-            transform: perspective(1200px) translateY(30px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-bottom: 40px;
+            margin-bottom: 60px; /* УВЕЛИЧИЛИ ОТСТУПЫ МЕЖДУ ПУНКТАМИ */
         }
 
-        /* Главный виджет: Четкий 3D-разворот без размытия */
+        /* 1. Главный виджет: Четкий 3D-разворот */
         .reveal-hero {
             transform: perspective(1200px) translateY(80px) scale(0.85) rotateX(-45deg);
-            transition: all 2.1s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
             transform-origin: top center;
         }
 
-        
-        /* Первый пункт: Выезд слева */
-        .reveal-left {
-            transform: perspective(1200px) translateX(-40px) translateY(30px);
-            filter: blur(10px);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        /* 2. Текстовые пункты: Очень медленно и плавно выплывают снизу */
+        .reveal-base {
+            transform: perspective(1200px) translateY(40px);
+            transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* Второй пункт: Выезд справа */
-        .reveal-right {
-            transform: perspective(1200px) translateX(40px) translateY(30px);
-            filter: blur(10px);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        /* 3. Блок FINALIZING: 3D-разворот (ось снизу) */
+        .reveal-feedback {
+            transform: perspective(1200px) translateY(60px) scale(0.9) rotateX(35deg);
+            transition: all 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-origin: bottom center;
         }
+
 
 
         .precautions-grid {
@@ -1403,7 +1400,7 @@
         </div>
     </section>
     
-    <section class="reveal feedback-section">
+        <section class="reveal reveal-feedback feedback-section">
         <div class="feedback-title">FINALIZING TRANSACTION</div>
         <p class="feedback-text">
             ЕСЛИ ПРОВЕРКА АКТИВА ПРОШЛА УСПЕШНО, НЕ ЗАБУДЬТЕ 
