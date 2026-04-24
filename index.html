@@ -390,10 +390,52 @@
             filter: blur(4px);
         }
 
+        /* Делаем снятие размытия плавным и кинематографичным */
+        .step-item p, 
+        .step-item .step-controls,
+        .step-item .step-number {
+            transition: filter 0.8s ease-out, opacity 0.8s ease-out;
+        }
+
+        /* --- АНИМАЦИЯ ОТКРЫТИЯ ЗАМКА --- */
+        .step-item.unlocking {
+            opacity: 1 !important; /* Блок сразу светлеет */
+        }
+
+        .step-item.unlocking p, 
+        .step-item.unlocking .step-controls,
+        .step-item.unlocking .step-number {
+            filter: blur(0px) !important; /* Текст проясняется */
+        }
+
+        .step-item.unlocking .lock-overlay {
+            display: flex;
+            z-index: 101;
+            /* Запускаем пружинистый прыжок */
+            animation: unlock-sequence 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .step-item.unlocking .lock-icon {
+            fill: #00ff00 !important;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.8)); /* Неоновое свечение */
+        }
+
+        .step-item.unlocking .lock-text {
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        @keyframes unlock-sequence {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            40% { transform: translate(-50%, -55%) scale(1.2); opacity: 1; } /* Подпрыгивает */
+            100% { transform: translate(-50%, -30%) scale(1.8); opacity: 0; visibility: hidden; } /* Растворяется */
+        }
+
         .step-item {
             position: relative;
             transition: all 0.5s ease;
         }
+
 
         .platform-link, 
         .platform-link * {
@@ -1650,18 +1692,28 @@
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
 
-        // Активация следующего шага
+        // Активация следующего шага с КИБЕР-АНИМАЦИЕЙ
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        // Убираем проверку на display !== 'none', чтобы логика работала всегда для существующих шагов
-        if (nextStep) { 
+        
+        if (nextStep && nextStep.classList.contains("locked")) { 
+            // 1. Запускаем анимацию: замок подпрыгивает и светится
+            nextStep.classList.add("unlocking");
+            
+            // 2. Ждем 800мс, пока замок эффектно растворится, затем снимаем блокировку
+            setTimeout(() => { 
+                nextStep.classList.remove("locked"); 
+                nextStep.classList.remove("unlocking");
+                nextStep.classList.add("active");
+                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+            }, 800);
+        } else if (nextStep) {
+            // На случай, если шаг уже был разблокирован
             nextStep.classList.remove("locked"); 
             nextStep.classList.add("active");
-            setTimeout(() => { 
-                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            }, 300);
         } else { 
             checkFinalStatus(); 
         }
+
     }
 
     // В функции loadProgress тоже нужно добавить снятие блокировки
