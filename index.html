@@ -1600,7 +1600,7 @@
         if (event.target == modal) { closeGuide(); }
     }
 
-    // --- ВОССТАНОВЛЕННАЯ ФУНКЦИЯ ПЕРЕХОДА БЕЗ СЛОЖНЫХ АНИМАЦИЙ ---
+    // --- ВОССТАНОВЛЕННАЯ ФУНКЦИЯ ПЕРЕХОДА ---
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
@@ -1619,11 +1619,16 @@
         if (nextStep) { 
             nextStep.classList.remove("locked"); 
             nextStep.classList.add("active");
-            // Простой и быстрый скролл без ожидания долгих анимаций замка
+            // Простой и быстрый скролл
             setTimeout(() => { 
                 nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
             }, 300);
         } else { 
+            checkFinalStatus(); 
+        }
+    }
+
+    // --- ФУНКЦИЯ ПРОВЕРКИ ФИНАЛЬНОГО СТАТУСА ---
     function checkFinalStatus() {
         const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
         const completedSteps = document.querySelectorAll('.step-btn.completed');
