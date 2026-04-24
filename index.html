@@ -1961,13 +1961,13 @@ NEW_SECURE_PASSWORD:${pass}
         btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
     } // Конец функции exportKeyFile
     
-                // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ПК + ТЕЛЕФОНЫ) ---
+                    // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ТОЛЬКО ПК) ---
     const widget = document.getElementById('hero-3d-widget');
     const glare = document.getElementById('widget-glare');
 
-    if (widget) { 
-        // Добавили флаг isTouch, чтобы понимать, палец это или мышка
-        function tiltWidget(clientX, clientY, isTouch = false) {
+    // Включаем эффект ТОЛЬКО на широких экранах (ПК)
+    if (widget && window.innerWidth > 1024) { 
+        function tiltWidget(clientX, clientY) {
             const rect = widget.getBoundingClientRect();
             const x = clientX - rect.left; 
             const y = clientY - rect.top;  
@@ -1975,21 +1975,16 @@ NEW_SECURE_PASSWORD:${pass}
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Если это телефон (палец), наклоняем сильно (15 град.), если ПК - аккуратно (6 град.)
-            const maxTilt = isTouch ? 15 : 6; 
-            
-            const rotateX = ((y - centerY) / centerY) * -maxTilt; 
-            const rotateY = ((x - centerX) / centerX) * maxTilt;
+            // Наклон: максимум 6 градусов
+            const rotateX = ((y - centerY) / centerY) * -6; 
+            const rotateY = ((x - centerX) / centerX) * 6;
 
             widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            widget.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2 + 15}px 40px rgba(0,0,0,0.8)`;
+            widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
 
-            // Делаем блик ярче и больше, чтобы его было видно из-под пальца
-            const glareIntensity = isTouch ? 0.25 : 0.12; // Яркость
-            const glareSize = isTouch ? 75 : 50; // Размер пятна
-            
+            // Двигаем блик
             glare.style.opacity = '1';
-            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, ${glareIntensity}), transparent ${glareSize}%)`;
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
         }
 
         function resetWidget() {
@@ -2003,18 +1998,11 @@ NEW_SECURE_PASSWORD:${pass}
             }, 600);
         }
 
-        // --- СОБЫТИЯ ДЛЯ ПК (МЫШЬ) ---
-        widget.addEventListener('mousemove', (e) => tiltWidget(e.clientX, e.clientY, false));
+        // --- СОБЫТИЯ ТОЛЬКО ДЛЯ МЫШИ ---
+        widget.addEventListener('mousemove', (e) => tiltWidget(e.clientX, e.clientY));
         widget.addEventListener('mouseleave', resetWidget);
-
-        // --- СОБЫТИЯ ДЛЯ ТЕЛЕФОНОВ (ПАЛЕЦ) ---
-        widget.addEventListener('touchmove', (e) => {
-            tiltWidget(e.touches[0].clientX, e.touches[0].clientY, true);
-        }, { passive: true });
-        
-        widget.addEventListener('touchend', resetWidget);
-        widget.addEventListener('touchcancel', resetWidget);
     }
+
 
     
         // В самом низу скрипта
