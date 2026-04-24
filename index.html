@@ -21,8 +21,9 @@
             align-items: center;
             padding: 10px 5% 40px 5%; 
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-weight: 450; /* Делает текст чуть жирнее */
+            -webkit-font-smoothing: antialiased; /* Сглаживание для Chrome/Safari */
+            -moz-osx-font-smoothing: grayscale; /* Сглаживание для Firefox */
             text-rendering: optimizeLegibility;
         }
         
@@ -45,6 +46,7 @@
             padding-top: calc(10px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
+            -webkit-text-stroke: 0.4px #fff;
         }
 
         .terminal-container {
@@ -619,6 +621,7 @@
             font-family: 'Archivo Black', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.15em;
+            -webkit-text-stroke: 0.4px #fff;
         }
 
         h1 { 
