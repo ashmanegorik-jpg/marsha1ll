@@ -397,33 +397,64 @@
             transition: filter 0.8s ease-out, opacity 0.8s ease-out;
         }
 
-        /* --- АНИМАЦИЯ ОТКРЫТИЯ ЗАМКА --- */
+        /* --- КИНЕМАТОГРАФИЧНОЕ ОТКРЫТИЕ ЗАМКА --- */
         .step-item.unlocking {
-            opacity: 1 !important; /* Блок сразу светлеет */
+            opacity: 1 !important; 
         }
 
         .step-item.unlocking p, 
         .step-item.unlocking .step-controls,
         .step-item.unlocking .step-number {
-            filter: blur(0px) !important; /* Текст проясняется */
+            filter: blur(0px) !important;
+            transition: filter 1.5s ease-out 0.5s, opacity 1.5s ease-out 0.5s; /* Текст проясняется медленнее */
         }
 
         .step-item.unlocking .lock-overlay {
             display: flex;
             z-index: 101;
-            /* Запускаем пружинистый прыжок */
-            animation: unlock-sequence 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            /* Увеличили время сцены до 2 секунд */
+            animation: unlock-scene 2s ease-in-out forwards;
         }
 
+        /* 1. Анимация дужки: она отщелкивается! */
+        .step-item.unlocking .lock-shackle {
+            transform-origin: right bottom;
+            animation: shackle-pop 0.5s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* 2. Анимация свечения тела замка */
         .step-item.unlocking .lock-icon {
-            fill: #00ff00 !important;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.8)); /* Неоновое свечение */
+            animation: lock-glow 2s ease-in-out forwards;
         }
 
         .step-item.unlocking .lock-text {
             opacity: 0;
-            transition: opacity 0.2s;
+            transition: opacity 0.3s;
         }
+
+        /* --- КЛЮЧЕВЫЕ КАДРЫ --- */
+        /* Дужка поднимается и откидывается вбок */
+        @keyframes shackle-pop {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(0deg); } 
+            100% { transform: translateY(-5px) translateX(-4px) rotate(-15deg); } 
+        }
+
+        /* Замок наливается неоном */
+        @keyframes lock-glow {
+            0% { stroke: #555; filter: none; }
+            20% { stroke: #00ff00; filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.6)); }
+            100% { stroke: #00ff00; filter: drop-shadow(0 0 20px rgba(0, 255, 0, 0.9)); }
+        }
+
+        /* Сценарий движения: ждет отщелкивания, потом растворяется */
+        @keyframes unlock-scene {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            35% { transform: translate(-50%, -50%) scale(1); opacity: 1; } /* Ждем пока дужка откроется */
+            50% { transform: translate(-50%, -55%) scale(1.1); opacity: 1; } /* Легкий рывок вверх */
+            100% { transform: translate(-50%, -20%) scale(1.6); opacity: 0; visibility: hidden; } /* Растворение в экране */
+        }
+
 
         @keyframes unlock-sequence {
             0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
@@ -1380,7 +1411,10 @@
 
             <div id="step-2" class="step-item locked">
                 <div class="lock-overlay">
-                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path class="lock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4" />
+    <rect class="lock-body" x="3" y="11" width="18" height="11" rx="2" ry="2" />
+</svg>
                     <div class="lock-text">Завершите phase 01, чтобы открыть доступ</div>
                 </div>
                 <div class="step-number">PHASE 02 // IDENTITY</div>
@@ -1393,7 +1427,10 @@
 
             <div id="step-3" class="step-item locked">
                 <div class="lock-overlay">
-                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path class="lock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4" />
+    <rect class="lock-body" x="3" y="11" width="18" height="11" rx="2" ry="2" />
+</svg>
                     <div class="lock-text">Завершите phase 02, чтобы открыть доступ</div>
                 </div>
                 <div class="step-number">PHASE 03 // CLEANUP</div>
@@ -1705,7 +1742,7 @@
                 nextStep.classList.remove("unlocking");
                 nextStep.classList.add("active");
                 nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            }, 800);
+            }, 2000);
         } else if (nextStep) {
             // На случай, если шаг уже был разблокирован
             nextStep.classList.remove("locked"); 
