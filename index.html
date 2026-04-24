@@ -199,12 +199,36 @@
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
+        /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ (ВКЛЮЧАЯ 3D) --- */
         .reveal {
             opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.8s ease-out;
+            transform: perspective(1200px) translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
             margin-bottom: 40px;
         }
+
+        /* Главный виджет: Выныривает из тумана с 3D-разворотом */
+        .reveal-hero {
+            transform: perspective(1200px) translateY(80px) scale(0.85) rotateX(-45deg);
+            filter: blur(20px);
+            transition: all 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: top center; /* Ось вращения сверху */
+        }
+        
+        /* Первый пункт: Выезд слева */
+        .reveal-left {
+            transform: perspective(1200px) translateX(-40px) translateY(30px);
+            filter: blur(10px);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        /* Второй пункт: Выезд справа */
+        .reveal-right {
+            transform: perspective(1200px) translateX(40px) translateY(30px);
+            filter: blur(10px);
+            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+        }
+
 
         .precautions-grid {
             display: grid;
@@ -548,10 +572,13 @@
             50% { opacity: 0.3; }
         }
 
+        /* Финальная точка для ВСЕХ анимаций (сброс в идеальное положение) */
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: perspective(1200px) translate(0, 0) scale(1) rotateX(0deg);
+            filter: blur(0);
         }
+
 
         /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
@@ -1164,6 +1191,7 @@
     </header>
 
     <section class="reveal">
+    <section class="reveal reveal-hero">
         <div class="protocol-widget">
             <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
                 <span class="status-dot dot-green">●</span> 
