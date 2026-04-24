@@ -119,17 +119,18 @@
             font-weight: bold;
         }
 
-        /* --- ОБНОВЛЕННЫЙ ВИДЖЕТ ПРОТОКОЛА --- */
+        /* --- 3D ЭФФЕКТ ДЛЯ ГЛАВНОГО ВИДЖЕТА --- */
+        .perspective-container {
+            perspective: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
         .protocol-widget {
-            /* Градиент в точности как у блока FINALIZING TRANSACTION */
             background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
-            
-            /* Двойная рамка для эффекта глубины */
             border: 1px double #1a1a1a;
-            
-            /* Делаем углы более мягкими (24px как внизу) */
             border-radius: 24px;
-            
             padding: 25px;
             position: relative;
             overflow: hidden;
@@ -137,10 +138,36 @@
             width: 100%;
             box-sizing: border-box;
             margin: 20px 0;
-            
-            /* Глубокая тень, чтобы блок "парил" */
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            
+            /* НОВЫЕ СТРОЧКИ ДЛЯ 3D */
+            transform-style: preserve-3d;
+            transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
+            will-change: transform;
         }
+
+        /* Настройка светового блика */
+        .glare {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+            mix-blend-mode: overlay;
+        }
+
+        /* Вытаскиваем текст немного вперед в 3D (эффект слоев) */
+        .protocol-widget .data-row, .protocol-widget > div {
+            transform: translateZ(30px);
+            position: relative;
+            z-index: 20; /* Текст должен быть выше блика */
+        }
+
 
 
         .protocol-widget::after {
@@ -1164,36 +1191,39 @@
     </header>
 
     <section class="reveal">
-        <div class="protocol-widget">
-            <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
-                <span class="status-dot dot-green">●</span> 
-                <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
-            </div>
+        <div class="perspective-container">
+            <div class="protocol-widget" id="hero-3d-widget">
+                <div class="glare" id="widget-glare"></div>
 
-            <div class="data-row">
-                <div class="data-label">SUBJECT</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight" id="subject-text">LOADING...</div>
+                <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
+                    <span class="status-dot dot-green">●</span> 
+                    <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
+                </div>
 
-            </div>
+                <div class="data-row">
+                    <div class="data-label">SUBJECT</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight" id="subject-text">LOADING...</div>
+                </div>
 
-            <div class="data-row">
-                <div class="data-label">STATUS</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">PERMANENT TRANSFER</div>
-            </div>
+                <div class="data-row">
+                    <div class="data-label">STATUS</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight">PERMANENT TRANSFER</div>
+                </div>
 
-            <div class="data-row">
-                <div class="data-label">SECURITY</div>
-                <div class="data-dots"></div>
-                <div class="data-value highlight">OWNER CLEARANCE</div>
+                <div class="data-row">
+                    <div class="data-label">SECURITY</div>
+                    <div class="data-dots"></div>
+                    <div class="data-value highlight">OWNER CLEARANCE</div>
+                </div>
+            
+                <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
+                    ENCRYPTED DATA STREAM // AES-256
+                </div>
             </div>
-        
-            <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
-                ENCRYPTED DATA STREAM // AES-256
-            </div>
-        </div>
-    </section>
+        </div> </section>
+
 
     <section class="reveal">
         <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ</h2>
@@ -1926,6 +1956,45 @@ NEW_SECURE_PASSWORD:${pass}
         btn.innerText = "✓ KEYFILE SAVED";
         btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
     } // Конец функции exportKeyFile
+        
+            // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА ---
+    const widget = document.getElementById('hero-3d-widget');
+    const glare = document.getElementById('widget-glare');
+
+    if (widget && window.innerWidth > 1024) { // Включаем эффект только на ПК
+        widget.addEventListener('mousemove', (e) => {
+            const rect = widget.getBoundingClientRect();
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;  
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Наклон: максимум 6 градусов
+            const rotateX = ((y - centerY) / centerY) * -6; 
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
+
+            // Двигаем блик
+            glare.style.opacity = '1';
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
+        });
+
+        // Плавный возврат в центр при уходе мышки
+        widget.addEventListener('mouseleave', () => {
+            widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
+            widget.style.transform = `rotateX(0deg) rotateY(0deg)`;
+            widget.style.boxShadow = `0 15px 40px rgba(0,0,0,0.6)`;
+            glare.style.opacity = '0';
+            
+            setTimeout(() => {
+                widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease';
+            }, 600);
+        });
+    }
+
     
         // В самом низу скрипта
         loadProgress();
