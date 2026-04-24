@@ -1693,15 +1693,6 @@
         }
     }, { passive: false });
 
-    function checkFinalStatus() {
-        const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
-        const completedSteps = document.querySelectorAll('.step-btn.completed');
-        if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
-            const subject = document.getElementById('subject-text');
-            subject.innerText = "SECURED (READY TO OPERATE)";
-            subject.classList.add("status-active"); 
-        }
-    }
     loadProgress();
     const guideModal = document.getElementById('guide-modal');
 
