@@ -340,7 +340,12 @@
         .step-item {
             position: relative;
             transition: all 0.5s ease;
+            /* ВОЗВРАЩАЕМ ЭТИ 3 СТРОЧКИ, ЧТОБЫ ВСЕ СТАЛО РОВНО */
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 50px; 
         }
+
 
         /* Центрируем оверлей замка поверх заблокированного шага */
         .lock-overlay {
