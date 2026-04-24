@@ -2054,35 +2054,33 @@ NEW_SECURE_PASSWORD:${pass}
             });
         });
 
-        // 2. МАГНИТНЫЕ КНОПКИ (Magnetic Hover)
-        // Выбираем главные кнопки, которые круто магнитизить
+                // 2. МАГНИТНЫЕ КНОПКИ (Ультра-плавный Magnetic Hover)
         const magneticButtons = document.querySelectorAll('.step-btn');
         
         magneticButtons.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
-                // Если кнопка неактивна (уже выполнена или сохранена), не магнитим её
                 if(btn.classList.contains('completed') || btn.classList.contains('saved') || btn.classList.contains('processing')) return;
 
                 const rect = btn.getBoundingClientRect();
-                // Ищем центр кнопки
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
                 
-                // Насколько сильно кнопка тянется за мышкой (коэффициент 0.15)
-                const moveX = (e.clientX - centerX) * 0.15;
-                const moveY = (e.clientY - centerY) * 0.15;
+                // Уменьшили амплитуду с 0.15 до 0.1, чтобы кнопка не улетала слишком далеко
+                const moveX = (e.clientX - centerX) * 0.1;
+                const moveY = (e.clientY - centerY) * 0.1;
 
                 btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                btn.style.transition = 'none'; // Отключаем плавность, чтобы кнопка успевала за мышкой
+                // Вместо полного отключения ('none') добавляем маслянистую микро-плавность
+                btn.style.transition = 'transform 0.15s ease-out'; 
             });
 
             btn.addEventListener('mouseleave', () => {
-                // Возврат с эффектом мягкой пружины
+                // Возврат с эффектом мягкой пружины (оставляем как было)
                 btn.style.transform = `translate(0px, 0px)`;
                 btn.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
             });
         });
-    }
+
 
         // В самом низу скрипта
         loadProgress();
