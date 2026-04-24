@@ -6,7 +6,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22black%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22red%22 opacity=%22.6%22 transform=%22translate(1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22dodgerblue%22 opacity=%22.6%22 transform=%22translate(-1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22black%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22red%22 opacity=%22.6%22 transform=%22translate(1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22dodgerblue%22 opacity=%22.6%22 transform=%22translate(-1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text></svg>">
     <title>MARSHA1LL | ACCESS PROTOCOL</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
@@ -116,11 +115,11 @@
             font-weight: bold;
         }
 
-        /* --- БАЗОВЫЙ СТИЛЬ ВИДЖЕТА (БЕЗОПАСНО ДЛЯ ТЕЛЕФОНОВ) --- */
+        /* --- БАЗОВЫЙ СТИЛЬ ВИДЖЕТА --- */
         .perspective-container {
             width: 100%;
             max-width: 600px;
-            perspective: 1200px; /* Камера для анимации раскрытия (работает безопасно) */
+            perspective: 1200px;
         }
 
         .protocol-widget {
@@ -135,10 +134,8 @@
             box-sizing: border-box;
             margin: 20px 0;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            /* Убрали выталкивание текста, чтобы не ломать айфоны */
         }
 
-        /* Настройки блика теперь работают и для телефонов! */
         .glare {
             position: absolute !important;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -150,14 +147,11 @@
             mix-blend-mode: overlay;
         }
 
-        /* Защита текста от перекрытия бликом */
         .protocol-widget .data-row, 
         .protocol-widget > div:not(.glare) {
             position: relative;
             z-index: 20; 
         }
-
-
 
         .protocol-widget::after {
             content: "";
@@ -215,13 +209,12 @@
             text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
-        /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ (ВКЛЮЧАЯ 3D) --- */
+        /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ --- */
         .reveal {
             opacity: 0;
-            margin-bottom: 60px; /* Отступы между секциями */
+            margin-bottom: 60px;
         }
 
-        /* Главный виджет: Четкий 3D-разворот */
         .reveal-hero {
             transform: perspective(1200px) translateY(80px) scale(0.85) rotateX(-45deg);
             transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -229,23 +222,17 @@
             max-width: 600px;
         }
 
-        /* Текстовые пункты: Очень медленно и плавно выплывают снизу */
         .reveal-base {
             transform: perspective(1200px) translateY(40px);
             transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 3. Блок FINALIZING: Ультра-плавный 3D-разворот */
         .reveal-feedback {
-            /* Уменьшили угол до 20 градусов, чтобы избежать резкого скачка */
             transform: perspective(1200px) translateY(50px) scale(0.95) rotateX(20deg);
-            /* Увеличили время до 2.8 секунд и сделали физику еще мягче */
             transition: all 2.8s cubic-bezier(0.16, 1, 0.3, 1);
             transform-origin: bottom center;
         }
 
-
-        /* Финальная точка для ВСЕХ анимаций */
         .reveal.active {
             opacity: 1;
             transform: perspective(1200px) translate(0, 0) scale(1) rotateX(0deg);
@@ -269,16 +256,14 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            position: relative; /* Нужно для фонарика */
-            overflow: hidden; /* Чтобы свет не вылезал за края скруглений */
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Сам луч света (изначально прозрачный) */
         .precaution-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            /* Координаты --x и --y мы будем передавать через скрипт */
             background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -286,19 +271,16 @@
             z-index: 1;
         }
 
-        /* Включаем свет, когда мышка над карточкой */
         .precaution-card:hover::before {
             opacity: 1;
         }
 
-        /* Вытаскиваем иконки и текст поверх луча света */
         .precaution-card > svg, 
         .precaution-card > div, 
         .precaution-card > p {
             position: relative;
             z-index: 2;
         }
-
 
         @media (hover: hover) {
             .precaution-card:hover {
@@ -341,177 +323,18 @@
         }
         .card-alert .card-title { color: #ff3333; }
 
+        /* --- БАЗОВЫЕ ЗАМКИ (ВОССТАНОВЛЕНО) --- */
         .step-item.locked {
             opacity: 0.6; 
-            filter: none; 
             pointer-events: none;
             position: relative;
             user-select: none;
         }
 
-        /* --- ФОТОРЕАЛИСТИЧНЫЙ 3D-ЗАМОК (СТИЛИ) --- */
-        .lock-overlay {
-            /* ...оставляем позиционирование по центру... */
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); /* Затемнение */
-            backdrop-filter: blur(10px); /* Сильное размытие фона */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            pointer-events: none; /* Чтобы можно было нажимать на заблокированные элементы */
-            border-radius: 20px;
-            transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1); /* Дорогая плавность */
-        }
-
-        .lock-wrapper {
-            position: relative;
-            width: 100px; /* Размер всего замка */
-            height: 120px;
-            margin-bottom: 15px;
-            perspective: 600px; /* Для 3D-эффекта открытия */
-        }
-
-        /* Тело замка (SVG) */
-        .lock-body-svg {
-            position: absolute;
-            bottom: 5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 75px;
-            z-index: 10;
-            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.9));
-        }
-
-        /* Дужка (SVG) */
-        .lock-shackle-svg {
-            position: absolute;
-            top: 0px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px;
-            z-index: 5;
-            transform-origin: 20% 80%; /* Точка вращения дужки */
-            transition: transform 0.5s ease-out;
-        }
-
-        /* Пульсация диода в замочной скважине */
-        .keyhole-glow {
-            animation: pulse-glow 2s infinite alternate;
-        }
-        @keyframes pulse-glow {
-            0% { filter: drop-shadow(0 0 2px #00ff00); opacity: 0.5; }
-            100% { filter: drop-shadow(0 0 8px #00ff00); opacity: 1; }
-        }
-
-        /* --- АНИМАЦИЯ ОТКРЫТИЯ (КИБЕР-СПЕКТАКЛЬ) --- */
-        .step-item.unlocking .lock-shackle-svg {
-            animation: shackle-pop-svg 0.5s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        /* Прыжок и откидывание векторной дужки */
-        @keyframes shackle-pop-svg {
-            0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-            50% { transform: translateX(-50%) translateY(-12px) rotate(0deg); }
-            100% { transform: translateX(-50%) translateY(-12px) rotate(-20deg); } /* Откинулась вбок */
-        }
-
-
-        /* Кибер-вспышка неона (скрыта) */
-        .lock-flash {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 150px; height: 150px;
-            background: radial-gradient(circle, #00ff00 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 15;
-            filter: blur(10px);
-            mix-blend-mode: screen;
-        }
-
-        .lock-text {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 11px;
-            letter-spacing: 2px;
-            font-weight: 500;
-            background: rgba(10,10,14, 0.8);
-            padding: 5px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* --- АНИМАЦИЯ ОТКРЫТИЯ (КИБЕР-СПЕКТАКЛЬ) --- */
-        .step-item.unlocking {
-            opacity: 1 !important; 
-        }
-
-        /* Размытие текста пропадает с задержкой */
-        .step-item.unlocking p, 
-        .step-item.unlocking .step-controls,
-        .step-item.unlocking .step-number {
-            filter: blur(0px) !important;
-            transition: filter 1s ease-out 1.2s;
-        }
-
-        /* Запуск общей сцены: ждем, потом улетаем */
-        .step-item.unlocking .lock-overlay {
-            display: flex;
-            background: rgba(0, 0, 0, 0); /* Убираем затемнение */
-            backdrop-filter: blur(0px); /* Убираем размытие фона */
-            animation: lock-scene-dismiss 2.2s ease-in-out forwards;
-        }
-
-        /* 1. Дужка отщелкивается! (Фото прыгает) */
-        .step-item.unlocking .lock-shackle-img {
-            animation: shackle-pop-photo 0.6s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        /* 2. Кибер-вспышка и искра */
-        .step-item.unlocking .lock-flash {
-            animation: lock-cyber-flash 0.8s 0.2s ease-out forwards;
-        }
-
-        /* Скрытие текста */
-        .step-item.unlocking .lock-text {
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        /* --- KEYFRAMES (Сценарий) --- */
-        /* Дужка: резкий прыжок вверх */
-        @keyframes shackle-pop-photo {
-            0% { transform: translateX(-50%) translateY(0); }
-            100% { transform: translateX(-50%) translateY(-15px); } /* Просто прыжок вверх */
-        }
-
-        /* Яркая вспышка: замок искрит зеленым */
-        @keyframes lock-cyber-flash {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            40% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } /* Вспышка */
-            60% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.8)); }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-        }
-
-        /* Финальное Dismiss: замок растворяется в экране */
-        @keyframes lock-scene-dismiss {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            30% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } /* Небольшое увеличение */
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } /* Задержка после вспышки */
-            100% { transform: translate(-50%, -30%) scale(1.8); opacity: 0; visibility: hidden; } /* Улет в экран */
-        }
-
-
-
-        @keyframes unlock-sequence {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-            40% { transform: translate(-50%, -55%) scale(1.2); opacity: 1; } /* Подпрыгивает */
-            100% { transform: translate(-50%, -30%) scale(1.8); opacity: 0; visibility: hidden; } /* Растворяется */
+        .step-item.locked p, 
+        .step-item.locked .step-controls,
+        .step-item.locked .step-number {
+            filter: blur(4px);
         }
 
         .step-item {
@@ -519,6 +342,39 @@
             transition: all 0.5s ease;
         }
 
+        /* Центрируем оверлей замка поверх заблокированного шага */
+        .lock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .lock-icon {
+            width: 30px;
+            height: 30px;
+            fill: none;
+            stroke: #555;
+            stroke-width: 2;
+            margin-bottom: 10px;
+        }
+
+        .lock-text {
+            color: #555;
+            font-size: 10px;
+            letter-spacing: 1px;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* Когда шаг активен, оверлей полностью скрывается */
+        .step-item.active .lock-overlay {
+            display: none !important;
+        }
 
         .platform-link, 
         .platform-link * {
@@ -737,28 +593,20 @@
             animation: pulse-green 0.1s steps(2) infinite;
         }
 
-        @keyframes pulse-green {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* 1. Контейнер шапки (Строгая линия) */
         header.reveal {
             border-bottom: 1px solid #1a1a1a; 
             padding-bottom: 25px;
-            margin-bottom: 40px; /* Для шапки оставляем 40px */
+            margin-bottom: 40px; 
             width: 100%;
             position: relative; 
         }
         
-        /* 3. Глобальный шрифт заголовков */
         h1, h2 {
             font-family: 'Archivo Black', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.15em;
         }
 
-        /* 4. Главный заголовок (Металлический эффект) */
         h1 { 
             font-size: 1.2rem; 
             margin: 0 0 12px 0; 
@@ -1079,15 +927,7 @@
             border-left: 1px solid #1a1a1a;
             padding-left: 20px;
         }
-        .step-item {
-            margin-bottom: 50px; 
-            opacity: 0.3;
-            transition: all 0.5s ease;
-            filter: blur(1px);
-            display: flex;
-            flex-direction: column;
-        }
-        .step-item.active { opacity: 1; filter: blur(0); }
+
         .step-number {
             font-family: 'Archivo Black', sans-serif;
             color: #333;
@@ -1298,13 +1138,12 @@
                 perspective: 1200px;
             }
             .protocol-widget {
-                /* Убрали preserve-3d, чтобы не ломать обрезку углов */
                 transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
                 will-change: transform;
             }
             .glare {
                 display: block;
-                position: absolute !important; /* Жестко фиксируем блик, чтобы он не выдавливал текст */
+                position: absolute !important;
                 top: 0; left: 0; width: 100%; height: 100%;
                 background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
                 opacity: 0;
@@ -1314,7 +1153,6 @@
                 mix-blend-mode: overlay;
             }
             
-            /* Исключаем блик (:not) и просто поднимаем текст над сканером без выталкивания */
             .protocol-widget .data-row, 
             .protocol-widget > div:not(.glare) {
                 position: relative;
@@ -1463,37 +1301,13 @@
 
             <div id="step-2" class="step-item locked">
                 <div class="lock-overlay">
-            <div class="lock-wrapper">
-                <svg class="lock-shackle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 40V25C15 16.7157 21.7157 10 30 10C38.2843 10 45 16.7157 45 25V40" stroke="url(#shackle-grad)" stroke-width="8" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="shackle-grad" x1="15" y1="10" x2="45" y2="40" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#888888"/>
-                            <stop offset="1" stop-color="#333333"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                
-                <svg class="lock-body-svg" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="5" y="5" width="70" height="50" rx="12" fill="url(#body-grad)" stroke="#1a1a1a" stroke-width="2"/>
-                    <circle cx="40" cy="25" r="6" fill="#050508"/>
-                    <path d="M37 28L34 42H46L43 28H37Z" fill="#050508"/>
-                    <circle cx="40" cy="25" r="2" fill="#00ff00" class="keyhole-glow"/>
-                    <defs>
-                        <linearGradient id="body-grad" x1="5" y1="5" x2="75" y2="55" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#2a2a35"/>
-                            <stop offset="1" stop-color="#0f0f14"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                
-                <div class="lock-flash"></div>
-            </div>
-            <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
-        </div>
-
-                    <div class="lock-text">Завершите phase 01, чтобы открыть доступ</div>
+                    <svg class="lock-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
                 </div>
+
                 <div class="step-number">PHASE 02 // IDENTITY</div>
                 <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
                 <div class="step-controls">
@@ -1504,37 +1318,13 @@
 
             <div id="step-3" class="step-item locked">
                 <div class="lock-overlay">
-            <div class="lock-wrapper">
-                <svg class="lock-shackle-svg" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 40V25C15 16.7157 21.7157 10 30 10C38.2843 10 45 16.7157 45 25V40" stroke="url(#shackle-grad)" stroke-width="8" stroke-linecap="round"/>
-                    <defs>
-                        <linearGradient id="shackle-grad" x1="15" y1="10" x2="45" y2="40" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#888888"/>
-                            <stop offset="1" stop-color="#333333"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                
-                <svg class="lock-body-svg" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="5" y="5" width="70" height="50" rx="12" fill="url(#body-grad)" stroke="#1a1a1a" stroke-width="2"/>
-                    <circle cx="40" cy="25" r="6" fill="#050508"/>
-                    <path d="M37 28L34 42H46L43 28H37Z" fill="#050508"/>
-                    <circle cx="40" cy="25" r="2" fill="#00ff00" class="keyhole-glow"/>
-                    <defs>
-                        <linearGradient id="body-grad" x1="5" y1="5" x2="75" y2="55" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#2a2a35"/>
-                            <stop offset="1" stop-color="#0f0f14"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                
-                <div class="lock-flash"></div>
-            </div>
-            <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
-        </div>
-
-                    <div class="lock-text">Завершите phase 02, чтобы открыть доступ</div>
+                    <svg class="lock-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <div class="lock-text">ВЫПОЛНИТЕ ПРЕДЫДУЩИЙ ШАГ</div>
                 </div>
+
                 <div class="step-number">PHASE 03 // CLEANUP</div>
                 <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
                 <div class="step-controls">
@@ -1641,7 +1431,6 @@
         phase1: {
             title: "ШАГ 1: СМЕНА ПАРОЛЯ",
             text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
-            // Добавлен аргумент isRockstar третим по счету
             getImages: (isEpic, isEA, isRockstar, gameKey) => {
                 if (gameKey === 'acs') {
                     return ["Снимок экрана 2026-04-14 212840.png", "Снимок экрана 2026-04-14 212947.png", "Снимок экрана 2026-04-06 152755.png"];
@@ -1658,7 +1447,6 @@
         phase2: {
             title: "ШАГ 2: ПРИВЯЗКА ЗАЩИТЫ (2FA)",
             text: "Включите двухфакторную аунтификацию для максимальной безопасности.",
-            // Здесь тоже 4 аргумента
             getImages: (isEpic, isEA, isRockstar, gameKey) => {
                 if (gameKey === 'acs') {
                     return ["Снимок экрана 2026-04-14 213033.png"];
@@ -1679,26 +1467,22 @@
         }
     };
 
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementBottom = reveals[i].getBoundingClientRect().bottom;
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementBottom = reveals[i].getBoundingClientRect().bottom;
 
-                // Если верхняя граница элемента вошла в экран
-                if (elementTop < windowHeight - 50 && elementBottom > 50) { 
-                    reveals[i].classList.add("active"); 
-                } 
-                // Если элемент полностью ушел вверх или вниз — убираем класс
-                else {
-                    reveals[i].classList.remove("active");
-                }
+            if (elementTop < windowHeight - 50 && elementBottom > 50) { 
+                reveals[i].classList.add("active"); 
+            } else {
+                reveals[i].classList.remove("active");
             }
         }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
+    }
+    window.addEventListener("scroll", reveal);
+    reveal();
 
     const games = {
         "fh5": "FORZA HORIZON 5",
@@ -1732,32 +1516,30 @@
         const selectedGame = games[gameKey];
         const isEpic = gameKey.toLowerCase().includes('-epic');
         const isEA = gameKey.toLowerCase().includes('-ea');
-        const isUplay = gameKey.toLowerCase() === 'acs'; // Проверка для Ubisoft
-        const isMinecraft = gameKey.toLowerCase() === 'mct'; // Новая проверка
-        const isRockstar = gameKey.toLowerCase() === 'rdr2'; // Новая проверка
+        const isUplay = gameKey.toLowerCase() === 'acs'; 
+        const isMinecraft = gameKey.toLowerCase() === 'mct'; 
+        const isRockstar = gameKey.toLowerCase() === 'rdr2'; 
         
         document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | FULL ACCESS`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = `${selectedGame} (FULL ONLINE ASSET)`;
 
-        // Определяем название лаунчера
         let platformName = "STEAM";
         if (isEpic) platformName = "EPIC GAMES";
         else if (isEA) platformName = "EA LAUNCHER";
-        else if (isUplay) platformName = "UBISOFT CONNECT"; // Название для ассасина
+        else if (isUplay) platformName = "UBISOFT CONNECT"; 
         else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
-        else if (isRockstar) platformName = "ROCKSTAR GAMES"; // Для RDR2
+        else if (isRockstar) platformName = "ROCKSTAR GAMES"; 
 
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
-        // Динамическое обновление ссылки платформы
         const platformLink = document.getElementById('platform-link-dynamic');
         if (platformLink) {
             if (isEpic) platformLink.href = "https://store.epicgames.com/ru";
             else if (isEA) platformLink.href = "https://www.ea.com/ru-ru/ea-app";
             else if (isUplay) platformLink.href = "https://www.ubisoft.com/ru-ru/ubisoft-connect";
             else if (isMinecraft) platformLink.href = "https://www.minecraft.net/ru-ru";
-            else if (isRockstar) platformLink.href = "https://www.rockstargames.com/ru/launcher"; // Ссылка на лаунчер
-            else platformLink.href = "https://store.steampowered.com/?l=russian"; // По умолчанию Steam
+            else if (isRockstar) platformLink.href = "https://www.rockstargames.com/ru/launcher"; 
+            else platformLink.href = "https://store.steampowered.com/?l=russian"; 
         }
 
         if(document.getElementById('platform-login-label')) document.getElementById('platform-login-label').innerText = platformName;
@@ -1765,15 +1547,11 @@
         const supportLabel2 = document.getElementById('support-platform-label-2');
         if (supportLabel2) supportLabel2.innerText = platformName;
 
-        // Настройка ссылок на почту
-        // Настройка ссылок на почту
-        // Настройка ссылок на почту и видимости шагов
         if (isMinecraft) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://notletters.com/email/login";
             mailLink.innerText = "NOTLETTERS.COM";
          } else if (isRockstar) {
-            // Скрываем фазу 03 (очистка сессий в рокстаре делается через смену пароля)
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
@@ -1787,12 +1565,10 @@
             mailLink.href = "https://firstmail.ltd/webmail/login/";
             mailLink.innerText = "FIRSTMAIL.LTD";
         } else if (isUplay) {
-            // СКРЫВАЕМ ФАЗУ 03 ДЛЯ АССАСИНА
             if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none'; 
             mailLink.href = "https://outlook.live.com/mail/0/";
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         } else {
-            // Явно показываем 3-й шаг для Steam
             const step3 = document.getElementById('step-3');
             if (step3) {
                 step3.style.setProperty('display', 'flex', 'important'); 
@@ -1809,13 +1585,13 @@
         dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
     }
     updateDate();
-    // Закрытие при клике вне окна
+
     window.onclick = function(event) {
         const modal = document.getElementById('guide-modal');
         if (event.target == modal) { closeGuide(); }
     }
 
-
+    // --- ВОССТАНОВЛЕННАЯ ФУНКЦИЯ ПЕРЕХОДА БЕЗ СЛОЖНЫХ АНИМАЦИЙ ---
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
@@ -1824,38 +1600,25 @@
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
     
-        // Сохраняем прогресс
         let progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         if (!progress.includes(stepNumber)) {
             progress.push(stepNumber);
             localStorage.setItem(storageKey, JSON.stringify(progress));
         }
 
-        // Активация следующего шага с КИБЕР-АНИМАЦИЕЙ
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
-        
-        if (nextStep && nextStep.classList.contains("locked")) { 
-            // 1. Запускаем анимацию: замок подпрыгивает и светится
-            nextStep.classList.add("unlocking");
-            
-            // 2. Ждем 800мс, пока замок эффектно растворится, затем снимаем блокировку
-            setTimeout(() => { 
-                nextStep.classList.remove("locked"); 
-                nextStep.classList.remove("unlocking");
-                nextStep.classList.add("active");
-                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            }, 2000);
-        } else if (nextStep) {
-            // На случай, если шаг уже был разблокирован
+        if (nextStep) { 
             nextStep.classList.remove("locked"); 
             nextStep.classList.add("active");
+            // Простой и быстрый скролл без ожидания долгих анимаций замка
+            setTimeout(() => { 
+                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
+            }, 300);
         } else { 
             checkFinalStatus(); 
         }
-
     }
 
-    // В функции loadProgress тоже нужно добавить снятие блокировки
     function loadProgress() {
         const progress = JSON.parse(localStorage.getItem(storageKey)) || [];
         progress.sort((a, b) => a - b).forEach(stepNumber => {
@@ -1867,7 +1630,6 @@
                     btn.classList.add("completed");
                     btn.onclick = null;
                 }
-                // Разблокируем текущий и СЛЕДУЮЩИЙ шаг
                 stepEl.classList.remove("locked");
                 stepEl.classList.add("active");
             
@@ -1881,13 +1643,11 @@
         checkFinalStatus();
     }
 
-    // Эта функция переключает точки (dots) при горизонтальном скролле картинок
     function updateDots(el) {
         const scrollLeft = el.scrollLeft;
         const width = el.offsetWidth;
         const index = Math.round(scrollLeft / width);
     
-        // Находим контейнер с точками, который идет сразу после слайдера
         const dotsContainer = el.parentElement.querySelector('.slider-dots');
         if (dotsContainer) {
             const dots = dotsContainer.querySelectorAll('.dot');
@@ -1900,16 +1660,14 @@
             });
         }
     }
-    // Предотвращаем "всплытие" скролла от слайдера к модальному окну
+    
     document.querySelectorAll('.slider-wrapper').forEach(slider => {
         slider.addEventListener('touchmove', function(e) {
-            // Если пользователь тянет вбок, не даем скроллиться всей модалке вверх/вниз
             e.stopPropagation();
         }, { passive: true });
     });
     const modal = document.querySelector('.modal-content');
 
-    // Запрещаем прокрутку всего документа, кроме области внутри гайда
     document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
         if (!e.target.closest('.guide-scroll-container') && !e.target.closest('.slider-wrapper')) {
             e.preventDefault();
@@ -1922,24 +1680,21 @@
         if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
             const subject = document.getElementById('subject-text');
             subject.innerText = "SECURED (READY TO OPERATE)";
-            subject.classList.add("status-active"); // Добавляем зеленый цвет и шрифт
+            subject.classList.add("status-active"); 
         }
     }
     loadProgress();
     const guideModal = document.getElementById('guide-modal');
 
     guideModal.addEventListener('touchmove', function(e) {
-        // Проверяем, происходит ли движение внутри разрешенных зон
         const isScrollable = e.target.closest('.guide-scroll-container');
         const isSlider = e.target.closest('.slider-wrapper');
 
-        // Если палец тянет мимо текста или картинок (например, по заголовку или фону) — блокируем
         if (!isScrollable && !isSlider) {
             e.preventDefault();
         }
     }, { passive: false });
 
-    // Фикс для iOS: предотвращаем "прыжок" страницы при открытии
     let currentScrollY = 0;
 
     function closeGuide() {
@@ -1951,16 +1706,12 @@
         document.body.style.width = '';
         window.scrollTo(0, currentScrollY);
     }
-    // 1. Блокируем любые горизонтальные свайпы вне слайдера
+    
     document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
         const isSlider = e.target.closest('.slider-wrapper');
     
         if (!isSlider) {
-            // Если мы не на слайдере, разрешаем только вертикальный скролл
-            // Но так как у нас pan-y в CSS, браузер сам это поймет.
-            // Здесь мы просто страхуемся от "плавания" всей модалки:
             if (Math.abs(e.changedTouches[0].pageX) > Math.abs(e.changedTouches[0].pageY)) {
-                 // Если движение больше горизонтальное, чем вертикальное - отменяем
             }
         }
     }, { passive: true });
@@ -1974,18 +1725,16 @@
     
         const checkEpic = currentGameKey.toLowerCase().includes('-epic');
         const checkEA = currentGameKey.toLowerCase().includes('-ea');
-        const checkRockstar = currentGameKey.toLowerCase() === 'rdr2'; // <--- ПРОВЕРКА ТУТ
+        const checkRockstar = currentGameKey.toLowerCase() === 'rdr2'; 
 
         let data;
         let currentImages = [];
 
         if (phase === 1) {
             data = guides.phase1;
-            // Передаем все нужные флаги в функцию getImages
             currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
         } else if (phase === 2) {
             data = guides.phase2;
-            // Здесь тоже передаем 4 аргумента
             currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
         } else if (phase === 3) {
             data = guides.phase3;
@@ -2024,15 +1773,13 @@
         modalEl.style.display = 'flex';
     }
 
-
-    // НОВАЯ ФУНКЦИЯ ДЛЯ ПК (ПРОКРУТКА КНОПКАМИ)
     function moveSlider(btn, direction) {
         const wrapper = btn.parentElement.querySelector('.slider-wrapper');
         const scrollAmount = wrapper.offsetWidth;
         wrapper.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
     }
     function showFullImage(src, event) {
-        if (event) event.stopPropagation(); // Предотвращаем закрытие модалки
+        if (event) event.stopPropagation(); 
         const viewer = document.getElementById('image-viewer');
         const fullImg = document.getElementById('full-image');
         fullImg.src = src;
@@ -2067,19 +1814,15 @@
                 const finalPass = randStr(14);
                 display.innerText = finalPass;
 
-                // СОХРАНЕНИЕ: записываем пароль в память
                 localStorage.setItem('marsha1ll_saved_pass', finalPass);
 
                 btn.classList.remove('processing'); 
                 btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
-                // ПОКАЗЫВАЕМ КНОПКУ ЭКСПОРТА
                 document.getElementById('export-key-btn').style.display = 'block';
             }
         }, 60);
     }
 
-
-    // И не забудь обновить функцию копирования, чтобы она понимала, что текст теперь в display.innerText
     function copyPassword(btn) {
         const pass = document.getElementById('password-display').innerText;
         if (pass.includes('XXXX')) return; 
@@ -2089,7 +1832,6 @@
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
 
-            // Снимаем фокус с кнопки, чтобы она не "светилась" белым
             btn.blur(); 
 
             setTimeout(() => {
@@ -2113,11 +1855,7 @@
         }
     }
 
-    // Вызываем её сразу при загрузке
-    loadSavedPassword();
-
     function randStr(len) {
-        // Разделяем на группы, чтобы гарантировать наличие каждого типа символов
         const upper = "ABCDEFGHJKLMNPQRSTUVWXYZ";
         const lower = "abcdefghijkmnopqrstuvwxyz";
         const numbers = "23456789";
@@ -2126,29 +1864,24 @@
     
         let result = "";
     
-        // Гарантируем хотя бы один символ каждого типа
         result += upper.charAt(Math.floor(Math.random() * upper.length));
         result += lower.charAt(Math.floor(Math.random() * lower.length));
         result += numbers.charAt(Math.floor(Math.random() * numbers.length));
         result += symbols.charAt(Math.floor(Math.random() * symbols.length));
     
-        // Заполняем остальную длину случайными символами
         for (let i = result.length; i < len; i++) {
             result += all.charAt(Math.floor(Math.random() * all.length));
         }
     
-        // Перемешиваем строку, чтобы гарантированные символы не стояли всегда в начале
         return result.split('').sort(() => 0.5 - Math.random()).join('');
     }
     function exportKeyFile() {
         const pass = document.getElementById('password-display').innerText;
         if (pass.includes('XXXX')) return;
 
-        // Собираем красивые данные для файла
         const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
         const dateStr = document.getElementById('current-date').innerText.split('// ')[1] || "2026";
 
-        // Формируем текстовый документ в хакерском стиле
         const fileContent = `=========================================
 MARSHA1LL DIGITAL ASSETS
 SECURE KEYFILE EXPORT
@@ -2166,11 +1899,9 @@ NEW_SECURE_PASSWORD:${pass}
 * DO NOT SHARE WITH THIRD PARTIES.
 =========================================`;
 
-        // Создаем невидимый файл и скачиваем его
         const blob = new Blob([fileContent], { type: "text/plain" });
         const link = document.createElement("a");
         
-        // Делаем красивое имя файла на основе игры
         const safeSubject = subject.replace(/[^a-zA-Z0-9]/g, '_').toUpperCase();
         link.download = `MARSHA1LL_KEY_${safeSubject}.txt`;
         
@@ -2179,17 +1910,15 @@ NEW_SECURE_PASSWORD:${pass}
         link.click();
         document.body.removeChild(link);
         
-        // --- НОВАЯ ЛОГИКА КНОПКИ (Навсегда статус SAVED) ---
         const btn = document.getElementById('export-key-btn');
         btn.innerText = "✓ KEYFILE SAVED";
-        btn.classList.add('saved'); // Добавляем класс, который мы прописали в CSS
-    } // Конец функции exportKeyFile
+        btn.classList.add('saved'); 
+    } 
     
-                    // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ТОЛЬКО ПК) ---
+    // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ТОЛЬКО ПК) ---
     const widget = document.getElementById('hero-3d-widget');
     const glare = document.getElementById('widget-glare');
 
-    // Включаем эффект ТОЛЬКО на широких экранах (ПК)
     if (widget && window.innerWidth > 1024) { 
         function tiltWidget(clientX, clientY) {
             const rect = widget.getBoundingClientRect();
@@ -2199,14 +1928,12 @@ NEW_SECURE_PASSWORD:${pass}
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Наклон: максимум 6 градусов
             const rotateX = ((y - centerY) / centerY) * -6; 
             const rotateY = ((x - centerX) / centerX) * 6;
 
             widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
 
-            // Двигаем блик
             glare.style.opacity = '1';
             glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
         }
@@ -2222,11 +1949,9 @@ NEW_SECURE_PASSWORD:${pass}
             }, 600);
         }
 
-        // --- СОБЫТИЯ ТОЛЬКО ДЛЯ МЫШИ ---
         widget.addEventListener('mousemove', (e) => tiltWidget(e.clientX, e.clientY));
         widget.addEventListener('mouseleave', resetWidget);
     }
-
 
     // --- МИКРОИНТЕРАКЦИИ (ТОЛЬКО ДЛЯ ПК) ---
     if (window.innerWidth > 1024) {
@@ -2236,10 +1961,8 @@ NEW_SECURE_PASSWORD:${pass}
         cards.forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
-                // Вычисляем позицию мыши внутри конкретной карточки
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                // Передаем координаты в CSS переменные
                 card.style.setProperty('--x', `${x}px`);
                 card.style.setProperty('--y', `${y}px`);
             });
@@ -2256,26 +1979,21 @@ NEW_SECURE_PASSWORD:${pass}
                 const centerX = rect.left + rect.width / 2;
                 const centerY = rect.top + rect.height / 2;
                 
-                // Уменьшили амплитуду с 0.15 до 0.1, чтобы кнопка не улетала слишком далеко
                 const moveX = (e.clientX - centerX) * 0.1;
                 const moveY = (e.clientY - centerY) * 0.1;
 
                 btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                // Вместо полного отключения ('none') добавляем маслянистую микро-плавность
                 btn.style.transition = 'transform 0.15s ease-out'; 
             });
 
             btn.addEventListener('mouseleave', () => {
-                // Возврат с эффектом мягкой пружины (оставляем как было)
                 btn.style.transform = `translate(0px, 0px)`;
                 btn.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
             });
         });
     }
 
-        // В самом низу скрипта
-        loadProgress();
-        loadSavedPassword(); // Добавьте это сюда
+    loadSavedPassword(); 
 </script>
 
 </body>
