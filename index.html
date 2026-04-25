@@ -227,11 +227,22 @@
             transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        /* 3. Блок FINALIZING: Полное зеркало анимации Hero */
         .reveal-feedback {
-            transform: perspective(1200px) translateY(50px) scale(0.95) rotateX(20deg);
+            /* perspective(1200px) — глубина 3D
+               translateY(-50px) — вылетает сверху вниз
+               scale(0.85) — начинает с уменьшенного размера
+               rotateX(45deg) — наклон "от пользователя" сверху
+            */
+            transform: perspective(1200px) translateY(-50px) scale(0.85) rotateX(45deg);
+            
+            /* Синхронизируем время и плавность с верхним виджетом (2.4s) */
             transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
+            
+            /* Точка крепления — НИЗ блока (как петля у откидной дверцы) */
             transform-origin: bottom center;
         }
+
 
         .reveal.active {
             opacity: 1;
