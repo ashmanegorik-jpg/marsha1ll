@@ -310,8 +310,18 @@
             margin: 0 !important;
         }
 
-        .card-alert { border-color: rgba(255, 59, 48, 0.3); background-color: #fffcfc; }
-        .card-alert .card-title, .card-alert .card-icon { color: var(--apple-red); fill: var(--apple-red); }
+        .card-alert { 
+            border-color: rgba(255, 59, 48, 0.4); 
+            background-color: #fffafa; 
+        }
+        .card-alert .card-title { 
+            color: var(--apple-red); 
+            -webkit-text-stroke: 0.3px var(--apple-red); /* Добавляем красную обводку русскому тексту */
+        }
+        .card-alert .card-icon { 
+            fill: var(--apple-red); 
+        }
+
 
 
         /* --- ШАГИ И ЗАМКИ --- */
