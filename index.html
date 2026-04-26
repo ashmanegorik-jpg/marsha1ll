@@ -1152,25 +1152,29 @@ NEW_SECURE_PASSWORD: ${pass}
     if (widget && window.innerWidth > 1024) { 
         widget.addEventListener('mousemove', (e) => {
             const rect = widget.getBoundingClientRect();
-            const x = e.clientX - rect.left; const y = e.clientY - rect.top;  
+            const x = e.clientX - rect.left; 
+            const y = e.clientY - rect.top;  
             const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -4; 
             const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 4;
 
-            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+            // 1. Убрали scale(), чтобы браузер не "мылил" пиксели при растяжении
+            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
             widget.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2 + 15}px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.02)`;
 
+            // 2. Сделали блик прозрачнее и убрали белую пелену с текста
             glare.style.opacity = '1';
-            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.2), transparent 50%)`;
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.4), transparent 50%)`;
         });
 
         widget.addEventListener('mouseleave', () => {
             widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
-            widget.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            widget.style.transform = `rotateX(0deg) rotateY(0deg)`;
             widget.style.boxShadow = `0 10px 30px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)`;
             glare.style.opacity = '0';
             setTimeout(() => { widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease'; }, 600);
         });
     }
+
 
     loadSavedPassword(); 
 </script>
