@@ -608,61 +608,69 @@
         }
 
 
-       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ЕДИНСТВЕННЫЙ И ПРАВИЛЬНЫЙ БЛОК) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ИДЕАЛЬНАЯ КОПИЯ ФОТО) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
-            h2 { font-size: 0.88rem; margin-top: 30px; }
+            h2 { font-size: 0.88margin-top: 30px; }
             section.reveal > p { font-size: 0.9rem !important; margin-bottom: 20px; line-height: 1.5; }
             .step-btn { padding: 10px 20px; font-size: 0.7rem; }
             .how-to-link { font-size: 0.75rem; }
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* 1. ВОССТАНОВИЛИ ОТСТУП СНИЗУ ДО АКТА */
+            /* 1. ОТСТУП СНИЗУ ДО "1. АКТ ПРИЕМА-ПЕРЕДАЧИ" ВОССТАНОВЛЕН */
             .perspective-container { margin-bottom: 30px !important; }
 
-            /* 2. ЖЕЛЕЗОБЕТОННЫЙ ВИДЖЕТ */
+            /* 2. КАРТОЧКА КАК НА ФОТО (УЗКАЯ, ПО ЦЕНТРУ, ФИКСИРОВАННАЯ ВЫСОТА) */
             .protocol-widget { 
-                padding: 24px 20px !important; 
+                padding: 24px 22px !important; 
                 border-radius: 20px !important; 
-                width: 100% !important; /* Широкий, как и просил */
-                max-width: none !important;
-                margin: 0 !important; 
-                height: 265px !important; /* ЖЕСТКАЯ ВЫСОТА. Больше не прыгнет! */
-                display: block !important; /* Убили flex, чтобы текст не сплющивало */
+                width: 100% !important;
+                max-width: 340px !important; /* Узкая системная карточка! */
+                margin: 0 auto !important; /* По центру экрана */
+                height: 260px !important; /* Высота зафиксирована навсегда! */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                gap: 18px !important; 
                 box-sizing: border-box !important;
             }
             
-            .protocol-widget > div:nth-child(2) { margin-bottom: 22px !important; }
+            .protocol-widget > div:nth-child(2) { margin-bottom: 0 !important; }
 
+            /* 3. ТЕКСТ СТРОГО СЛЕВА В СТОЛБИК */
             .data-row { 
-                display: block !important; 
-                margin-bottom: 16px !important; /* Строгий отступ между рядами */
+                display: flex !important;
+                flex-direction: column !important; /* Ставим в столбик */
+                align-items: flex-start !important; /* Жестко прибиваем к левому краю! */
+                margin-bottom: 0 !important;
+                gap: 4px !important; /* Отступ между серой подписью и черным значением */
+                width: 100% !important;
             }
-            .data-row:last-child { margin-bottom: 0 !important; }
             
             .data-dots { display: none !important; }
             
             .data-label { 
-                display: block !important;
-                margin-bottom: 4px !important; 
+                margin-bottom: 0 !important; 
                 font-size: 0.65rem !important;
                 text-align: left !important;
+                width: 100% !important;
                 line-height: 1 !important;
             }
             
             .data-value { 
                 display: block !important; 
-                text-align: left !important; 
+                text-align: left !important; /* УБИВАЕМ ПРИВЯЗКУ ВПРАВО ИЗ БАЗОВОГО КОДА */
+                width: 100% !important;
+                margin-top: 0 !important;
                 font-size: 0.95rem !important;
                 line-height: 1.3 !important;
             }
 
-            /* 3. БРОНЬ ПОД 2 СТРОЧКИ НАВСЕГДА */
+            /* 4. БРОНЬ МЕСТА ДЛЯ ДВУХ СТРОК НАВСЕГДА */
             #subject-text {
-                height: 2.6em !important; /* Резервируем место под SECURED */
-                display: block !important;
+                min-height: 2.6em !important; /* Место под надпись // SECURED забронировано заранее */
             }
             
             /* ОСТАЛЬНАЯ АДАПТАЦИЯ */
