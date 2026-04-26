@@ -608,77 +608,23 @@
         }
 
 
-        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
+        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (СДЕЛКА ВСЕ МЕНЬШЕ И АККУРАТНЕЕ) --- */
         @media (max-width: 768px) {
-            body { font-size: 14px; } 
-            .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
-            h2 { font-size: 0.88rem; margin-top: 30px; }
-            section.reveal > p { font-size: 0.9rem !important; margin-bottom: 20px; line-height: 1.5; }
-            .step-btn { padding: 10px 20px; font-size: 0.7rem; }
-            .how-to-link { font-size: 0.75rem; }
-            .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
+            body { font-size: 14px; } /* Уменьшаем базовый шрифт */
+            .main-brand-logo { font-size: 1.1rem; letter-spacing: 0.3em; padding-top: calc(10px + env(safe-area-inset-top)); padding-bottom: 10px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
-            
-            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ === */
-            .protocol-widget { 
-                padding: 22px 20px !important; 
-                border-radius: 20px !important; 
-                height: auto !important; /* Умная высота по контенту */
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                gap: 18px !important; /* Ровные отступы между рядами */
-                box-sizing: border-box !important;
-            }
-            
-            /* Чуть прижали верхний зеленый статус */
-            .protocol-widget > div:nth-child(2) {
-                margin-bottom: 2px !important; 
-            }
-
-            .data-row { 
-                display: flex !important;
-                flex-direction: row !important; /* Лейбл и значение на ОДНОЙ строке */
-                justify-content: space-between !important; 
-                align-items: flex-end !important;
-                flex-wrap: wrap !important; /* Разрешаем перенос длинного текста */
-                margin-bottom: 0 !important;
-                gap: 6px !important;
-            }
-            
-            .data-dots { display: none !important; }
-            
-            .data-label { 
-                margin-bottom: 0 !important; 
-                font-size: 0.65rem !important;
-            }
-            
-            .data-value { 
-                text-align: right !important; /* Status и Security стоят справа */
-                margin-top: 0 !important;
-                font-size: 0.95rem !important;
-                justify-content: flex-end !important;
-            }
-
-            /* ИСКЛЮЧЕНИЕ: Название игры (Subject) длинное, поэтому кидаем его вниз и влево */
-            #subject-text {
-                width: 100% !important; /* Форсируем перенос на новую строку */
-                text-align: left !important; /* Прижимаем влево */
-                justify-content: flex-start !important;
-            }
-            /* ======================================= */
-            
+            .protocol-widget { padding: 20px; border-radius: 20px; }
             .precaution-card { padding: 20px; border-radius: 20px; }
-            .feedback-section { padding: 40px 20px; border-radius: 24px; }
-            .algorithm-box { padding: 0 10px; margin-top: 15px; }
+            .feedback-section { padding: 25px 20px; border-radius: 20px; }
+            .algorithm-box { padding: 15px; margin-top: 25px; }
+            h2 { margin-top: 35px; margin-bottom: 15px; font-size: 1rem; }
             .cred-item { padding: 15px; flex-direction: column; align-items: flex-start; gap: 5px;}
+            .data-row { flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
+            .data-dots { display: none; }
+            .data-value { text-align: left; width: 100%; margin-top: 4px; }
             .step-item { margin-bottom: 35px; }
             .wizard-container { margin-top: 25px; padding-left: 20px;}
-            .modal-content { padding: 20px; width: 82%; max-width: 320px; margin: 0 auto;}
-            
-            .cred-label { font-size: 0.65rem; }
-            .cred-value { font-size: 0.82rem; }
-            .cred-item a { font-size: 0.8rem !important; }
+            .modal-content { padding: 20px; width: 90%; }
         }
 
 
