@@ -293,13 +293,14 @@
         .card-title {
             font-family: 'Archivo Black', 'Inter', sans-serif;
             font-size: 0.8rem;
-            font-weight: 700; /* Включаем максимальную толщину для базового шрифта */
+            font-weight: 700; 
             letter-spacing: 0.1em;
             color: var(--text-main);
             text-transform: uppercase;
-            /* Секретный трюк: добавляем русским буквам толщину снаружи */
-            -webkit-text-stroke: 0.6px var(--text-main); 
+            /* СДЕЛАЛИ ТОНЬШЕ: было 0.6px, стало 0.3px */
+            -webkit-text-stroke: 0.3px var(--text-main); 
         }
+
 
 
         .card-text {
@@ -311,6 +312,7 @@
 
         .card-alert { border-color: rgba(255, 59, 48, 0.3); background-color: #fffcfc; }
         .card-alert .card-title, .card-alert .card-icon { color: var(--apple-red); fill: var(--apple-red); }
+
 
         /* --- ШАГИ И ЗАМКИ --- */
         .step-item.locked { opacity: 0.5; pointer-events: none; position: relative; user-select: none; }
