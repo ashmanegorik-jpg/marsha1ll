@@ -608,7 +608,7 @@
         }
 
 
-                /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
+                        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,31 +619,28 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ === */
+            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ (КАК НА ФОТО 1) === */
             .protocol-widget { 
-                padding: 22px 20px !important; 
+                padding: 24px 20px !important; 
                 border-radius: 20px !important; 
                 height: auto !important; /* Умная высота по контенту */
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
-                gap: 18px !important; /* Ровные отступы между рядами */
+                gap: 20px !important; /* Отступ между блоками Subject, Status, Security */
                 box-sizing: border-box !important;
             }
             
-            /* Чуть прижали верхний зеленый статус */
             .protocol-widget > div:nth-child(2) {
-                margin-bottom: 2px !important; 
+                margin-bottom: 0 !important; 
             }
 
             .data-row { 
                 display: flex !important;
-                flex-direction: row !important; /* Лейбл и значение на ОДНОЙ строке */
-                justify-content: space-between !important; 
-                align-items: flex-end !important;
-                flex-wrap: wrap !important; /* Разрешаем перенос длинного текста */
+                flex-direction: column !important; /* СТАВИМ СТОЛБИКОМ (Подпись сверху, значение снизу) */
+                align-items: flex-start !important; /* ПРИЖИМАЕМ ВСЕ ВЛЕВО */
                 margin-bottom: 0 !important;
-                gap: 6px !important;
+                gap: 6px !important; /* Маленький отступ между серой подписью и черным текстом */
             }
             
             .data-dots { display: none !important; }
@@ -651,19 +648,20 @@
             .data-label { 
                 margin-bottom: 0 !important; 
                 font-size: 0.65rem !important;
+                line-height: 1 !important;
             }
             
             .data-value { 
-                text-align: right !important; /* Status и Security стоят справа */
+                text-align: left !important; /* ТЕПЕРЬ ВСЕ ЗНАЧЕНИЯ СЛЕВА */
                 margin-top: 0 !important;
                 font-size: 0.95rem !important;
-                justify-content: flex-end !important;
+                justify-content: flex-start !important;
+                width: 100% !important;
             }
 
-            /* ИСКЛЮЧЕНИЕ: Название игры (Subject) длинное, поэтому кидаем его вниз и влево */
             #subject-text {
-                width: 100% !important; /* Форсируем перенос на новую строку */
-                text-align: left !important; /* Прижимаем влево */
+                width: 100% !important;
+                text-align: left !important; 
                 justify-content: flex-start !important;
             }
             /* ======================================= */
@@ -680,8 +678,6 @@
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
         }
-
-
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
