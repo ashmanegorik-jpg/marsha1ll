@@ -4,29 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22black%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22red%22 opacity=%22.6%22 transform=%22translate(1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22dodgerblue%22 opacity=%22.6%22 transform=%22translate(-1,0)%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2280%22 fill=%22white%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text></svg>">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%23f5f5f7%22 rx=%2220%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22central%22 text-anchor=%22middle%22 font-size=%2270%22 fill=%22%231d1d1f%22 font-family=%22sans-serif%22 font-weight=%22bold%22>M</text></svg>">
     <title>MARSHA1LL | ACCESS PROTOCOL</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap');
     
+        /* --- ЦВЕТОВАЯ ПАЛИТРА APPLE --- */
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --apple-blue: #0071e3;
+            --apple-green: #34c759;
+            --apple-red: #ff3b30;
+            --apple-yellow: #f59e0b;
+        }
+
         body {
-            background-color: #050508; 
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.015'/%3E%3C/svg%3E");
-            color: #fff;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color); 
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 10px 5% 40px 5%; 
             line-height: 1.6;
+            font-size: 16px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
+        /* ШАПКА (FROSTED GLASS) */
         .main-brand-logo {
             font-family: 'Archivo Black', sans-serif;
             font-size: 1.5rem;
-            letter-spacing: 0.6em;
+            letter-spacing: 0.4em;
             text-transform: uppercase;
             text-align: center;
             margin: 0;
@@ -35,32 +52,34 @@
             top: 0px; 
             left: 0;
             z-index: 100; 
-            background: rgba(5, 5, 8, 0.3); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
-            border-bottom: none; 
-            padding-top: calc(10px + env(safe-area-inset-top));
+            background: rgba(245, 245, 247, 0.75); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+            padding-top: calc(15px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
+            color: var(--text-main);
         }
 
         .terminal-container {
-            max-width: 1200px;
+            max-width: 1100px;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
-            padding-top: 80px; 
+            gap: 30px;
+            padding-top: 100px; 
         }
 
         .password-hint {
-            font-family: 'Archivo Black', sans-serif; 
-            font-size: 0.5rem;                       
-            color: rgba(255, 255, 255, 0.25);                     
-            letter-spacing: 0.3em;                   
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.65rem;                       
+            color: var(--text-secondary);                     
+            letter-spacing: 0.05em;                   
             text-transform: uppercase;               
             text-align: center;                      
-            margin-top: -2px;                           
+            margin-top: 5px;                           
         }
 
         .status-dot {
@@ -68,25 +87,19 @@
             margin-top: 2px; 
             flex-shrink: 0; 
         }
-        .dot-green {
-            color: #00ff00;
-            animation: pulse-dot 1.5s infinite;
-        }
-        .dot-yellow {
-            color: #ffcc00;
-            animation: pulse-dot 1.5s infinite;
-        }
+        .dot-green { color: var(--apple-green); animation: pulse-dot 2s infinite; }
+        .dot-yellow { color: var(--apple-yellow); animation: pulse-dot 2s infinite; }
 
         @keyframes pulse-dot {
-            0%, 100% { opacity: 1; text-shadow: 0 0 8px currentColor; }
-            50% { opacity: 0.3; text-shadow: none; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.1); }
         }
 
         .feedback-section {
             margin-top: 60px;
-            padding: 30px;
-            border: 1px double #1a1a1a;
-            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
+            padding: 40px 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             text-align: center;
             max-width: 900px;
             width: 100%;
@@ -94,55 +107,54 @@
             border-radius: 24px;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
         }
 
         .feedback-title {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 1rem;
-            color: #fff;
+            font-size: 1.1rem;
+            color: var(--text-main);
             margin-bottom: 15px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.1em;
         }
 
         .feedback-text {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 25px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
 
         .feedback-highlight {
-            color: #00ff00; 
-            font-weight: bold;
+            color: var(--apple-blue); 
+            font-weight: 600;
         }
 
         /* --- БАЗОВЫЙ СТИЛЬ ВИДЖЕТА --- */
         .perspective-container {
             width: 100%;
-            max-width: 900px; /* Изменили на 900px */
+            max-width: 900px;
             perspective: 1200px;
-            margin: 0 auto; /* Центрируем */
+            margin: 0 auto;
         }
-
 
         .protocol-widget {
-            background: linear-gradient(180deg, #0a0a0e 0%, #050508 100%);
-            border: 1px double #1a1a1a;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 24px;
-            padding: 25px;
+            padding: 30px;
             position: relative;
             overflow: hidden;
-            max-width: 900px; /* Изменили на 900px */
+            max-width: 900px;
             width: 100%;
             box-sizing: border-box;
-            margin: 20px auto; /* Центрируем */
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
         }
-
 
         .glare {
             position: absolute !important;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8), transparent 60%);
             opacity: 0;
             pointer-events: none;
             z-index: 10;
@@ -156,44 +168,28 @@
             z-index: 20; 
         }
 
-        .protocol-widget::after {
-            content: "";
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-            animation: scan-loop 3s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes scan-loop {
-            0% { top: -100%; }
-            100% { top: 200%; }
-        }
-
         .data-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
             gap: 5px;
         }
 
         .data-label {
-            font-size: 0.6rem;
-            color: #444;
-            letter-spacing: 0.3em;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
             font-family: 'Archivo Black', sans-serif;
             flex-shrink: 0;
         }
 
         .data-value {
-            font-size: 0.85rem;
-            color: #fff;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 600;
             text-align: right;
             font-family: 'Inter', sans-serif;
             word-break: break-all;
@@ -201,58 +197,39 @@
 
         .data-dots {
             flex-grow: 1;
-            border-bottom: 1px dotted #222;
-            margin: 0 15px 4px 15px;
+            border-bottom: 1px dotted rgba(0,0,0,0.15);
+            margin: 0 15px 6px 15px;
             min-width: 20px;
         }
 
         .status-active {
-            color: #00ff00 !important;
+            color: var(--apple-green) !important;
             font-family: 'Archivo Black', sans-serif;
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
-        /* --- КИНЕМАТОГРАФИЧНЫЕ ВХОДНЫЕ АНИМАЦИИ --- */
-        .reveal {
-            opacity: 0;
-            margin-bottom: 60px;
-        }
-
+        /* --- ВХОДНЫЕ АНИМАЦИИ --- */
+        .reveal { opacity: 0; margin-bottom: 60px; }
+        
         .reveal-hero {
-            transform: perspective(1200px) translateY(80px) scale(0.85) rotateX(-45deg);
-            transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
-            transform-origin: top center;
-            max-width: 900px; /* Изменили на 900px */
-            margin: 0 auto; /* Центрируем */
+            transform: translateY(40px);
+            transition: all 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+            max-width: 900px;
+            margin: 0 auto;
         }
-
 
         .reveal-base {
-            transform: perspective(1200px) translateY(40px);
-            transition: all 2s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(40px);
+            transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* 3. Блок FINALIZING: Полное зеркало анимации Hero */
         .reveal-feedback {
-            /* perspective(1200px) — глубина 3D
-               translateY(-50px) — вылетает сверху вниз
-               scale(0.85) — начинает с уменьшенного размера
-               rotateX(45deg) — наклон "от пользователя" сверху
-            */
-            transform: perspective(1200px) translateY(-50px) scale(0.85) rotateX(45deg);
-            
-            /* Синхронизируем время и плавность с верхним виджетом (2.4s) */
-            transition: all 2.4s cubic-bezier(0.22, 1, 0.36, 1);
-            
-            /* Точка крепления — НИЗ блока (как петля у откидной дверцы) */
-            transform-origin: bottom center;
+            transform: translateY(40px) scale(0.98);
+            transition: all 1.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
 
         .reveal.active {
             opacity: 1;
-            transform: perspective(1200px) translate(0, 0) scale(1) rotateX(0deg);
-            filter: blur(0);
+            transform: translate(0, 0) scale(1);
         }
 
         .precautions-grid {
@@ -262,966 +239,309 @@
             margin-top: 30px;
         }
 
-        /* --- ЭФФЕКТ ФОНАРИКА ДЛЯ КАРТОЧЕК --- */
+        /* --- КАРТОЧКИ --- */
         .precaution-card {
-            background: linear-gradient(145deg, #121218 0%, #0a0a0e 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 24px;
             transition: all 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
             gap: 12px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .precaution-card::before {
             content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            /* Убавили яркость с 0.06 до 0.02 и сделали луч чуть компактнее (600px) */
-            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.02), transparent 40%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(0, 0, 0, 0.03), transparent 40%);
+            opacity: 0; transition: opacity 0.4s ease; pointer-events: none; z-index: 1;
         }
 
-        .precaution-card:hover::before {
-            opacity: 1;
-        }
+        .precaution-card:hover::before { opacity: 1; }
 
-        .precaution-card > svg, 
-        .precaution-card > div, 
-        .precaution-card > p {
-            position: relative;
-            z-index: 2;
+        .precaution-card > svg, .precaution-card > div, .precaution-card > p {
+            position: relative; z-index: 2;
         }
 
         @media (hover: hover) {
             .precaution-card:hover {
-                border-color: #444;
-                transform: translateY(-5px);
-                box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+                border-color: rgba(0,0,0,0.15);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
             }
             .precaution-card.card-alert:hover {
-                border-color: #ff3333 !important; 
-                box-shadow: 0 10px 30px rgba(255, 51, 51, 0.15) !important; 
-                transform: translateY(-5px);
+                border-color: var(--apple-red) !important; 
+                box-shadow: 0 12px 30px rgba(255, 59, 48, 0.15) !important; 
             }
         }
 
         .card-icon {
-            width: 30px;
-            height: 30px;
-            fill: #fff;
-            margin-bottom: 5px;
-            opacity: 0.8;
+            width: 32px; height: 32px;
+            fill: var(--text-main);
+            margin-bottom: 8px;
         }
 
         .card-title {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
             text-transform: uppercase;
         }
 
         .card-text {
-            font-size: 0.8rem !important;
-            color: #666 !important;
+            font-size: 0.9rem !important;
+            color: var(--text-secondary) !important;
             line-height: 1.5 !important;
             margin: 0 !important;
         }
 
-        .card-alert {
-            border-color: #330000;
-        }
-        .card-alert .card-title { color: #ff3333; }
+        .card-alert { border-color: rgba(255, 59, 48, 0.3); background-color: #fffcfc; }
+        .card-alert .card-title, .card-alert .card-icon { color: var(--apple-red); fill: var(--apple-red); }
 
-        /* --- БАЗОВЫЕ ЗАМКИ (ВОССТАНОВЛЕНО) --- */
-        .step-item.locked {
-            opacity: 0.6; 
-            pointer-events: none;
-            position: relative;
-            user-select: none;
-        }
+        /* --- ШАГИ И ЗАМКИ --- */
+        .step-item.locked { opacity: 0.5; pointer-events: none; position: relative; user-select: none; }
+        .step-item.locked p, .step-item.locked .step-controls, .step-item.locked .step-number { filter: blur(3px) grayscale(100%); }
+        .step-item { position: relative; transition: all 0.5s ease; display: flex; flex-direction: column; margin-bottom: 50px; }
 
-        .step-item.locked p, 
-        .step-item.locked .step-controls,
-        .step-item.locked .step-number {
-            filter: blur(4px);
-        }
-
-        .step-item {
-            position: relative;
-            transition: all 0.5s ease;
-            /* ВОЗВРАЩАЕМ ЭТИ 3 СТРОЧКИ, ЧТОБЫ ВСЕ СТАЛО РОВНО */
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 50px; 
-        }
-
-
-        /* Центрируем оверлей замка поверх заблокированного шага */
         .lock-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; flex-direction: column; align-items: center; z-index: 10;
         }
 
-        .lock-icon {
-            width: 30px;
-            height: 30px;
-            fill: #777; /* Плотный серый цвет, как на фото */
-            stroke: none; /* Убираем обводку */
-            margin-bottom: 10px;
-        }
-
+        .lock-icon { width: 34px; height: 34px; fill: var(--text-main); margin-bottom: 12px; }
         .lock-text {
-            color: #ffffff;
-            font-size: 0.6rem;
-            letter-spacing: 0.1em;
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-            max-width: 150px;
-            text-align: center;
+            color: var(--text-main); font-size: 0.65rem; letter-spacing: 0.1em;
+            font-family: 'Archivo Black', sans-serif; text-transform: uppercase;
+            max-width: 180px; text-align: center;
         }
-        
-        .lock-text span {
-            color: #fff; /* Выделяем слово PHASE белым цветом */
-        }
+        .step-item.active .lock-overlay { display: none !important; }
 
-        /* Когда шаг активен, оверлей полностью скрывается */
-        .step-item.active .lock-overlay {
-            display: none !important;
-        }
-
-        .platform-link, 
-        .platform-link * {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            text-decoration: underline !important;
-            font-family: 'Archivo Black', sans-serif; 
+        /* ССЫЛКИ */
+        .platform-link, .platform-link *, #mail-link, #mail-link * {
+            color: var(--apple-blue) !important;
+            -webkit-text-fill-color: var(--apple-blue) !important;
+            text-decoration: none !important;
+            font-family: 'Inter', sans-serif; 
+            font-weight: 600 !important;
             transition: opacity 0.2s;
         }
+        .platform-link:hover, #mail-link:hover { opacity: 0.7 !important; text-decoration: underline !important; }
 
-        #mail-link,
-        #mail-link * {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            text-decoration: underline !important;
-            font-family: inherit !important; 
-            font-weight: normal !important;  
-            transition: opacity 0.2s;
-        }
-
-        .platform-link:visited, #mail-link:visited,
-        .platform-link:active, #mail-link:active {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-        }
-
-        @media (hover: hover) {
-            .platform-link:hover, #mail-link:hover {
-                opacity: 0.7 !important;
-            }
-        }
-
+        /* TOAST */
         #copy-toast {
-            position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: rgba(20, 20, 20, 0.9);
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 100px;
-            border: 1px solid #333;
-            font-size: 0.7rem;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 1px;
-            z-index: 3000;
+            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: rgba(0, 0, 0, 0.85); color: #fff; backdrop-filter: blur(10px);
+            padding: 12px 24px; border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+            font-family: 'Inter', sans-serif; letter-spacing: 0.5px; z-index: 3000;
             transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28), opacity 0.3s;
-            opacity: 0;
-            pointer-events: none;
-            text-transform: uppercase;
+            opacity: 0; pointer-events: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+        #copy-toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        #copy-toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-
-        .password-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-
+        /* ГЕНЕРАТОР ПАРОЛЕЙ */
+        .password-wrapper { position: relative; display: flex; align-items: center; width: 100%; }
+        
         .gen-display {
-            flex-grow: 1;
-            font-family: 'Archivo Black', sans-serif;
-            background: #000; 
-            border: 1px solid rgba(255, 255, 255, 0.03); 
-            padding: 8px 35px 8px 12px; 
-            color: #00ff00;
-            text-align: center;
-            letter-spacing: 2px;
-            font-size: 0.9rem; 
-            border-radius: 8px;
-            box-sizing: border-box;
-            box-shadow: inset 0 3px 10px rgba(0,0,0,0.8); 
-            text-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            flex-grow: 1; font-family: 'Inter', monospace; font-weight: 600;
+            background: #f5f5f7; border: 1px solid #d2d2d7; 
+            padding: 12px 40px 12px 16px; color: var(--text-main);
+            text-align: center; letter-spacing: 2px; font-size: 1rem; 
+            border-radius: 12px; box-sizing: border-box;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); 
         }
 
         .copy-btn {
-            position: absolute;
-            right: 10px;
-            background: transparent;
-            border: none;
-            color: #444 !important; 
-            cursor: pointer;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            outline: none !important; 
-            -webkit-tap-highlight-color: transparent; 
+            position: absolute; right: 12px; background: transparent; border: none;
+            color: var(--text-secondary) !important; cursor: pointer; padding: 0;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
         }
-
-        @media (hover: hover) {
-            .copy-btn:hover { color: #fff !important; }
-            .copy-btn:active { color: #fff !important; transform: scale(1.1); }
-            #gen-main-btn:hover {
-                background: #fff !important;
-                color: #000 !important;
-                border-color: #fff !important;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-                transform: translateY(-1px);
-            }
-        }
-
-        .copy-btn:focus {
-            outline: none;
-            color: #444 !important; 
-        }
-
-        .copy-btn.copied {
-            color: #00ff00 !important;
-            transform: scale(1.05);
-            transition: color 0s; 
-        }
-
-        #gen-main-btn {
-            font-weight: bold; 
-            letter-spacing: 0.15em;
-        }
-
-        .copy-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+        .copy-btn:hover { color: var(--text-main) !important; }
+        .copy-btn svg { width: 20px; height: 20px; fill: currentColor; }
+        .copy-btn.copied { color: var(--apple-green) !important; transform: scale(1.1); }
 
         .generator-box {
-            margin-top: 15px;
-            padding: 8px 12px; 
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            background: linear-gradient(145deg, #121218 0%, #0a0a0e 100%); 
-            border-radius: 12px; 
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-width: 260px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+            margin-top: 15px; padding: 15px; border: 1px solid var(--border-color); 
+            background: var(--card-bg); border-radius: 20px; 
+            display: flex; flex-direction: column; gap: 10px; max-width: 320px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
         }
 
         .export-btn {
-            background: transparent !important;
-            border: 1px dashed rgba(255, 255, 255, 0.2) !important;
-            color: #00ff00 !important; 
-            font-size: 0.55rem !important; 
-            padding: 6px 0 !important; 
-            width: 85% !important; 
-            margin: 0 auto !important; 
-            border-radius: 6px !important; 
-            opacity: 0.8;
-            letter-spacing: 0.15em !important;
-            font-family: 'Archivo Black', sans-serif !important;
-            transition: all 0.3s ease;
+            background: transparent !important; border: 1px dashed var(--apple-blue) !important;
+            color: var(--apple-blue) !important; font-size: 0.65rem !important; 
+            padding: 8px 0 !important; width: 100% !important; 
+            border-radius: 10px !important; transition: all 0.3s ease;
+            font-weight: 600;
         }
+        .export-btn:hover { background: rgba(0, 113, 227, 0.05) !important; }
+        .export-btn.saved { color: var(--apple-green) !important; border-color: var(--apple-green) !important; border-style: solid !important; pointer-events: none; }
+
+        /* КНОПКИ ШАГОВ */
+        .step-btn {
+            background: var(--text-main); border: none; color: #fff;
+            padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
+            cursor: pointer; text-transform: uppercase; transition: all 0.2s ease;
+            letter-spacing: 0.05em; border-radius: 100px; /* Стиль кнопок Apple */
+        }
+        .step-btn:hover { background: #000; transform: scale(1.02); }
+        .step-btn:active { transform: scale(0.98); }
         
-        @media (hover: hover) {
-            .export-btn:hover {
-                border-color: #00ff00 !important;
-                background: rgba(0, 255, 0, 0.05) !important;
-                opacity: 1;
-            }
-        }
-
-        .export-btn.saved {
-            color: #fff !important;
-            border-color: rgba(255, 255, 255, 0.3) !important;
-            border-style: solid !important; 
-            opacity: 0.5; 
-            pointer-events: none; 
-        }
-
-        .generator-box .step-btn {
-            width: 100%;
-            border-radius: 8px; 
-            background: rgba(255, 255, 255, 0.03) !important; 
-            color: #fff !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important; 
-            transition: all 0.3s ease;
-            padding: 8px 0; 
-        }
-
-        .generator-box .step-btn.processing {
-            background: #fff !important;
-            color: #000 !important;
-            border-color: #fff !important;
-        }
-        .generator-box .step-btn.completed-gen {
-            background: transparent !important;
-            color: #fff !important;
-            border-color: #222 !important;
-            cursor: default;
-            opacity: 0.8;
-        }
-
-        #gen-main-btn:active {
-            background: #fff !important;
-            color: #000 !important;
-            transform: translateY(1px);
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
-        .generator-box .step-number {
-            font-size: 0.65rem;
-            color: #fff !important; 
-            opacity: 1 !important;  
-            text-shadow: 0 0 5px rgba(255,255,255,0.2);
-            text-align: center;
-            width: 100%;
-            display: block;
-        }
-
-        .gen-display.blink {
-            animation: pulse-green 0.1s steps(2) infinite;
-        }
-
-        header.reveal {
-            border-bottom: 1px solid #1a1a1a; 
-            padding-bottom: 25px;
-            margin-bottom: 40px; 
-            width: 100%;
-            position: relative; 
-        }
+        .step-item.active .step-btn { background: var(--apple-blue); }
+        .step-item.active .step-btn:hover { background: #005bb5; }
         
-        h1, h2 {
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
+        .step-btn.completed, .step-item.active .step-btn.completed { 
+            border: 1px solid var(--apple-green) !important; color: var(--apple-green) !important; 
+            cursor: default; background: transparent !important; transform: none;
         }
 
-        h1 { 
-            font-size: 1.2rem; 
-            margin: 0 0 12px 0; 
-            line-height: 1.3;
-            background: linear-gradient(180deg, #ffffff 0%, #999999 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent; 
-        }
-        
-        h2 { 
-            font-size: 0.9rem; 
-            border-left: 4px solid #fff; 
-            padding-left: 20px; 
-            margin-top: 50px; 
-            margin-bottom: 25px;
-        }
+        .generator-box .step-btn { width: 100%; padding: 12px 0; border-radius: 12px; }
 
-        .meta-info {
-            font-family: 'Archivo Black', sans-serif; 
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.2); 
-            letter-spacing: 0.4em; 
-            text-transform: uppercase;
-        }
+        h1, h2 { font-family: 'Archivo Black', sans-serif; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-main); }
+        h1 { font-size: 1.4rem; margin: 0 0 12px 0; line-height: 1.3; text-align: center; }
+        h2 { font-size: 1.1rem; border-left: 4px solid var(--text-main); padding-left: 15px; margin-top: 50px; margin-bottom: 25px; }
 
-        p, li {
-            font-size: 0.95rem;
-            color: #a0a0a0;
-            font-weight: 400;
-            max-width: 900px;
-        }
-
+        p, li { font-size: 1rem; color: var(--text-secondary); max-width: 900px; font-weight: 400; }
         ul { list-style: none; padding: 0; }
-        ul li { 
-            margin-bottom: 15px; 
-            display: flex; 
-            align-items: flex-start;
-            text-align: left;
-        }
+        ul li { margin-bottom: 15px; display: flex; align-items: flex-start; text-align: left; }
+        ul li::before { content: "●"; color: var(--text-main); margin-right: 15px; font-size: 0.6rem; margin-top: 6px; flex-shrink: 0; }
 
-        ul li::before { 
-            content: "■"; 
-            color: #fff; 
-            margin-right: 20px; 
-            font-size: 0.7rem;
-            margin-top: 4px;
-            flex-shrink: 0; 
-        }
-
-        ul li span { flex: 1; }
-
-        .highlight { 
-            color: #fff; 
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.85rem;
-            display: inline;
-        }
+        .highlight { color: var(--text-main); font-weight: 700; display: inline; }
         
-        .no-scroll {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-        }
+        .no-scroll { overflow: hidden; position: fixed; width: 100%; height: 100%; }
 
+        /* МОДАЛКА */
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(5, 5, 8, 0.85); 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            align-items: center; 
-            justify-content: center;
-            touch-action: none; 
-            overscroll-behavior: none;
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); align-items: center; justify-content: center;
         }
 
-        .guide-scroll-container {
-            touch-action: pan-y; 
-            overscroll-behavior: contain;
-            -webkit-overflow-scrolling: touch;
-            max-height: 70vh; 
-            overflow-y: auto; 
-            padding-right: 10px;
-            text-align: left;
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
+        .modal-content {
+            background: var(--card-bg); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); 
+            padding: 30px; border: 1px solid var(--border-color); width: 85%; max-width: 400px; 
+            border-radius: 24px; display: flex; flex-direction: column; gap: 15px; position: relative;
         }
 
-        .guide-scroll-container::-webkit-scrollbar {
-            display: none; 
+        .close-modal {
+            position: absolute; right: 20px; top: 15px; color: var(--text-secondary); 
+            font-size: 24px; cursor: pointer; z-index: 10; transition: color 0.2s ease;
         }
+        .close-modal:hover { color: var(--text-main); }
 
-        .slider-wrapper {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory; 
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-x;
-            overscroll-behavior: contain;
-        }
+        .guide-scroll-container { max-height: 65vh; overflow-y: auto; padding-right: 5px; scrollbar-width: none; }
+        .guide-scroll-container::-webkit-scrollbar { display: none; }
 
-        .slider-container {
-            position: relative;
-            width: 100%;
-            margin: 15px 0;
-            overflow: hidden;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            background: #050508; 
-        }
+        .slider-wrapper { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; border-radius: 12px; }
+        .slider-container { position: relative; width: 100%; margin: 15px 0; border: 1px solid var(--border-color); border-radius: 12px; background: #fff; }
+        .slider-wrapper img { width: 100%; max-height: 60vh; object-fit: contain; scroll-snap-align: start; display: block; background-color: #f5f5f7; cursor: zoom-in; }
 
-        .slider-wrapper::-webkit-scrollbar {
-            display: none;
-        }
+        .slider-dots { display: flex; justify-content: center; gap: 8px; position: absolute; bottom: 15px; left: 0; right: 0; pointer-events: none; }
+        .dot { width: 8px; height: 8px; background-color: rgba(0, 0, 0, 0.2); border-radius: 50%; transition: all 0.3s ease; }
+        .dot.active { background-color: var(--text-main); transform: scale(1.2); }
 
-        .slider-wrapper img {
-            width: 100%;
-            height: auto;            
-            max-height: 70vh;        
-            object-fit: contain;     
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            display: block;
-            background-color: #000;  
-            pointer-events: auto;
-            cursor: zoom-in;
-        }
+        .guide-step h3 { font-size: 0.9rem; color: var(--text-main); margin-bottom: 10px; }
+        .guide-step p { font-size: 0.9rem; margin: 5px 0; color: var(--text-secondary); }
 
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            position: absolute;
-            bottom: 15px;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background-color: #fff; 
-            transform: scale(1.3);
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-        }
-
-        .guide-step {
-            margin-bottom: 0px; 
-            border-bottom: none;
-            padding-bottom: 0px;
-        }
-
-        .guide-step h3 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.75rem;
-            color: #fff;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
-        }
-
-        .guide-step p {
-            font-size: 0.75rem;
-            margin: 5px 0;
-            color: #a0a0a0;
-            line-height: 1.3;
-        }
-
+        /* БЛОК ДАННЫХ */
         .credentials-box {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: #0a0a0e; 
-            border-radius: 12px;
-            margin-top: 25px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            max-width: 600px;
+            border: 1px solid var(--border-color); background: var(--card-bg); 
+            border-radius: 20px; margin-top: 25px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); max-width: 900px;
         }
 
         .cred-header {
-            background: #121218; 
-            padding: 12px 15px;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.65rem;
-            color: #ffcc00; 
-            letter-spacing: 0.15em;
-            border-bottom: 1px solid #222;
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.4;
+            background: #f5f5f7; padding: 16px 20px; font-family: 'Inter', sans-serif;
+            font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); 
+            border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 10px;
         }
 
-        .cred-grid {
-            display: flex;
-            flex-direction: column;
-        }
+        .cred-grid { display: flex; flex-direction: column; }
+        .cred-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 10px; }
+        .cred-item:last-child { border-bottom: none; }
 
-        .cred-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03); 
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .cred-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .cred-value { font-size: 1rem; color: var(--text-main); font-family: 'Inter', monospace; font-weight: 600; letter-spacing: 1px; }
 
-        .cred-item:last-child {
-            border-bottom: none;
-        }
-
-        .cred-label {
-            font-size: 0.7rem;
-            color: #666;
-            font-family: 'Archivo Black', sans-serif;
-            letter-spacing: 0.15em;
-        }
-
-        .cred-value {
-            font-size: 0.85rem;
-            color: #aaa;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 2px;
-        }
-
-        .cred-action {
-            color: #00ff00 !important;
-            text-decoration: none !important;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            border-bottom: 1px dashed #00ff00;
-            transition: all 0.2s;
-        }
-
-        .algorithm-box {
-            margin-top: 35px;
-            padding-left: 15px;
-            border-left: 2px solid #222;
-        }
-
-        .algo-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.75rem;
-            color: #fff;
-            margin-bottom: 20px;
-            letter-spacing: 0.15em;
-        }
-
-        .algo-step {
-            font-size: 0.9rem;
-            color: #a0a0a0;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            display: block;
-            position: relative;
-            padding-left: 42px;
-        }
-
-        .algo-step span {
-            color: #00ff00;
-            font-family: 'Archivo Black', sans-serif;
-            margin-right: 5px;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-        }
-        
-        .algo-step > span:first-child {
-            color: #00ff00;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 0.9rem;
-            position: absolute;
-            left: 0;
-            top: 0; 
-        }
+        .algorithm-box { margin-top: 40px; padding: 25px; background: #fff; border-radius: 20px; border: 1px solid var(--border-color); }
+        .algo-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase; }
+        .algo-step { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 15px; display: flex; align-items: flex-start; gap: 12px; }
+        .algo-step span { color: var(--apple-blue); font-weight: 700; font-size: 0.9rem; flex-shrink: 0; background: rgba(0, 113, 227, 0.1); padding: 2px 8px; border-radius: 8px; }
 
         .warning-box {
-            border: 1px solid #330000;
-            padding: 25px;
-            background: #0a0000;
-            color: #ff3333;
-            font-size: 0.8rem;
-            margin-top: 35px;
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            max-width: 850px;
+            border: 1px solid rgba(255, 59, 48, 0.3); padding: 20px; background: #fffcfc;
+            color: var(--apple-red); font-size: 0.85rem; margin-top: 35px; border-radius: 16px;
+            font-weight: 500; line-height: 1.5; max-width: 900px;
         }
 
         footer {
-            margin-top: 80px;
-            padding: 40px 0;
-            border-top: 1px solid #1a1a1a;
-            text-align: center;
-            font-size: 0.6rem;
-            color: #222;
-            letter-spacing: 0.5em;
-            font-family: 'Archivo Black', sans-serif;
-            width: 100%;
+            margin-top: 80px; padding: 40px 0; border-top: 1px solid var(--border-color);
+            text-align: center; font-size: 0.7rem; color: var(--text-secondary);
+            font-weight: 500; width: 100%; text-transform: uppercase; letter-spacing: 0.1em;
         }
 
-        .wizard-container {
-            margin-top: 30px;
-            border-left: 1px solid #1a1a1a;
-            padding-left: 20px;
-        }
-
-        .step-number {
-            font-family: 'Archivo Black', sans-serif;
-            color: #333;
-            font-size: 0.7rem;
-            margin-bottom: 10px;
-            letter-spacing: 0.2em;
-        }
-        .step-item.active .step-number { color: #fff; }
+        .wizard-container { margin-top: 40px; border-left: 2px solid #e5e5ea; padding-left: 25px; margin-left: 10px; }
+        .step-number { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text-secondary); font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .step-item.active .step-number { color: var(--apple-blue); }
         
-        .step-controls {
-            display: flex;
-            flex-direction: column; 
-            align-items: flex-start;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .step-btn {
-            background: transparent;
-            border: 1px solid #333;
-            color: #fff;
-            padding: 10px 20px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            letter-spacing: 0.1em;
-        }
-        .step-item.active .step-btn { border-color: #fff; }
-        .step-btn.completed { 
-            border-color: #00ff00 !important; 
-            color: #00ff00 !important; 
-            cursor: default; 
-            background: transparent !important;
-        }
-
-        .how-to-link {
-            font-size: 0.8rem;
-            color: #fff;
-            text-decoration: underline;
-            cursor: pointer;
-            opacity: 0.7;
-            white-space: nowrap;
-        }
-        .how-to-link:hover { opacity: 1; }
-
-        .modal-content {
-            background: linear-gradient(180deg, #121218 0%, #0a0a0e 100%); 
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.05); 
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08); 
-            width: 82%;
-            max-width: 300px; 
-            border-radius: 24px; 
-            display: flex;
-            height: auto;
-            flex-direction: column;
-            gap: 10px;
-            align-self: center;
-        }
-
-        
-        .close-modal {
-            position: absolute;
-            right: 15px; top: 10px;
-            color: rgba(255, 255, 255, 0.4); 
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10;
-            transition: color 0.2s ease;
-        }
-        
-        .close-modal:active {
-            color: #fff; 
-        }
-
-        .final-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 12px 0;
-            background: linear-gradient(180deg, #ffffff 0%, #d4d4d4 100%) !important; 
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15) !important; 
-            color: #000 !important;
-            border: none !important; 
-            font-weight: bold;
-            border-radius: 14px;
-            font-size: 0.75rem;
-            letter-spacing: 0.1em;
-        }
+        .step-controls { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; margin-top: 20px; }
+        .how-to-link { font-size: 0.85rem; color: var(--apple-blue); cursor: pointer; font-weight: 500; }
+        .how-to-link:hover { text-decoration: underline; }
 
         /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ --- */
         @media (max-width: 768px) {
-            .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px; }
-            h1 { font-size: 1rem; }
-            body { padding: 10px 15px; }
-            .terminal-container { padding-top: 60px; }
-            .guide-step h3 { font-size: 1.1rem !important; line-height: 1.3; margin-bottom: 10px; }
-            .guide-step p { font-size: 0.95rem !important; line-height: 1.5; }
-            .modal-content { padding: 15px; width: 85%; }
-        }
-
-        /* --- АДАПТАЦИЯ БЛОКА ДАННЫХ ДЛЯ ТЕЛЕФОНОВ --- */
-        @media (max-width: 600px) {
-            .cred-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-                padding: 15px;
-            }
-            .cred-value {
-                color: #fff;
-            }
-            .data-row {
-                flex-direction: column;
-                align-items: flex-start;
-                margin-bottom: 15px;
-            }
-            .data-dots {
-                display: none; 
-            }
-            .data-value {
-                text-align: left;
-                width: 100%;
-                margin-top: 4px;
-            }
+            .main-brand-logo { font-size: 1.2rem; letter-spacing: 0.3em; padding-top: calc(15px + env(safe-area-inset-top)); }
+            .terminal-container { padding-top: 80px; }
+            .modal-content { padding: 20px; width: 90%; }
+            .cred-item { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .data-row { flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
+            .data-dots { display: none; }
+            .data-value { text-align: left; width: 100%; margin-top: 4px; }
         }
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
-            /* === ЖЕСТКИЙ ФИКС РАЗМЕРА ТОЛЬКО ДЛЯ ВЕРХНЕГО ВИДЖЕТА === */
-            .reveal-hero,
-            .perspective-container,
-            #hero-3d-widget {
-                max-width: 900px !important;
-                width: 100% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+            .reveal-hero, .perspective-container, #hero-3d-widget {
+                max-width: 900px !important; width: 100% !important; margin-left: auto !important; margin-right: auto !important;
             }
-
-            .modal-content {
-                max-width: 800px !important; 
-                width: 80% !important;
-            .modal-content {
-                max-width: 800px !important; 
-                width: 80% !important;
-                padding: 40px !important;
-            }
-            .main-brand-logo {
-                padding-top: 25px !important; 
-                padding-bottom: 20px !important;
-                font-size: 1.6rem; 
-            }
-            .slider-container {
-                position: relative;
-            } 
-            .modal-content .final-btn {
-                background: transparent !important; 
-                color: #fff !important;             
-                border: 1px solid #333 !important;  
-                border-radius: 20px !important;     
-                padding: 10px 0 !important;         
-                font-weight: bold;                  
-                letter-spacing: 0.15em !important;  
-            }
-            .modal-content .final-btn:hover {
-                background: #fff !important; 
-                color: #000 !important;
-                border-color: #fff !important;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-                transform: translateY(-1px);
-            }
-            .modal-content .final-btn:active {
-                transform: translateY(1px) !important;
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
-            }
+            .modal-content { max-width: 800px !important; width: 80% !important; padding: 40px !important; }
+            .main-brand-logo { padding-top: 25px !important; padding-bottom: 20px !important; font-size: 1.4rem; }
             .nav-btn {
-                display: flex !important;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(0, 0, 0, 0.4); 
-                color: white;
-                border: 1px solid rgba(255, 255, 255, 0.3); 
-                width: 44px;
-                height: 44px;
-                border-radius: 50%;
-                cursor: pointer;
-                z-index: 20;
-                font-size: 20px;
-                transition: all 0.2s ease;
-                backdrop-filter: blur(4px);
-                opacity: 0;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
-                align-items: center;
-                justify-content: center;
+                display: flex !important; position: absolute; top: 50%; transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.9); color: var(--text-main); border: 1px solid var(--border-color); 
+                width: 44px; height: 44px; border-radius: 50%; cursor: pointer; z-index: 20; font-size: 20px;
+                transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); align-items: center; justify-content: center; opacity: 0;
             }
-            .slider-container:hover .nav-btn {
-                opacity: 1;
-            }
-            .nav-btn:hover {
-                background: rgba(0, 0, 0, 0.8);
-                transform: translateY(-50%) scale(1.1);
-            }
-            .nav-btn.prev { left: 15px; }
-            .nav-btn.next { right: 15px; }
-            .slider-wrapper img {
-                width: 100% !important; 
-                height: auto !important; 
-                max-height: 500px !important; 
-                aspect-ratio: auto !important; 
-            }
-            .guide-step h3 {
-                font-size: 1.2rem !important; 
-            }
-            .guide-step p {
-                font-size: 1rem !important; 
-            }
-            /* --- 3D ЭФФЕКТ ТОЛЬКО ДЛЯ ПК --- */
-            .perspective-container {
-                perspective: 1200px;
-            }
-            .protocol-widget {
-                transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease;
-                will-change: transform;
-            }
-            .glare {
-                display: block;
-                position: absolute !important;
-                top: 0; left: 0; width: 100%; height: 100%;
-                background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), transparent 60%);
-                opacity: 0;
-                pointer-events: none;
-                z-index: 10;
-                transition: opacity 0.5s ease;
-                mix-blend-mode: overlay;
-            }
+            .slider-container:hover .nav-btn { opacity: 1; }
+            .nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+            .nav-btn.prev { left: 15px; } .nav-btn.next { right: 15px; }
+            .slider-wrapper img { max-height: 500px !important; }
             
-            .protocol-widget .data-row, 
-            .protocol-widget > div:not(.glare) {
-                position: relative;
-                z-index: 20; 
-            }
-
+            .perspective-container { perspective: 1200px; }
+            .protocol-widget { transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease; will-change: transform; }
         }
-        
-        .nav-btn {
-            display: none;
-        }
+        .nav-btn { display: none; }
     </style>
 </head>
 
 <body>
-<div id="copy-toast">Текст скопирован в буфер обмена</div>
-<div id="image-viewer" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.98); backdrop-filter: blur(10px); align-items: center; justify-content: center;" onclick="this.style.display='none'">
-    <span style="position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer;">&times;</span>
-    <img id="full-image" style="max-width: 95%; max-height: 95%; object-fit: contain; border: 1px solid #333; box-shadow: 0 0 30px rgba(0,0,0,0.5);" onclick="event.stopPropagation()">
+<div id="copy-toast">Скопировано в буфер обмена</div>
+<div id="image-viewer" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(245,245,247,0.95); backdrop-filter: blur(10px); align-items: center; justify-content: center;" onclick="this.style.display='none'">
+    <span style="position: absolute; top: 20px; right: 30px; color: var(--text-main); font-size: 40px; cursor: pointer;">&times;</span>
+    <img id="full-image" style="max-width: 95%; max-height: 95%; object-fit: contain; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);" onclick="event.stopPropagation()">
 </div>
 
 <div id="guide-modal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeGuide()">&times;</span>
         <div id="modal-body" class="guide-scroll-container"></div>
-        <button class="step-btn final-btn" onclick="closeGuide()">ПОНЯТНО</button>
+        <button class="step-btn" style="width: 100%; margin-top: 10px;" onclick="closeGuide()">Готово</button>
     </div>
 </div>
-
 
 <div class="main-brand-logo">MARSHA1LL</div>
 
@@ -1231,46 +551,40 @@
             <div class="protocol-widget" id="hero-3d-widget">
                 <div class="glare" id="widget-glare"></div>
 
-                <div style="font-family: 'Archivo Black', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; margin-bottom: 20px; color: #fff; display: flex; align-items: flex-start; gap: 8px; line-height: 1.4;">
+                <div style="font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.05em; margin-bottom: 25px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
                     <span class="status-dot dot-green">●</span> 
-                    <span>📁 TRANSFER PROTOCOL: OWNERSHIP GRANTED</span>
+                    <span>TRANSFER PROTOCOL: AUTHORIZED</span>
                 </div>
 
                 <div class="data-row">
-                    <div class="data-label">SUBJECT</div>
+                    <div class="data-label">Subject</div>
                     <div class="data-dots"></div>
                     <div class="data-value highlight" id="subject-text">LOADING...</div>
                 </div>
 
                 <div class="data-row">
-                    <div class="data-label">STATUS</div>
+                    <div class="data-label">Status</div>
                     <div class="data-dots"></div>
-                    <div class="data-value highlight">PERMANENT TRANSFER</div>
+                    <div class="data-value">Permanent Transfer</div>
                 </div>
 
                 <div class="data-row">
-                    <div class="data-label">SECURITY</div>
+                    <div class="data-label">Security</div>
                     <div class="data-dots"></div>
-                    <div class="data-value highlight">OWNER CLEARANCE</div>
-                </div>
-            
-                <div style="margin-top: 15px; font-size: 0.5rem; color: #222; text-align: right; letter-spacing: 1px; font-family: 'Archivo Black', sans-serif;">
-                    ENCRYPTED DATA STREAM // AES-256
+                    <div class="data-value">Owner Clearance</div>
                 </div>
             </div>
         </div> 
     </section>
 
-
     <section class="reveal reveal-base">
-        <h2>1. АКТ ПРИЕМА-ПЕРЕДАЧИ</h2>
-        <p>СИСТЕМА ЗАФИКСИРОВАЛА ПЕРЕДАЧУ ЦИФРОВОГО АКТИВА. ДОСТУП ОТКРЫТ.</p>
-
+        <h2>1. Акт приема-передачи</h2>
+        <p>Система успешно зафиксировала передачу цифрового актива. Полный доступ открыт.</p>
 
         <div class="credentials-box">
             <div class="cred-header">
                 <span class="status-dot dot-yellow">●</span> 
-                <span>REQUIRED_CREDENTIALS // ИЩИТЕ ДАННЫЕ В ЧАТЕ ПОКУПКИ</span>
+                <span>Учетные данные (ищите в чате покупки)</span>
             </div>
 
             <div class="cred-grid">
@@ -1284,158 +598,124 @@
                 </div>
                 <div class="cred-item">
                     <span class="cred-label">MAILBOX</span>
-                    <a id="mail-link" href="#" target="_blank" class="cred-action">ОТКРЫТЬ ПОЧТУ ↗</a>
+                    <a id="mail-link" href="#" target="_blank" class="platform-link">Открыть почту ↗</a>
                 </div>
             </div>
         </div>
 
         <div class="algorithm-box">
-            <div class="algo-title">>>> EXECUTION_SEQUENCE</div>
-            <div class="algo-step"><span>[01]</span> Авторизуйтесь в предоставленной почте.</div>
-            <div class="algo-step"><span>[02]</span> Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a></div>
-            <div class="algo-step"><span>[03]</span> При запросе кода защиты — получите его в открытой почте.</div>
+            <div class="algo-title">Последовательность действий</div>
+            <div class="algo-step"><span>01</span> Авторизуйтесь в предоставленной почте.</div>
+            <div class="algo-step"><span>02</span> Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a></div>
+            <div class="algo-step"><span>03</span> При запросе кода защиты — получите его во входящих письмах.</div>
         </div>
 
-        <div id="rockstar-error-msg" class="warning-box" style="display: none; margin-top: 20px; padding: 15px; border-color: #ff3333; background: rgba(51, 0, 0, 0.4);">
-           <span style="color:#ff3333; display: block; margin-bottom: 5px;">SYSTEM ALERT (ERR 1.000.7):</span> 
-           АККАУНТ ВАЛИДЕН, НО ВХОД ЗАБЛОКИРОВАН АНТИФРОД СИСТЕМОЙ SOCIAL CLUB. ИСПОЛЬЗУЙТЕ VPN, ДРУГОЙ БРАУЗЕР ИЛИ ПОДОЖДИТЕ 15-20 МИНУТ.
+        <div id="rockstar-error-msg" class="warning-box" style="display: none;">
+           <span style="display: block; margin-bottom: 5px; font-weight: 700;">Системное предупреждение (ERR 1.000.7):</span> 
+           Аккаунт валиден, но вход временно ограничен антифрод-системой Social Club. Используйте VPN, смените браузер или подождите 15-20 минут.
         </div>
     </section>
 
-
-
     <section class="reveal reveal-base">
-        <h2>2. ПРОТОКОЛ ЗАКРЕПЛЕНИЯ</h2>
-        <p>ВЫПОЛНИТЕ ПОШАГОВУЮ ИНИЦИАЛИЗАЦИЮ ДЛЯ ПОЛНОЙ ПРИВЯЗКИ АКТИВА:</p>
+        <h2>2. Протокол закрепления</h2>
+        <p>Выполните пошаговую инициализацию для полной привязки актива к вашим устройствам:</p>
         
         <div class="generator-box">
             <div class="password-wrapper">
-                <div id="password-display" class="gen-display">XXXXXXXXXXXX</div>
+                <div id="password-display" class="gen-display">••••••••••••</div>
                 <button class="copy-btn" onclick="copyPassword(this)" title="Копировать">
                     <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
                 </button>
             </div>
-            <button id="gen-main-btn" class="step-btn" onclick="generateSecurePass()">СГЕНЕРИРОВАТЬ ПАРОЛЬ</button>
-            
-            <button id="export-key-btn" class="step-btn export-btn" onclick="exportKeyFile()" style="display: none;">[↓] EXPORT KEYFILE</button>
-            
-            <div class="password-hint">*ИСПОЛЬЗУЙТЕ ДЛЯ УСТАНОВКИ НОВОГО ПАРОЛЯ В PHASE 01</div>
+            <button id="gen-main-btn" class="step-btn" style="width: 100%" onclick="generateSecurePass()">Сгенерировать пароль</button>
+            <button id="export-key-btn" class="export-btn" onclick="exportKeyFile()" style="display: none;">Экспорт ключа ↓</button>
+            <div class="password-hint">Используйте для установки в Phase 01</div>
         </div>
-
-
 
         <div class="wizard-container">
             <div id="step-1" class="step-item active">
-                <div class="step-number">PHASE 01 // SECURITY</div>
-                <p>СМЕНА ИДЕНТИФИКАТОРОВ: ИЗМЕНИТЕ ПАРОЛИ НА <span id="platform-name-2" class="highlight">STEAM</span> И ПОЧТЕ.</p>
+                <div class="step-number">Phase 01 // Безопасность</div>
+                <p>Измените пароли на платформе <span id="platform-name-2" class="highlight">STEAM</span> и в привязанной почте.</p>
                 <div class="step-controls">
-                    <span class="how-to-link" onclick="openGuide(1)">Как это сделать?</span> 
-                    <button class="step-btn" onclick="completeStep(1)">Выполнено</button>
+                    <span class="how-to-link" onclick="openGuide(1)">Инструкция по настройке</span> 
+                    <button class="step-btn" onclick="completeStep(1)">Подтвердить</button>
                 </div>
             </div>
 
             <div id="step-2" class="step-item locked">
                 <div class="lock-overlay">
-                    <svg class="lock-icon" viewBox="0 0 24 24">
-                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
-                    </svg>
-                    <div class="lock-text">Завершите phase 01, чтобы открыть доступ</div>
+                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg>
+                    <div class="lock-text">Завершите Phase 01</div>
                 </div>
-                <div class="step-number">PHASE 01 // IDENTITY</div>
-                <p>ПРИВЯЗКА 2FA: ПОДКЛЮЧИТЕ СВОЙ НОМЕР ИЛИ ПРИЛОЖЕНИЕ ЗАЩИТЫ.</p>
+                <div class="step-number">Phase 02 // Идентификация</div>
+                <p>Подключите двухфакторную аутентификацию (2FA) для защиты.</p>
                 <div class="step-controls">
-                     <span class="how-to-link" onclick="openGuide(2)">Как это сделать?</span>
-                    <button class="step-btn" onclick="completeStep(2)">Выполнено</button>
+                     <span class="how-to-link" onclick="openGuide(2)">Инструкция по настройке</span>
+                    <button class="step-btn" onclick="completeStep(2)">Подтвердить</button>
                 </div>
             </div>
 
             <div id="step-3" class="step-item locked">
                 <div class="lock-overlay">
-                    <svg class="lock-icon" viewBox="0 0 24 24">
-                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path>
-                    </svg>
-                    <div class="lock-text">Завершите phase 01, чтобы открыть доступ</div>
+                    <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg>
+                    <div class="lock-text">Завершите Phase 02</div>
                 </div>
-                <div class="step-number">PHASE 02 // IDENTITY</div>
-                <p>ОЧИСТКА СЕССИЙ: ЗАВЕРШИТЕ ВСЕ АКТИВНЫЕ СЕССИИ ДРУГИХ УСТРОЙСТВ.</p>
+                <div class="step-number">Phase 03 // Очистка</div>
+                <p>Принудительно завершите все активные сессии на других устройствах.</p>
                 <div class="step-controls">
-                     <span class="how-to-link" onclick="openGuide(3)">Как это сделать?</span>
-                    <button class="step-btn" onclick="completeStep(3)">Выполнено</button>
+                     <span class="how-to-link" onclick="openGuide(3)">Инструкция по настройке</span>
+                    <button class="step-btn" onclick="completeStep(3)">Подтвердить</button>
                 </div>
             </div>
         </div>
 
-
         <div class="warning-box">
-            ВНИМАНИЕ: ТЕПЕРЬ ВЫ — ЕДИНСТВЕННЫЙ АДМИНИСТРАТОР. ПОТЕРЯ ДАННЫХ (ПО ВИНЕ ВЛАДЕЛЬЦА) НЕ ВОССТАНАВЛИВАЕТСЯ СИСТЕМОЙ MARSHA1LL.
+            Теперь вы являетесь единственным администратором. Потеря данных по вине владельца не может быть восстановлена системой MARSHA1LL. Пожалуйста, сохраните ключи доступа.
         </div>
     </section>
 
     <section class="reveal reveal-base">
-        <h2>3. ЭКСПЛУАТАЦИЯ</h2>
-        <p>ВАМ ОТКРЫТ ПОЛНЫЙ ФУНКЦИОНАЛ ЛИЦЕНЗИОННОГО ПРОДУКТА:</p>
+        <h2>3. Эксплуатация</h2>
+        <p>Вам открыт полный функционал лицензионного продукта:</p>
         
         <div class="precautions-grid">
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M15 6H9V4h6v2zm4 13h-2v-2h2v2zM7 17H5v-2h2v2zm10-7V8h2v2h-2zM5 10V8h2v2H5zm10 7H9v-2h6v2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                <div class="card-title">МУЛЬТИПЛЕЕР</div>
-                <p class="card-text">ИГРАЙТЕ С ДРУЗЬЯМИ И ПОЛЬЗУЙТЕСЬ ВСЕМИ ОНЛАЙН-ФУНКЦИЯМИ БЕЗ ОГРАНИЧЕНИЙ.</p>
+                <div class="card-title">Мультиплеер</div>
+                <p class="card-text">Играйте с друзьями и пользуйтесь всеми онлайн-функциями без ограничений.</p>
             </div>
-
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4h2c0-2.76-2.24-5-5-5-2.42 0-4.44 1.72-4.9 4h-.1c-1.66 0-3 1.34-3 3s1.34 3 3 3h13c1.66 0 3-1.34 3-3s-1.34-3-3-3V11c3.5 0 6.42 2.42 7.17 5.67C21.39 17.41 20.3 18 19 18z"/></svg>
-                <div class="card-title">ОБЛАКО</div>
-                <p class="card-text">ВСЕ ВАШИ СОХРАНЕНИЯ И ПРОГРЕСС АВТОМАТИЧЕСКИ СИНХРОНИЗИРУЮТСЯ С СЕРВЕРАМИ <span id="platform-name-3" class="highlight">STEAM</span>.</p>
+                <div class="card-title">Облако</div>
+                <p class="card-text">Прогресс автоматически синхронизируется с официальными серверами <span id="platform-name-3">STEAM</span>.</p>
             </div>
-
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                <div class="card-title">GLOBAL VERIFIED</div>
-                <p class="card-text">АКТИВ РАБОТАЕТ В ЛЮБОЙ ТОЧКЕ МИРА БЕЗ НЕОБХОДИМОСТИ ИСПОЛЬЗОВАНИЯ VPN.</p>
+                <div class="card-title">Global Verified</div>
+                <p class="card-text">Цифровой актив работает в любой точке мира без необходимости использования VPN.</p>
             </div>
         </div>
     </section>
 
     <section class="reveal reveal-base">
-        <h2>4. МЕРЫ ПРЕДОСТОРОЖНОСТИ</h2>
-        <p>СОБЛЮДАЙТЕ ПРОТОКОЛ ЭКСПЛУАТАЦИИ ДЛЯ СОХРАНЕНИЯ ГАРАНТИИ:</p>
+        <h2>4. Меры предосторожности</h2>
+        <p>Соблюдайте правила эксплуатации для сохранения нашей гарантии:</p>
     
         <div class="precautions-grid">
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
-                <div class="card-title">КОНФИДЕНЦИАЛЬНОСТЬ</div>
-                <p class="card-text">КАТЕГОРИЧЕСКИ ЗАПРЕЩАЕТСЯ ПЕРЕДАВАТЬ ДАННЫЕ ТРЕТЬИМ ЛИЦАМ ИЛИ ПУБЛИЧНЫМ СЕРВИСАМ.</p>
+                <div class="card-title">Конфиденциальность</div>
+                <p class="card-text">Категорически запрещается передавать данные третьим лицам или публичным сервисам.</p>
             </div>
-
             <div class="precaution-card">
                 <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
-                <div class="card-title">ИГРОВАЯ ЭТИКА</div>
-                <p class="card-text">ИСПОЛЬЗОВАНИЕ ЗАПРЕЩЕННОГО ПО (ЧИТЫ, МОДЫ) АННУЛИРУЕТ ЛЮБЫЕ ГАРАНТИЙНЫЕ ОБЯЗАТЕЛЬСТВА.</p>
+                <div class="card-title">Игровая этика</div>
+                <p class="card-text">Использование запрещенного ПО (читы, моды) полностью аннулирует гарантийные обязательства.</p>
             </div>
-
             <div class="precaution-card card-alert">
-                <svg class="card-icon" style="fill: #ff3333;" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
-                <div class="card-title">АВТОНОМНОСТЬ</div>
-                <p class="card-text">ЛЮБЫЕ ОБРАЩЕНИЯ В ТЕХПОДДЕРЖКУ <span id="support-platform-label-2" class="highlight" style="color:#ff3333">STEAM</span> ЗАПРЕЩЕНЫ. ЭТО ПРИВЕДЕТ К БЛОКИРОВКЕ.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="reveal reveal-base">
-        <h2>5. ГАРАНТИЙНЫЙ РЕГЛАМЕНТ</h2>
-        <p>ВАША СДЕЛКА ЗАЩИЩЕНА БРЕНДОМ MARSHA1LL:</p>
-
-        <div class="precautions-grid">
-            <div class="precaution-card">
-                <svg class="card-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                <div class="card-title">ЧИСТОТА АКТИВА</div>
-                <p class="card-text">МЫ ПРЕДОСТАВЛЯЕМ ПОЛНОСТЬЮ ПОДГОТОВЛЕННЫЕ АККАУНТЫ БЕЗ ПОСТОРОННИХ ПРИВЯЗОК.</p>
-            </div>
-
-            <div class="precaution-card">
-                <svg class="card-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
-                <div class="card-title">ПОДДЕРЖКА</div>
-                <p class="card-text">ПРИ ВОЗНИКНОВЕНИИ ВОПРОСОВ ИЛИ ТРУДНОСТЕЙ — СРАЗУ ПИШИТЕ В ЧАТ ПОКУПКИ.</p>
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+                <div class="card-title">Автономность</div>
+                <p class="card-text">Любые обращения в техподдержку <span id="support-platform-label-2" style="font-weight:700">STEAM</span> запрещены. Это приведет к немедленной блокировке.</p>
             </div>
         </div>
     </section>
@@ -1443,32 +723,27 @@
     <section class="reveal reveal-feedback feedback-section">
         <div class="feedback-title">FINALIZING TRANSACTION</div>
         <p class="feedback-text">
-            ЕСЛИ ПРОВЕРКА АКТИВА ПРОШЛА УСПЕШНО, НЕ ЗАБУДЬТЕ 
-            <span class="feedback-highlight">ПОДТВЕРДИТЬ ЗАКАЗ</span> И ОСТАВИТЬ <span class="feedback-highlight">ОТЗЫВ</span> В ЧАТЕ ПОКУПКИ.
+            Если проверка актива прошла успешно, пожалуйста, 
+            <span class="feedback-highlight">подтвердите заказ</span> и оставьте <span class="feedback-highlight">отзыв</span> в чате покупки.
             <br><br>
-            ВАШЕ МНЕНИЕ ПОМОГАЕТ НАМ ПОДДЕРЖИВАТЬ СТАНДАРТЫ КАЧЕСТВА MARSHA1LL.
+            Ваше мнение помогает нам поддерживать высочайшие стандарты качества.
         </p>
     </section>
 
     <footer class="reveal reveal-base">
-        TRANSFER COMPLETE.<br>
-        ©2026 MARSHA1LL COLLECTION
+        MARSHA1LL COLLECTION © 2026<br>
+        <span style="font-size: 0.55rem; opacity: 0.5; font-family: 'Inter';">All systems operational.</span>
     </footer>
-
 </div>
 
 <script>
     const guides = {
         phase1: {
-            title: "ШАГ 1: СМЕНА ПАРОЛЯ",
+            title: "СМЕНА ПАРОЛЯ",
             text: "Зайдите в настройки безопасности вашего аккаунта и почты. Установите новые уникальные пароли.",
             getImages: (isEpic, isEA, isRockstar, gameKey) => {
-                if (gameKey === 'acs') {
-                    return ["Снимок экрана 2026-04-14 212840.png", "Снимок экрана 2026-04-14 212947.png", "Снимок экрана 2026-04-06 152755.png"];
-                }
-                if (gameKey === 'mct') {
-                    return ["Снимок экрана 2026-04-13 214303.png", "Снимок экрана 2026-04-13 213759.png", "Снимок экрана 2026-04-13 213325.png"]; 
-                }
+                if (gameKey === 'acs') return ["Снимок экрана 2026-04-14 212840.png", "Снимок экрана 2026-04-14 212947.png", "Снимок экрана 2026-04-06 152755.png"];
+                if (gameKey === 'mct') return ["Снимок экрана 2026-04-13 214303.png", "Снимок экрана 2026-04-13 213759.png", "Снимок экрана 2026-04-13 213325.png"]; 
                 if (isRockstar) return ["Снимок экрана 2026-04-18 155520.png", "Снимок экрана 2026-04-18 160606.png", "Снимок экрана 2026-04-06 152755.png"];
                 if (isEpic) return ["Снимок экрана 2026-04-06 152628.png", "Снимок экрана 2026-04-06 153452.png"];
                 if (isEA) return ["Снимок экрана 2026-04-06 153150.png", "Снимок экрана 2026-04-06 153332.png"];
@@ -1476,15 +751,11 @@
             }
         },
         phase2: {
-            title: "ШАГ 2: ПРИВЯЗКА ЗАЩИТЫ (2FA)",
+            title: "ПРИВЯЗКА ЗАЩИТЫ (2FA)",
             text: "Включите двухфакторную аунтификацию для максимальной безопасности.",
             getImages: (isEpic, isEA, isRockstar, gameKey) => {
-                if (gameKey === 'acs') {
-                    return ["Снимок экрана 2026-04-14 213033.png"];
-                }
-                if (gameKey === 'mct') {
-                    return ["Снимок экрана 2026-04-13 214144.png"];
-                }
+                if (gameKey === 'acs') return ["Снимок экрана 2026-04-14 213033.png"];
+                if (gameKey === 'mct') return ["Снимок экрана 2026-04-13 214144.png"];
                 if (isRockstar) return ["Снимок экрана 2026-04-18 160654.png"];
                 if (isEpic) return ["Снимок экрана 2026-04-06 152703.png"];
                 if (isEA) return ["Снимок экрана 2026-04-06 153244.png"];
@@ -1492,7 +763,7 @@
             }
         },
         phase3: {
-            title: "ШАГ 3: ЗАВЕРШЕНИЕ СЕССИЙ",
+            title: "ЗАВЕРШЕНИЕ СЕССИЙ",
             text: "Нажмите кнопку 'Выйти на всех устройствах', чтобы никто другой не мог войти в аккаунт.",
             images: ["Снимок экрана 2026-04-06 152305.png"]
         }
@@ -1504,38 +775,21 @@
             var windowHeight = window.innerHeight;
             var elementTop = reveals[i].getBoundingClientRect().top;
             var elementBottom = reveals[i].getBoundingClientRect().bottom;
-
-            if (elementTop < windowHeight - 50 && elementBottom > 50) { 
-                reveals[i].classList.add("active"); 
-            } else {
-                reveals[i].classList.remove("active");
-            }
+            if (elementTop < windowHeight - 50 && elementBottom > 50) { reveals[i].classList.add("active"); } 
+            else { reveals[i].classList.remove("active"); }
         }
     }
     window.addEventListener("scroll", reveal);
     reveal();
 
     const games = {
-        "fh5": "FORZA HORIZON 5",
-        "gta5-epic": "GTA V (EPIC GAMES)",
-        "gta5-steam": "GTA V (STEAM)",
-        "fifa26-ea": "FIFA 26 (EA LAUNCHER)",
-        "sot": "SEA OF THIEVES",
-        "cs2": "CS2 PRIME STATUS",
-        "rust": "RUST",
-        "dayz": "DAYZ",
-        "elden": "ELDEN RING",
-        "dbd-steam": "DEAD BY DAYLIGHT (STEAM)",
-        "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
-        "fh4": "FORZA HORIZON 4",
-        "mct": "MINECRAFT (JAVA + BEDROCK)",
-        "bg3": "BALDUR'S GATE 3",
-        "cp77": "CYBERPUNK 2077",
-        "dl2": "DYING LIGHT 2: STAY HUMAN",
-        "acs": "ASSASSIN'S CREED SHADOWS (UPLAY)",
-        "rdr2": "RED DEAD REDEMPTION 2",
-        "scm": "SCUM",
-        "hi4": "HEARTS of IRON: IV"
+        "fh5": "FORZA HORIZON 5", "gta5-epic": "GTA V (EPIC GAMES)", "gta5-steam": "GTA V (STEAM)",
+        "fifa26-ea": "FIFA 26 (EA)", "sot": "SEA OF THIEVES", "cs2": "CS2 PRIME STATUS",
+        "rust": "RUST", "dayz": "DAYZ", "elden": "ELDEN RING",
+        "dbd-steam": "DEAD BY DAYLIGHT (STEAM)", "dbd-epic": "DEAD BY DAYLIGHT (EPIC)",
+        "fh4": "FORZA HORIZON 4", "mct": "MINECRAFT (JAVA + BEDROCK)", "bg3": "BALDUR'S GATE 3",
+        "cp77": "CYBERPUNK 2077", "dl2": "DYING LIGHT 2: STAY HUMAN", "acs": "ASSASSIN'S CREED SHADOWS (UPLAY)",
+        "rdr2": "RED DEAD REDEMPTION 2", "scm": "SCUM", "hi4": "HEARTS of IRON: IV"
     };
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -1551,12 +805,12 @@
         const isMinecraft = gameKey.toLowerCase() === 'mct'; 
         const isRockstar = gameKey.toLowerCase() === 'rdr2'; 
         
-        document.title = `${selectedGame} | ACCESS PROTOCOL`;
+        document.title = `${selectedGame} | MARSHA1LL`;
         document.getElementById('subject-text').innerText = selectedGame;
 
         let platformName = "STEAM";
         if (isEpic) platformName = "EPIC GAMES";
-        else if (isEA) platformName = "EA LAUNCHER";
+        else if (isEA) platformName = "EA APP";
         else if (isUplay) platformName = "UBISOFT CONNECT"; 
         else if (isMinecraft) platformName = "MINECRAFT LAUNCHER";
         else if (isRockstar) platformName = "ROCKSTAR GAMES"; 
@@ -1564,47 +818,37 @@
         document.querySelectorAll("[id^='platform-name']").forEach(el => el.innerText = platformName);
         const platformLink = document.getElementById('platform-link-dynamic');
         if (platformLink) {
-            if (isEpic) platformLink.href = "https://store.epicgames.com/ru";
-            else if (isEA) platformLink.href = "https://www.ea.com/ru-ru/ea-app";
-            else if (isUplay) platformLink.href = "https://www.ubisoft.com/ru-ru/ubisoft-connect";
-            else if (isMinecraft) platformLink.href = "https://www.minecraft.net/ru-ru";
-            else if (isRockstar) platformLink.href = "https://www.rockstargames.com/ru/launcher"; 
-            else platformLink.href = "https://store.steampowered.com/?l=russian"; 
+            if (isEpic) platformLink.href = "https://store.epicgames.com/";
+            else if (isEA) platformLink.href = "https://www.ea.com/ea-app";
+            else if (isUplay) platformLink.href = "https://ubisoftconnect.com/";
+            else if (isMinecraft) platformLink.href = "https://www.minecraft.net/";
+            else if (isRockstar) platformLink.href = "https://socialclub.rockstargames.com/"; 
+            else platformLink.href = "https://store.steampowered.com/"; 
         }
 
         if(document.getElementById('platform-login-label')) document.getElementById('platform-login-label').innerText = platformName;
-        if(document.getElementById('support-platform-label')) document.getElementById('support-platform-label').innerText = platformName;
-        const supportLabel2 = document.getElementById('support-platform-label-2');
-        if (supportLabel2) supportLabel2.innerText = platformName;
+        if(document.getElementById('support-platform-label-2')) document.getElementById('support-platform-label-2').innerText = platformName;
 
         if (isMinecraft) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://notletters.com/email/login";
-            mailLink.innerText = "NOTLETTERS.COM";
+            mailLink.href = "https://notletters.com/email/login"; mailLink.innerText = "NOTLETTERS.COM ↗";
          } else if (isRockstar) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
+            mailLink.href = "https://outlook.live.com/mail/0/"; mailLink.innerText = "OUTLOOK.LIVE.COM ↗";
             document.getElementById('rockstar-error-msg').style.display = 'block';
         } else if (isEpic) {
             if(document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://mail.rambler.ru";
-            mailLink.innerText = "MAIL.RAMBLER.RU";
+            mailLink.href = "https://mail.rambler.ru"; mailLink.innerText = "MAIL.RAMBLER.RU ↗";
         } else if (isEA) {
             if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none';
-            mailLink.href = "https://firstmail.ltd/webmail/login/";
-            mailLink.innerText = "FIRSTMAIL.LTD";
+            mailLink.href = "https://firstmail.ltd/webmail/login/"; mailLink.innerText = "FIRSTMAIL.LTD ↗";
         } else if (isUplay) {
             if (document.getElementById('step-3')) document.getElementById('step-3').style.display = 'none'; 
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
+            mailLink.href = "https://outlook.live.com/mail/0/"; mailLink.innerText = "OUTLOOK.LIVE.COM ↗";
         } else {
             const step3 = document.getElementById('step-3');
-            if (step3) {
-                step3.style.setProperty('display', 'flex', 'important'); 
-            }
-            mailLink.href = "https://outlook.live.com/mail/0/";
-            mailLink.innerText = "OUTLOOK.LIVE.COM";
+            if (step3) step3.style.setProperty('display', 'flex', 'important'); 
+            mailLink.href = "https://outlook.live.com/mail/0/"; mailLink.innerText = "OUTLOOK.LIVE.COM ↗";
         }
     }
 
@@ -1613,12 +857,10 @@
         if (event.target == modal) { closeGuide(); }
     }
 
-    // --- ВОССТАНОВЛЕННАЯ ФУНКЦИЯ ПЕРЕХОДА ---
     function completeStep(stepNumber) {
         const currentStep = document.getElementById(`step-${stepNumber}`);
         const currentBtn = currentStep.querySelector('.step-btn');
-    
-        currentBtn.innerText = "ВЫПОЛНЕНО ✓";
+        currentBtn.innerText = "Завершено ✓";
         currentBtn.classList.add("completed");
         currentBtn.onclick = null;
     
@@ -1630,25 +872,16 @@
 
         const nextStep = document.getElementById(`step-${stepNumber + 1}`);
         if (nextStep) { 
-            nextStep.classList.remove("locked"); 
-            nextStep.classList.add("active");
-            // Простой и быстрый скролл
-            setTimeout(() => { 
-                nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-            }, 300);
-        } else { 
-            checkFinalStatus(); 
-        }
+            nextStep.classList.remove("locked"); nextStep.classList.add("active");
+            setTimeout(() => { nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 300);
+        } else { checkFinalStatus(); }
     }
 
-    // --- ФУНКЦИЯ ПРОВЕРКИ ФИНАЛЬНОГО СТАТУСА ---
     function checkFinalStatus() {
         const visibleSteps = Array.from(document.querySelectorAll('.step-item')).filter(s => s.style.display !== 'none');
         const completedSteps = document.querySelectorAll('.step-btn.completed');
-        
         if (visibleSteps.length > 0 && visibleSteps.length === completedSteps.length) {
             const subject = document.getElementById('subject-text');
-            // Сохраняем название игры и добавляем // SECURED
             if (!subject.innerText.includes("SECURED")) {
                 subject.innerText = subject.innerText.replace(' (FULL ONLINE ASSET)', '') + " // SECURED";
             }
@@ -1662,18 +895,11 @@
             const stepEl = document.getElementById(`step-${stepNumber}`);
             if (stepEl) {
                 const btn = stepEl.querySelector('.step-btn');
-                if(btn) {
-                    btn.innerText = "ВЫПОЛНЕНО ✓";
-                    btn.classList.add("completed");
-                    btn.onclick = null;
-                }
-                stepEl.classList.remove("locked");
-                stepEl.classList.add("active");
-            
+                if(btn) { btn.innerText = "Завершено ✓"; btn.classList.add("completed"); btn.onclick = null; }
+                stepEl.classList.remove("locked"); stepEl.classList.add("active");
                 const nextStep = document.getElementById(`step-${stepNumber + 1}`);
                 if (nextStep && nextStep.style.display !== 'none') { 
-                    nextStep.classList.remove("locked");
-                    nextStep.classList.add("active"); 
+                    nextStep.classList.remove("locked"); nextStep.classList.add("active"); 
                 }
             }
         });
@@ -1681,73 +907,36 @@
     }
 
     function updateDots(el) {
-        const scrollLeft = el.scrollLeft;
-        const width = el.offsetWidth;
-        const index = Math.round(scrollLeft / width);
-    
+        const index = Math.round(el.scrollLeft / el.offsetWidth);
         const dotsContainer = el.parentElement.querySelector('.slider-dots');
         if (dotsContainer) {
-            const dots = dotsContainer.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                if (i === index) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+            dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
             });
         }
     }
     
     document.querySelectorAll('.slider-wrapper').forEach(slider => {
-        slider.addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-        }, { passive: true });
+        slider.addEventListener('touchmove', function(e) { e.stopPropagation(); }, { passive: true });
     });
-    const modal = document.querySelector('.modal-content');
 
     document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
-        if (!e.target.closest('.guide-scroll-container') && !e.target.closest('.slider-wrapper')) {
-            e.preventDefault();
-        }
+        if (!e.target.closest('.guide-scroll-container') && !e.target.closest('.slider-wrapper')) e.preventDefault();
     }, { passive: false });
 
     loadProgress();
-    const guideModal = document.getElementById('guide-modal');
-
-    guideModal.addEventListener('touchmove', function(e) {
-        const isScrollable = e.target.closest('.guide-scroll-container');
-        const isSlider = e.target.closest('.slider-wrapper');
-
-        if (!isScrollable && !isSlider) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-
     let currentScrollY = 0;
 
     function closeGuide() {
         document.getElementById('guide-modal').style.display = 'none';
-    
         document.body.classList.remove('no-scroll');
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
+        document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
         window.scrollTo(0, currentScrollY);
     }
-    
-    document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
-        const isSlider = e.target.closest('.slider-wrapper');
-    
-        if (!isSlider) {
-            if (Math.abs(e.changedTouches[0].pageX) > Math.abs(e.changedTouches[0].pageY)) {
-            }
-        }
-    }, { passive: true });
 
     function openGuide(phase) {
         const modalBody = document.getElementById('modal-body');
         const modalEl = document.getElementById('guide-modal');
-    
         const urlParams = new URLSearchParams(window.location.search);
         const currentGameKey = urlParams.get('game') || 'general';
     
@@ -1755,43 +944,24 @@
         const checkEA = currentGameKey.toLowerCase().includes('-ea');
         const checkRockstar = currentGameKey.toLowerCase() === 'rdr2'; 
 
-        let data;
-        let currentImages = [];
+        let data = phase === 1 ? guides.phase1 : phase === 2 ? guides.phase2 : guides.phase3;
+        let currentImages = phase === 3 ? data.images : data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
 
-        if (phase === 1) {
-            data = guides.phase1;
-            currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
-        } else if (phase === 2) {
-            data = guides.phase2;
-            currentImages = data.getImages(checkEpic, checkEA, checkRockstar, currentGameKey);
-        } else if (phase === 3) {
-            data = guides.phase3;
-            currentImages = data.images;
-        }
-
-        const imagesHtml = currentImages.map(src =>
-            `<img src="${src}" alt="Step" onclick="showFullImage('${src}', event)" style="cursor: zoom-in;">`
-        ).join('');
-
+        const imagesHtml = currentImages.map(src => `<img src="${src}" alt="Guide Step" onclick="showFullImage('${src}', event)">`).join('');
         const dotsHtml = currentImages.map((_, i) => `<div class="dot ${i === 0 ? 'active' : ''}"></div>`).join('');
         const hasMultipleImages = currentImages.length > 1;
-        const navButtons = hasMultipleImages ? `
-            <button class="nav-btn prev" onclick="moveSlider(this, -1)">&#10094;</button>
-            <button class="nav-btn next" onclick="moveSlider(this, 1)">&#10095;</button>
-        ` : '';
+        const navButtons = hasMultipleImages ? `<button class="nav-btn prev" onclick="moveSlider(this, -1)">&#10094;</button><button class="nav-btn next" onclick="moveSlider(this, 1)">&#10095;</button>` : '';
         const dotsContainer = hasMultipleImages ? `<div class="slider-dots">${dotsHtml}</div>` : '';
 
         modalBody.innerHTML = `
             <div class="guide-step">
                 <h3>${data.title}</h3>
+                <p>${data.text}</p>
                 <div class="slider-container">
                     ${navButtons}
-                    <div class="slider-wrapper" onscroll="updateDots(this)">
-                        ${imagesHtml}
-                    </div>
+                    <div class="slider-wrapper" onscroll="updateDots(this)">${imagesHtml}</div>
                     ${dotsContainer}
                 </div>
-                <p>${data.text}</p>
             </div>
         `;
 
@@ -1803,146 +973,105 @@
 
     function moveSlider(btn, direction) {
         const wrapper = btn.parentElement.querySelector('.slider-wrapper');
-        const scrollAmount = wrapper.offsetWidth;
-        wrapper.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
+        wrapper.scrollBy({ left: wrapper.offsetWidth * direction, behavior: 'smooth' });
     }
+    
     function showFullImage(src, event) {
         if (event) event.stopPropagation(); 
-        const viewer = document.getElementById('image-viewer');
-        const fullImg = document.getElementById('full-image');
-        fullImg.src = src;
-        viewer.style.display = 'flex';
+        document.getElementById('full-image').src = src;
+        document.getElementById('image-viewer').style.display = 'flex';
     }
+
     function generateSecurePass() {
-        const btn = document.getElementById('gen-main-btn');
-        btn.blur();
+        const btn = document.getElementById('gen-main-btn'); btn.blur();
         const display = document.getElementById('password-display');
         const exportBtn = document.getElementById('export-key-btn');
-        exportBtn.classList.remove('saved');
-        exportBtn.innerText = "[↓] EXPORT KEYFILE";
-        btn.classList.add('processing');
-        btn.innerText = "ГЕНЕРАЦИЯ...";
-        display.classList.add('blink');
-
+        exportBtn.classList.remove('saved'); exportBtn.innerText = "Экспорт ключа ↓";
+        btn.innerText = "Генерация...";
+        
         const allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@-._";
         let iterations = 0;
 
         const interval = setInterval(() => {
             let randomPass = "";
-            for (let i = 0; i < 14; i++) {
-                randomPass += allChars.charAt(Math.floor(Math.random() * allChars.length));
-            }
+            for (let i = 0; i < 14; i++) randomPass += allChars.charAt(Math.floor(Math.random() * allChars.length));
             display.innerText = randomPass;
-
             iterations++;
             if (iterations > 15) {
                 clearInterval(interval);
-                display.classList.remove('blink');
-            
                 const finalPass = randStr(14);
                 display.innerText = finalPass;
-
                 localStorage.setItem('marsha1ll_saved_pass', finalPass);
-
-                btn.classList.remove('processing'); 
-                btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
-                document.getElementById('export-key-btn').style.display = 'block';
+                btn.innerText = "Сгенерировать новый";
+                exportBtn.style.display = 'block';
             }
-        }, 60);
+        }, 50);
     }
 
     function copyPassword(btn) {
         const pass = document.getElementById('password-display').innerText;
-        if (pass.includes('XXXX')) return; 
+        if (pass.includes('•')) return; 
 
         navigator.clipboard.writeText(pass).then(() => {
             btn.classList.add('copied');
             const toast = document.getElementById('copy-toast');
             toast.classList.add('show');
-
             btn.blur(); 
-
-            setTimeout(() => {
-                btn.classList.remove('copied');
-            }, 400);
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 1500);
+            setTimeout(() => btn.classList.remove('copied'), 400);
+            setTimeout(() => toast.classList.remove('show'), 1500);
         });
     }
+
     function loadSavedPassword() {
         const savedPass = localStorage.getItem('marsha1ll_saved_pass');
-        const display = document.getElementById('password-display');
-        const btn = document.getElementById('gen-main-btn');
-
         if (savedPass) {
-            display.innerText = savedPass;
-            btn.innerText = "СГЕНЕРИРОВАТЬ СНОВА";
+            document.getElementById('password-display').innerText = savedPass;
+            document.getElementById('gen-main-btn').innerText = "Сгенерировать новый";
             document.getElementById('export-key-btn').style.display = 'block';
         }
     }
 
     function randStr(len) {
-        const upper = "ABCDEFGHJKLMNPQRSTUVWXYZ";
-        const lower = "abcdefghijkmnopqrstuvwxyz";
-        const numbers = "23456789";
-        const symbols = "!@-._$";
+        const upper = "ABCDEFGHJKLMNPQRSTUVWXYZ"; const lower = "abcdefghijkmnopqrstuvwxyz";
+        const numbers = "23456789"; const symbols = "!@-._$";
         const all = upper + lower + numbers + symbols;
-    
-        let result = "";
-    
-        result += upper.charAt(Math.floor(Math.random() * upper.length));
-        result += lower.charAt(Math.floor(Math.random() * lower.length));
-        result += numbers.charAt(Math.floor(Math.random() * numbers.length));
-        result += symbols.charAt(Math.floor(Math.random() * symbols.length));
-    
-        for (let i = result.length; i < len; i++) {
-            result += all.charAt(Math.floor(Math.random() * all.length));
-        }
-    
+        let result = upper.charAt(Math.floor(Math.random() * upper.length)) +
+                     lower.charAt(Math.floor(Math.random() * lower.length)) +
+                     numbers.charAt(Math.floor(Math.random() * numbers.length)) +
+                     symbols.charAt(Math.floor(Math.random() * symbols.length));
+        for (let i = result.length; i < len; i++) result += all.charAt(Math.floor(Math.random() * all.length));
         return result.split('').sort(() => 0.5 - Math.random()).join('');
     }
+
     function exportKeyFile() {
         const pass = document.getElementById('password-display').innerText;
-        if (pass.includes('XXXX')) return;
+        if (pass.includes('•')) return;
 
-        const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
-        const now = new Date();
-        const dateStr = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
-
+        const subject = document.getElementById('subject-text').innerText.replace(' // SECURED', '');
+        const dateStr = new Date().toLocaleDateString('ru-RU');
 
         const fileContent = `=========================================
 MARSHA1LL DIGITAL ASSETS
 SECURE KEYFILE EXPORT
 =========================================
-
 DATE: ${dateStr}
 SUBJECT: ${subject}
 SECURITY CLEARANCE: OWNER
-
 -----------------------------------------
-NEW_SECURE_PASSWORD:${pass}
+NEW_SECURE_PASSWORD: ${pass}
 -----------------------------------------
-
 * KEEP THIS FILE IN A SECURE LOCATION.
 * DO NOT SHARE WITH THIRD PARTIES.
 =========================================`;
 
         const blob = new Blob([fileContent], { type: "text/plain" });
         const link = document.createElement("a");
-        
-        const safeSubject = subject.replace(/[^a-zA-Z0-9]/g, '_').toUpperCase();
-        link.download = `MARSHA1LL_KEY_${safeSubject}.txt`;
-        
+        link.download = `MARSHA1LL_KEY_${subject.replace(/[^a-zA-Z0-9]/g, '_').toUpperCase()}.txt`;
         link.href = window.URL.createObjectURL(blob);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
         
         const btn = document.getElementById('export-key-btn');
-        btn.innerText = "✓ KEYFILE SAVED";
-        btn.classList.add('saved'); 
+        btn.innerText = "Ключ сохранен ✓"; btn.classList.add('saved'); 
     } 
     
     // --- 3D ИНТЕРАКТИВНОСТЬ ДЛЯ ВИДЖЕТА (ТОЛЬКО ПК) ---
@@ -1950,76 +1079,25 @@ NEW_SECURE_PASSWORD:${pass}
     const glare = document.getElementById('widget-glare');
 
     if (widget && window.innerWidth > 1024) { 
-        function tiltWidget(clientX, clientY) {
+        widget.addEventListener('mousemove', (e) => {
             const rect = widget.getBoundingClientRect();
-            const x = clientX - rect.left; 
-            const y = clientY - rect.top;  
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((y - centerY) / centerY) * -6; 
-            const rotateY = ((x - centerX) / centerX) * 6;
+            const x = e.clientX - rect.left; const y = e.clientY - rect.top;  
+            const rotateX = ((y - rect.height / 2) / (rect.height / 2)) * -4; 
+            const rotateY = ((x - rect.width / 2) / (rect.width / 2)) * 4;
 
-            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            widget.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3 + 15}px 40px rgba(0,0,0,0.8)`;
+            widget.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+            widget.style.boxShadow = `${-rotateY * 2}px ${rotateX * 2 + 15}px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.02)`;
 
             glare.style.opacity = '1';
-            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.12), transparent 50%)`;
-        }
-
-        function resetWidget() {
-            widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
-            widget.style.transform = `rotateX(0deg) rotateY(0deg)`;
-            widget.style.boxShadow = `0 15px 40px rgba(0,0,0,0.6)`;
-            glare.style.opacity = '0';
-            
-            setTimeout(() => {
-                widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease';
-            }, 600);
-        }
-
-        widget.addEventListener('mousemove', (e) => tiltWidget(e.clientX, e.clientY));
-        widget.addEventListener('mouseleave', resetWidget);
-    }
-
-    // --- МИКРОИНТЕРАКЦИИ (ТОЛЬКО ДЛЯ ПК) ---
-    if (window.innerWidth > 1024) {
-        
-        // 1. ЭФФЕКТ ФОНАРИКА (Hover Spotlight)
-        const cards = document.querySelectorAll('.precaution-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--x', `${x}px`);
-                card.style.setProperty('--y', `${y}px`);
-            });
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.6), transparent 50%)`;
         });
 
-        // 2. МАГНИТНЫЕ КНОПКИ (Ультра-плавный Magnetic Hover)
-        const magneticButtons = document.querySelectorAll('.step-btn');
-        
-        magneticButtons.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                if(btn.classList.contains('completed') || btn.classList.contains('saved') || btn.classList.contains('processing')) return;
-
-                const rect = btn.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                
-                const moveX = (e.clientX - centerX) * 0.1;
-                const moveY = (e.clientY - centerY) * 0.1;
-
-                btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                btn.style.transition = 'transform 0.15s ease-out'; 
-            });
-
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = `translate(0px, 0px)`;
-                btn.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
-            });
+        widget.addEventListener('mouseleave', () => {
+            widget.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
+            widget.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+            widget.style.boxShadow = `0 10px 30px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02)`;
+            glare.style.opacity = '0';
+            setTimeout(() => { widget.style.transition = 'transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.1s ease'; }, 600);
         });
     }
 
