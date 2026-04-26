@@ -646,15 +646,36 @@
             }
 
             .cred-value { 
-                font-size: 1.1rem !important; /* Сделали LOGIN:PASSWORD заметно солиднее */
+                font-size: 0.95rem !important; /* Было 1.1rem, сделали меньше */
+                letter-spacing: 0.5px;
             }
 
             .cred-item a {
-                font-size: 1rem !important; /* Увеличили ссылку на почту для баланса */
+                font-size: 0.9rem !important; /* Ссылка на почту теперь в размер с логинами */
             }
 
             .cred-item {
-                padding: 25px 30px !important; /* Добавили чуть больше воздуха внутри строк */
+                padding: 18px 30px !important; /* Чуть уменьшили высоту строк */
+            }
+            .algorithm-box {
+                margin-top: 25px; /* Увеличили отступ от карточки */
+                padding: 0 5px;
+            }
+
+            .algo-title {
+                font-size: 0.85rem !important; /* Сделали заголовок инструкции крупнее */
+                margin-bottom: 15px;
+            }
+
+            .algo-step {
+                font-size: 1rem !important; /* Текст инструкции теперь основной, 16px */
+                margin-bottom: 12px;
+                color: var(--text-main); /* Сделали его чуть темнее для лучшей читаемости */
+            }
+
+            .algo-step span {
+                font-size: 0.85rem !important; /* Синие цифры шагов */
+                padding: 3px 10px;
             }
             
             /* Чуть увеличим заголовок "Учетные данные" в серой полоске */
