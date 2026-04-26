@@ -291,12 +291,16 @@
         }
 
         .card-title {
-            font-family: 'Archivo Black', sans-serif;
+            font-family: 'Archivo Black', 'Inter', sans-serif;
             font-size: 0.8rem;
+            font-weight: 700; /* Включаем максимальную толщину для базового шрифта */
             letter-spacing: 0.1em;
             color: var(--text-main);
             text-transform: uppercase;
+            /* Секретный трюк: добавляем русским буквам толщину снаружи */
+            -webkit-text-stroke: 0.6px var(--text-main); 
         }
+
 
         .card-text {
             font-size: 0.9rem !important;
