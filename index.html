@@ -438,7 +438,20 @@
         .guide-scroll-container { max-height: 65vh; overflow-y: auto; padding-right: 5px; scrollbar-width: none; }
         .guide-scroll-container::-webkit-scrollbar { display: none; }
 
-        .slider-wrapper { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; border-radius: 12px; }
+        .slider-wrapper { 
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            scroll-behavior: smooth; 
+            border-radius: 12px; 
+            /* Прячем скролл в Firefox и Edge */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+        }
+        /* Прячем скролл в Safari и Chrome (на iOS) */
+        .slider-wrapper::-webkit-scrollbar { 
+            display: none; 
+        }
         .slider-container { position: relative; width: 100%; margin: 15px 0; border: 1px solid var(--border-color); border-radius: 12px; background: #fff; }
         .slider-wrapper img { width: 100%; max-height: 60vh; object-fit: contain; scroll-snap-align: start; display: block; background-color: #f5f5f7; cursor: zoom-in; }
 
@@ -512,7 +525,7 @@
             .data-value { text-align: left; width: 100%; margin-top: 4px; }
             .step-item { margin-bottom: 35px; }
             .wizard-container { margin-top: 25px; padding-left: 20px;}
-            .modal-content { padding: 20px; width: 90%; }
+            .modal-content { padding: 20px; width: 82%; max-width: 320px; margin: 0 auto;}
         }
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
