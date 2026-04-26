@@ -608,7 +608,7 @@
         }
 
 
-       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ЖЕСТКАЯ КОПИЯ ФОТО 2) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ФИНАЛЬНЫЙ ЖЕЛЕЗОБЕТОННЫЙ ВИДЖЕТ) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,39 +619,36 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* 1. ВОССТАНАВЛИВАЕМ ОТСТУП ДО "1. АКТ ПРИЕМА-ПЕРЕДАЧИ" */
+            /* ВОССТАНОВИЛИ ОТСТУП СНИЗУ (между виджетом и Актом) */
             .perspective-container {
-                margin-bottom: 20px !important;
+                margin-bottom: 30px !important;
             }
 
-            /* === ЗАМОРОЖЕННЫЙ ВИДЖЕТ === */
+            /* === ВИДЖЕТ КАК НА ФОТО === */
             .protocol-widget { 
-                padding: 24px 20px !important; 
+                padding: 24px 22px !important; 
                 border-radius: 20px !important; 
+                
+                /* ШИРИНА: Узкая системная карточка (как на фото) */
                 width: 100% !important;
-                max-width: none !important; 
+                max-width: 340px !important; 
                 margin: 0 auto !important; 
                 
-                /* 2. ЖЕСТКО ФИКСИРУЕМ ВЫСОТУ КАК НА ФОТО 2 */
-                height: 255px !important; 
-                
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
+                /* ВЫСОТА И СТРУКТУРА: Отключаем flex, чтобы текст больше никогда не сплющивало! */
+                height: 260px !important; 
+                display: block !important; 
                 box-sizing: border-box !important;
-                gap: 0 !important; /* Отключаем плавающие отступы */
             }
             
+            /* Отступ под зеленым TRANSFER PROTOCOL */
             .protocol-widget > div:nth-child(2) {
-                margin-bottom: 22px !important; /* Отступ от верхней зеленой надписи */
+                margin-bottom: 20px !important; 
             }
 
+            /* Настройка строк данных (строго друг под другом) */
             .data-row { 
-                display: flex !important;
-                flex-direction: column !important; /* Столбиком */
-                align-items: flex-start !important; /* Прибиваем влево */
-                margin-bottom: 16px !important; /* Фиксированный отступ между блоками */
-                gap: 4px !important;
+                display: block !important; 
+                margin-bottom: 16px !important; /* Жесткий отступ между Subject, Status, Security */
             }
             .data-row:last-child {
                 margin-bottom: 0 !important;
@@ -659,14 +656,17 @@
             
             .data-dots { display: none !important; }
             
+            /* Серые заголовки */
             .data-label { 
-                margin-bottom: 0 !important; 
+                display: block !important;
+                margin-bottom: 4px !important; 
                 font-size: 0.65rem !important;
                 text-align: left !important;
                 width: 100% !important;
                 line-height: 1 !important;
             }
             
+            /* Черный жирный текст */
             .data-value { 
                 display: block !important; 
                 text-align: left !important; 
@@ -676,10 +676,11 @@
                 line-height: 1.3 !important;
             }
 
+            /* БРОНЬ МЕСТА ДЛЯ НАЗВАНИЯ ИГРЫ */
             #subject-text {
                 display: block !important;
-                /* 3. НАВСЕГДА БРОНИРУЕМ МЕСТО ПОД 2 СТРОЧКИ (даже если там одна) */
-                min-height: 44px !important; 
+                /* Высота ровно на 2 строчки. Когда появится // SECURED, текст ничего не сдвинет! */
+                min-height: 2.6em !important; 
             }
             /* ======================================= */
             
@@ -695,7 +696,6 @@
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
         }
-
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
             .reveal-hero, .perspective-container, #hero-3d-widget {
