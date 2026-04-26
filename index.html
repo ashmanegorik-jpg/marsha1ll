@@ -640,6 +640,28 @@
                 width: 44px; height: 44px; border-radius: 50%; cursor: pointer; z-index: 20; font-size: 20px;
                 transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); align-items: center; justify-content: center; opacity: 0;
             }
+            .cred-label { 
+                font-size: 0.8rem !important; /* Было 0.75, сделали чуть крупнее */
+                letter-spacing: 0.08em;
+            }
+
+            .cred-value { 
+                font-size: 1.1rem !important; /* Сделали LOGIN:PASSWORD заметно солиднее */
+            }
+
+            .cred-item a {
+                font-size: 1rem !important; /* Увеличили ссылку на почту для баланса */
+            }
+
+            .cred-item {
+                padding: 25px 30px !important; /* Добавили чуть больше воздуха внутри строк */
+            }
+            
+            /* Чуть увеличим заголовок "Учетные данные" в серой полоске */
+            .cred-header {
+                font-size: 0.85rem !important;
+                padding: 18px 25px !important;
+            }
             .slider-container:hover .nav-btn { opacity: 1; }
             .nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
             .nav-btn.prev { left: 15px; } .nav-btn.next { right: 15px; }
