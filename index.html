@@ -608,7 +608,7 @@
         }
 
 
-       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ФИНАЛЬНАЯ ЧИСТКА ОТСТУПОВ) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ФИНАЛЬНАЯ ИДЕАЛЬНАЯ ЛОГИКА) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,10 +619,10 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* 1. Отступ снизу до Акта приема-передачи */
+            /* Восстанавливаем отступ до Акта приема-передачи */
             .perspective-container { margin-bottom: 30px !important; }
 
-            /* 2. ИДЕАЛЬНЫЙ ВИДЖЕТ */
+            /* === МАГИЯ ФИКСИРОВАННОГО ВИДЖЕТА === */
             .protocol-widget { 
                 padding: 24px 20px !important; 
                 border-radius: 20px !important; 
@@ -630,47 +630,46 @@
                 max-width: none !important;
                 margin: 0 !important; 
                 
-                /* Жесткая высота как на Фото 2. Больше не прыгнет! */
-                height: 250px !important; 
+                /* 1. Жесткая высота как на Фото 2. Больше не прыгнет! */
+                height: 255px !important; 
                 
-                /* Используем блочную модель, чтобы текст шел естественно сверху вниз */
-                display: block !important; 
+                /* 2. Включаем Flexbox, чтобы он сам ИДЕАЛЬНО распределял пустое место! */
+                display: flex !important; 
+                flex-direction: column !important;
+                justify-content: space-between !important; /* Умные, равномерные отступы! */
                 box-sizing: border-box !important;
             }
             
-            /* Отступ под зеленым TRANSFER PROTOCOL */
-            .protocol-widget > div:nth-child(2) { 
-                margin-bottom: 24px !important; 
-            }
+            /* 3. Убиваем все ручные отступы, пусть flex делает всё сам */
+            .protocol-widget > div:nth-child(2) { margin-bottom: 0 !important; }
 
-            /* 3. ИДЕАЛЬНО РОВНЫЕ ОТСТУПЫ МЕЖДУ СТРОКАМИ (Subject, Status, Security) */
             .data-row { 
-                display: block !important; 
-                margin-bottom: 18px !important; /* Единый, одинаковый шаг! */
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                margin-bottom: 0 !important; /* Никаких фиксированных дыр! */
+                gap: 4px !important; /* Расстояние только между серой и черной строчкой внутри одного блока */
             }
-            .data-row:last-child { margin-bottom: 0 !important; }
             
             .data-dots { display: none !important; }
             
-            /* Серые подписи (SUBJECT, STATUS...) */
             .data-label { 
-                display: block !important;
-                margin-bottom: 4px !important; 
+                margin-bottom: 0 !important; 
                 font-size: 0.65rem !important;
                 text-align: left !important;
+                width: 100% !important;
                 line-height: 1 !important;
             }
             
-            /* Черные значения */
             .data-value { 
                 display: block !important; 
                 text-align: left !important; 
                 font-size: 0.95rem !important;
                 line-height: 1.3 !important;
                 margin-top: 0 !important;
+                width: 100% !important;
             }
 
-            /* УБРАЛИ КОСТЫЛЬ, КОТОРЫЙ ЛОМАЛ ОТСТУПЫ */
             #subject-text {
                 display: block !important;
             }
