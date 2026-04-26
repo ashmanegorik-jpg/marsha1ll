@@ -143,29 +143,22 @@
             margin: 0 auto;
         }
 
-         .protocol-widget {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            max-width: 900px;
-            width: 100%;
-            box-sizing: border-box;
-            margin: 20px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform: translateZ(0); 
-            will-change: transform;
-            
-            /* ФИКСИРУЕМ КОМПАКТНЫЙ РАЗМЕР И ЦЕНТРИРУЕМ */
-            height: 230px; /* Идеальная высота для ПК */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Центрируем весь блок (без дыр) */
-            gap: 15px; /* Аккуратное расстояние между строками */
+         /* === ИДЕАЛЬНЫЙ ВИДЖЕТ (ФИКСАЦИЯ РАЗМЕРА КАК НА ФОТО) === */
+        .protocol-widget { 
+            padding: 20px !important; /* Делаем внутренние отступы чуть компактнее */
+            border-radius: 20px !important; 
+                
+            /* МАГИЯ РАЗМЕРА: ограничиваем ширину как в iOS */
+            width: 100% !important;
+            max-width: 350px !important; /* Виджет больше не расползется по краям! */
+            margin: 0 auto !important;   /* Центрируем карточку на экране */
+                
+            height: auto !important; /* Умная высота по контенту */
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            gap: 16px !important; /* Аккуратный отступ между блоками */
+            box-sizing: border-box !important;
         }
 
         .glare {
