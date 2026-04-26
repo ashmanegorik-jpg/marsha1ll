@@ -52,10 +52,12 @@
             top: 0px; 
             left: 0;
             z-index: 100; 
-            background: rgba(245, 245, 247, 0.75); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
+            /* Сделали прозрачнее (0.45) и усилили блюр */
+            background: rgba(245, 245, 247, 0.45); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px); 
+            /* Убрали нижнюю полосу */
+            border-bottom: none; 
             padding-top: calc(15px + env(safe-area-inset-top));
             padding-bottom: 15px;
             box-sizing: border-box; 
@@ -386,7 +388,7 @@
             background: var(--text-main); border: none; color: #fff;
             padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
             cursor: pointer; text-transform: uppercase; transition: all 0.2s ease;
-            letter-spacing: 0.05em; border-radius: 100px; /* Стиль кнопок Apple */
+            letter-spacing: 0.05em; border-radius: 100px; 
         }
         .step-btn:hover { background: #000; transform: scale(1.02); }
         .step-btn:active { transform: scale(0.98); }
@@ -485,22 +487,32 @@
         }
 
         .wizard-container { margin-top: 40px; border-left: 2px solid #e5e5ea; padding-left: 25px; margin-left: 10px; }
+        
+        /* ИЗМЕНЕНИЕ ЦВЕТА ЗАГОЛОВКА ШАГА (ТЕПЕРЬ ЧЕРНЫЙ ВМЕСТО СИНЕГО) */
         .step-number { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text-secondary); font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .step-item.active .step-number { color: var(--apple-blue); }
+        .step-item.active .step-number { color: var(--text-main); } 
         
         .step-controls { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; margin-top: 20px; }
         .how-to-link { font-size: 0.85rem; color: var(--apple-blue); cursor: pointer; font-weight: 500; }
         .how-to-link:hover { text-decoration: underline; }
 
-        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ --- */
+        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (СДЕЛКА ВСЕ МЕНЬШЕ И АККУРАТНЕЕ) --- */
         @media (max-width: 768px) {
-            .main-brand-logo { font-size: 1.2rem; letter-spacing: 0.3em; padding-top: calc(15px + env(safe-area-inset-top)); }
-            .terminal-container { padding-top: 80px; }
-            .modal-content { padding: 20px; width: 90%; }
-            .cred-item { flex-direction: column; align-items: flex-start; gap: 5px; }
+            body { font-size: 14px; } /* Уменьшаем базовый шрифт */
+            .main-brand-logo { font-size: 1.1rem; letter-spacing: 0.3em; padding-top: calc(10px + env(safe-area-inset-top)); padding-bottom: 10px;}
+            .terminal-container { padding-top: 70px; gap: 20px; }
+            .protocol-widget { padding: 20px; border-radius: 20px; }
+            .precaution-card { padding: 20px; border-radius: 20px; }
+            .feedback-section { padding: 25px 20px; border-radius: 20px; }
+            .algorithm-box { padding: 15px; margin-top: 25px; }
+            h2 { margin-top: 35px; margin-bottom: 15px; font-size: 1rem; }
+            .cred-item { padding: 15px; flex-direction: column; align-items: flex-start; gap: 5px;}
             .data-row { flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
             .data-dots { display: none; }
             .data-value { text-align: left; width: 100%; margin-top: 4px; }
+            .step-item { margin-bottom: 35px; }
+            .wizard-container { margin-top: 25px; padding-left: 20px;}
+            .modal-content { padding: 20px; width: 90%; }
         }
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
