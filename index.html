@@ -1208,11 +1208,6 @@
 <div class="main-brand-logo">MARSHA1LL</div>
 
 <div class="terminal-container">
-    <header class="reveal reveal-base">
-        <h1 id="game-title">ACCESS PROTOCOL: LOADING...</h1>
-        <div class="meta-info" id="current-date">MARSHA1LL DIGITAL ASSETS // LOADING...</div>
-    </header>
-
     <section class="reveal reveal-hero">
         <div class="perspective-container">
             <div class="protocol-widget" id="hero-3d-widget">
@@ -1538,7 +1533,6 @@
         const isMinecraft = gameKey.toLowerCase() === 'mct'; 
         const isRockstar = gameKey.toLowerCase() === 'rdr2'; 
         
-        document.getElementById('game-title').innerText = `ACCESS PROTOCOL: ${selectedGame} | FULL ACCESS`;
         document.title = `${selectedGame} | ACCESS PROTOCOL`;
         document.getElementById('subject-text').innerText = selectedGame;
 
@@ -1595,14 +1589,6 @@
             mailLink.innerText = "OUTLOOK.LIVE.COM";
         }
     }
-
-    function updateDate() {
-        const dateElement = document.getElementById('current-date');
-        const now = new Date();
-        const months = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-        dateElement.innerText = `MARSHA1LL DIGITAL ASSETS // ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-    }
-    updateDate();
 
     window.onclick = function(event) {
         const modal = document.getElementById('guide-modal');
@@ -1904,7 +1890,9 @@
         if (pass.includes('XXXX')) return;
 
         const subject = document.getElementById('subject-text').innerText.replace(' (FULL ONLINE ASSET)', '');
-        const dateStr = document.getElementById('current-date').innerText.split('// ')[1] || "2026";
+        const now = new Date();
+        const dateStr = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}`;
+
 
         const fileContent = `=========================================
 MARSHA1LL DIGITAL ASSETS
