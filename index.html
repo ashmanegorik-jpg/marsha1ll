@@ -160,6 +160,10 @@
             -webkit-backface-visibility: hidden;
             transform: translateZ(0); 
             will-change: transform;
+            min-height: 250px; /* Устанавливаем базовую высоту, чтобы она не менялась */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Центрируем содержимое внутри, если его мало */
         }
 
         .glare {
@@ -204,7 +208,13 @@
             text-align: right;
             font-family: 'Inter', sans-serif;
             word-break: break-all;
+            /* ДОБАВЬ ЭТО: */
+            min-height: 1.2em; 
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
+
 
         .data-dots {
             flex-grow: 1;
@@ -622,7 +632,7 @@
             .how-to-link {
                 font-size: 0.75rem;
             }
-            .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
+            .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px; min-height: 200px !important;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             .protocol-widget { padding: 20px; border-radius: 20px; }
             .precaution-card { padding: 20px; border-radius: 20px; }
