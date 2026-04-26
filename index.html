@@ -608,7 +608,7 @@
         }
 
 
-       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ЖЕСТКАЯ КОПИЯ ФОТО 2) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,36 +619,42 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ === */
+            /* 1. ВОССТАНАВЛИВАЕМ ОТСТУП ДО "1. АКТ ПРИЕМА-ПЕРЕДАЧИ" */
+            .perspective-container {
+                margin-bottom: 20px !important;
+            }
+
+            /* === ЗАМОРОЖЕННЫЙ ВИДЖЕТ === */
             .protocol-widget { 
                 padding: 24px 20px !important; 
                 border-radius: 20px !important; 
-                
-                /* ВЕРНУЛИ ШИРИНУ НА ВЕСЬ ЭКРАН */
                 width: 100% !important;
                 max-width: none !important; 
+                margin: 0 auto !important; 
                 
-                /* ВЕРНУЛИ ОТСТУП ДО СЕКЦИИ "1. Акт приема-передачи" */
-                margin: 20px auto !important; 
+                /* 2. ЖЕСТКО ФИКСИРУЕМ ВЫСОТУ КАК НА ФОТО 2 */
+                height: 255px !important; 
                 
-                height: auto !important; 
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
-                gap: 16px !important; 
                 box-sizing: border-box !important;
+                gap: 0 !important; /* Отключаем плавающие отступы */
             }
             
             .protocol-widget > div:nth-child(2) {
-                margin-bottom: 4px !important; 
+                margin-bottom: 22px !important; /* Отступ от верхней зеленой надписи */
             }
 
             .data-row { 
                 display: flex !important;
-                flex-direction: column !important; /* Подпись сверху, значение снизу */
-                align-items: flex-start !important; /* Прижимаем всё влево */
-                margin-bottom: 0 !important;
+                flex-direction: column !important; /* Столбиком */
+                align-items: flex-start !important; /* Прибиваем влево */
+                margin-bottom: 16px !important; /* Фиксированный отступ между блоками */
                 gap: 4px !important;
+            }
+            .data-row:last-child {
+                margin-bottom: 0 !important;
             }
             
             .data-dots { display: none !important; }
@@ -658,21 +664,22 @@
                 font-size: 0.65rem !important;
                 text-align: left !important;
                 width: 100% !important;
+                line-height: 1 !important;
             }
             
             .data-value { 
-                /* УБИВАЕМ FLEX, чтобы текст больше не уезжал вправо! */
                 display: block !important; 
-                text-align: left !important; /* Жестко прибиваем влево */
+                text-align: left !important; 
                 width: 100% !important;
                 margin-top: 0 !important;
                 font-size: 0.95rem !important;
+                line-height: 1.3 !important;
             }
 
             #subject-text {
                 display: block !important;
-                /* Бронируем место под две строки навсегда, чтобы не было прыжков! */
-                min-height: 2.6em !important; 
+                /* 3. НАВСЕГДА БРОНИРУЕМ МЕСТО ПОД 2 СТРОЧКИ (даже если там одна) */
+                min-height: 44px !important; 
             }
             /* ======================================= */
             
