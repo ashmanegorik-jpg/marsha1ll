@@ -608,7 +608,7 @@
         }
 
 
-                        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,17 +619,18 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ (КАК НА ФОТО 1) === */
+            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ === */
             .protocol-widget { 
-                /* 1. ДЕЛАЕМ ВЫШЕ (первая цифра - отступ сверху/снизу, вторая - слева/справа) */
-                padding: 40px 26px !important; 
-                
-                /* 2. ДЕЛАЕМ ШИРЕ (было 350px, ставим больше) */
-                max-width: 400px !important; 
-                width: 100% !important;
-                margin: 0 auto !important;
-                
+                padding: 24px 20px !important; 
                 border-radius: 20px !important; 
+                
+                /* ВЕРНУЛИ ШИРИНУ НА ВЕСЬ ЭКРАН */
+                width: 100% !important;
+                max-width: none !important; 
+                
+                /* ВЕРНУЛИ ОТСТУП ДО СЕКЦИИ "1. Акт приема-передачи" */
+                margin: 20px auto !important; 
+                
                 height: auto !important; 
                 display: flex !important;
                 flex-direction: column !important;
@@ -639,15 +640,15 @@
             }
             
             .protocol-widget > div:nth-child(2) {
-                margin-bottom: 0 !important; 
+                margin-bottom: 4px !important; 
             }
 
             .data-row { 
                 display: flex !important;
-                flex-direction: column !important; /* СТАВИМ СТОЛБИКОМ (Подпись сверху, значение снизу) */
-                align-items: flex-start !important; /* ПРИЖИМАЕМ ВСЕ ВЛЕВО */
+                flex-direction: column !important; /* Подпись сверху, значение снизу */
+                align-items: flex-start !important; /* Прижимаем всё влево */
                 margin-bottom: 0 !important;
-                gap: 6px !important; /* Маленький отступ между серой подписью и черным текстом */
+                gap: 4px !important;
             }
             
             .data-dots { display: none !important; }
@@ -655,25 +656,22 @@
             .data-label { 
                 margin-bottom: 0 !important; 
                 font-size: 0.65rem !important;
-                line-height: 1 !important;
+                text-align: left !important;
+                width: 100% !important;
             }
             
             .data-value { 
-                text-align: left !important; /* ТЕПЕРЬ ВСЕ ЗНАЧЕНИЯ СЛЕВА */
+                /* УБИВАЕМ FLEX, чтобы текст больше не уезжал вправо! */
+                display: block !important; 
+                text-align: left !important; /* Жестко прибиваем влево */
+                width: 100% !important;
                 margin-top: 0 !important;
                 font-size: 0.95rem !important;
-                justify-content: flex-start !important;
-                width: 100% !important;
             }
 
-           /* ИСКЛЮЧЕНИЕ: Название игры (Subject) */
             #subject-text {
-                width: 100% !important; 
-                text-align: left !important; 
-                justify-content: flex-start !important;
-                align-items: flex-start !important;
-                
-                /* МАГИЯ: Жестко бронируем высоту ровно на 2 строчки текста навсегда! */
+                display: block !important;
+                /* Бронируем место под две строки навсегда, чтобы не было прыжков! */
                 min-height: 2.6em !important; 
             }
             /* ======================================= */
