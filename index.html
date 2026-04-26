@@ -666,10 +666,15 @@
                 width: 100% !important;
             }
 
+           /* ИСКЛЮЧЕНИЕ: Название игры (Subject) */
             #subject-text {
-                width: 100% !important;
+                width: 100% !important; 
                 text-align: left !important; 
                 justify-content: flex-start !important;
+                align-items: flex-start !important;
+                
+                /* МАГИЯ: Жестко бронируем высоту ровно на 2 строчки текста навсегда! */
+                min-height: 2.6em !important; 
             }
             /* ======================================= */
             
