@@ -608,7 +608,7 @@
         }
 
 
-        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ИДЕАЛЬНЫЙ ВИДЖЕТ СЛЕВА) --- */
+        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ТОЧНО КАК НА ФОТО 1) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,56 +619,54 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* === ТОТ САМЫЙ ВИДЖЕТ === */
+            /* === ИДЕАЛЬНЫЙ ВИДЖЕТ === */
             .protocol-widget { 
-                padding: 24px 20px !important; 
+                padding: 22px 20px !important; 
                 border-radius: 20px !important; 
-                height: 245px !important; /* Жестко фиксируем высоту навсегда */
+                height: auto !important; /* Умная высота по контенту */
                 display: flex !important;
                 flex-direction: column !important;
-                justify-content: flex-start !important; /* Выстраиваем сверху вниз */
+                justify-content: flex-start !important;
+                gap: 18px !important; /* Ровные отступы между рядами */
                 box-sizing: border-box !important;
             }
             
-            /* Отступ от зеленого заголовка до данных */
+            /* Чуть прижали верхний зеленый статус */
             .protocol-widget > div:nth-child(2) {
-                margin-bottom: 20px !important;
+                margin-bottom: 2px !important; 
             }
 
             .data-row { 
                 display: flex !important;
-                flex-direction: column !important; 
-                align-items: flex-start !important; /* ВСЁ ПО ЛЕВОМУ КРАЮ */
-                margin-bottom: 16px !important; /* Одинаковый красивый отступ между блоками */
-                width: 100% !important;
-            }
-            .data-row:last-child {
+                flex-direction: row !important; /* Лейбл и значение на ОДНОЙ строке */
+                justify-content: space-between !important; 
+                align-items: flex-end !important;
+                flex-wrap: wrap !important; /* Разрешаем перенос длинного текста */
                 margin-bottom: 0 !important;
+                gap: 6px !important;
             }
             
             .data-dots { display: none !important; }
             
             .data-label { 
+                margin-bottom: 0 !important; 
                 font-size: 0.65rem !important;
-                margin-bottom: 3px !important; /* Отступ от серой подписи до черного текста */
-                line-height: 1 !important;
             }
             
             .data-value { 
-                width: 100% !important;
-                text-align: left !important; /* Текст строго слева */
-                justify-content: flex-start !important; /* Прижимаем влево */
+                text-align: right !important; /* Status и Security стоят справа */
+                margin-top: 0 !important;
                 font-size: 0.95rem !important;
-                line-height: 1.3 !important;
-                margin: 0 !important;
+                justify-content: flex-end !important;
             }
 
-            /* МАГИЯ: Резервируем место под слово SECURED, чтобы нижние строчки НИКОГДА не прыгали */
-            .data-row:nth-child(3) .data-value {
-                min-height: 2.6em !important; /* Невидимое место ровно для двух строк */
-                align-items: flex-start !important;
+            /* ИСКЛЮЧЕНИЕ: Название игры (Subject) длинное, поэтому кидаем его вниз и влево */
+            #subject-text {
+                width: 100% !important; /* Форсируем перенос на новую строку */
+                text-align: left !important; /* Прижимаем влево */
+                justify-content: flex-start !important;
             }
-            /* ========================= */
+            /* ======================================= */
             
             .precaution-card { padding: 20px; border-radius: 20px; }
             .feedback-section { padding: 40px 20px; border-radius: 24px; }
@@ -682,11 +680,6 @@
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
         }
-
-
-
-
-
 
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
