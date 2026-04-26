@@ -1085,6 +1085,19 @@
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
+            /* === ЖЕСТКИЙ ФИКС РАЗМЕРА ТОЛЬКО ДЛЯ ВЕРХНЕГО ВИДЖЕТА === */
+            .reveal-hero,
+            .perspective-container,
+            #hero-3d-widget {
+                max-width: 900px !important;
+                width: 100% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .modal-content {
+                max-width: 800px !important; 
+                width: 80% !important;
             .modal-content {
                 max-width: 800px !important; 
                 width: 80% !important;
