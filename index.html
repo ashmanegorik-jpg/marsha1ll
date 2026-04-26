@@ -608,7 +608,7 @@
         }
 
 
-       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ФИНАЛЬНЫЙ ЖЕЛЕЗОБЕТОННЫЙ ВИДЖЕТ) --- */
+       /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (ЕДИНСТВЕННЫЙ И ПРАВИЛЬНЫЙ БЛОК) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,71 +619,53 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* ВОССТАНОВИЛИ ОТСТУП СНИЗУ (между виджетом и Актом) */
-            .perspective-container {
-                margin-bottom: 30px !important;
-            }
+            /* 1. ВОССТАНОВИЛИ ОТСТУП СНИЗУ ДО АКТА */
+            .perspective-container { margin-bottom: 30px !important; }
 
-            /* === ВИДЖЕТ КАК НА ФОТО === */
+            /* 2. ЖЕЛЕЗОБЕТОННЫЙ ВИДЖЕТ */
             .protocol-widget { 
-                padding: 24px 22px !important; 
+                padding: 24px 20px !important; 
                 border-radius: 20px !important; 
-                
-                /* ШИРИНА: Узкая системная карточка (как на фото) */
-                width: 100% !important;
-                max-width: 340px !important; 
-                margin: 0 auto !important; 
-                
-                /* ВЫСОТА И СТРУКТУРА: Отключаем flex, чтобы текст больше никогда не сплющивало! */
-                height: 260px !important; 
-                display: block !important; 
+                width: 100% !important; /* Широкий, как и просил */
+                max-width: none !important;
+                margin: 0 !important; 
+                height: 265px !important; /* ЖЕСТКАЯ ВЫСОТА. Больше не прыгнет! */
+                display: block !important; /* Убили flex, чтобы текст не сплющивало */
                 box-sizing: border-box !important;
             }
             
-            /* Отступ под зеленым TRANSFER PROTOCOL */
-            .protocol-widget > div:nth-child(2) {
-                margin-bottom: 20px !important; 
-            }
+            .protocol-widget > div:nth-child(2) { margin-bottom: 22px !important; }
 
-            /* Настройка строк данных (строго друг под другом) */
             .data-row { 
                 display: block !important; 
-                margin-bottom: 16px !important; /* Жесткий отступ между Subject, Status, Security */
+                margin-bottom: 16px !important; /* Строгий отступ между рядами */
             }
-            .data-row:last-child {
-                margin-bottom: 0 !important;
-            }
+            .data-row:last-child { margin-bottom: 0 !important; }
             
             .data-dots { display: none !important; }
             
-            /* Серые заголовки */
             .data-label { 
                 display: block !important;
                 margin-bottom: 4px !important; 
                 font-size: 0.65rem !important;
                 text-align: left !important;
-                width: 100% !important;
                 line-height: 1 !important;
             }
             
-            /* Черный жирный текст */
             .data-value { 
                 display: block !important; 
                 text-align: left !important; 
-                width: 100% !important;
-                margin-top: 0 !important;
                 font-size: 0.95rem !important;
                 line-height: 1.3 !important;
             }
 
-            /* БРОНЬ МЕСТА ДЛЯ НАЗВАНИЯ ИГРЫ */
+            /* 3. БРОНЬ ПОД 2 СТРОЧКИ НАВСЕГДА */
             #subject-text {
+                height: 2.6em !important; /* Резервируем место под SECURED */
                 display: block !important;
-                /* Высота ровно на 2 строчки. Когда появится // SECURED, текст ничего не сдвинет! */
-                min-height: 2.6em !important; 
             }
-            /* ======================================= */
             
+            /* ОСТАЛЬНАЯ АДАПТАЦИЯ */
             .precaution-card { padding: 20px; border-radius: 20px; }
             .feedback-section { padding: 40px 20px; border-radius: 24px; }
             .algorithm-box { padding: 0 10px; margin-top: 15px; }
@@ -691,7 +673,6 @@
             .step-item { margin-bottom: 35px; }
             .wizard-container { margin-top: 25px; padding-left: 20px;}
             .modal-content { padding: 20px; width: 82%; max-width: 320px; margin: 0 auto;}
-            
             .cred-label { font-size: 0.65rem; }
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
