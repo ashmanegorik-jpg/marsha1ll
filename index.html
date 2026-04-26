@@ -530,6 +530,17 @@
         .step-controls { display: flex; flex-direction: column; align-items: flex-start; gap: 15px; margin-top: 20px; }
         .how-to-link { font-size: 0.85rem; color: var(--apple-blue); cursor: pointer; font-weight: 500; }
         .how-to-link:hover { text-decoration: underline; }
+        /* --- ВЫДЕЛЕНИЕ НАЗВАНИЙ ПЛАТФОРМ ЧЕРНЫМ ЦВЕТОМ --- */
+        #platform-name-1, 
+        #platform-name-2, 
+        #platform-name-3, 
+        #platform-login-label, 
+        #support-platform-label,
+        #support-platform-label-2 {
+            color: #000 !important; /* Насыщенный черный */
+            font-weight: 700 !important; /* Делаем жирным для уверенности */
+        }
+
 
         /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (СДЕЛКА ВСЕ МЕНЬШЕ И АККУРАТНЕЕ) --- */
         @media (max-width: 768px) {
