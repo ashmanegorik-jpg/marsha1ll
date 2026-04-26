@@ -160,13 +160,13 @@
             transform: translateZ(0); 
             will-change: transform;
             
-            /* ЖЕСТКАЯ ФИКСАЦИЯ ВЫСОТЫ НАВСЕГДА */
-            height: 250px; 
+            /* НОВАЯ ИДЕАЛЬНАЯ ЛОГИКА ВЫРАВНИВАНИЯ */
+            min-height: 250px; 
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Равномерно распределяем строки внутри */
+            justify-content: center; /* Центрируем весь блок текста по вертикали */
+            gap: 16px; /* Ровное расстояние между строчками */
         }
-
 
         .glare {
             position: absolute !important;
@@ -183,15 +183,14 @@
         .protocol-widget > div:not(.glare) {
             position: relative;
             z-index: 20; 
+            margin-bottom: 0 !important; /* Убираем старые отступы, так как работает gap */
         }
 
         .data-row {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 5px;
+            flex-wrap: nowrap;
         }
 
         .data-label {
@@ -201,6 +200,7 @@
             text-transform: uppercase;
             font-family: 'Archivo Black', sans-serif;
             flex-shrink: 0;
+            margin-bottom: 3px;
         }
 
         .data-value {
@@ -209,26 +209,23 @@
             font-weight: 600;
             text-align: right;
             font-family: 'Inter', sans-serif;
-            word-break: break-all;
-            /* ДОБАВЬ ЭТО: */
-            min-height: 1.2em; 
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+            word-break: break-word;
+            line-height: 1.4;
+            flex-grow: 1;
         }
-
 
         .data-dots {
             flex-grow: 1;
             border-bottom: 1px dotted rgba(0,0,0,0.15);
-            margin: 0 15px 6px 15px;
-            min-width: 20px;
+            margin: 0 10px 6px 10px;
+            min-width: 15px;
         }
 
         .status-active {
             color: var(--apple-green) !important;
             font-family: 'Archivo Black', sans-serif;
         }
+
 
         /* --- ВХОДНЫЕ АНИМАЦИИ --- */
         .reveal { opacity: 0; margin-bottom: 60px; }
@@ -612,70 +609,46 @@
 
         /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (СДЕЛКА ВСЕ МЕНЬШЕ И АККУРАТНЕЕ) --- */
         @media (max-width: 768px) {
-            body { font-size: 14px; } /* Уменьшаем базовый шрифт */
-            .step-item p {
-                font-size: 0.85rem !important;
-                line-height: 1.4;
-                margin: 5px 0;
-            }
-            h2 { 
-                font-size: 0.88rem; 
-                margin-top: 30px; 
-            }
-            section.reveal > p { 
-                font-size: 0.9rem !important; 
-                margin-bottom: 20px;
-                line-height: 1.5;
-            }
-            .step-btn {
-                padding: 10px 20px;
-                font-size: 0.7rem;
-            }
-            .how-to-link {
-                font-size: 0.75rem;
-            }
+            body { font-size: 14px; } 
+            .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
+            h2 { font-size: 0.88rem; margin-top: 30px; }
+            section.reveal > p { font-size: 0.9rem !important; margin-bottom: 20px; line-height: 1.5; }
+            .step-btn { padding: 10px 20px; font-size: 0.7rem; }
+            .how-to-link { font-size: 0.75rem; }
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
+            
+            /* ИДЕАЛЬНЫЙ ВИДЖЕТ ДЛЯ ТЕЛЕФОНА */
             .protocol-widget { 
                 padding: 25px 20px; 
                 border-radius: 20px; 
-                height: 260px !important; /* Жесткая высота для телефона (как на фото 2) */
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
+                min-height: 260px !important; /* Тот самый нужный размер, как на фото 2 */
+                gap: 15px !important; /* Ровные отступы внутри */
             }
-            .precaution-card { padding: 20px; border-radius: 20px; }
-            .feedback-section { padding: 40px 20px; border-radius: 24px; }
-            .algorithm-box { padding: 0 10px; margin-top: 15px; }
-            h2 { margin-top: 35px; margin-bottom: 15px; font-size: 1rem; }
-            .cred-item { padding: 15px; flex-direction: column; align-items: flex-start; gap: 5px;}
             .data-row { 
                 flex-direction: column; 
                 align-items: flex-start; 
-                margin-bottom: 0; /* Отступ больше не нужен, у нас работает space-between */
             }
             .data-dots { display: none; }
             .data-value { 
                 text-align: left; 
                 width: 100%; 
-                margin-top: 4px; 
-                justify-content: flex-start !important; /* Принудительно выравниваем всё по левому краю! */
             }
+            
+            .precaution-card { padding: 20px; border-radius: 20px; }
+            .feedback-section { padding: 40px 20px; border-radius: 24px; }
+            .algorithm-box { padding: 0 10px; margin-top: 15px; }
+            .cred-item { padding: 15px; flex-direction: column; align-items: flex-start; gap: 5px;}
             .step-item { margin-bottom: 35px; }
             .wizard-container { margin-top: 25px; padding-left: 20px;}
             .modal-content { padding: 20px; width: 82%; max-width: 320px; margin: 0 auto;}
+            
+            /* Вернули эти стили ВНУТРЬ скобок мобильной версии! */
+            .cred-label { font-size: 0.65rem; }
+            .cred-value { font-size: 0.82rem; }
+            .cred-item a { font-size: 0.8rem !important; }
         }
-            /* Только для мобильных уменьшаем подписи */
-            .cred-label { 
-                font-size: 0.65rem; 
-            }
-            .cred-value { 
-                font-size: 0.82rem; 
-            }
-            /* И ссылку на почту на мобильных тоже чуть прижмем */
-            .cred-item a {
-                font-size: 0.8rem !important;
-            }
+
 
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
