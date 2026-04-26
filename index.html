@@ -608,7 +608,7 @@
         }
 
 
-        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (КОМПАКТНЫЙ ВИДЖЕТ, КАК НА ФОТО 1) --- */
+        /* --- АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ (СДЕЛКА ВСЕ МЕНЬШЕ И АККУРАТНЕЕ) --- */
         @media (max-width: 768px) {
             body { font-size: 14px; } 
             .step-item p { font-size: 0.85rem !important; line-height: 1.4; margin: 5px 0; }
@@ -619,36 +619,44 @@
             .main-brand-logo { font-size: 1.3rem; letter-spacing: 0.4em; padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px;}
             .terminal-container { padding-top: 70px; gap: 20px; }
             
-            /* ФИКС ВИДЖЕТА: СДЕЛАЛИ КОМПАКТНЫМ, УБРАЛИ ДЫРЫ */
+            /* === ИДЕАЛЬНЫЙ КОМПАКТНЫЙ ВИДЖЕТ (КАК НА ФОТО 1) === */
             .protocol-widget { 
-                padding: 20px; 
-                border-radius: 20px; 
-                /* УБРАЛИ height: 260px, карточка сжимается сама */
-                height: auto !important; 
-                /* Добавили небольшой минимальный размер для эстетики */
-                min-height: 170px !important; 
-                display: flex;
-                flex-direction: column;
-                /* СГРУППИРОВАЛИ ТЕКСТ ЕСТЕСТВЕННО ОТ ВЕРХА */
+                padding: 24px 22px !important; /* Одинаковые отступы внутри со всех сторон */
+                border-radius: 20px !important; 
+                height: auto !important; /* Растягивается СТРОГО по контенту */
+                min-height: 0 !important; /* УБИВАЕМ дыру снизу */
+                display: flex !important;
+                flex-direction: column !important;
                 justify-content: flex-start !important; 
-                gap: 12px; /* Расстояние между заголовком и строками */
+                gap: 16px !important; /* Единое расстояние между рядами */
             }
-            .data-row { 
-                flex-direction: column; 
-                align-items: flex-start; 
+            
+            /* Убиваем вшитый отступ шапки виджета, чтобы убрать дыру сверху */
+            .protocol-widget > div:nth-child(2) {
                 margin-bottom: 0 !important;
-                gap: 2px;
             }
+
+            .data-row { 
+                flex-direction: column !important; 
+                align-items: flex-start !important; 
+                margin-bottom: 0 !important;
+                gap: 4px !important; /* Маленькое расстояние между серой подписью и жирным значением */
+            }
+            
             .data-dots { display: none !important; }
-            .data-value { 
-                text-align: left; 
-                width: 100%; 
-                margin-top: 0; 
-                justify-content: flex-start !important; 
-                line-height: 1.3;
+            
+            .data-label { 
+                margin-bottom: 0 !important; 
             }
-            /* СТАРАЯ КОМПАКТНАЯ ЛОГИКА ОСТАЛЬНОГО ТЕКСТА */
-            .data-label { margin-bottom: 0; }
+            
+            .data-value { 
+                text-align: left !important; 
+                width: 100% !important; 
+                margin-top: 0 !important; 
+                justify-content: flex-start !important; 
+                line-height: 1.3 !important;
+            }
+            /* ========================================================== */
             
             .precaution-card { padding: 20px; border-radius: 20px; }
             .feedback-section { padding: 40px 20px; border-radius: 24px; }
@@ -657,10 +665,12 @@
             .step-item { margin-bottom: 35px; }
             .wizard-container { margin-top: 25px; padding-left: 20px;}
             .modal-content { padding: 20px; width: 82%; max-width: 320px; margin: 0 auto;}
+            
             .cred-label { font-size: 0.65rem; }
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
         }
+
 
 
 
