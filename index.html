@@ -466,18 +466,31 @@
         .lang-btn {
             position: absolute;
             right: 5%;
-            /* Идеальное выравнивание по центру логотипа MARSHA1LL */
             top: auto; 
             bottom: 21px;
-            color: var(--text-main) !important;
-            -webkit-text-fill-color: var(--text-main) !important;
-            opacity: 1 !important;
+            background: transparent;
+            border: none; 
+            padding: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+            z-index: 200;
         }
-        .lang-btn, .lang-btn *, .lang-btn font, .lang-btn span {
-            color: var(--text-main) !important;
-            -webkit-text-fill-color: var(--text-main) !important;
-            opacity: 1 !important;
+
+        .lang-btn, .lang-btn font, .lang-btn span, .lang-btn * {
+            color: #1d1d1f !important;
+            -webkit-text-fill-color: #1d1d1f !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            text-decoration: none !important;
         }
+
 
             /* УБИРАЕМ ОБОЛОЧКУ (фон, рамки, скругления) */
             background: transparent;
