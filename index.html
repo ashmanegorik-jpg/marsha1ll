@@ -1078,17 +1078,22 @@
                 margin-bottom: 10px;
                 line-height: 1.5;
                 flex-wrap: wrap !important;
+                align-items: flex-start !important;
             }
 
-            .algo-step span {
+            .algo-step span:not(.algo-text) {
                 font-size: 0.8rem !important; /* Уменьшили синие цифры */
                 padding: 2px 7px;
                 background: rgba(0, 113, 227, 0.06); /* Сделали подложку цифр еще нежнее */
+                margin-top: 0 !important;
+            }
+            .algo-text {
+                flex: 1 !important;
+                word-break: break-word !important;
             }
             .platform-link {
-                display: inline-block !important;
+                display: inline !important;
                 word-break: break-word !important;
-                max-width: 100% !important;
             }
             
             /* Чуть увеличим заголовок "Учетные данные" в серой полоске */
@@ -1192,7 +1197,7 @@
         <div class="algorithm-box">
             <div class="algo-title">Последовательность действий</div>
             <div class="algo-step"><span>01</span> Авторизуйтесь в предоставленной почте.</div>
-            <div class="algo-step"><span>02</span> Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a></div>
+            <div class="algo-step"><span>02</span> <span class="algo-text">Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a></span></div>
             <div class="algo-step"><span>03</span> При запросе кода защиты — получите его во входящих письмах.</div>
         </div>
 
