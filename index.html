@@ -1401,47 +1401,39 @@ NEW_SECURE_PASSWORD: ${pass}
         });
     }
 
-    // === СИСТЕМА ПЕРЕВОДА (GOOGLE TRANSLATE) ИДЕАЛЬНЫЙ ТУМБЛЕР ===
+        // === СИСТЕМА ПЕРЕВОДА (БЕЗОТКАЗНЫЙ ТУМБЛЕР ЧЕРЕЗ COOKIE) ===
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'ru', 
-            includedLanguages: 'en', /* МАГИЯ ЗДЕСЬ: Разрешаем переводить ТОЛЬКО на английский */
+            includedLanguages: 'en', 
             autoDisplay: false
         }, 'google_translate_element');
     }
 
     function toggleLanguage() {
         const btn = document.getElementById('lang-btn');
-        const select = document.querySelector('.goog-te-combo');
         
-        if (select) {
-            if (select.value === 'en') {
-                // Если сейчас английский — полностью сбрасываем перевод до чистого оригинала
-                select.value = ''; 
-                select.dispatchEvent(new Event('change'));
-                btn.innerText = 'EN'; // Кнопка предлагает включить EN
-            } else {
-                // Если сейчас оригинал — переводим на английский
-                select.value = 'en';
-                select.dispatchEvent(new Event('change'));
-                btn.innerText = 'RU'; // Кнопка предлагает вернуть RU
-            }
+        if (btn.innerText === 'EN') {
+            // Записываем в память браузера команду "Перевести на Английский" и обновляем
+            document.cookie = "googtrans=/ru/en; path=/";
+            document.cookie = "googtrans=/ru/en; path=/; domain=" + location.hostname;
+            location.reload();
         } else {
-            // Ждем загрузки скрипта, если интернет медленный
-            setTimeout(toggleLanguage, 500);
+            // Жестко стираем память Гугл Переводчика и возвращаем чистый оригинал
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=" + location.hostname + ";";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=." + location.hostname + ";";
+            location.reload();
         }
     }
 
-    // Проверка сохраненного языка при обновлении страницы
+    // Проверяем память при загрузке, чтобы поставить правильную букву на кнопку
     window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            const match = document.cookie.match(/googtrans=\/ru\/([a-z]{2})/);
-            if (match && match[1] === 'en') {
-                document.getElementById('lang-btn').innerText = 'RU';
-            } else {
-                document.getElementById('lang-btn').innerText = 'EN';
-            }
-        }, 1000);
+        if (document.cookie.includes('googtrans=/ru/en')) {
+            document.getElementById('lang-btn').innerText = 'RU';
+        } else {
+            document.getElementById('lang-btn').innerText = 'EN';
+        }
     });
 
 
