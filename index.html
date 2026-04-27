@@ -1069,33 +1069,42 @@
             }
 
             .algo-step {
-                font-size: 0.9rem !important; /* Уменьшили текст шагов (был 1rem) */
-                color: var(--text-secondary); /* Вернули серый цвет как в темной версии */
-                margin-bottom: 10px;
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+                margin-bottom: 8px;
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
                 line-height: 1.5;
-                align-items: flex-start !important;
             }
 
             .algo-step > span:first-child {
-                font-size: 0.8rem !important; /* Уменьшили синие цифры */
-                padding: 4px 8px !important;
-                background: rgba(0, 113, 227, 0.06); /* Сделали подложку цифр еще нежнее */
-                margin-top: 0 !important;
+                color: var(--apple-blue) !important;
+                font-weight: 700 !important;
+                font-size: 0.72rem !important;
+                flex-shrink: 0 !important;
+                width: 28px !important;
+                height: 28px !important;
+                min-width: 28px !important;
                 display: inline-flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                min-width: 26px !important;
-                height: 26px !important;
+                background: rgba(0, 113, 227, 0.08) !important;
+                border-radius: 8px !important;
                 box-sizing: border-box !important;
-                line-height: 1 !important;
-                border-radius: 10px !important;
-                align-self: center !important;
+                margin-top: 1px !important;
             }
+
             .algo-text {
-                flex: 1 !important;
-                word-wrap: break-word !important;
+                flex: 1;
                 color: var(--text-secondary) !important;
+                background: transparent !important;
+                font-weight: 400 !important;
+                font-size: inherit !important;
+                padding: 0 !important;
+                border-radius: 0 !important;
             }
+
             .platform-link {
                 display: inline !important;
                 word-break: break-word !important;
