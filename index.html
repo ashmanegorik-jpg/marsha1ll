@@ -535,6 +535,7 @@
             /* Прячем скролл в Firefox и Edge */
             scrollbar-width: none; 
             -ms-overflow-style: none; 
+            touch-action: pan-x;
         }
         /* Прячем скролл в Safari и Chrome (на iOS) */
         .slider-wrapper::-webkit-scrollbar { 
@@ -815,9 +816,9 @@
     </div>
 </div>
 
-<div class="main-brand-logo">
+<div class="main-brand-logo notranslate">
     MARSHA1LL
-    <button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">EN</button>
+    <button id="lang-btn" class="lang-btn notranslate" onclick="toggleLanguage()">EN</button>
 </div>
 
 <div id="google_translate_element" style="display:none;"></div>
@@ -1212,9 +1213,6 @@
         }
     }
     
-    document.querySelectorAll('.slider-wrapper').forEach(slider => {
-        slider.addEventListener('touchmove', function(e) { e.stopPropagation(); }, { passive: true });
-    });
 
     document.getElementById('guide-modal').addEventListener('touchmove', function(e) {
         if (!e.target.closest('.guide-scroll-container') && !e.target.closest('.slider-wrapper')) e.preventDefault();
@@ -1260,7 +1258,10 @@
                 </div>
             </div>
         `;
-
+        const newSlider = modalBody.querySelector('.slider-wrapper');
+        if (newSlider) {
+            newSlider.addEventListener('touchmove', function(e) { e.stopPropagation(); }, { passive: true });
+        }
         currentScrollY = window.scrollY;
         document.body.style.top = `-${currentScrollY}px`;
         document.body.classList.add('no-scroll');
