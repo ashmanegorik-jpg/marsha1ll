@@ -859,7 +859,7 @@
             color: var(--text-secondary);
             margin-bottom: 6px;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 12px;
             line-height: 1.5;
         }
@@ -877,7 +877,6 @@
             background: rgba(0, 113, 227, 0.08) !important;
             border-radius: 8px !important;
             box-sizing: border-box !important;
-            margin-top: 2px !important;
         }
         .algo-text {
             flex: 1;
@@ -1134,6 +1133,24 @@
                 padding: 0 !important;
                 border-radius: 0 !important;
             }
+            .algo-platform-btn {
+                display: inline-flex;
+                align-items: center;
+                background: rgba(0, 113, 227, 0.08);
+                border: 1px solid rgba(0, 113, 227, 0.2);
+                color: var(--apple-blue) !important;
+                -webkit-text-fill-color: var(--apple-blue) !important;
+                font-weight: 700 !important;
+                font-size: 0.72rem !important;
+                letter-spacing: 0.05em;
+                padding: 4px 10px;
+                border-radius: 8px;
+                text-decoration: none !important;
+                transition: background 0.2s ease;
+            }
+            .algo-platform-btn:hover {
+                background: rgba(0, 113, 227, 0.14);
+            }
 
             .platform-link {
                 display: inline !important;
@@ -1233,7 +1250,8 @@
                 <div class="cred-item">
                     <span class="cred-label">MAILBOX</span>
                     <a id="mail-link" href="#" target="_blank" class="platform-link">Открыть почту ↗</a>
-                </div>
+                    <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link algo-platform-btn">
+                 </div>
             </div>
         </div>
 
