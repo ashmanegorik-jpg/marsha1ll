@@ -860,8 +860,10 @@
         /* БЛОК ПОСЛЕДОВАТЕЛЬНОСТИ (Сделали дополнением, убрали фон) */
         .algorithm-box { margin-top: 12px; padding: 0 15px; background: transparent; border: none; max-width: 900px; }
         .algo-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .algo-step { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; }
-        .algo-step span { color: var(--apple-blue); font-weight: 700; font-size: 0.75rem; flex-shrink: 0; background: rgba(0, 113, 227, 0.08); padding: 2px 6px; border-radius: 6px; margin-top: 2px; }
+        .algo-step { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; line-height: 1.4; min-height: 24px; }
+        .algo-step span { color: var(--apple-blue); font-weight: 700; font-size: 0.75rem; flex-shrink: 0; background: rgba(0, 113, 227, 0.08); padding: 2px 6px; border-radius: 6px; margin-top: 0; }
+        .algo-step .algo-text { color: var(--text-secondary) !important; background: transparent !important; font-weight: 400 !important; font-size: inherit !important; padding: 0 !important; border-radius: 0 !important; margin-top: 0 !important; flex-shrink: 1 !important; }
+        .algo-step > span:first-child { font-size: 0.75rem !important; padding: 2px 6px !important; }
 
 
 
@@ -1078,12 +1080,13 @@
                 margin-bottom: 10px;
                 line-height: 1.5;
                 flex-wrap: wrap !important;
-                align-items: flex-start !important;
+                align-items: center !important;
+                min-height: 26px !important;
             }
 
-            .algo-step span:not(.algo-text) {
+            .algo-step > span:first-child {
                 font-size: 0.8rem !important; /* Уменьшили синие цифры */
-                padding: 2px 7px;
+                padding: 2px 7px !important;
                 background: rgba(0, 113, 227, 0.06); /* Сделали подложку цифр еще нежнее */
                 margin-top: 0 !important;
             }
