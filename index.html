@@ -491,24 +491,6 @@
             text-decoration: none !important;
         }
 
-
-            /* УБИРАЕМ ОБОЛОЧКУ (фон, рамки, скругления) */
-            background: transparent;
-            border: none; 
-            padding: 0;
-            border-radius: 0;
-            backdrop-filter: none;
-            
-            /* Делаем просто красивый текст */
-            font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-            z-index: 200;
-        }
-        
         .lang-btn:hover {
             background: transparent;
             opacity: 0.4; /* Вместо фона текст будет мягко тускнеть при наведении */
@@ -860,10 +842,10 @@
         /* БЛОК ПОСЛЕДОВАТЕЛЬНОСТИ (Сделали дополнением, убрали фон) */
         .algorithm-box { margin-top: 12px; padding: 0 15px; background: transparent; border: none; max-width: 900px; }
         .algo-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .algo-step { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; line-height: 1.4; min-height: 24px; }
+        .algo-step { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; line-height: 1.4; }
         .algo-step span { color: var(--apple-blue); font-weight: 700; font-size: 0.75rem; flex-shrink: 0; background: rgba(0, 113, 227, 0.08); padding: 2px 6px; border-radius: 6px; margin-top: 0; }
         .algo-step .algo-text { color: var(--text-secondary) !important; background: transparent !important; font-weight: 400 !important; font-size: inherit !important; padding: 0 !important; border-radius: 0 !important; margin-top: 0 !important; flex-shrink: 1 !important; }
-        .algo-step > span:first-child { font-size: 0.75rem !important; padding: 2px 6px !important; }
+        .algo-step > span:first-child { font-size: 0.75rem !important; padding: 4px 8px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; min-width: 24px !important; height: 24px !important; box-sizing: border-box !important; line-height: 1 !important; color: var(--apple-blue) !important; background: rgba(0, 113, 227, 0.08) !important; border-radius: 10px !important; }
 
 
 
@@ -1081,14 +1063,21 @@
                 line-height: 1.5;
                 flex-wrap: wrap !important;
                 align-items: center !important;
-                min-height: 26px !important;
             }
 
             .algo-step > span:first-child {
                 font-size: 0.8rem !important; /* Уменьшили синие цифры */
-                padding: 2px 7px !important;
+                padding: 4px 8px !important;
                 background: rgba(0, 113, 227, 0.06); /* Сделали подложку цифр еще нежнее */
                 margin-top: 0 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-width: 26px !important;
+                height: 26px !important;
+                box-sizing: border-box !important;
+                line-height: 1 !important;
+                border-radius: 10px !important;
             }
             .algo-text {
                 flex: 1 !important;
@@ -1200,9 +1189,9 @@
 
         <div class="algorithm-box">
             <div class="algo-title">Последовательность действий</div>
-            <div class="algo-step"><span>01</span> Авторизуйтесь в предоставленной почте.</div>
+            <div class="algo-step"><span>01</span> <span class="algo-text">Авторизуйтесь в предоставленной почте.</span></div>
             <div class="algo-step"><span>02</span> <span class="algo-text">Введите данные в клиенте <a id="platform-link-dynamic" href="#" target="_blank" class="platform-link"><span id="platform-name-1">STEAM</span></a></span></div>
-            <div class="algo-step"><span>03</span> При запросе кода защиты — получите его во входящих письмах.</div>
+            <div class="algo-step"><span>03</span> <span class="algo-text">При запросе кода защиты — получите его во входящих письмах.</span></div>
         </div>
 
         <div id="rockstar-error-msg" class="warning-box" style="display: none;">
