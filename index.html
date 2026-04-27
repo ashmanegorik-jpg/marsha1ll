@@ -293,24 +293,30 @@
         .lang-btn {
             position: absolute;
             right: 5%;
-            bottom: 12px; /* Выравниваем по линии текста */
-            background: rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 5px 12px;
+            /* Идеальное выравнивание по центру логотипа MARSHA1LL */
+            top: calc(21px + env(safe-area-inset-top)); 
+            
+            /* УБИРАЕМ ОБОЛОЧКУ (фон, рамки, скругления) */
+            background: transparent;
+            border: none;
+            padding: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+            
+            /* Делаем просто красивый текст */
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             font-weight: 700;
             color: var(--text-main);
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.2s ease;
+            transition: opacity 0.2s ease;
             z-index: 200;
         }
         
         .lang-btn:hover {
-            background: rgba(0, 0, 0, 0.1);
-            transform: scale(1.05);
+            background: transparent;
+            opacity: 0.4; /* Вместо фона текст будет мягко тускнеть при наведении */
+            transform: none; /* Убираем увеличение при наведении */
         }
 
         /* Убиваем визуальный мусор от Google Translate */
@@ -319,6 +325,7 @@
         .goog-te-banner-frame { display: none !important; } /* Скрывает верхнюю плашку */
         #goog-gt-tt { display: none !important; }
         .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+
 
 
         @media (hover: hover) {
@@ -719,7 +726,15 @@
             .cred-label { font-size: 0.65rem; }
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
-            .lang-btn { right: 20px; font-size: 0.65rem; padding: 4px 10px; border-radius: 10px; bottom: 14px; }
+            .lang-btn { 
+                right: 20px !important; 
+                font-size: 0.85rem !important; /* Делаем буквы чуть крупнее, так как оболочки больше нет */
+                padding: 0 !important; 
+                /* Точное выравнивание для мобильного логотипа */
+                top: calc(19px + env(safe-area-inset-top)) !important; 
+                bottom: auto !important; 
+            }
+
         }
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
