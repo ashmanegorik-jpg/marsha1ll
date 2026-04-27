@@ -1011,15 +1011,16 @@
             .cred-label { font-size: 0.65rem; }
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
-            .lang-btn { 
-                right: 20px !important; 
+            .lang-btn {
+                right: 20px !important;
                 font-size: 0.85rem !important; /* Делаем буквы чуть крупнее, так как оболочки больше нет */
-                padding: 0 !important; 
+                padding: 0 !important;
                 /* Точное выравнивание для мобильного логотипа */
-                top: auto; 
-                bottom: 21px; 
+                top: auto;
+                bottom: 21px;
             }
             .precautions-grid { grid-template-columns: 1fr; }
+            .protocol-status-row { margin-left: auto !important; margin-right: auto !important; }
         }
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
@@ -1076,6 +1077,7 @@
                 color: var(--text-secondary); /* Вернули серый цвет как в темной версии */
                 margin-bottom: 10px;
                 line-height: 1.5;
+                flex-wrap: wrap !important;
             }
 
             .algo-step span {
