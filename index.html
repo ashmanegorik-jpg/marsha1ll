@@ -681,9 +681,10 @@
             100% { left: 130%; }
         }
         
-        .step-btn.completed, .step-item.active .step-btn.completed { 
-            border: 1px solid var(--apple-green) !important; color: var(--apple-green) !important; 
+        .step-btn.completed, .step-item.active .step-btn.completed {
+            border: 1px solid var(--apple-green) !important; color: var(--apple-green) !important;
             cursor: default; background: transparent !important; transform: none;
+            pointer-events: none !important;
         }
 
         .generator-box .step-btn { 
