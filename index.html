@@ -254,18 +254,7 @@
             padding: 0 4px;
         }
 
-        .feedback-title::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -60%;
-            width: 45%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
-            mix-blend-mode: soft-light;
-            animation: feedback-title-shimmer 3.4s ease-in-out infinite;
-            pointer-events: none;
-        }
+       
 
         .feedback-text {
             font-size: 0.85rem; /* Сделали текст мельче и аккуратнее */
@@ -281,11 +270,7 @@
             animation: feedback-highlight-breathe 2.8s ease-in-out infinite;
         }
 
-        @keyframes feedback-title-shimmer {
-            0% { left: -60%; }
-            50% { left: 120%; }
-            100% { left: 120%; }
-        }
+    
 
         @keyframes feedback-border-flow {
             0%, 100% { background-position: 0% 50%; }
@@ -484,6 +469,9 @@
             /* Идеальное выравнивание по центру логотипа MARSHA1LL */
             top: auto; 
             bottom: 21px;
+            color: var(--text-main) !important;
+            -webkit-text-fill-color: var(--text-main) !important;
+        }
             
             /* УБИРАЕМ ОБОЛОЧКУ (фон, рамки, скругления) */
             background: transparent;
