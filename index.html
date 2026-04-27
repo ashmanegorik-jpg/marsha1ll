@@ -1854,8 +1854,12 @@ NEW_SECURE_PASSWORD: ${pass}
     function syncLangButton() {
         const btn = document.getElementById('lang-btn');
         const preferredLang = sessionStorage.getItem('marsha1ll_lang') || 'ru';
-        if (btn) btn.innerText = preferredLang === 'en' ? 'RU' : 'EN';
+        if (btn) {
+            btn.innerText = preferredLang === 'en' ? 'RU' : 'EN';
+            btn.style.cssText = 'color: #1d1d1f !important; -webkit-text-fill-color: #1d1d1f !important; opacity: 1 !important;';
+        }
     }
+
 
     function toggleLanguage() {
         const current = sessionStorage.getItem('marsha1ll_lang') || 'ru';
@@ -1867,6 +1871,9 @@ NEW_SECURE_PASSWORD: ${pass}
             if (!triggerTranslate('en')) {
                 setTimeout(() => triggerTranslate('en'), 200);
             }
+            setTimeout(() => syncLangButton(), 300);
+            setTimeout(() => syncLangButton(), 800);
+            setTimeout(() => syncLangButton(), 1500);
         } else {
             clearTranslateCookie();
             // Для надежного возврата к оригинальному RU делаем принудительный reload
