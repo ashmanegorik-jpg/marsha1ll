@@ -287,6 +287,39 @@
         .precaution-card > svg, .precaution-card > div, .precaution-card > p {
             position: relative; z-index: 2;
         }
+        /* =========================================
+         КНОПКА ЯЗЫКА И СКРЫТИЕ МУСОРА GOOGLE
+         ========================================= */
+        .lang-btn {
+            position: absolute;
+            right: 5%;
+            bottom: 12px; /* Выравниваем по линии текста */
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 5px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-main);
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+            z-index: 200;
+        }
+        
+        .lang-btn:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Убиваем визуальный мусор от Google Translate */
+        body { top: 0 !important; position: static !important; }
+        .VIpgJd-ZVi9od-ORHb-OEVmcd { display: none !important; } /* Скрывает тултипы */
+        .goog-te-banner-frame { display: none !important; } /* Скрывает верхнюю плашку */
+        #goog-gt-tt { display: none !important; }
+        .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+
 
         @media (hover: hover) {
             .precaution-card:hover {
@@ -685,6 +718,7 @@
             .cred-label { font-size: 0.65rem; }
             .cred-value { font-size: 0.82rem; }
             .cred-item a { font-size: 0.8rem !important; }
+            .lang-btn { right: 20px; font-size: 0.65rem; padding: 4px 10px; border-radius: 10px; bottom: 14px; }
         }
         /* --- АДАПТАЦИЯ ДЛЯ ПК --- */
         @media (min-width: 1024px) {
@@ -781,7 +815,13 @@
     </div>
 </div>
 
-<div class="main-brand-logo">MARSHA1LL</div>
+<div class="main-brand-logo">
+    MARSHA1LL
+    <button id="lang-btn" class="lang-btn" onclick="toggleLanguage()">EN</button>
+</div>
+
+<div id="google_translate_element" style="display:none;"></div>
+
 
 <div class="terminal-container">
     <section class="reveal reveal-hero">
@@ -1360,9 +1400,44 @@ NEW_SECURE_PASSWORD: ${pass}
         });
     }
 
+        // === СИСТЕМА ПЕРЕВОДА (GOOGLE TRANSLATE) ===
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'ru', 
+            includedLanguages: 'en,ru', 
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    function toggleLanguage() {
+        const btn = document.getElementById('lang-btn');
+        const select = document.querySelector('.goog-te-combo');
+        
+        if (select) {
+            // Переключаем невидимый селектор гугла
+            select.value = btn.innerText === 'EN' ? 'en' : 'ru';
+            select.dispatchEvent(new Event('change')); // Запускаем перевод
+            
+            // Меняем текст кнопки
+            btn.innerText = btn.innerText === 'EN' ? 'RU' : 'EN';
+        } else {
+            // Если скрипт гугла еще грузится, пробуем через полсекунды
+            setTimeout(toggleLanguage, 500);
+        }
+    }
+
+    // Сохраняем язык, если пользователь обновит страницу
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const match = document.cookie.match(/googtrans=\/ru\/([a-z]{2})/);
+            if (match && match[1] === 'en') {
+                document.getElementById('lang-btn').innerText = 'RU';
+            }
+        }, 1000);
+    });
 
     loadSavedPassword(); 
 </script>
-
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
