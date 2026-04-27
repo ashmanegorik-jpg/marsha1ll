@@ -854,10 +854,40 @@
         /* БЛОК ПОСЛЕДОВАТЕЛЬНОСТИ (Сделали дополнением, убрали фон) */
         .algorithm-box { margin-top: 12px; padding: 0 15px; background: transparent; border: none; max-width: 900px; }
         .algo-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
-        .algo-step { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; display: flex; align-items: center; gap: 10px; line-height: 1.4; }
-        .algo-step span { color: var(--apple-blue); font-weight: 700; font-size: 0.75rem; flex-shrink: 0; background: rgba(0, 113, 227, 0.08); padding: 2px 6px; border-radius: 6px; margin-top: 0; }
-        .algo-step .algo-text { color: var(--text-secondary) !important; background: transparent !important; font-weight: 400 !important; font-size: inherit !important; padding: 0 !important; border-radius: 0 !important; margin-top: 0 !important; flex-shrink: 1 !important; }
-        .algo-step > span:first-child { font-size: 0.75rem !important; padding: 4px 8px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; min-width: 24px !important; height: 24px !important; box-sizing: border-box !important; line-height: 1 !important; color: var(--apple-blue) !important; background: rgba(0, 113, 227, 0.08) !important; border-radius: 10px !important; }
+        .algo-step {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+        .algo-step > span:first-child {
+            color: var(--apple-blue) !important;
+            font-weight: 700 !important;
+            font-size: 0.72rem !important;
+            flex-shrink: 0 !important;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            background: rgba(0, 113, 227, 0.08) !important;
+            border-radius: 8px !important;
+            box-sizing: border-box !important;
+            margin-top: 2px !important;
+        }
+        .algo-text {
+            flex: 1;
+            color: var(--text-secondary) !important;
+            background: transparent !important;
+            font-weight: 400 !important;
+            font-size: inherit !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+        }
 
 
 
