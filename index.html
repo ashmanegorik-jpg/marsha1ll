@@ -128,20 +128,24 @@
         .protocol-status-row::before {
             content: "";
             position: absolute;
-            /* 2. ДЕЛАЕМ ОТСТУП ДЛЯ ТОЛЩИНЫ КОНТУРА (1.5px) */
-            inset: -1.5px; 
+            inset: -1px; /* Толщина контура */
             border-radius: 999px;
             background: conic-gradient(
                 from var(--angle, 0deg),
                 transparent 0deg,
-                rgba(0, 113, 227, 0.5) 40deg,
-                rgba(100, 180, 255, 0.8) 70deg,
-                transparent 110deg
+                rgba(0, 113, 227, 0.4) 40deg, /* Начало луча (полупрозрачный) */
+                rgba(100, 180, 255, 0.6) 70deg, /* Центр луча (яркий) */
+                transparent 110deg /* Конец луча */
             );
-            /* Прячем вращающийся градиент в самый низ */
-            z-index: -2; 
+            z-index: -1;
             animation: spin-angle 3s linear infinite;
+
+            /* === ДОБАВЛЕНО: ЭФФЕКТ СВЕЧЕНИЯ (GLOW) === */
+            /* Мы добавляем тень с размытием 3px синего цвета (rgba(0, 113, 227, 0.8)).
+               Она накладывается поверх градиента и вращается вместе с ним. */
+            filter: drop-shadow(0 0 3px rgba(0, 113, 227, 0.8));
         }
+
 
         .protocol-status-row::after {
             content: "";
