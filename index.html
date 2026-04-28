@@ -776,35 +776,41 @@
         .step-btn {
             background: var(--text-main); border: none; color: #fff;
             padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
-            cursor: pointer; text-transform: uppercase; transition: transform var(--motion-fast) var(--motion-ease), box-shadow var(--motion-fast) var(--motion-ease), background-color var(--motion-fast) var(--motion-ease), opacity var(--motion-fast) var(--motion-ease);
+            cursor: pointer; text-transform: uppercase; 
+            
+            /* === МАГИЯ ПРУЖИНЫ (APPLE BOUNCE) === */
+            /* При отпускании пальца кнопка возвращается с пружинистым отскоком */
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.2s ease, opacity 0.2s ease;
+            
             letter-spacing: 0.05em; border-radius: 100px; 
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 1px 2px rgba(0,0,0,0.06);
             position: relative;
             overflow: hidden;
         }
+        
         .step-btn::after {
             content: "";
             position: absolute;
-            top: 0;
-            left: -60%;
-            width: 38%;
-            height: 100%;
+            top: 0; left: -60%; width: 38%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
             opacity: 0;
             transition: opacity var(--motion-fast) var(--motion-ease);
             pointer-events: none;
         }
-        .step-btn:hover { background: #111; transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 3px 8px rgba(0,0,0,0.11); }
+        
+        .step-btn:hover { background: #111; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 3px 8px rgba(0,0,0,0.11); }
         .step-btn:hover::after { opacity: 1; animation: btn-sheen 900ms var(--motion-ease) 1; }
-        /* === МЯГКОЕ ВДАВЛИВАНИЕ КНОПОК КАК В iOS === */
+        
+        /* === МЯГКОЕ ВДАВЛИВАНИЕ ПРИ НАЖАТИИ === */
         .step-btn:active { 
-            transform: scale(0.9) !important; /* Кнопка приятно проваливается вглубь */
+            /* Сделали прожатие аккуратным (0.95 вместо 0.9) */
+            transform: scale(0.95) !important; 
             opacity: 0.85; 
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0,0,0,0.07); 
+            /* Вниз кнопка уходит мгновенно и без отскоков */
+            transition: transform 0.1s ease-out !important; 
         }
-        
-        .step-item.active .step-btn { background: var(--apple-blue); }
-        .step-item.active .step-btn:hover { background: #0068d1; box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 3px 9px rgba(0, 113, 227, 0.2); }
+
 
         @keyframes btn-sheen {
             0% { left: -60%; }
