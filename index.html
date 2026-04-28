@@ -811,7 +811,14 @@
             0% { left: -60%; }
             100% { left: 130%; }
         }
-        
+        /* === ВОЗВРАЩАЕМ СИНИЙ ЦВЕТ АКТИВНЫМ КНОПКАМ === */
+        .step-item.active .step-btn { 
+            background: var(--apple-blue); 
+        }
+        .step-item.active .step-btn:hover { 
+            background: #0068d1; 
+            box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 3px 9px rgba(0, 113, 227, 0.2); 
+        }
         .step-btn.completed, .step-item.active .step-btn.completed {
             border: 1px solid var(--apple-green) !important; color: var(--apple-green) !important;
             cursor: default; background: transparent !important; transform: none;
