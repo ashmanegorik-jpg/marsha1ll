@@ -741,13 +741,34 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
         }
         
+        /* === ПЛАВНОЕ ПОЯВЛЕНИЕ КНОПКИ ЭКСПОРТА === */
         .export-btn {
-            background: transparent !important; border: 1px dashed var(--apple-blue) !important;
-            color: var(--apple-blue) !important; font-size: 0.65rem !important; 
-            padding: 8px 0 !important; width: 100% !important; 
-            border-radius: 10px !important; transition: all 0.3s ease;
+            background: transparent !important; 
+            border: 1px dashed var(--apple-blue) !important;
+            color: var(--apple-blue) !important; 
+            font-size: 0.65rem !important; 
+            width: 100% !important; 
+            border-radius: 10px !important; 
             font-weight: 600;
+            
+            /* Скрытое состояние по умолчанию */
+            padding: 0 !important; 
+            max-height: 0;
+            opacity: 0;
+            border-width: 0 !important;
+            overflow: hidden;
+            margin-top: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Плавный выезд */
         }
+        
+        .export-btn.show {
+            max-height: 40px; /* Раскрываем высоту */
+            opacity: 1; /* Делаем видимой */
+            padding: 8px 0 !important;
+            border-width: 1px !important;
+            margin-top: 8px;
+        }
+
         .export-btn:hover { background: rgba(0, 113, 227, 0.05) !important; }
         .export-btn.saved { color: var(--apple-green) !important; border-color: var(--apple-green) !important; border-style: solid !important; pointer-events: none; }
 
@@ -775,7 +796,12 @@
         }
         .step-btn:hover { background: #111; transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 3px 8px rgba(0,0,0,0.11); }
         .step-btn:hover::after { opacity: 1; animation: btn-sheen 900ms var(--motion-ease) 1; }
-        .step-btn:active { transform: translateY(0); opacity: 0.92; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0,0,0,0.07); }
+        /* === МЯГКОЕ ВДАВЛИВАНИЕ КНОПОК КАК В iOS === */
+        .step-btn:active { 
+            transform: scale(0.96) !important; /* Кнопка приятно проваливается вглубь */
+            opacity: 0.85; 
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0,0,0,0.07); 
+        }
         
         .step-item.active .step-btn { background: var(--apple-blue); }
         .step-item.active .step-btn:hover { background: #0068d1; box-shadow: 0 1px 0 rgba(255,255,255,0.18) inset, 0 3px 9px rgba(0, 113, 227, 0.2); }
@@ -1382,7 +1408,7 @@
                 </button>
             </div>
             <button id="gen-main-btn" class="step-btn" style="width: 100%" onclick="generateSecurePass()">Сгенерировать пароль</button>
-            <button id="export-key-btn" class="export-btn" onclick="exportKeyFile()" style="display: none;">Экспорт ключа ↓</button>
+            <button id="export-key-btn" class="export-btn" onclick="exportKeyFile()">Экспорт ключа ↓</button>
             <div class="password-hint">Используйте для установки в Phase 01</div>
         </div>
 
@@ -1809,7 +1835,7 @@
                 display.innerText = finalPass;
                 localStorage.setItem('marsha1ll_saved_pass', finalPass);
                 btn.innerText = "Сгенерировать новый";
-                exportBtn.style.display = 'block';
+                exportBtn.classList.add('show');
             }
         }, 50);
     }
@@ -1833,7 +1859,7 @@
         if (savedPass) {
             document.getElementById('password-display').innerText = savedPass;
             document.getElementById('gen-main-btn').innerText = "Сгенерировать новый";
-            document.getElementById('export-key-btn').style.display = 'block';
+            document.getElementById('export-key-btn').classList.add('show');
         }
     }
 
