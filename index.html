@@ -118,9 +118,7 @@
             border-radius: 999px;
             padding: 6px 12px;
             width: fit-content;
-            
-            /* 1. УБРАЛИ ПОЛУПРОЗРАЧНЫЙ ФОН ОТСЮДА */
-            background: transparent; 
+            background: transparent;
             position: relative;
             isolation: isolate;
         }
@@ -128,38 +126,47 @@
         .protocol-status-row::before {
             content: "";
             position: absolute;
-            inset: -1px; /* Толщина контура */
+            inset: -1.5px;
             border-radius: 999px;
+            
+            /* ДВА ЛУЧА ДЛЯ ИДЕАЛЬНОЙ ПЛАВНОСТИ (Убивает иллюзию залипания на углах) */
             background: conic-gradient(
                 from var(--angle, 0deg),
-                transparent 0deg,
-                rgba(0, 113, 227, 0.4) 40deg, /* Начало луча (полупрозрачный) */
-                rgba(100, 180, 255, 0.6) 70deg, /* Центр луча (яркий) */
-                transparent 110deg /* Конец луча */
+                transparent 0%,
+                rgba(100, 180, 255, 0.9) 15%,
+                transparent 30%,
+                transparent 50%,
+                rgba(100, 180, 255, 0.9) 65%,
+                transparent 80%
             );
-            z-index: -1;
-            animation: spin-angle 3s linear infinite;
-
-            /* === ДОБАВЛЕНО: ЭФФЕКТ СВЕЧЕНИЯ (GLOW) === */
-            /* Мы добавляем тень с размытием 3px синего цвета (rgba(0, 113, 227, 0.8)).
-               Она накладывается поверх градиента и вращается вместе с ним. */
-            filter: drop-shadow(0 0 3px rgba(0, 113, 227, 0.8));
+            z-index: -2; 
+            
+            /* Чуть ускорили и сделали плавный бесконечный цикл */
+            animation: spin-angle 2.5s linear infinite;
+            filter: drop-shadow(0 0 3px rgba(0, 113, 227, 0.6));
         }
-
 
         .protocol-status-row::after {
             content: "";
             position: absolute;
             inset: 0px; 
             border-radius: 999px;
-            
-            /* 3. ВАЖНО: ФОН СТАЛ НЕПРОЗРАЧНЫМ! */
-            /* Это белый цвет карточки + легкий голубой оттенок. Он скроет "внутренности" градиента */
             background: #f4f8fd; 
-            
-            /* Кладем эту "заглушку" поверх градиента, оставляя торчать только контур */
             z-index: -1; 
         }
+
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        /* ЖЕСТКИЕ РАМКИ, ЧТОБЫ БРАУЗЕР НЕ ДЕЛАЛ МИКРО-ПАУЗУ */
+        @keyframes spin-angle {
+            0% { --angle: 0deg; }
+            100% { --angle: 360deg; }
+        }
+
 
 
         @property --angle {
