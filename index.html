@@ -460,6 +460,16 @@
             position: relative;
             min-height: 1.3em;
         }
+        
+        /* === ИСПРАВЛЕНИЕ: Прячем серую загрузку, если текст уже зеленый (SECURED) === */
+        #subject-text.status-active.loading {
+            color: var(--apple-green) !important;
+        }
+        #subject-text.status-active.loading::before {
+            display: none !important;
+        }
+        /* ===================================================================== */
+
         #subject-text.loading::before {
             content: "";
             position: absolute;
@@ -477,6 +487,7 @@
             0% { background-position: 120% 0; }
             100% { background-position: -120% 0; }
         }
+
 
         .data-dots {
             flex-grow: 1;
