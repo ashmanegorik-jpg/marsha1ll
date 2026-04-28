@@ -794,16 +794,18 @@
         .step-btn:hover { background: #111; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 3px 8px rgba(0,0,0,0.11); }
         .step-btn:hover::after { opacity: 1; animation: btn-sheen 900ms var(--motion-ease) 1; }
         
-        /* === ИДЕАЛЬНЫЙ APPLE BOUNCE (ТЕПЕРЬ ЭТО АНИМАЦИЯ) === */
+        /* === ИДЕАЛЬНЫЙ APPLE BOUNCE (СУПЕР-ПЛАВНЫЙ) === */
         @keyframes apple-bounce {
             0%   { transform: scale(1); }
-            40%  { transform: scale(0.94); } /* Мягкое вдавливание */
-            75%  { transform: scale(1.02); } /* Микро-отскок */
-            100% { transform: scale(1); }
+            30%  { transform: scale(0.95); }  /* Уходит вниз чуть быстрее */
+            65%  { transform: scale(1.015); } /* Едва уловимый, тягучий отскок */
+            100% { transform: scale(1); }     /* Медленно и плавно встает на место */
         }
         .bounce-anim {
-            animation: apple-bounce 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+            /* Время 0.65 сек + кривая сверхмягкого торможения (ease-out) */
+            animation: apple-bounce 0.65s cubic-bezier(0.2, 1, 0.3, 1) forwards !important;
         }
+
 
         @keyframes btn-sheen {
             0% { left: -60%; }
