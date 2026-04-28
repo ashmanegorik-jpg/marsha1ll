@@ -118,7 +118,9 @@
             border-radius: 999px;
             padding: 6px 12px;
             width: fit-content;
-            background: rgba(0, 113, 227, 0.07);
+            
+            /* 1. УБРАЛИ ПОЛУПРОЗРАЧНЫЙ ФОН ОТСЮДА */
+            background: transparent; 
             position: relative;
             isolation: isolate;
         }
@@ -126,28 +128,35 @@
         .protocol-status-row::before {
             content: "";
             position: absolute;
-            inset: -1px;
+            /* 2. ДЕЛАЕМ ОТСТУП ДЛЯ ТОЛЩИНЫ КОНТУРА (1.5px) */
+            inset: -1.5px; 
             border-radius: 999px;
             background: conic-gradient(
                 from var(--angle, 0deg),
                 transparent 0deg,
-                rgba(0, 113, 227, 0.4) 40deg,
-                rgba(100, 180, 255, 0.6) 70deg,
+                rgba(0, 113, 227, 0.5) 40deg,
+                rgba(100, 180, 255, 0.8) 70deg,
                 transparent 110deg
             );
-            z-index: -1;
+            /* Прячем вращающийся градиент в самый низ */
+            z-index: -2; 
             animation: spin-angle 3s linear infinite;
         }
-
 
         .protocol-status-row::after {
             content: "";
             position: absolute;
-            inset: 1px;
+            inset: 0px; 
             border-radius: 999px;
-            background: rgba(0, 113, 227, 0.07);
-            z-index: -1;
+            
+            /* 3. ВАЖНО: ФОН СТАЛ НЕПРОЗРАЧНЫМ! */
+            /* Это белый цвет карточки + легкий голубой оттенок. Он скроет "внутренности" градиента */
+            background: #f4f8fd; 
+            
+            /* Кладем эту "заглушку" поверх градиента, оставляя торчать только контур */
+            z-index: -1; 
         }
+
 
         @property --angle {
             syntax: '<angle>';
