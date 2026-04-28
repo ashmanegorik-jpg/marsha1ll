@@ -124,19 +124,21 @@
             /* Градиентная рамка через outline не вылезает */
             border: 1.5px solid transparent;
             background-clip: padding-box;
-            box-shadow:
-                0 0 0 1.5px rgba(0, 113, 227, 0.15),
-                0 0 0 1.5px rgba(120, 200, 255, 0.1);
             animation: border-glow-spin 2.5s linear infinite;
         }
 
         @keyframes border-glow-spin {
-            0%   { box-shadow: 2px -1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
-            25%  { box-shadow: 1px 2px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
-            50%  { box-shadow: -2px 1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
-            75%  { box-shadow: -1px -2px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
-            100% { box-shadow: 2px -1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
+            0%   { box-shadow: 1.5px 0px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            12%  { box-shadow: 1.2px 0.8px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            25%  { box-shadow: 0px 1.5px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            37%  { box-shadow: -0.8px 1.2px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            50%  { box-shadow: -1.5px 0px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            62%  { box-shadow: -1.2px -0.8px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            75%  { box-shadow: 0px -1.5px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            87%  { box-shadow: 0.8px -1.2px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
+            100% { box-shadow: 1.5px 0px 0 0.5px rgba(0,113,227,0.8), 0 0 0 0.5px rgba(0,113,227,0.08); }
         }
+
 
 
 
