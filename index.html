@@ -777,11 +777,8 @@
             background: var(--text-main); border: none; color: #fff;
             padding: 12px 24px; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600;
             cursor: pointer; text-transform: uppercase; 
-            
-            /* === МАГИЯ ПРУЖИНЫ (APPLE BOUNCE) === */
-            /* При отпускании пальца кнопка возвращается с пружинистым отскоком */
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, background-color 0.2s ease, opacity 0.2s ease;
-            
+            /* Убрали transform из transition, теперь им управляет анимация */
+            transition: box-shadow 0.3s ease, background-color 0.2s ease, opacity 0.2s ease;
             letter-spacing: 0.05em; border-radius: 100px; 
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 1px 2px rgba(0,0,0,0.06);
             position: relative;
@@ -789,28 +786,24 @@
         }
         
         .step-btn::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -60%; width: 38%; height: 100%;
+            content: ""; position: absolute; top: 0; left: -60%; width: 38%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-            opacity: 0;
-            transition: opacity var(--motion-fast) var(--motion-ease);
-            pointer-events: none;
+            opacity: 0; transition: opacity var(--motion-fast) var(--motion-ease); pointer-events: none;
         }
         
         .step-btn:hover { background: #111; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.16) inset, 0 3px 8px rgba(0,0,0,0.11); }
         .step-btn:hover::after { opacity: 1; animation: btn-sheen 900ms var(--motion-ease) 1; }
         
-        /* === МЯГКОЕ ВДАВЛИВАНИЕ ПРИ НАЖАТИИ === */
-        .step-btn:active { 
-            /* Сделали прожатие аккуратным (0.95 вместо 0.9) */
-            transform: scale(0.95) !important; 
-            opacity: 0.85; 
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0,0,0,0.07); 
-            /* Вниз кнопка уходит мгновенно и без отскоков */
-            transition: transform 0.1s ease-out !important; 
+        /* === ИДЕАЛЬНЫЙ APPLE BOUNCE (ТЕПЕРЬ ЭТО АНИМАЦИЯ) === */
+        @keyframes apple-bounce {
+            0%   { transform: scale(1); }
+            40%  { transform: scale(0.94); } /* Мягкое вдавливание */
+            75%  { transform: scale(1.02); } /* Микро-отскок */
+            100% { transform: scale(1); }
         }
-
+        .bounce-anim {
+            animation: apple-bounce 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+        }
 
         @keyframes btn-sheen {
             0% { left: -60%; }
@@ -821,7 +814,13 @@
             border: 1px solid var(--apple-green) !important; color: var(--apple-green) !important;
             cursor: default; background: transparent !important; transform: none;
             pointer-events: none !important;
+            animation: none !important; /* Выключаем прыжок у завершенных */
         }
+
+        .generator-box .step-btn { 
+            width: 100%; padding: 10px 0; border-radius: 10px; font-size: 0.75rem; 
+        }
+
 
         .generator-box .step-btn { 
             width: 100%; 
@@ -2009,7 +2008,15 @@ NEW_SECURE_PASSWORD: ${pass}
         sessionStorage.removeItem('marsha1ll_lang');
         syncLangButton();
     });
-
+    // === ГЛОБАЛЬНЫЙ СКРИПТ ПРЫЖКА ДЛЯ ВСЕХ КНОПОК ===
+    document.querySelectorAll('.step-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (this.classList.contains('completed')) return; // Завершенные не прыгают
+            this.classList.remove('bounce-anim'); // Сбрасываем старый прыжок
+            void this.offsetWidth;                // Магия браузера для перезапуска
+            this.classList.add('bounce-anim');    // Запускаем плавный прыжок заново!
+        });
+    });
 
     loadSavedPassword(); 
 </script>
