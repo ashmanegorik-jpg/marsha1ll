@@ -121,34 +121,23 @@
             background: rgba(0, 113, 227, 0.07);
             position: relative;
             z-index: 0;
+            /* Градиентная рамка через outline не вылезает */
+            border: 1.5px solid transparent;
+            background-clip: padding-box;
+            box-shadow:
+                0 0 0 1.5px rgba(0, 113, 227, 0.15),
+                0 0 0 1.5px rgba(120, 200, 255, 0.1);
+            animation: border-glow-spin 2.5s linear infinite;
         }
 
-        .protocol-status-row::before {
-            content: "";
-            position: absolute;
-            inset: -1.5px;
-            border-radius: 999px;
-            padding: 1.5px;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0%,
-                rgba(0, 113, 227, 0.9) 20%,
-                rgba(120, 200, 255, 1) 35%,
-                transparent 50%,
-                transparent 100%
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: border-spin 2.5s linear infinite;
-            z-index: -1;
+        @keyframes border-glow-spin {
+            0%   { box-shadow: 2px -1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
+            25%  { box-shadow: 1px 2px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
+            50%  { box-shadow: -2px 1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
+            75%  { box-shadow: -1px -2px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
+            100% { box-shadow: 2px -1px 0 1px rgba(0,113,227,0.7), 0 0 0 1px rgba(0,113,227,0.1); }
         }
 
-        @keyframes border-spin {
-            from { --angle: 0deg; transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
 
 
         .protocol-status-badge {
