@@ -1355,22 +1355,26 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* ЧИСТАЯ АНИМАЦИЯ (Больше никаких глюков с высотой!) */
+        /* === ЧИСТАЯ АНИМАЦИЯ (Без обрезания текста и с идеальным FPS) === */
         .faq-answer {
             max-height: 0;
             opacity: 0;
-            transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
-            will-change: max-height, opacity;
+            overflow: hidden; /* <-- Именно это свойство прячет текст при закрытии */
+            /* Умная математика: моментально убирает пустую высоту и плавно закрывает блок */
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
         }
         .faq-item.active .faq-answer {
-            max-height: 350px; /* Текст займет ровно столько места, сколько нужно */
+            max-height: 1000px; /* Берем с огромным запасом, чтобы влез хоть целый роман */
             opacity: 1;
+            /* Плавное, мягкое разворачивание */
+            transition: max-height 0.8s ease-in-out, opacity 0.5s ease 0.1s;
         }
         
         .faq-answer-inner {
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
+
 
     </style>
 </head>
