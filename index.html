@@ -1323,7 +1323,7 @@
         .faq-fab:active { transform: scale(0.85); background: rgba(230, 230, 230, 0.8); transition: transform 0.1s; }
         .faq-fab svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* === FAQ АККОРДЕОН (АДАПТАЦИЯ ДЛЯ iOS 120 FPS) === */
+                /* === FAQ АККОРДЕОН (ИДЕАЛЬНЫЙ 120 FPS ДЛЯ IOS) === */
         .faq-list {
             display: flex; flex-direction: column; gap: 10px;
             margin-top: 10px; max-height: 60vh; overflow-y: auto;
@@ -1337,8 +1337,7 @@
             background: var(--card-soft);
             overflow: hidden;
             transition: border-color 0.3s ease, background 0.3s ease;
-            /* Включаем аппаратное ускорение на телефоне */
-            transform: translateZ(0); 
+            transform: translateZ(0); /* Заставляем телефон использовать видеокарту */
         }
         .faq-item.active { border-color: var(--apple-blue); background: #fff; }
         
@@ -1356,17 +1355,15 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* === ИДЕАЛЬНАЯ ПЛАВНОСТЬ 120 FPS (ТОЧНАЯ ВЫСОТА) === */
+        /* ЧИСТАЯ АНИМАЦИЯ (Больше никаких глюков с высотой!) */
         .faq-answer {
-            height: 0; /* Было max-height */
+            max-height: 0;
             opacity: 0;
-            overflow: hidden;
-            /* Самая плавная кривая замедления Apple */
-            transition: height 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
-            will-change: height, opacity;
+            transition: max-height 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+            will-change: max-height, opacity;
         }
         .faq-item.active .faq-answer {
-            /* Высота больше не указывается здесь, её с абсолютной точностью задаст JS! */
+            max-height: 350px; /* Текст займет ровно столько места, сколько нужно */
             opacity: 1;
         }
         
@@ -1374,9 +1371,6 @@
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
-
-
-
 
     </style>
 </head>
@@ -1456,10 +1450,11 @@
             </div>
             
         </div>
-            
-        </div> <button class="step-btn" style="width: 100%; margin-top: 15px;" onclick="closeFaq()">Понятно</button>
+        
+        <button class="step-btn" style="width: 100%; margin-top: 15px;" onclick="closeFaq()">Понятно</button>
     </div>
 </div>
+
 
 
 <div class="main-brand-logo notranslate">
@@ -1925,7 +1920,7 @@
         document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
         window.scrollTo(0, currentScrollY);
     }
-// === ЛОГИКА FAQ ===
+    // === ЛОГИКА FAQ ===
     function openFaq() {
         document.getElementById('faq-modal').style.display = 'flex';
         document.body.classList.add('no-scroll');
@@ -1934,38 +1929,23 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        document.querySelectorAll('.faq-item').forEach(i => {
-            i.classList.remove('active');
-            i.querySelector('.faq-answer').style.height = '0px';
-        });
+        // Закрываем все вопросы
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
     }
 
     function toggleFaq(element) {
         const item = element.parentElement;
-        const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
         
-        // Сворачиваем все остальные вопросы
-        document.querySelectorAll('.faq-item').forEach(i => {
-            i.classList.remove('active');
-            i.querySelector('.faq-answer').style.height = '0px';
-        });
+        // Сворачиваем все открытые вопросы (теперь это делает только CSS)
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
         
-        // Если открываем новый
+        // Если нажимаем на закрытый — открываем
         if (!isActive) {
             item.classList.add('active');
-            // Анимируем плавно до нужной высоты (120 FPS)
-            answer.style.height = answer.scrollHeight + 'px';
-            
-            // МАГИЯ ДЛЯ IPHONE: Как только анимация закончится (через 400мс),
-            // переводим высоту в режим auto, чтобы текст точно не обрезался снизу!
-            setTimeout(() => {
-                if (item.classList.contains('active')) {
-                    answer.style.height = 'auto';
-                }
-            }, 400);
         }
     }
+
 
 
 
