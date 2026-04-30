@@ -1413,7 +1413,7 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner">
+                    <div class="faq-answer-inner" style="text-align: left;">
                         Аккаунт передан коммерческим путем. При вашем обращении в поддержку, алгоритмы (STEAM/EPIC/EA) зафиксируют резкую смену геолокации и "железа" по сравнению с прошлым владельцем. Это приведет к моментальной блокировке за "подозрительную активность". Восстановить такой актив мы не сможем.
                     </div>
                 </div>
@@ -1425,7 +1425,7 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner">
+                    <div class="faq-answer-inner" style="text-align: left;">
                         Мы передаем вам "родную" (Native) почту. Попытка ее изменения часто расценивается антифрод-системами как попытка взлома. Чтобы обезопасить себя, просто смените пароль на выданной почте — этого достаточно для 100% защиты.
                     </div>
                 </div>
@@ -1437,22 +1437,25 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner">
+                    <div class="faq-answer-inner" style="text-align: left;">
                         Коды защиты (Steam Guard, Epic 2FA) отправляются на выданный почтовый ящик. Войдите в него по ссылке в "Шаге 1", проверьте папки "Входящие" или "Спам" и введите полученный код.
                     </div>
                 </div>
             </div>
+
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFaq(this)">
                     Что делать в случае, если потеряли доступ?
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner">
+                    <div class="faq-answer-inner" style="text-align: left;">
                         Ни в коем случае ничего не предпринимайте самостоятельно. Любые неквалифицированные попытки восстановления могут привести к окончательной потере или блокировке актива антифрод-системой. Пожалуйста, сразу же напишите нам в чат покупки — мы разберемся в ситуации и поможем вернуть доступ.
                     </div>
                 </div>
             </div>
+            
+        </div>
             
         </div> <button class="step-btn" style="width: 100%; margin-top: 15px;" onclick="closeFaq()">Понятно</button>
     </div>
@@ -1922,7 +1925,7 @@
         document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = '';
         window.scrollTo(0, currentScrollY);
     }
-    // === ЛОГИКА FAQ ===
+// === ЛОГИКА FAQ ===
     function openFaq() {
         document.getElementById('faq-modal').style.display = 'flex';
         document.body.classList.add('no-scroll');
@@ -1931,7 +1934,6 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        // Закрываем все раскрытые вопросы и обнуляем их высоту
         document.querySelectorAll('.faq-item').forEach(i => {
             i.classList.remove('active');
             i.querySelector('.faq-answer').style.height = '0px';
@@ -1943,19 +1945,28 @@
         const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
         
-        // Закрываем все остальные вопросы (схлопываем их)
+        // Сворачиваем все остальные вопросы
         document.querySelectorAll('.faq-item').forEach(i => {
             i.classList.remove('active');
             i.querySelector('.faq-answer').style.height = '0px';
         });
         
-        // Если вопрос не был открыт — открываем его с идеальной плавностью
+        // Если открываем новый
         if (!isActive) {
             item.classList.add('active');
-            // МАГИЯ: Измеряем точную физическую высоту текста и задаем её блоку!
+            // Анимируем плавно до нужной высоты (120 FPS)
             answer.style.height = answer.scrollHeight + 'px';
+            
+            // МАГИЯ ДЛЯ IPHONE: Как только анимация закончится (через 400мс),
+            // переводим высоту в режим auto, чтобы текст точно не обрезался снизу!
+            setTimeout(() => {
+                if (item.classList.contains('active')) {
+                    answer.style.height = 'auto';
+                }
+            }, 400);
         }
     }
+
 
 
     function openGuide(phase) {
