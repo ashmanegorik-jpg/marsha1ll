@@ -1323,7 +1323,7 @@
         .faq-fab:active { transform: scale(0.85); background: rgba(230, 230, 230, 0.8); transition: transform 0.1s; }
         .faq-fab svg { width: 22px; height: 22px; fill: currentColor; }
 
-        /* === FAQ АККОРДЕОН (120 FPS ОПТИМИЗАЦИЯ) === */
+        /* === FAQ АККОРДЕОН (АДАПТАЦИЯ ДЛЯ iOS 120 FPS) === */
         .faq-list {
             display: flex; flex-direction: column; gap: 10px;
             margin-top: 10px; max-height: 60vh; overflow-y: auto;
@@ -1337,7 +1337,8 @@
             background: var(--card-soft);
             overflow: hidden;
             transition: border-color 0.3s ease, background 0.3s ease;
-            will-change: border-color, background-color; /* Подготавливаем GPU */
+            /* Включаем аппаратное ускорение на телефоне */
+            transform: translateZ(0); 
         }
         .faq-item.active { border-color: var(--apple-blue); background: #fff; }
         
@@ -1352,29 +1353,29 @@
             width: 18px; height: 18px; fill: var(--text-secondary);
             transition: transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1), fill 0.3s ease;
             flex-shrink: 0;
-            will-change: transform;
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* МАГИЯ 120 FPS: Используем CSS Grid */
+        /* МАГИЯ ДЛЯ IPHONE: Возвращаем max-height, но с изоляцией отступов */
         .faq-answer {
-            display: grid;
-            grid-template-rows: 0fr; /* Блок сжат в 0 */
+            max-height: 0;
             opacity: 0;
-            transition: grid-template-rows 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
-            will-change: grid-template-rows, opacity;
+            overflow: hidden;
+            /* Плавная iOS-кривая для выпадающих списков */
+            transition: max-height 0.5s cubic-bezier(0.3, 1, 0.32, 1), opacity 0.4s ease;
+            will-change: max-height, opacity;
         }
         .faq-item.active .faq-answer {
-            grid-template-rows: 1fr; /* Блок плавно разжимается под размер текста */
+            max-height: 400px; /* Разворачивается плавно */
             opacity: 1;
         }
         
-        /* Внутренний контейнер: фиксирует отступы, чтобы анимация не "спотыкалась" */
+        /* Отступы живут внутри, чтобы анимация не "спотыкалась" на старте */
         .faq-answer-inner {
-            overflow: hidden;
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
+
 
 
     </style>
@@ -1442,12 +1443,10 @@
                 </div>
             </div>
 
-        </div>
-
-        </div>
-        <button class="step-btn" style="width: 100%; margin-top: 15px;" onclick="closeFaq()">Понятно</button>
+        </div> <button class="step-btn" style="width: 100%; margin-top: 15px;" onclick="closeFaq()">Понятно</button>
     </div>
 </div>
+
 
 <div class="main-brand-logo notranslate">
     MARSHA1LL
