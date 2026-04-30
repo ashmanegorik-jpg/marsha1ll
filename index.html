@@ -1355,26 +1355,25 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* === ИДЕАЛЬНАЯ ПЛАВНОСТЬ 120 FPS (БЕЗ ОБРЕЗАНИЙ ТЕКСТА) === */
+        /* === ЖЕЛЕЗОБЕТОННЫЙ АККОРДЕОН ДЛЯ IPHONE === */
         .faq-answer {
-            display: grid;
-            grid-template-rows: 0fr; /* Исходное состояние: сжато в ноль */
+            height: 0; 
             opacity: 0;
+            overflow: hidden;
             /* Плавная iOS кривая */
-            transition: grid-template-rows 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
-            will-change: grid-template-rows, opacity;
+            transition: height 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+            will-change: height, opacity;
         }
         .faq-item.active .faq-answer {
-            grid-template-rows: 1fr; /* Разворачиваем на точную высоту контента! */
             opacity: 1;
         }
         
         .faq-answer-inner {
-            min-height: 0; /* Магическое свойство, которое чинит баг iOS! */
-            overflow: hidden;
+            /* Никаких overflow: hidden, чтобы текст не мог обрезаться физически! */
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
+
 
 
 
@@ -1935,26 +1934,56 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        // Просто убираем класс active у всех
         document.querySelectorAll('.faq-item').forEach(i => {
             i.classList.remove('active');
+            i.querySelector('.faq-answer').style.height = '0px';
         });
     }
 
     function toggleFaq(element) {
         const item = element.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const inner = item.querySelector('.faq-answer-inner');
         const isActive = item.classList.contains('active');
         
-        // Сворачиваем все остальные вопросы
+        // 1. Сворачиваем все открытые вопросы
         document.querySelectorAll('.faq-item').forEach(i => {
-            i.classList.remove('active');
+            if (i !== item && i.classList.contains('active')) {
+                const ans = i.querySelector('.faq-answer');
+                // Переводим auto в точные пиксели перед закрытием (иначе анимация пропадет)
+                ans.style.height = ans.scrollHeight + 'px'; 
+                void ans.offsetWidth; // Принудительный кадр браузера
+                
+                i.classList.remove('active');
+                ans.style.height = '0px';
+            }
         });
         
-        // Если вопрос был закрыт — вешаем класс active (CSS всё сделает сам)
+        // 2. Если мы кликнули на закрытый вопрос — открываем его
         if (!isActive) {
             item.classList.add('active');
+            
+            // МАГИЯ: Измеряем точную физическую высоту внутреннего контента
+            const targetHeight = inner.offsetHeight;
+            answer.style.height = targetHeight + 'px';
+            
+            // Когда анимация закончится, даем блоку полную свободу (height: auto),
+            // чтобы ни один Айфон в мире не посмел обрезать текст!
+            setTimeout(() => {
+                if (item.classList.contains('active')) {
+                    answer.style.height = 'auto';
+                }
+            }, 400);
+            
+        } else {
+            // 3. Если мы кликнули на УЖЕ открытый вопрос, чтобы его закрыть
+            answer.style.height = answer.scrollHeight + 'px';
+            void answer.offsetWidth;
+            item.classList.remove('active');
+            answer.style.height = '0px';
         }
     }
+
 
 
     function openGuide(phase) {
