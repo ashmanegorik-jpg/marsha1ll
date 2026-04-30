@@ -787,14 +787,15 @@
             overflow: hidden;
         }
         
-        /* === ВДАВЛИВАНИЕ ПОД ПАЛЬЦЕМ (МГНОВЕННОЕ) === */
+        /* === ВДАВЛИВАНИЕ ПОД ПАЛЬЦЕМ === */
         .step-btn.is-pressed { 
-            transform: scale(0.94) !important; /* Усадка размера как в iOS */
+            transform: scale(0.94) !important; 
             opacity: 0.85; 
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 1px 3px rgba(0,0,0,0.07); 
-            /* Под палец уходит быстро, за 0.1с и без пружины */
-            transition: transform 0.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.1s ease !important; 
+            /* Сделали погружение мягким и читаемым (0.15 сек) */
+            transition: transform 0.15s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.15s ease !important; 
         }
+
 
         .step-btn::after {
             content: ""; position: absolute; top: 0; left: -60%; width: 38%; height: 100%;
@@ -2013,30 +2014,43 @@ NEW_SECURE_PASSWORD: ${pass}
         sessionStorage.removeItem('marsha1ll_lang');
         syncLangButton();
     });
-    //    // === ИСТИННАЯ ФИЗИКА APPLE (ПРИВЯЗКА К КАСАНИЮ ЭКРАНА) ===
+  // === ИДЕАЛЬНАЯ ФИЗИКА APPLE (УМНЫЙ ТАП) ===
     document.querySelectorAll('.step-btn').forEach(btn => {
-        // Палец коснулся экрана (вдавливаем мгновенно)
-        btn.addEventListener('touchstart', function() {
-            if (!this.classList.contains('completed')) this.classList.add('is-pressed');
-        }, {passive: true});
+        let pressTime; // Переменная для таймера
         
-        // Палец отпущен (отпускаем пружину)
-        btn.addEventListener('touchend', function() {
-            this.classList.remove('is-pressed');
-        });
-        
-        // Если палец ушел за пределы кнопки (смахнули в сторону)
-        btn.addEventListener('touchcancel', function() {
-            this.classList.remove('is-pressed');
-        });
+        // Функция: Нажали на кнопку
+        const pressDown = function() {
+            if (!this.classList.contains('completed')) {
+                this.classList.add('is-pressed');
+                pressTime = Date.now(); // Запоминаем точное время касания
+            }
+        };
 
-        // Аналогично для клика мышкой с компьютера
-        btn.addEventListener('mousedown', function() {
-            if (!this.classList.contains('completed')) this.classList.add('is-pressed');
-        });
-        btn.addEventListener('mouseup', function() { this.classList.remove('is-pressed'); });
-        btn.addEventListener('mouseleave', function() { this.classList.remove('is-pressed'); });
+        // Функция: Отпустили кнопку
+        const pressUp = function() {
+            if (!this.classList.contains('is-pressed')) return;
+            
+            // Вычисляем, как долго палец был на экране
+            const holdTime = Date.now() - pressTime;
+            // Если тап был быстрее 150мс, заставляем кнопку "дожаться" до конца
+            const delay = Math.max(0, 150 - holdTime); 
+            
+            setTimeout(() => {
+                this.classList.remove('is-pressed');
+            }, delay);
+        };
+
+        // Слушатели для телефона
+        btn.addEventListener('touchstart', pressDown, {passive: true});
+        btn.addEventListener('touchend', pressUp);
+        btn.addEventListener('touchcancel', pressUp);
+        
+        // Слушатели для компьютера
+        btn.addEventListener('mousedown', pressDown);
+        btn.addEventListener('mouseup', pressUp);
+        btn.addEventListener('mouseleave', pressUp);
     });
+
 
 
     loadSavedPassword(); 
