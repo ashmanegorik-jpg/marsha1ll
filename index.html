@@ -1323,7 +1323,7 @@
         .faq-fab:active { transform: scale(0.85); background: rgba(230, 230, 230, 0.8); transition: transform 0.1s; }
         .faq-fab svg { width: 22px; height: 22px; fill: currentColor; }
 
-                /* === FAQ АККОРДЕОН (ИДЕАЛЬНЫЙ 120 FPS ДЛЯ IOS) === */
+        /* === ЖЕЛЕЗОБЕТОННЫЙ АККОРДЕОН ДЛЯ IPHONE (120 FPS) === */
         .faq-list {
             display: flex; flex-direction: column; gap: 10px;
             margin-top: 10px; max-height: 60vh; overflow-y: auto;
@@ -1335,9 +1335,7 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             background: var(--card-soft);
-            overflow: hidden;
             transition: border-color 0.3s ease, background 0.3s ease;
-            transform: translateZ(0); /* Заставляем телефон использовать видеокарту */
         }
         .faq-item.active { border-color: var(--apple-blue); background: #fff; }
         
@@ -1355,27 +1353,30 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* === ЖЕЛЕЗОБЕТОННЫЙ АККОРДЕОН ДЛЯ IPHONE === */
+        /* 1. СЕТКА (Движок анимации) */
         .faq-answer {
-            height: 0; 
+            display: grid;
+            grid-template-rows: 0fr;
             opacity: 0;
-            overflow: hidden;
-            /* Плавная iOS кривая */
-            transition: height 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
-            will-change: height, opacity;
+            transition: grid-template-rows 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
         }
         .faq-item.active .faq-answer {
+            grid-template-rows: 1fr;
             opacity: 1;
         }
         
+        /* 2. ОБЕРТКА (Скрывает лишнее) */
         .faq-answer-inner {
-            /* Никаких overflow: hidden, чтобы текст не мог обрезаться физически! */
-            padding: 0 16px 24px 16px;
-            font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+            overflow: hidden;
+            min-height: 0; /* Магическое свойство, чинящее баг Safari */
         }
 
-
-
+        /* 3. КОНТЕНТ (Только здесь лежат отступы!) */
+        .faq-text {
+            padding: 0 16px 20px 16px;
+            font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
+            text-align: left;
+        }
 
     </style>
 </head>
@@ -1412,8 +1413,10 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner" style="text-align: left;">
-                        Аккаунт передан коммерческим путем. При вашем обращении в поддержку, алгоритмы (STEAM/EPIC/EA) зафиксируют резкую смену геолокации и "железа" по сравнению с прошлым владельцем. Это приведет к моментальной блокировке за "подозрительную активность". Восстановить такой актив мы не сможем.
+                    <div class="faq-answer-inner">
+                        <div class="faq-text">
+                            Аккаунт передан коммерческим путем. При вашем обращении в поддержку, алгоритмы (STEAM/EPIC/EA) зафиксируют резкую смену геолокации и "железа" по сравнению с прошлым владельцем. Это приведет к моментальной блокировке за "подозрительную активность". Восстановить такой актив мы не сможем.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1424,8 +1427,10 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner" style="text-align: left;">
-                        Мы передаем вам "родную" (Native) почту. Попытка ее изменения часто расценивается антифрод-системами как попытка взлома. Чтобы обезопасить себя, просто смените пароль на выданной почте — этого достаточно для 100% защиты.
+                    <div class="faq-answer-inner">
+                        <div class="faq-text">
+                            Мы передаем вам "родную" (Native) почту. Попытка ее изменения часто расценивается антифрод-системами как попытка взлома. Чтобы обезопасить себя, просто смените пароль на выданной почте — этого достаточно для 100% защиты.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1436,8 +1441,10 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner" style="text-align: left;">
-                        Коды защиты (Steam Guard, Epic 2FA) отправляются на выданный почтовый ящик. Войдите в него по ссылке в "Шаге 1", проверьте папки "Входящие" или "Спам" и введите полученный код.
+                    <div class="faq-answer-inner">
+                        <div class="faq-text">
+                            Коды защиты (Steam Guard, Epic 2FA) отправляются на выданный почтовый ящик. Войдите в него по ссылке в "Шаге 1", проверьте папки "Входящие" или "Спам" и введите полученный код.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1448,8 +1455,10 @@
                     <svg class="faq-icon" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                 </div>
                 <div class="faq-answer">
-                    <div class="faq-answer-inner" style="text-align: left;">
-                        Ни в коем случае ничего не предпринимайте самостоятельно. Любые неквалифицированные попытки восстановления могут привести к окончательной потере или блокировке актива антифрод-системой. Пожалуйста, сразу же напишите нам в чат покупки — мы разберемся в ситуации и поможем вернуть доступ.
+                    <div class="faq-answer-inner">
+                        <div class="faq-text">
+                            Ни в коем случае ничего не предпринимайте самостоятельно. Любые неквалифицированные попытки восстановления могут привести к окончательной потере или блокировке актива антифрод-системой. Пожалуйста, сразу же напишите нам в чат покупки — мы разберемся в ситуации и поможем вернуть доступ.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1934,60 +1943,20 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        document.querySelectorAll('.faq-item').forEach(i => {
-            i.classList.remove('active');
-            i.querySelector('.faq-answer').style.height = '0px';
-        });
+        // Просто убираем класс у всех
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
     }
 
     function toggleFaq(element) {
         const item = element.parentElement;
-        const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
         
-        // 1. Сворачиваем все открытые вопросы
-        document.querySelectorAll('.faq-item').forEach(i => {
-            if (i !== item && i.classList.contains('active')) {
-                const ans = i.querySelector('.faq-answer');
-                ans.style.height = ans.scrollHeight + 'px'; 
-                void ans.offsetWidth; 
-                i.classList.remove('active');
-                ans.style.height = '0px';
-            }
-        });
+        // Сворачиваем остальные
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
         
-        // 2. Если мы кликнули на закрытый вопрос — открываем его
-        if (!isActive) {
-            item.classList.add('active');
-            
-            // МАГИЯ ДЛЯ IPHONE: Сначала разрешаем блоку занять полную высоту
-            answer.style.height = 'auto';
-            // Снимаем мерку с уже расправленного текста!
-            const realHeight = answer.scrollHeight; 
-            // Возвращаем в ноль (браузер сделает это за 0 миллисекунд, без мерцаний)
-            answer.style.height = '0px';
-            void answer.offsetWidth; // Принудительный кадр, чтобы анимация сработала
-            
-            // Запускаем плавную анимацию до точной высоты
-            answer.style.height = realHeight + 'px';
-            
-            // В конце снимаем жесткие рамки
-            setTimeout(() => {
-                if (item.classList.contains('active')) {
-                    answer.style.height = 'auto';
-                }
-            }, 400);
-            
-        } else {
-            // 3. Закрываем наш вопрос
-            answer.style.height = answer.scrollHeight + 'px';
-            void answer.offsetWidth;
-            item.classList.remove('active');
-            answer.style.height = '0px';
-        }
+        // Открываем нужный
+        if (!isActive) item.classList.add('active');
     }
-
-
 
 
     function openGuide(phase) {
