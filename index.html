@@ -1356,25 +1356,25 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* МАГИЯ ДЛЯ IPHONE: Возвращаем max-height, но с изоляцией отступов */
+        /* === ИДЕАЛЬНАЯ ПЛАВНОСТЬ 120 FPS (ТОЧНАЯ ВЫСОТА) === */
         .faq-answer {
-            max-height: 0;
+            height: 0; /* Было max-height */
             opacity: 0;
             overflow: hidden;
-            /* Плавная iOS-кривая для выпадающих списков */
-            transition: max-height 0.5s cubic-bezier(0.3, 1, 0.32, 1), opacity 0.4s ease;
-            will-change: max-height, opacity;
+            /* Самая плавная кривая замедления Apple */
+            transition: height 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+            will-change: height, opacity;
         }
         .faq-item.active .faq-answer {
-            max-height: 400px; /* Разворачивается плавно */
+            /* Высота больше не указывается здесь, её с абсолютной точностью задаст JS! */
             opacity: 1;
         }
         
-        /* Отступы живут внутри, чтобы анимация не "спотыкалась" на старте */
         .faq-answer-inner {
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
+
 
 
 
@@ -1918,22 +1918,32 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        // Закрываем все раскрытые вопросы при выходе
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Закрываем все раскрытые вопросы и обнуляем их высоту
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+            i.querySelector('.faq-answer').style.height = '0px';
+        });
     }
 
     function toggleFaq(element) {
         const item = element.parentElement;
+        const answer = item.querySelector('.faq-answer');
         const isActive = item.classList.contains('active');
         
-        // Закрываем все остальные вопросы (эффект аккордеона)
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Закрываем все остальные вопросы (схлопываем их)
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+            i.querySelector('.faq-answer').style.height = '0px';
+        });
         
-        // Если он не был открыт — открываем плавно
+        // Если вопрос не был открыт — открываем его с идеальной плавностью
         if (!isActive) {
             item.classList.add('active');
+            // МАГИЯ: Измеряем точную физическую высоту текста и задаем её блоку!
+            answer.style.height = answer.scrollHeight + 'px';
         }
     }
+
 
     function openGuide(phase) {
         const modalBody = document.getElementById('modal-body');
