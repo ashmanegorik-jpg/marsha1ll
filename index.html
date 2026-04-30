@@ -1935,24 +1935,26 @@
     function closeFaq() {
         document.getElementById('faq-modal').style.display = 'none';
         document.body.classList.remove('no-scroll');
-        // Закрываем все вопросы
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Просто убираем класс active у всех
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+        });
     }
 
     function toggleFaq(element) {
         const item = element.parentElement;
         const isActive = item.classList.contains('active');
         
-        // Сворачиваем все открытые вопросы (теперь это делает только CSS)
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        // Сворачиваем все остальные вопросы
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('active');
+        });
         
-        // Если нажимаем на закрытый — открываем
+        // Если вопрос был закрыт — вешаем класс active (CSS всё сделает сам)
         if (!isActive) {
             item.classList.add('active');
         }
     }
-
-
 
 
     function openGuide(phase) {
