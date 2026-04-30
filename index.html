@@ -1355,25 +1355,27 @@
         }
         .faq-item.active .faq-icon { transform: rotate(180deg); fill: var(--apple-blue); }
         
-        /* === ЧИСТАЯ АНИМАЦИЯ (Без обрезания текста и с идеальным FPS) === */
+        /* === ИДЕАЛЬНАЯ ПЛАВНОСТЬ 120 FPS (БЕЗ ОБРЕЗАНИЙ ТЕКСТА) === */
         .faq-answer {
-            max-height: 0;
+            display: grid;
+            grid-template-rows: 0fr; /* Исходное состояние: сжато в ноль */
             opacity: 0;
-            overflow: hidden; /* <-- Именно это свойство прячет текст при закрытии */
-            /* Умная математика: моментально убирает пустую высоту и плавно закрывает блок */
-            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease;
+            /* Плавная iOS кривая */
+            transition: grid-template-rows 0.4s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.3s ease;
+            will-change: grid-template-rows, opacity;
         }
         .faq-item.active .faq-answer {
-            max-height: 1000px; /* Берем с огромным запасом, чтобы влез хоть целый роман */
+            grid-template-rows: 1fr; /* Разворачиваем на точную высоту контента! */
             opacity: 1;
-            /* Плавное, мягкое разворачивание */
-            transition: max-height 0.8s ease-in-out, opacity 0.5s ease 0.1s;
         }
         
         .faq-answer-inner {
+            min-height: 0; /* Магическое свойство, которое чинит баг iOS! */
+            overflow: hidden;
             padding: 0 16px 16px 16px;
             font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;
         }
+
 
 
     </style>
